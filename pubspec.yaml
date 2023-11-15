@@ -1,5 +1,6 @@
 name: expense_tracker
-description: Track your expense just by clicking one button with all navite platforms. Track your money, Track your happiness
+description: Track your expense just by clicking one button with all navite
+  platforms. Track your money, Track your happiness
 version: 1.0.0+1
 publish_to: none
 
@@ -8,8 +9,10 @@ environment:
 
 dependencies:
   bloc: ^8.1.2
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
+  flutter_animate: ^4.2.0+1
   flutter_bloc: ^8.1.3
   flutter_localizations:
     sdk: flutter
