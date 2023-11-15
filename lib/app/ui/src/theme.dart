@@ -9,6 +9,7 @@ class ExpenseTrackerTheme {
   /// Standard `ThemeData` for ExpenseTracker UI.
   static ThemeData get standard {
     return ThemeData(
+      scaffoldBackgroundColor: ExpenseTrackerColors.whiteBackground,
       colorScheme:
           ColorScheme.fromSwatch(accentColor: ExpenseTrackerColors.primary),
       appBarTheme: _appBarTheme,
@@ -28,6 +29,7 @@ class ExpenseTrackerTheme {
   /// DarkTheme `ThemeData` for ExpenseTracker UI.
   static ThemeData get darkTheme {
     return ThemeData(
+      scaffoldBackgroundColor: ExpenseTrackerColors.darkBackground,
       useMaterial3: true,
       colorScheme: ColorScheme.fromSwatch(
         accentColor: ExpenseTrackerColors.primary,
