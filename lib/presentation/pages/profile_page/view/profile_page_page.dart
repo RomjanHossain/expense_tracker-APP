@@ -1,0 +1,39 @@
+import 'package:flutter/material.dart';
+import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
+import 'package:expense_tracker/presentation/pages/profile_page/widgets/profile_page_body.dart';
+
+/// {@template profile_page_page}
+/// A description for ProfilePagePage
+/// {@endtemplate}
+class ProfilePagePage extends StatelessWidget {
+  /// {@macro profile_page_page}
+  const ProfilePagePage({super.key});
+
+  /// The static route for ProfilePagePage
+  static Route<dynamic> route() {
+    return MaterialPageRoute<dynamic>(builder: (_) => const ProfilePagePage());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ProfilePageBloc(),
+      child: const Scaffold(
+        body: ProfilePageView(),
+      ),
+    );
+  }    
+}
+
+/// {@template profile_page_view}
+/// Displays the Body of ProfilePageView
+/// {@endtemplate}
+class ProfilePageView extends StatelessWidget {
+  /// {@macro profile_page_view}
+  const ProfilePageView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const ProfilePageBody();
+  }
+}
