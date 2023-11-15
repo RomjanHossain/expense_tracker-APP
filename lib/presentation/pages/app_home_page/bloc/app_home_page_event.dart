@@ -11,7 +11,8 @@ abstract class AppHomePageEvent  extends Equatable {
 /// {@template custom_app_home_page_event}
 /// Event added when some custom logic happens
 /// {@endtemplate}
-class CustomAppHomePageEvent extends AppHomePageEvent {
+class ChangeAppHomePageEvent extends AppHomePageEvent {
   /// {@macro custom_app_home_page_event}
-  const CustomAppHomePageEvent();
+  const ChangeAppHomePageEvent(this.index);
+  final int index;
 }

@@ -6,21 +6,23 @@ part of 'app_home_page_bloc.dart';
 class AppHomePageState extends Equatable {
   /// {@macro app_home_page_state}
   const AppHomePageState({
-    this.customProperty = 'Default Value',
+    this.currentIndex = 0,
   });
 
   /// A description for customProperty
-  final String customProperty;
+  final int currentIndex;
 
   @override
-  List<Object> get props => [customProperty];
+  List<Object> get props => [
+        currentIndex,
+      ];
 
   /// Creates a copy of the current AppHomePageState with property changes
   AppHomePageState copyWith({
-    String? customProperty,
+    int? changeIndex,
   }) {
     return AppHomePageState(
-      customProperty: customProperty ?? this.customProperty,
+      currentIndex: changeIndex ?? currentIndex,
     );
   }
 }
