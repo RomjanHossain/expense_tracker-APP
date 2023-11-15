@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_int_literals
+
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/view/app_home_page_page.dart';
 import 'package:expense_tracker/presentation/pages/splash_screen/bloc/bloc.dart';
@@ -32,7 +34,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
     _shrinkController = CurvedAnimation(
       parent: _animationController,
       curve: const Interval(
-        0.0,
+        0,
         0.4,
         curve: Curves.easeInCubic,
       ),
@@ -40,7 +42,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
     _movementController = CurvedAnimation(
       parent: _animationController,
       curve: const Interval(
-        0.0,
+        0,
         0.4,
         // curve: Curves.easeOutCirc,
       ),
@@ -77,11 +79,11 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
       pageBuilder: (context, animation, secondaryAnimation) =>
           const AppHomePagePage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 1.0);
+        const begin = Offset(0, 1);
         const end = Offset.zero;
         const curve = Curves.ease;
 
-        var tween =
+        final tween =
             Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
         return SlideTransition(
@@ -141,7 +143,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
                     SlideTransition(
                       position: Tween(
                         begin: const Offset(-1, 0),
-                        end: const Offset(0, 0),
+                        end: const Offset(0.0, 0.0),
                       ).animate(_movementController),
                       child: AnimatedOpacity(
                         opacity:
