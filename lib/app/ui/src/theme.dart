@@ -1,6 +1,6 @@
-
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:flutter/material.dart';
+
 const _smallTextScaleFactor = 0.80;
 const _largeTextScaleFactor = 1.20;
 
@@ -16,6 +16,28 @@ class ExpenseTrackerTheme {
       outlinedButtonTheme: _outlinedButtonTheme,
       textTheme: _textTheme,
       dialogBackgroundColor: ExpenseTrackerColors.whiteBackground,
+      dialogTheme: _dialogTheme,
+      tooltipTheme: _tooltipTheme,
+      bottomSheetTheme: _bottomSheetTheme,
+      tabBarTheme: _tabBarTheme,
+      dividerTheme: _dividerTheme,
+      useMaterial3: true,
+    );
+  }
+
+  /// DarkTheme `ThemeData` for ExpenseTracker UI.
+  static ThemeData get darkTheme {
+    return ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSwatch(
+        accentColor: ExpenseTrackerColors.primary,
+        brightness: Brightness.dark,
+      ),
+      appBarTheme: _appBarTheme,
+      elevatedButtonTheme: _elevatedButtonTheme,
+      outlinedButtonTheme: _outlinedButtonTheme,
+      textTheme: _textTheme,
+      dialogBackgroundColor: ExpenseTrackerColors.darkBackground,
       dialogTheme: _dialogTheme,
       tooltipTheme: _tooltipTheme,
       bottomSheetTheme: _bottomSheetTheme,
@@ -146,13 +168,17 @@ class ExpenseTrackerTheme {
   }
 
   static AppBarTheme get _appBarTheme {
-    return const AppBarTheme(color: ExpenseTrackerColors.primary);
+    return const AppBarTheme(
+      color: ExpenseTrackerColors.primary,
+      centerTitle: true,
+    );
   }
 
   static ElevatedButtonThemeData get _elevatedButtonTheme {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        elevation: 0, backgroundColor: ExpenseTrackerColors.primary,
+        elevation: 0,
+        backgroundColor: ExpenseTrackerColors.primary,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(30)),
         ),
@@ -164,7 +190,8 @@ class ExpenseTrackerTheme {
   static OutlinedButtonThemeData get _outlinedButtonTheme {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        foregroundColor: ExpenseTrackerColors.white, shape: const RoundedRectangleBorder(
+        foregroundColor: ExpenseTrackerColors.white,
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(30)),
         ),
         side: const BorderSide(color: ExpenseTrackerColors.white, width: 2),
