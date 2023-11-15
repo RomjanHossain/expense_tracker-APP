@@ -21,7 +21,7 @@ dependencies:
   freezed_annotation: ^2.4.1
   intl: ^0.18.0
   json_annotation: ^4.8.1
-  modal_bottom_sheet: ^2.1.2
+  modal_bottom_sheet: ^3.0.0-pre
 
 dev_dependencies:
   bloc_test: ^9.1.4
