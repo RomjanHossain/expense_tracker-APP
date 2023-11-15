@@ -1,7 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
-import 'package:expense_tracker/app/ui/src/theme.dart';
-import 'package:flutter/material.dart';
 import 'package:expense_tracker/presentation/pages/splash_screen/bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 /// {@template splash_screen_body}
@@ -28,14 +27,6 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
       duration: 3.seconds,
       vsync: this,
     );
-    // _movementController = CurvedAnimation(
-    //   parent: _animationController,
-    //   curve: const Interval(
-    //     0.0,
-    //     0.4,
-    //     // curve: Curves.easeOutCirc,
-    //   ),
-    // );
     _shrinkController = CurvedAnimation(
       parent: _animationController,
       curve: const Interval(
