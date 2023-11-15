@@ -111,3 +111,4 @@ app.*.map.json
 !.idea/dictionaries/
 !.idea/runConfigurations/
 test/splash_screen
+test/app_home_page
