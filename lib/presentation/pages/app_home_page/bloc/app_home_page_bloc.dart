@@ -2,18 +2,19 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 part 'app_home_page_event.dart';
 part 'app_home_page_state.dart';
 
 class AppHomePageBloc extends Bloc<AppHomePageEvent, AppHomePageState> {
   AppHomePageBloc() : super(const AppHomePageInitial()) {
-    on<CustomAppHomePageEvent>(_onCustomAppHomePageEvent);
+    on<ChangeAppHomePageEvent>(_onChangeAppHomePageEvent);
   }
 
-  FutureOr<void> _onCustomAppHomePageEvent(
-    CustomAppHomePageEvent event,
+  FutureOr<void> _onChangeAppHomePageEvent(
+    ChangeAppHomePageEvent event,
     Emitter<AppHomePageState> emit,
   ) {
-    // TODO: Add Logic
+    emit(state.copyWith(changeIndex: event.index));
   }
 }
