@@ -21,16 +21,19 @@ abstract class ExpenseTrackerColors {
   static const Color white = Color(0xFFFFFFFF);
 
   /// WhiteBackground
-  static const Color whiteBackground = Color(0xFFE8EAED);
+  static const Color whiteBackground = Color(0xFFfbfbfd);
+
+  /// DarkBackground
+  static const Color darkBackground = Color(0xFF030304);
 
   /// Transparent
   static const Color transparent = Color(0x00000000);
 
   /// Primary
-  static const Color primary = Color(0xFF0000FF);
+  static const Color primary = Color(0xFF521edb);
 
   /// Secondary
-  static const Color secondary = Color(0xFFFB5246);
+  static const Color secondary = Color(0xFFd45e55);
 
   /// Green
   static const Color green = Color(0xFF3fBC5C);
@@ -40,4 +43,7 @@ abstract class ExpenseTrackerColors {
 
   /// Charcoal
   static const Color charcoal = Color(0xBF202124);
+
+  /// border color
+  static const Color border = Color(0xFFaeaec9);
 }
