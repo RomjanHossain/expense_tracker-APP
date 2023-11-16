@@ -6,7 +6,7 @@ part of 'transaction_graph_page_bloc.dart';
 class TransactionGraphPageState extends Equatable {
   /// {@macro transaction_graph_page_state}
   const TransactionGraphPageState({
-    this.customProperty = 'Default Value',
+    this.customProperty = 'Trans Graph Value',
   });
 
   /// A description for customProperty
