@@ -1,4 +1,8 @@
+import 'package:animations/animations.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
+import 'package:expense_tracker/presentation/pages/borrow_or_lend_page/borrow_or_lend_page.dart';
+import 'package:expense_tracker/presentation/pages/profile_page/profile_page.dart';
+import 'package:expense_tracker/presentation/pages/transaction_graph_page/transaction_graph_page.dart';
 import 'package:flutter/material.dart';
 
 /// {@template app_home_page_body}
@@ -9,20 +13,31 @@ import 'package:flutter/material.dart';
 class AppHomePageBody extends StatelessWidget {
   /// {@macro app_home_page_body}
   const AppHomePageBody({super.key});
-
+  static const pages = [
+    Center(child: Text('Home Page')),
+    TransactionGraphPagePage(),
+    BorrowOrLendPagePage(),
+    ProfilePagePage(),
+  ];
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppHomePageBloc, AppHomePageState>(
       builder: (context, state) {
-        if (state.currentIndex == 1) {
-          return const Center(child: Text('Transaction Graph page'));
-        } else if (state.currentIndex == 2) {
-          return const Center(child: Text('Lend page'));
-        } else if (state.currentIndex == 3) {
-          return const Center(child: Text('Settings page'));
-        } else {
-          return const Center(child: Text('Home Page'));
-        }
+        return PageTransitionSwitcher(
+          transitionBuilder: (
+            Widget child,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) {
+            return SharedAxisTransition(
+              animation: animation,
+              secondaryAnimation: secondaryAnimation,
+              transitionType: SharedAxisTransitionType.horizontal,
+              child: child,
+            );
+          },
+          child: pages[state.currentIndex],
+        );
       },
     );
   }
