@@ -1,8 +1,10 @@
-import 'package:expense_tracker/app/ui/src/theme.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
-import 'package:expense_tracker/data/models/category_model.dart';
+import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_category_method_cubit.dart';
+import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/expense_text_controller_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
+import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_category_method.dart';
+import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_expense_method.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/input_btn.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/single_btn.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,36 +32,9 @@ class AddTransactionBottomSheet extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Expanded(
-                child: DropdownButton<CategoryModel>(
-                  borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
-                  underline: Container(),
-                  dropdownColor: Colors.blueGrey,
-                  // hint: const Text('Cash'),
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  alignment: Alignment.center,
-                  // padding: const EdgeInsets.all(0),
-                  items: ExpenseTrackerCategories.categoryExpenseMethods
-                      .map(
-                        (e) => DropdownMenuItem<CategoryModel>(
-                          value: e,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(e.icon),
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Text(e.title),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  onChanged: (s) {
-                    debugPrint('Selected ${s!.title}');
-                  },
+                child: BlocProvider(
+                  create: (context) => DropdownExpenseMethodCubit(),
+                  child: const ExpenseMethodsDropdown(),
                 ),
               ),
               const SizedBox(
@@ -68,29 +43,9 @@ class AddTransactionBottomSheet extends StatelessWidget {
 
               ///* also show which category it belongs
               Expanded(
-                child: DropdownButton<CategoryModel>(
-                  borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
-                  underline: Container(),
-                  dropdownColor: Colors.blueGrey,
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  // padding: const EdgeInsets.all(0),
-                  items: ExpenseTrackerCategories.expenseCategoriesMethod
-                      .map(
-                        (e) => DropdownMenuItem<CategoryModel>(
-                          value: e,
-                          child: Row(
-                            children: [
-                              Icon(e.icon),
-                              Text(
-                                e.title,
-                                overflow: TextOverflow.fade,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  onChanged: (s) {},
+                child: BlocProvider(
+                  create: (context) => DropdownCategoryMethodCubit(),
+                  child: const CategoryMehodsDropdown(),
                 ),
               ),
             ],
@@ -255,9 +210,7 @@ class AddTransactionBottomSheet extends StatelessWidget {
                   Button(text: '🗓️', cb: (s) {}),
                   Button(
                     text: '✓',
-                    cb: (s) {
-                      context.read<ExpenseTextControllerCubit>().clearText();
-                    },
+                    cb: (s) => _selectDate(context),
                     big: true,
                     color: Colors.black,
                   ),
@@ -269,6 +222,16 @@ class AddTransactionBottomSheet extends StatelessWidget {
 
         /// Calculator like number buttons
       ],
+    );
+  }
+
+  DateTime currentDate = DateTime.now();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: currentDate,
+      firstDate: DateTime(2015),
+      lastDate: DateTime(2050),
     );
   }
 }
