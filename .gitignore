@@ -112,3 +112,6 @@ app.*.map.json
 !.idea/runConfigurations/
 test/splash_screen
 test/app_home_page
+.idea/runConfigurations
+.idea/runConfigurations
+lib/data/models/category_model.freezed.dart

@@ -251,4 +251,16 @@ class ExpenseTrackerTheme {
       color: ExpenseTrackerColors.black25,
     );
   }
+
+  /// border radius [small]
+  static const borderRadiusSmall = BorderRadius.all(Radius.circular(10));
+
+  /// border radius [medium]
+  static const borderRadiusMedium = BorderRadius.all(Radius.circular(15));
+
+  /// border radius [large]
+  static const borderRadiusLarge = BorderRadius.all(Radius.circular(20));
+
+  /// border radius [extraLarge]
+  static const borderRadiusExtraLarge = BorderRadius.all(Radius.circular(30));
 }

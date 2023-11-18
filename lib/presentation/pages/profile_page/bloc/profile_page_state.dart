@@ -6,7 +6,7 @@ part of 'profile_page_bloc.dart';
 class ProfilePageState extends Equatable {
   /// {@macro profile_page_state}
   const ProfilePageState({
-    this.customProperty = 'Default Value',
+    this.customProperty = 'Profile Value',
   });
 
   /// A description for customProperty
