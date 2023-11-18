@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/bloc.dart';
+import 'package:flutter/material.dart';
 
 /// {@template transaction_graph_page_body}
 /// Body of the TransactionGraphPagePage.

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:expense_tracker/presentation/pages/borrow_or_lend_page/bloc/bloc.dart';
+import 'package:flutter/material.dart';
 
 /// {@template borrow_or_lend_page_body}
 /// Body of the BorrowOrLendPagePage.

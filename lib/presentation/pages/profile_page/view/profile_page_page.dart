@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/widgets/profile_page_body.dart';
+import 'package:flutter/material.dart';
 
 /// {@template profile_page_page}
 /// A description for ProfilePagePage
