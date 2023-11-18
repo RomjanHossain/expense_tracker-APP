@@ -44,13 +44,12 @@ class AppHomePageScaffold extends StatelessWidget {
         child: const Icon(
           Icons.add,
         ),
-        onPressed: () {
-          showBarModalBottomSheet(
-              context: context,
-              expand: true,
-              builder: (c) {
-                return const AddTransactionBottomSheet();
-              });
+        onPressed: () async {
+          await showBarModalBottomSheet(
+            context: context,
+            expand: true,
+            builder: (c) => AddTransactionBottomSheet(),
+          );
         },
         //params
       ),
