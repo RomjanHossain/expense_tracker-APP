@@ -9,6 +9,7 @@ import 'package:expense_tracker/presentation/widgets/buttons/input_btn.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/single_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AddTransactionBottomSheet extends StatelessWidget {
   AddTransactionBottomSheet({super.key});
@@ -204,13 +205,68 @@ class AddTransactionBottomSheet extends StatelessWidget {
                   Button(
                     text: '❌',
                     cb: (s) {
+                      final ammountState =
+                          context.read<ExpenseTextControllerCubit>().state;
+                      if (ammountState == '0.00') {
+                        return;
+                      }
                       context.read<ExpenseTextControllerCubit>().removeText();
                     },
                   ),
-                  Button(text: '🗓️', cb: (s) {}),
+                  Button(
+                    text: '🗓️',
+                    cb: (s) => _selectDate(context),
+                  ),
                   Button(
                     text: '✓',
-                    cb: (s) => _selectDate(context),
+                    cb: (s) {
+                      // show a dialog to confirm
+                      // if yes then add the transaction
+                      // if no then do nothing
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          contentPadding: const EdgeInsets.all(8),
+                          insetPadding: const EdgeInsets.all(8),
+                          title: const Text('Confirm'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                  'Are you sure you want to add this transaction?'),
+                              Text(
+                                  'Amount: ${context.read<ExpenseTextControllerCubit>().state}'),
+                              // Text(
+                              //     'Method: ${context.read<DropdownExpenseMethodCubit>().state}'),
+                              // Text(
+                              //     'Category: ${context.read<DropdownCategoryMethodCubit>().state}'),
+                              Text('Comment: ${commentController.text}'),
+                              // Text("Date: ${currentDate.toString()}")
+                              // format the date to a readable format
+                              Text(
+                                  'Date: ${DateFormat.yMd().format(currentDate)}'),
+                            ],
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('No'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                // context
+                                //     .read<AddTransactionBloc>()
+                                //     .add(AddTransactionEvent());
+                              },
+                              child: const Text('Yes'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                     big: true,
                     color: Colors.black,
                   ),
