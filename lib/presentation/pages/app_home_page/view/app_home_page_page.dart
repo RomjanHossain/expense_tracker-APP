@@ -44,8 +44,8 @@ class AppHomePageScaffold extends StatelessWidget {
         child: const Icon(
           Icons.add,
         ),
-        onPressed: () async {
-          await showBarModalBottomSheet(
+        onPressed: () {
+          showBarModalBottomSheet(
             context: context,
             expand: true,
             builder: (c) => AddTransactionBottomSheet(),
