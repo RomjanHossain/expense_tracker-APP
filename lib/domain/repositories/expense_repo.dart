@@ -7,7 +7,7 @@ abstract class ExpensesRepo {
   // Create
   Future<bool> createExpenseRecord(ExpenseEntity ee);
   // Update
-  Future<bool> updateExpenseRecord(ExpenseEntity ee, int id);
+  Future<void> updateExpenseRecord(ExpenseEntity ee, int id);
   // read by id
   Future<ExpenseEntity?> getExpenseRecord(int id);
 }
