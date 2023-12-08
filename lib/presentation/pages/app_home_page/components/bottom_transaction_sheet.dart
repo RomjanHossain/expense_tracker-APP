@@ -1,4 +1,7 @@
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/data/datasources/local/isar_ins.dart';
+import 'package:expense_tracker/data/repositories/expense_repo_impl.dart';
+import 'package:expense_tracker/domain/entities/expense_entity.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_category_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/expense_text_controller_cubit.dart';
@@ -263,7 +266,33 @@ class AddTransactionBottomSheet extends StatelessWidget {
                                 child: const Text('No'),
                               ),
                               TextButton(
-                                onPressed: () {
+                                onPressed: () async {
+                                  // Text(
+                                  //   'Amount: ${context.read<ExpenseTextControllerCubit>().state}',
+                                  // ),
+                                  // Text(
+                                  //     'Method: ${context.read<DropdownExpenseMethodCubit>().state}'),
+                                  // Text(
+                                  //     'Category: ${context.read<DropdownCategoryMethodCubit>().state}'),
+                                  // Text('Comment: ${commentController.text}'),
+                                  // // Text("Date: ${currentDate.toString()}")
+                                  // // format the date to a readable format
+                                  // Text(
+                                  //   'Date: ${DateFormat.yMd().format(currentDate)}',
+                                  // ),
+                                  final data = ExpenseEntity(
+                                      incomeSource: context
+                                          .read<ExpenseTextControllerCubit>()
+                                          .state,
+                                      spentedON: 'nong',
+                                      money: double.parse(context
+                                          .read<ExpenseTextControllerCubit>()
+                                          .state),
+                                      whenItWasSpent: DateTime.now());
+                                  final db = await IsarService().database;
+
+                                  final iml = ExpenseRepoImpl(db);
+                                  iml.createExpenseRecord(data);
                                   Navigator.pop(context);
                                 },
                                 child: const Text('Yes'),
