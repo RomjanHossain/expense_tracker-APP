@@ -57,7 +57,13 @@ class ExpenseRepoImpl extends ExpensesRepo {
   }
 
   @override
-  Future<bool> updateExpenseRecord(ExpenseEntity ee, int id) async {
-    return true;
+  Future<void> updateExpenseRecord(ExpenseEntity ee, int id) async {
+    final data = ExpenseLocalDB()
+      ..money = ee.money
+      ..comment = ee.comment
+      ..spentedON = ee.spentedON
+      ..incomeSource = ee.incomeSource
+      ..whenItWasSpent = ee.whenItWasSpent;
+    database.expenseLocalDBs.putSync(data);
   }
 }
