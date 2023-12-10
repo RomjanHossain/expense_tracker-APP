@@ -14,5 +14,7 @@ class ExpenseEntity with _$ExpenseEntity {
     required DateTime whenItWasSpent,
     // any comment?
     String? comment,
+    // id
+    int? id,
   }) = _ExpenseEntity;
 }
