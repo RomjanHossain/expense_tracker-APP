@@ -261,6 +261,7 @@ class ExpenseTrackerTheme {
   /// border radius [large]
   static const borderRadiusLarge = BorderRadius.all(Radius.circular(20));
 
+  // ignore: comment_references
   /// border radius [extraLarge]
   static const borderRadiusExtraLarge = BorderRadius.all(Radius.circular(30));
 }
