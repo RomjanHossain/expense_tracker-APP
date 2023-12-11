@@ -43,9 +43,13 @@ abstract class ExpenseTrackerColors {
 
   /// Charcoal
   static const Color charcoal = Color(0xBF202124);
-    /// CharcoalGrey
+
+  /// CharcoalGrey
   static const Color charcoalGrey = Color(0xFFF5f5f5);
 
   /// border color
   static const Color border = Color(0xFFaeaec9);
+
+  /// error color
+  static const Color errorColor = Color(0xffe74c3c);
 }
