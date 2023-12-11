@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 
-class DropdownCategoryMethodCubit extends Cubit<int> {
-  DropdownCategoryMethodCubit() : super(0);
+class DropdownCategoryMethodCubit extends Cubit<String> {
+  DropdownCategoryMethodCubit() : super('');
 
-  void changeIndex(int index) {
-    emit(index-1);
+  void changeIndex(String value) {
+    emit(value);
   }
 }

@@ -12,7 +12,7 @@ class CategoryMehodsDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DropdownCategoryMethodCubit, int>(
+    return BlocBuilder<DropdownCategoryMethodCubit, String>(
       builder: (context, state) {
         return DropdownButton<CategoryModel>(
           borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
@@ -22,7 +22,7 @@ class CategoryMehodsDropdown extends StatelessWidget {
           icon: const Icon(Icons.keyboard_arrow_down),
           // value: CategoryModel(title: 'Housing', icon: Icons.house),
           // padding: const EdgeInsets.all(0),
-          value: ExpenseTrackerCategories.singleExpenseCategory(state),
+          // value: ExpenseTrackerCategories.singleExpenseCategory(state),
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
@@ -54,7 +54,7 @@ class CategoryMehodsDropdown extends StatelessWidget {
               .toList(),
           onChanged: (s) {
             debugPrint('Selected ${s!.title.trim()} ${s.id}}');
-            context.read<DropdownCategoryMethodCubit>().changeIndex(s.id);
+            context.read<DropdownCategoryMethodCubit>().changeIndex(s.title);
           },
         );
       },

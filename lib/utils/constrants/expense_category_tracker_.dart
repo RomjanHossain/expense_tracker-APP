@@ -1,4 +1,5 @@
 import 'package:expense_tracker/data/models/category_model.dart';
+import 'package:expense_tracker/utils/constrants/categories_data_.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -19,14 +20,15 @@ class ExpenseTrackerCategories {
   static CategoryModel singleExpenseMethod(int i) => categoryExpenseMethods[i];
 
   /// list of all the expenseCategories
-  static List<CategoryModel> expenseCategoriesMethod = expenseCategories
-      .map(
-        (e) => CategoryModel(
-          title: e.values.first.$1,
-          icon: e.values.first.$2,
-          id: e.keys.first,
-        ),
-      )
+  static List<CategoryModel> expenseCategoriesMethod = categoryData
+      .map((key, value) => null)
+      // .map(
+      //   (e) => CategoryModel(
+      //     title: e.values.first.$1,
+      //     icon: e.values.first.$2,
+      //     id: e.keys.first,
+      //   ),
+      // )
       .toList();
 
   // expense categories
