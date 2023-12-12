@@ -2,22 +2,29 @@ import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/data/datasources/local/isar_ins.dart';
 import 'package:expense_tracker/data/repositories/expense_repo_impl.dart';
 import 'package:expense_tracker/domain/entities/expense_entity.dart';
-import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_category_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
+import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/expense_text_controller_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
-import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_category_method.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_expense_method.dart';
+import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_income_methods.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/input_btn.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/single_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class AddTransactionBottomSheet extends StatelessWidget {
+class AddTransactionBottomSheet extends StatefulWidget {
   AddTransactionBottomSheet({super.key});
 
+  @override
+  State<AddTransactionBottomSheet> createState() =>
+      _AddTransactionBottomSheetState();
+}
+
+class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
   final commentController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.sizeOf(context);
@@ -28,7 +35,7 @@ class AddTransactionBottomSheet extends StatelessWidget {
           create: (context) => DropdownExpenseMethodCubit(),
         ),
         BlocProvider(
-          create: (context) => DropdownCategoryMethodCubit(),
+          create: (context) => DropdownIncomeMethodCubit(),
         ),
       ],
       child: Column(
@@ -45,17 +52,17 @@ class AddTransactionBottomSheet extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                ///* also show which category it belongs
                 Expanded(
-                  child: ExpenseMethodsDropdown(),
+                  child: IncomeMehodsDropdown(),
                 ),
 
                 SizedBox(
                   width: 10,
                 ),
 
-                ///* also show which category it belongs
                 Expanded(
-                  child: CategoryMehodsDropdown(),
+                  child: ExpenseMethodsDropdown(),
                 ),
               ],
             ),
@@ -222,9 +229,9 @@ class AddTransactionBottomSheet extends StatelessWidget {
                     Button(
                       text: '✓',
                       cb: (s) {
-                        if (double.parse(context
-                                .read<ExpenseTextControllerCubit>()
-                                .state) <
+                        if (double.parse(
+                              context.read<ExpenseTextControllerCubit>().state,
+                            ) <
                             1) {
                           return;
                         }
@@ -247,9 +254,11 @@ class AddTransactionBottomSheet extends StatelessWidget {
                                   'Amount: ${context.read<ExpenseTextControllerCubit>().state}',
                                 ),
                                 Text(
-                                    'Method: ${context.read<DropdownExpenseMethodCubit>().state}'),
+                                  'Method: ${context.watch<DropdownExpenseMethodCubit>().state}',
+                                ),
                                 Text(
-                                    'Category: ${context.read<DropdownCategoryMethodCubit>().state}'),
+                                  'Category: ${context.read<DropdownIncomeMethodCubit>().state}',
+                                ),
                                 Text('Comment: ${commentController.text}'),
                                 // Text("Date: ${currentDate.toString()}")
                                 // format the date to a readable format
@@ -261,6 +270,8 @@ class AddTransactionBottomSheet extends StatelessWidget {
                             actions: [
                               TextButton(
                                 onPressed: () {
+                                  debugPrint(
+                                      'Spent on: ${context.read<DropdownExpenseMethodCubit>().state}');
                                   Navigator.pop(context);
                                 },
                                 child: const Text('No'),
@@ -270,8 +281,9 @@ class AddTransactionBottomSheet extends StatelessWidget {
                                   // Text(
                                   //   'Amount: ${context.read<ExpenseTextControllerCubit>().state}',
                                   // ),
+
                                   // Text(
-                                  //     'Method: ${context.read<DropdownExpenseMethodCubit>().state}'),
+                                  //     'Spent on: ${context.read<DropdownExpenseMethodCubit>().state}');
                                   // Text(
                                   //     'Category: ${context.read<DropdownCategoryMethodCubit>().state}'),
                                   // Text('Comment: ${commentController.text}'),
@@ -281,14 +293,20 @@ class AddTransactionBottomSheet extends StatelessWidget {
                                   //   'Date: ${DateFormat.yMd().format(currentDate)}',
                                   // ),
                                   final data = ExpenseEntity(
-                                      incomeSource: context
+                                    incomeSource: context
+                                        .read<DropdownIncomeMethodCubit>()
+                                        .state,
+                                    spentedON: context
+                                        .read<DropdownExpenseMethodCubit>()
+                                        .state,
+                                    money: double.parse(
+                                      context
                                           .read<ExpenseTextControllerCubit>()
                                           .state,
-                                      spentedON: 'nong',
-                                      money: double.parse(context
-                                          .read<ExpenseTextControllerCubit>()
-                                          .state),
-                                      whenItWasSpent: DateTime.now());
+                                    ),
+                                    whenItWasSpent:
+                                        DateFormat.yMd().format(currentDate),
+                                  );
                                   final db = await IsarService().database;
 
                                   final iml = ExpenseRepoImpl(db);
@@ -317,6 +335,7 @@ class AddTransactionBottomSheet extends StatelessWidget {
   }
 
   DateTime currentDate = DateTime.now();
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -324,5 +343,11 @@ class AddTransactionBottomSheet extends StatelessWidget {
       firstDate: DateTime(2015),
       lastDate: DateTime(2050),
     );
+
+    if (pickedDate != null) {
+      setState(() {
+        currentDate = pickedDate;
+      });
+    }
   }
 }
