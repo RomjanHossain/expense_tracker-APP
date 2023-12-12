@@ -2,14 +2,7 @@ import 'package:expense_tracker/data/models/category_model.dart';
 import 'package:expense_tracker/data/models/local_db_model/category_local_db_model.dart';
 
 final categoryLocalData = <String, CategoryLocalModel>{
-  'Housing':
-      //   'Mortgage or rent': '🏠',
-      //   'Property taxes': '🏡',
-      //   'Household repairs': '🔧',
-      //   'HOA fees': '🏘️',
-      //   'Home improvements or renovations': '🔨',
-      //   'Home cleaning services': '🧹', },
-      const CategoryLocalModel(
+  'Housing': const CategoryLocalModel(
     id: 'housing',
     title: 'Housing',
     items: [
@@ -33,21 +26,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
       ),
     ],
   ),
-  'Transportation':
-      //
-      //<String, String>{
-      //   'Car payment': '🚗',
-      //   'Car warranty': '🛠️',
-      //   'Gas': '⛽',
-      //   'Tires': '🚘',
-      //   'Maintenance and oil changes': '🔧',
-      //   'Parking fees': '🅿️',
-      //   'Repairs': '🔧',
-      //   'Registration and DMV Fees': '🚗',
-      //   'Public transportation expenses': '🚎',
-      //   'Ride-sharing or taxi expenses': '🚕',
-      // },
-      const CategoryLocalModel(
+  'Transportation': const CategoryLocalModel(
     id: 'transportation',
     title: 'Transportation',
     items: [
@@ -79,13 +58,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
       ),
     ],
   ),
-  'Food':
-// <String, String>{
-//     'Groceries': '🛒',
-//     'Restaurants': '🍽️',
-//     'Pet food': '🐾',
-//   },
-      const CategoryLocalModel(
+  'Food': const CategoryLocalModel(
     id: 'food',
     title: 'Food',
     items: [
@@ -94,16 +67,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
       CategoryModel(id: 'petFood', title: 'Pet food', icon: '🐾'),
     ],
   ),
-  'Utilities':
-// <String, String>{
-//     'Electricity': '💡',
-//     'Water': '🚿',
-//     'Garbage': '🗑️',
-//     'Phones': '📞',
-//     'Cable': '📺',
-//     'Internet': '🌐',
-//   },
-      const CategoryLocalModel(
+  'Utilities': const CategoryLocalModel(
     id: 'utilities',
     title: 'Utilities',
     items: [
@@ -115,14 +79,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
       CategoryModel(id: 'internet', title: 'Internet', icon: '🌐'),
     ],
   ),
-  'Clothing':
-      //  <String, String>{
-      //   'Adults’ clothing': '👚',
-      //   'Adults’ shoes': '👠',
-      //   'Children’s clothing': '👕',
-      //   'Children’s shoes': '👟',
-      // },
-      const CategoryLocalModel(
+  'Clothing': const CategoryLocalModel(
     id: 'clothing',
     title: 'Clothing',
     items: [
@@ -144,19 +101,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
       ),
     ],
   ),
-  'Medical/Healthcare':
-      //  <String, String>{
-      //   'Primary care': '⚕️',
-      //   'Dental care': '🦷',
-      //   'Specialty care (dermatologists, orthodontics, optometrists, etc.)':
-      //       '👩‍⚕️',
-      //   'Urgent care': '🚑',
-      //   'Medications': '💊',
-      //   'Medical devices': '🩺',
-      //   'Health savings account (HSA) contributions or expenses': '💳⚕️',
-      //   'Vision care expenses': '👓',
-      // },
-      const CategoryLocalModel(
+  'Medical/Healthcare': const CategoryLocalModel(
     id: 'medicalHealthcare',
     title: 'Medical/Healthcare',
     items: [
@@ -183,16 +128,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
       ),
     ],
   ),
-  'Insurance':
-      // <String, String>{
-      //   'Health insurance': '🩺🔒',
-      //   'Homeowner’s or renter’s insurance': '🏠🔒',
-      //   'Home warranty or protection plan': '🔒🏡',
-      //   'Auto insurance': '🚗🔒',
-      //   'Life insurance': '💼🔒',
-      //   'Disability insurance': '♿🔒',
-      // },
-      const CategoryLocalModel(
+  'Insurance': const CategoryLocalModel(
     id: 'insurance',
     title: 'Insurance',
     items: [
@@ -220,15 +156,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
       ),
     ],
   ),
-  'Household Items/Supplies':
-// <String, String>{
-//     'Toiletries': '🧼',
-//     'Laundry detergent': '🧺',
-//     'Dishwasher detergent': '🍽️',
-//     'Cleaning supplies': '🧹',
-//     'Tools': '🔧',
-//   },
-      const CategoryLocalModel(
+  'Household Items/Supplies': const CategoryLocalModel(
     id: 'householdItemsSupplies',
     title: 'Household Items/Supplies',
     items: [
@@ -281,16 +209,6 @@ final categoryLocalData = <String, CategoryLocalModel>{
       ),
     ],
   ),
-// <String, String>{
-//     'Gym memberships': '🏋️',
-//     'Haircuts': '💇',
-//     'Salon services': '💅',
-//     'Cosmetics (like makeup or services like laser hair removal)': '💄',
-//     'Babysitter': '👶🍼',
-//     'Subscriptions': '📰',
-//     'Hobbies or recreational activities expenses': '🎨',
-//     'Self-improvement or personal development expenses': '📚',
-//   },
   'Debt': const CategoryLocalModel(
     id: 'debt',
     title: 'Debt',
@@ -305,12 +223,6 @@ final categoryLocalData = <String, CategoryLocalModel>{
       ),
     ],
   ),
-// <String, String>{
-//     'Personal loans': '💳',
-//     'Student loans': '🎓💰',
-//     'Credit cards': '💳',
-//     'Other types of loans': '💰',
-//   },
   'Retirement': const CategoryLocalModel(
     id: 'retirement',
     title: 'Retirement',
@@ -329,19 +241,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
       ),
     ],
   ),
-// <String, String>{
-//     'Financial planning': '💹',
-//     'Investing': '💰',
-//     'Continuing education expenses for personal or career development': '📚',
-//   },
-  'Education':
-// <String, String>{
-//     'Children’s college': '👨‍🎓',
-//     'Your college': '👩‍🎓',
-//     'School supplies': '📓',
-//     'Books': '📚',
-//   },
-      const CategoryLocalModel(
+  'Education': const CategoryLocalModel(
     id: 'education',
     title: 'Education',
     items: [
@@ -355,14 +255,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
       CategoryModel(id: 'books', title: 'Books', icon: '📚'),
     ],
   ),
-  'Savings':
-      //  <String, String>{
-      //   'Emergency fund': '💰',
-      //   'Big purchases like a new mattress or laptop': '💻',
-      //   'Other savings': '💰',
-      //   'Specific savings goals (e.g., travel fund, home down payment)': '🎯',
-      // },
-      const CategoryLocalModel(
+  'Savings': const CategoryLocalModel(
     id: 'savings',
     title: 'Savings',
     items: [
@@ -380,16 +273,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
       ),
     ],
   ),
-  'Gifts/Donations':
-      //  <String, String>{
-      //   'Birthday': '🎁',
-      //   'Anniversary': '🎉',
-      //   'Wedding': '💍🎉',
-      //   'Christmas': '🎄',
-      //   'Special occasion': '🎈',
-      //   'Charities': '❤️',
-      // },
-      const CategoryLocalModel(
+  'Gifts/Donations': const CategoryLocalModel(
     id: 'giftsDonations',
     title: 'Gifts/Donations',
     items: [
@@ -405,16 +289,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
       CategoryModel(id: 'charities', title: 'Charities', icon: '❤️'),
     ],
   ),
-  'Entertainment':
-      //  <String, String>{
-      //   'Alcohol and/or bars': '🍻',
-      //   'Games': '🎮',
-      //   'Movies': '🎬',
-      //   'Concerts': '🎵',
-      //   'Vacations': '✈️',
-      //   'Subscriptions (Netflix, Amazon, Hulu, etc.)': '📺',
-      // },
-      const CategoryLocalModel(
+  'Entertainment': const CategoryLocalModel(
     id: 'entertainment',
     title: 'Entertainment',
     items: [
@@ -435,3 +310,226 @@ final categoryLocalData = <String, CategoryLocalModel>{
     ],
   ),
 };
+
+final categoryLocalData2 = <CategoryModel>[
+  const CategoryModel(
+      id: 'mortgageRent', title: 'Mortgage or rent', icon: '🏠'),
+  const CategoryModel(id: 'propertyTaxes', title: 'Property taxes', icon: '🏡'),
+  const CategoryModel(
+    id: 'householdRepairs',
+    title: 'Household repairs',
+    icon: '🔧',
+  ),
+  const CategoryModel(id: 'hoaFees', title: 'HOA fees', icon: '🏘️'),
+  const CategoryModel(
+    id: 'homeImprovements',
+    title: 'Home improvements or renovations',
+    icon: '🔨',
+  ),
+  const CategoryModel(
+    id: 'homeCleaningServices',
+    title: 'Home cleaning services',
+    icon: '🧹',
+  ),
+  const CategoryModel(id: 'carPayment', title: 'Car payment', icon: '🚗'),
+  const CategoryModel(id: 'carWarranty', title: 'Car warranty', icon: '🛠️'),
+  const CategoryModel(id: 'gas', title: 'Gas', icon: '⛽'),
+  const CategoryModel(id: 'tires', title: 'Tires', icon: '🚘'),
+  const CategoryModel(
+    id: 'maintenanceOilChanges',
+    title: 'Maintenance and oil changes',
+    icon: '🔧',
+  ),
+  const CategoryModel(id: 'parkingFees', title: 'Parking fees', icon: '🅿️'),
+  const CategoryModel(id: 'repairs', title: 'Repairs', icon: '🔧'),
+  const CategoryModel(
+    id: 'registrationDmvFees',
+    title: 'Registration and DMV Fees',
+    icon: '🚗',
+  ),
+  const CategoryModel(
+    id: 'publicTransportationExpenses',
+    title: 'Public transportation expenses',
+    icon: '🚎',
+  ),
+  const CategoryModel(
+    id: 'rideSharingTaxiExpenses',
+    title: 'Ride-sharing or taxi expenses',
+    icon: '🚕',
+  ),
+  const CategoryModel(id: 'groceries', title: 'Groceries', icon: '🛒'),
+  const CategoryModel(id: 'restaurants', title: 'Restaurants', icon: '🍽️'),
+  const CategoryModel(id: 'petFood', title: 'Pet food', icon: '🐾'),
+  const CategoryModel(id: 'electricity', title: 'Electricity', icon: '💡'),
+  const CategoryModel(id: 'water', title: 'Water', icon: '🚿'),
+  const CategoryModel(id: 'garbage', title: 'Garbage', icon: '🗑️'),
+  const CategoryModel(id: 'phones', title: 'Phones', icon: '📞'),
+  const CategoryModel(id: 'cable', title: 'Cable', icon: '📺'),
+  const CategoryModel(id: 'internet', title: 'Internet', icon: '🌐'),
+  const CategoryModel(
+    id: 'adultsClothing',
+    title: 'Adults’ clothing',
+    icon: '👚',
+  ),
+  const CategoryModel(id: 'adultsShoes', title: 'Adults’ shoes', icon: '👠'),
+  const CategoryModel(
+    id: 'childrensClothing',
+    title: 'Children’s clothing',
+    icon: '👕',
+  ),
+  const CategoryModel(
+    id: 'childrensShoes',
+    title: 'Children’s shoes',
+    icon: '👟',
+  ),
+  const CategoryModel(id: 'primaryCare', title: 'Primary care', icon: '⚕️'),
+  const CategoryModel(id: 'dentalCare', title: 'Dental care', icon: '🦷'),
+  const CategoryModel(
+    id: 'specialtyCare',
+    title: 'Specialty care (dermatologists, orthodontics, optometrists, etc.)',
+    icon: '👩‍⚕️',
+  ),
+  const CategoryModel(id: 'urgentCare', title: 'Urgent care', icon: '🚑'),
+  const CategoryModel(id: 'medications', title: 'Medications', icon: '💊'),
+  const CategoryModel(
+      id: 'medicalDevices', title: 'Medical devices', icon: '🩺'),
+  const CategoryModel(
+    id: 'hsaContributionsExpenses',
+    title: 'Health savings account (HSA) contributions or expenses',
+    icon: '💳⚕️',
+  ),
+  const CategoryModel(
+    id: 'visionCareExpenses',
+    title: 'Vision care expenses',
+    icon: '👓',
+  ),
+  const CategoryModel(
+    id: 'healthInsurance',
+    title: 'Health insurance',
+    icon: '🩺🔒',
+  ),
+  const CategoryModel(
+    id: 'homeownersRentersInsurance',
+    title: 'Homeowner’s or renter’s insurance',
+    icon: '🏠🔒',
+  ),
+  const CategoryModel(
+    id: 'homeWarrantyProtectionPlan',
+    title: 'Home warranty or protection plan',
+    icon: '🔒🏡',
+  ),
+  const CategoryModel(
+      id: 'autoInsurance', title: 'Auto insurance', icon: '🚗🔒'),
+  const CategoryModel(
+      id: 'lifeInsurance', title: 'Life insurance', icon: '💼🔒'),
+  const CategoryModel(
+    id: 'disabilityInsurance',
+    title: 'Disability insurance',
+    icon: '♿🔒',
+  ),
+  const CategoryModel(id: 'toiletries', title: 'Toiletries', icon: '🧼'),
+  const CategoryModel(
+    id: 'laundryDetergent',
+    title: 'Laundry detergent',
+    icon: '🧺',
+  ),
+  const CategoryModel(
+    id: 'dishwasherDetergent',
+    title: 'Dishwasher detergent',
+    icon: '🍽️',
+  ),
+  const CategoryModel(
+    id: 'cleaningSupplies',
+    title: 'Cleaning supplies',
+    icon: '🧹',
+  ),
+  const CategoryModel(id: 'tools', title: 'Tools', icon: '🔧'),
+  const CategoryModel(
+    id: 'gymMemberships',
+    title: 'Gym memberships',
+    icon: '🏋️',
+  ),
+  const CategoryModel(id: 'haircuts', title: 'Haircuts', icon: '💇'),
+  const CategoryModel(id: 'salonServices', title: 'Salon services', icon: '💅'),
+  const CategoryModel(
+    id: 'cosmetics',
+    title: 'Cosmetics (like makeup or services like laser hair removal)',
+    icon: '💄',
+  ),
+  const CategoryModel(id: 'babysitter', title: 'Babysitter', icon: '👶🍼'),
+  const CategoryModel(id: 'subscriptions', title: 'Subscriptions', icon: '📰'),
+  const CategoryModel(
+    id: 'hobbiesRecreationalActivities',
+    title: 'Hobbies or recreational activities expenses',
+    icon: '🎨',
+  ),
+  const CategoryModel(
+    id: 'selfImprovementPersonalDevelopment',
+    title: 'Self-improvement or personal development expenses',
+    icon: '📚',
+  ),
+  const CategoryModel(id: 'personalLoans', title: 'Personal loans', icon: '💳'),
+  const CategoryModel(id: 'studentLoans', title: 'Student loans', icon: '🎓💰'),
+  const CategoryModel(id: 'creditCards', title: 'Credit cards', icon: '💳'),
+  const CategoryModel(
+    id: 'otherTypesOfLoans',
+    title: 'Other types of loans',
+    icon: '💰',
+  ),
+  const CategoryModel(
+    id: 'financialPlanning',
+    title: 'Financial planning',
+    icon: '💹',
+  ),
+  const CategoryModel(id: 'investing', title: 'Investing', icon: '💰'),
+  const CategoryModel(
+    id: 'continuingEducationExpenses',
+    title: 'Continuing education expenses for personal or career development',
+    icon: '📚',
+  ),
+  const CategoryModel(
+    id: 'childrensCollege',
+    title: 'Children’s college',
+    icon: '👨‍🎓',
+  ),
+  const CategoryModel(id: 'yourCollege', title: 'Your college', icon: '👩‍🎓'),
+  const CategoryModel(
+      id: 'schoolSupplies', title: 'School supplies', icon: '📓'),
+  const CategoryModel(id: 'books', title: 'Books', icon: '📚'),
+  const CategoryModel(id: 'emergencyFund', title: 'Emergency fund', icon: '💰'),
+  const CategoryModel(
+    id: 'bigPurchases',
+    title: 'Big purchases like a new mattress or laptop',
+    icon: '💻',
+  ),
+  const CategoryModel(id: 'otherSavings', title: 'Other savings', icon: '💰'),
+  const CategoryModel(
+    id: 'specificSavingsGoals',
+    title: 'Specific savings goals (e.g., travel fund, home down payment)',
+    icon: '🎯',
+  ),
+  const CategoryModel(id: 'birthday', title: 'Birthday', icon: '🎁'),
+  const CategoryModel(id: 'anniversary', title: 'Anniversary', icon: '🎉'),
+  const CategoryModel(id: 'wedding', title: 'Wedding', icon: '💍🎉'),
+  const CategoryModel(id: 'christmas', title: 'Christmas', icon: '🎄'),
+  const CategoryModel(
+    id: 'specialOccasion',
+    title: 'Special occasion',
+    icon: '🎈',
+  ),
+  const CategoryModel(id: 'charities', title: 'Charities', icon: '❤️'),
+  const CategoryModel(
+    id: 'alcoholBars',
+    title: 'Alcohol and/or bars',
+    icon: '🍻',
+  ),
+  const CategoryModel(id: 'games', title: 'Games', icon: '🎮'),
+  const CategoryModel(id: 'movies', title: 'Movies', icon: '🎬'),
+  const CategoryModel(id: 'concerts', title: 'Concerts', icon: '🎵'),
+  const CategoryModel(id: 'vacations', title: 'Vacations', icon: '✈️'),
+  const CategoryModel(
+    id: 'subscriptions',
+    title: 'Subscriptions (Netflix, Amazon, Hulu, etc.)',
+    icon: '📺',
+  ),
+];
