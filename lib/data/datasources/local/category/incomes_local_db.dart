@@ -1,45 +1,69 @@
-const incomeLocalData = {
-  'incomeCategories': {
-    'Salary': '💰',
-    'Freelance Work': '💻',
-    'Side Gig': '🚀',
-    'Investment Dividends': '📈',
-    'Rental Income': '🏠',
-    'Business Profits': '📊',
-    'Gifts': '🎁',
-    'Other': '🌐',
-    'Bonus': '🎉',
-    'Commissions': '📈',
-    'Tips': '💡',
-    'Royalties': '👑',
-    'Refunds': '⏪',
-    'Alimony': '💔',
-    'Child Support': '👶',
-    'Scholarship': '🎓'
-  }
-};
+import 'package:expense_tracker/data/models/category_model.dart';
+
+const incomeLocalData = <CategoryModel>[
+  CategoryModel(id: 'salary', title: 'Salary', icon: '💰'),
+  CategoryModel(id: 'freelanceWork', title: 'Freelance Work', icon: '💻'),
+  CategoryModel(id: 'sideGig', title: 'Side Gig', icon: '🚀'),
+  CategoryModel(
+    id: 'investmentDividends',
+    title: 'Investment Dividends',
+    icon: '📈',
+  ),
+  CategoryModel(id: 'rentalIncome', title: 'Rental Income', icon: '🏠'),
+  CategoryModel(id: 'businessProfits', title: 'Business Profits', icon: '📊'),
+  CategoryModel(id: 'gifts', title: 'Gifts', icon: '🎁'),
+  CategoryModel(id: 'other', title: 'Other', icon: '🌐'),
+  CategoryModel(id: 'bonus', title: 'Bonus', icon: '🎉'),
+  CategoryModel(id: 'commissions', title: 'Commissions', icon: '📈'),
+  CategoryModel(id: 'tips', title: 'Tips', icon: '💡'),
+  CategoryModel(id: 'royalties', title: 'Royalties', icon: '👑'),
+  CategoryModel(id: 'refunds', title: 'Refunds', icon: '⏪'),
+  CategoryModel(id: 'alimony', title: 'Alimony', icon: '💔'),
+  CategoryModel(id: 'childSupport', title: 'Child Support', icon: '👶'),
+  CategoryModel(id: 'scholarship', title: 'Scholarship', icon: '🎓'),
+];
+//{
+// 'incomeCategories': {
+//   'Salary': '💰',
+//   'Freelance Work': '💻',
+//   'Side Gig': '🚀',
+//   'Investment Dividends': '📈',
+//   'Rental Income': '🏠',
+//   'Business Profits': '📊',
+//   'Gifts': '🎁',
+//   'Other': '🌐',
+//   'Bonus': '🎉',
+//   'Commissions': '📈',
+//   'Tips': '💡',
+//   'Royalties': '👑',
+//   'Refunds': '⏪',
+//   'Alimony': '💔',
+//   'Child Support': '👶',
+//   'Scholarship': '🎓'
+// }
+//};
 
 /*
 Category(
   id: 'incomeCategories',
   title: 'Income Categories',
   items: [
-    ExpenseItem(id: 'salary', title: 'Salary', icon: '💰'),
-    ExpenseItem(id: 'freelanceWork', title: 'Freelance Work', icon: '💻'),
-    ExpenseItem(id: 'sideGig', title: 'Side Gig', icon: '🚀'),
-    ExpenseItem(id: 'investmentDividends', title: 'Investment Dividends', icon: '📈'),
-    ExpenseItem(id: 'rentalIncome', title: 'Rental Income', icon: '🏠'),
-    ExpenseItem(id: 'businessProfits', title: 'Business Profits', icon: '📊'),
-    ExpenseItem(id: 'gifts', title: 'Gifts', icon: '🎁'),
-    ExpenseItem(id: 'other', title: 'Other', icon: '🌐'),
-    ExpenseItem(id: 'bonus', title: 'Bonus', icon: '🎉'),
-    ExpenseItem(id: 'commissions', title: 'Commissions', icon: '📈'),
-    ExpenseItem(id: 'tips', title: 'Tips', icon: '💡'),
-    ExpenseItem(id: 'royalties', title: 'Royalties', icon: '👑'),
-    ExpenseItem(id: 'refunds', title: 'Refunds', icon: '⏪'),
-    ExpenseItem(id: 'alimony', title: 'Alimony', icon: '💔'),
-    ExpenseItem(id: 'childSupport', title: 'Child Support', icon: '👶'),
-    ExpenseItem(id: 'scholarship', title: 'Scholarship', icon: '🎓'),
+    CategoryModel(id: 'salary', title: 'Salary', icon: '💰'),
+    CategoryModel(id: 'freelanceWork', title: 'Freelance Work', icon: '💻'),
+    CategoryModel(id: 'sideGig', title: 'Side Gig', icon: '🚀'),
+    CategoryModel(id: 'investmentDividends', title: 'Investment Dividends', icon: '📈'),
+    CategoryModel(id: 'rentalIncome', title: 'Rental Income', icon: '🏠'),
+    CategoryModel(id: 'businessProfits', title: 'Business Profits', icon: '📊'),
+    CategoryModel(id: 'gifts', title: 'Gifts', icon: '🎁'),
+    CategoryModel(id: 'other', title: 'Other', icon: '🌐'),
+    CategoryModel(id: 'bonus', title: 'Bonus', icon: '🎉'),
+    CategoryModel(id: 'commissions', title: 'Commissions', icon: '📈'),
+    CategoryModel(id: 'tips', title: 'Tips', icon: '💡'),
+    CategoryModel(id: 'royalties', title: 'Royalties', icon: '👑'),
+    CategoryModel(id: 'refunds', title: 'Refunds', icon: '⏪'),
+    CategoryModel(id: 'alimony', title: 'Alimony', icon: '💔'),
+    CategoryModel(id: 'childSupport', title: 'Child Support', icon: '👶'),
+    CategoryModel(id: 'scholarship', title: 'Scholarship', icon: '🎓'),
   ],
 )
 */
