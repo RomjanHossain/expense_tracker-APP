@@ -11,7 +11,7 @@ class ExpenseEntity with _$ExpenseEntity {
     // how much
     required double money,
     // when it was spent
-    required DateTime whenItWasSpent,
+    required String whenItWasSpent,
     // any comment?
     String? comment,
     // id
