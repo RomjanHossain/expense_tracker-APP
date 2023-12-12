@@ -1,33 +1,39 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/data/models/category_model.dart';
-import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_category_method_cubit.dart';
+import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
 import 'package:expense_tracker/utils/constrants/expense_category_tracker_.dart';
 import 'package:flutter/material.dart';
 
-class CategoryMehodsDropdown extends StatelessWidget {
-  const CategoryMehodsDropdown({
+class IncomeMehodsDropdown extends StatefulWidget {
+  const IncomeMehodsDropdown({
     super.key,
   });
 
   @override
+  State<IncomeMehodsDropdown> createState() => _IncomeMehodsDropdownState();
+}
+
+class _IncomeMehodsDropdownState extends State<IncomeMehodsDropdown> {
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DropdownCategoryMethodCubit, int>(
+    return BlocBuilder<DropdownIncomeMethodCubit, String>(
       builder: (context, state) {
         return DropdownButton<CategoryModel>(
           borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
           underline: Container(),
           isExpanded: true, //Adding this property, does the magic
-          dropdownColor: Colors.blueGrey[300],
+          dropdownColor: const Color(0xfff5f5f5), // Dropdown open Color
           icon: const Icon(Icons.keyboard_arrow_down),
           // value: CategoryModel(title: 'Housing', icon: Icons.house),
+          hint: const Text('Income Source'),
           // padding: const EdgeInsets.all(0),
-          value: ExpenseTrackerCategories.singleExpenseCategory(state),
+          value: ExpenseTrackerCategories.singleIncomeMethods(state),
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
           ),
-          items: ExpenseTrackerCategories.expenseCategoriesMethod
+          items: ExpenseTrackerCategories.incomeMethods
               .map(
                 (e) => DropdownMenuItem<CategoryModel>(
                   value: e,
@@ -35,7 +41,7 @@ class CategoryMehodsDropdown extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(e.icon),
+                      Text(e.icon),
                       Flexible(
                         child: Padding(
                           padding: const EdgeInsets.all(8),
@@ -53,8 +59,7 @@ class CategoryMehodsDropdown extends StatelessWidget {
               )
               .toList(),
           onChanged: (s) {
-            debugPrint('Selected ${s!.title.trim()} ${s.id}}');
-            context.read<DropdownCategoryMethodCubit>().changeIndex(s.id);
+            context.read<DropdownIncomeMethodCubit>().changeValue(s!.id);
           },
         );
       },
