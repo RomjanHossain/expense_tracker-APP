@@ -1,4 +1,3 @@
-import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/theme.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/data/models/category_model.dart';
@@ -14,37 +13,39 @@ class ExpenseMethodsDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DropdownExpenseMethodCubit, int>(
+    return BlocConsumer<DropdownExpenseMethodCubit, String>(
       builder: (context, state) {
         return DropdownButton<CategoryModel>(
+          onTap: () {
+            debugPrint(
+                "Dropdown value cubit -> ${context.read<DropdownExpenseMethodCubit>().state}");
+          },
           borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
           underline: Container(),
           isExpanded: true, //Adding this property, does the magic
-          // hint: const Text('Cash'),
+          hint: const Text('Expenses'),
           icon: const Icon(Icons.keyboard_arrow_down),
           alignment: Alignment.center,
-          // focusColor: Colors.purple, // after selecting a value
-          dropdownColor: Colors.blueGrey[300], // Dropdown open Color
-          // iconEnabledColor: Colors.teal,
-          // iconDisabledColor: Colors.lime,
-          // padding: const EdgeInsets.all(0),
+          dropdownColor: const Color(0xfff5f5f5), // Dropdown open Color
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
           ),
-          value: ExpenseTrackerCategories.singleExpenseMethod(state),
-          items: ExpenseTrackerCategories.categoryExpenseMethods
+          value: ExpenseTrackerCategories.singleexpensesCategory(state),
+          items: ExpenseTrackerCategories.expensesCategories
               .map(
                 (e) => DropdownMenuItem<CategoryModel>(
                   value: e,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(e.icon),
+                      Text(e.icon),
                       Flexible(
                         child: Padding(
                           padding: const EdgeInsets.all(8),
                           child: Text(
                             e.title.trim(),
+                            textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: ExpenseTrackerTextStyle.caption,
                           ),
@@ -56,14 +57,17 @@ class ExpenseMethodsDropdown extends StatelessWidget {
               )
               .toList(),
           onChanged: (s) {
-            debugPrint('Selected ${s!.title} ${s.id}');
-            context.read<DropdownExpenseMethodCubit>().changeIndex(s.id);
+            // debugPrint('Selected ${s!.title} ${s.id}');
+            context.read<DropdownExpenseMethodCubit>().changeValue(s!.id);
             debugPrint(
-              'from the dropdown expense method cubit -> ${ExpenseTrackerCategories.singleExpenseMethod(state).id} | ${ExpenseTrackerCategories.singleExpenseMethod(state).title} ',
-            );
+                "Dropdown value cubit -> ${context.read<DropdownExpenseMethodCubit>().state}");
+            // debugPrint(
+            //   'from the dropdown expense method cubit -> ${ExpenseTrackerCategories.singleExpenseMethod(state).id} | ${ExpenseTrackerCategories.singleExpenseMethod(state).title} ',
+            // );
           },
         );
       },
+      listener: (BuildContext context, String state) {},
     );
   }
 }
