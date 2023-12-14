@@ -1,47 +1,19 @@
+import 'package:expense_tracker/data/datasources/local/category/category_local_data.dart';
+import 'package:expense_tracker/data/datasources/local/category/incomes_local_db.dart';
 import 'package:expense_tracker/data/models/category_model.dart';
-import 'package:expense_tracker/utils/constrants/consts_.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:expense_tracker/utils/constrants/consts_.dart';
+// import 'package:flutter/cupertino.dart';
 
 class ExpenseTrackerCategories {
   const ExpenseTrackerCategories._();
 
-  /// list of categories of expenseMethods
-  static List<CategoryModel> categoryExpenseMethods = expenseMethods
-      .map(
-        (Map<int, (String, IconData)> e) => CategoryModel(
-          title: e.values.first.$1,
-          icon: e.values.first.$2,
-          id: e.keys.first,
-        ),
-      )
-      .toList();
-  // expense methods
-  static CategoryModel singleExpenseMethod(int i) => categoryExpenseMethods[i];
-
-  /// list of all the expenseCategories
-  static List<CategoryModel> expenseCategoriesMethod = expenseCategories
-      .map(
-        (e) => CategoryModel(
-          title: e.values.first.$1,
-          icon: e.values.first.$2,
-          id: e.keys.first,
-        ),
-      )
-      .toList();
-
-  // expense categories
-  static CategoryModel singleExpenseCategory(int i) =>
-      expenseCategoriesMethod[i];
-}
-
-extension on Map<int, (String, IconData)> {
-  int get id => keys.first;
-  String get $1 => values.first.$1;
-  IconData get $2 => values.first.$2;
-
-  CategoryModel get toCategoryModel => CategoryModel(
-        title: $1,
-        icon: $2,
-        id: id,
-      );
+  /// list of categories of expenses only Headers
+  static List<CategoryModel> expensesCategories = categoryLocalData2;
+  static CategoryModel? singleexpensesCategory(String key) =>
+      categoryLocalData2.where((element) => element.id == key).firstOrNull;
+  // income methods
+  static List<CategoryModel> incomeMethods = incomeLocalData;
+  // single income methods from id
+  static CategoryModel? singleIncomeMethods(String id) =>
+      incomeLocalData.where((element) => element.id == id).firstOrNull;
 }

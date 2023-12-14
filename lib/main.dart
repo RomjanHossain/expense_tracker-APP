@@ -1,7 +1,6 @@
-import 'package:expense_tracker/app/view/app.dart';
-import 'package:flutter/material.dart';
+import 'package:expense_tracker/app/app.dart';
+import 'package:expense_tracker/bootstrap.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const App());
+  bootstrap(() => const App());
 }
