@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 
-class DropdownExpenseMethodCubit extends Cubit<int> {
-  DropdownExpenseMethodCubit() : super(1);
-  void changeIndex(int index) {
-    emit(index - 1);
+class DropdownExpenseMethodCubit extends Cubit<String> {
+  DropdownExpenseMethodCubit() : super('');
+  void changeValue(String index) {
+    emit(index);
   }
 }

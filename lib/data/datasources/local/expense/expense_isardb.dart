@@ -14,5 +14,5 @@ class ExpenseLocalDB {
   // any comment?
   String? comment;
   // when it was spent
-  DateTime? whenItWasSpent;
+  String? whenItWasSpent;
 }
