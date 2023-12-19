@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AddTransactionBottomSheet extends StatefulWidget {
-  AddTransactionBottomSheet({super.key});
+  const AddTransactionBottomSheet({super.key});
 
   @override
   State<AddTransactionBottomSheet> createState() =>
@@ -28,309 +28,298 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.sizeOf(context);
-    return MultiBlocProvider(
-      // create: (context) => SubjectBloc(),
-      providers: [
-        BlocProvider(
-          create: (context) => DropdownExpenseMethodCubit(),
+    return Column(
+      // mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        /// Show Cash or Card or Bank or Mobile Banking or Crypto
+        const SizedBox(
+          height: 20,
         ),
-        BlocProvider(
-          create: (context) => DropdownIncomeMethodCubit(),
-        ),
-      ],
-      child: Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          /// Show Cash or Card or Bank or Mobile Banking or Crypto
-          const SizedBox(
-            height: 20,
+
+        ///* also show which category it belongs
+        const Padding(
+          padding: EdgeInsets.all(8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ///* also show which category it belongs
+              Expanded(
+                child: IncomeMehodsDropdown(),
+              ),
+
+              SizedBox(
+                width: 10,
+              ),
+
+              Expanded(
+                child: ExpenseMethodsDropdown(),
+              ),
+            ],
           ),
+        ),
 
-          ///* also show which category it belongs
-          const Padding(
-            padding: EdgeInsets.all(8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ///* also show which category it belongs
-                Expanded(
-                  child: IncomeMehodsDropdown(),
-                ),
+        ///* Show the type [Expense] or [Income] or [Borrowed] or [Lent]
+        Text(
+          'Expenses',
+          style: ExpenseTrackerTextStyle.subtitle1.copyWith(
+            fontWeight: FontWeight.w300,
+            color: Colors.grey.shade400,
+          ),
+        ),
 
-                SizedBox(
-                  width: 10,
+        /// User inputed amount
+        BlocBuilder<ExpenseTextControllerCubit, String>(
+          builder: (context, state) {
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 30,
+                  top: 10,
                 ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Icon(
+                        CupertinoIcons.money_dollar,
+                        size: 35,
+                        color: Colors.grey.shade400,
+                      ),
+                    ),
+                    Text(
+                      state,
+                      style: ExpenseTrackerTextStyle.headline1,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
 
-                Expanded(
-                  child: ExpenseMethodsDropdown(),
-                ),
-              ],
+        TextField(
+          controller: commentController,
+          decoration: InputDecoration(
+            hintText: 'Add comment...',
+            contentPadding: EdgeInsets.only(
+              left: screenSize.width / 3,
+              bottom: 11,
+              top: 11,
+              right: 15,
             ),
-          ),
-
-          ///* Show the type [Expense] or [Income] or [Borrowed] or [Lent]
-          Text(
-            'Expenses',
-            style: ExpenseTrackerTextStyle.subtitle1.copyWith(
-              fontWeight: FontWeight.w300,
+            hintStyle: ExpenseTrackerTextStyle.bodyText2.copyWith(
               color: Colors.grey.shade400,
             ),
+            border: InputBorder.none,
           ),
-
-          /// User inputed amount
-          BlocBuilder<ExpenseTextControllerCubit, String>(
-            builder: (context, state) {
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    bottom: 30,
-                    top: 10,
+        ),
+        Expanded(
+          child: Container(
+            alignment: Alignment.bottomCenter,
+            // height: screenSize.height / 1.5,
+            // color: Colors.indigo,
+            child: Row(
+              children: [
+                ButtonRow([
+                  Button(
+                    text: '1',
+                    cb: (s) {
+                      context.read<ExpenseTextControllerCubit>().addText(s);
+                    },
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Icon(
-                          CupertinoIcons.money_dollar,
-                          size: 35,
-                          color: Colors.grey.shade400,
-                        ),
-                      ),
-                      Text(
-                        state,
-                        style: ExpenseTrackerTextStyle.headline1,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                  Button(
+                    text: '4',
+                    cb: (s) {
+                      context.read<ExpenseTextControllerCubit>().addText(s);
+                    },
                   ),
-                ),
-              );
-            },
-          ),
-
-          TextField(
-            controller: commentController,
-            decoration: InputDecoration(
-              hintText: 'Add comment...',
-              contentPadding: EdgeInsets.only(
-                left: screenSize.width / 3,
-                bottom: 11,
-                top: 11,
-                right: 15,
-              ),
-              hintStyle: ExpenseTrackerTextStyle.bodyText2.copyWith(
-                color: Colors.grey.shade400,
-              ),
-              border: InputBorder.none,
-            ),
-          ),
-          Expanded(
-            child: Container(
-              alignment: Alignment.bottomCenter,
-              // height: screenSize.height / 1.5,
-              // color: Colors.indigo,
-              child: Row(
-                children: [
-                  ButtonRow([
-                    Button(
-                      text: '1',
-                      cb: (s) {
-                        context.read<ExpenseTextControllerCubit>().addText(s);
-                      },
-                    ),
-                    Button(
-                      text: '4',
-                      cb: (s) {
-                        context.read<ExpenseTextControllerCubit>().addText(s);
-                      },
-                    ),
-                    Button(
-                      text: '7',
-                      cb: (s) {
-                        context.read<ExpenseTextControllerCubit>().addText(s);
-                      },
-                    ),
-                    Button(
-                      text: r'$',
-                      cb: (s) {
-                        context.read<ExpenseTextControllerCubit>().addText(s);
-                      },
-                    ),
-                  ]),
-                  ButtonRow([
-                    Button(
-                      text: '2',
-                      cb: (s) {
-                        context.read<ExpenseTextControllerCubit>().addText(s);
-                      },
-                    ),
-                    Button(
-                      text: '5',
-                      cb: (s) {
-                        context.read<ExpenseTextControllerCubit>().addText(s);
-                      },
-                    ),
-                    Button(
-                      text: '8',
-                      cb: (s) {
-                        context.read<ExpenseTextControllerCubit>().addText(s);
-                      },
-                    ),
-                    Button(
-                      text: '0',
-                      cb: (s) {
-                        context.read<ExpenseTextControllerCubit>().addText(s);
-                      },
-                    ),
-                  ]),
-                  ButtonRow([
-                    Button(
-                      text: '3',
-                      cb: (s) {
-                        context.read<ExpenseTextControllerCubit>().addText(s);
-                      },
-                    ),
-                    Button(
-                      text: '6',
-                      cb: (s) {
-                        context.read<ExpenseTextControllerCubit>().addText(s);
-                      },
-                    ),
-                    Button(
-                      text: '9',
-                      cb: (s) {
-                        context.read<ExpenseTextControllerCubit>().addText(s);
-                      },
-                    ),
-                    Button(
-                      text: '.',
-                      cb: (s) {
-                        context.read<ExpenseTextControllerCubit>().addText(s);
-                      },
-                    ),
-                  ]),
-                  ButtonRow([
-                    Button(
-                      text: '❌',
-                      cb: (s) {
-                        final ammountState =
-                            context.read<ExpenseTextControllerCubit>().state;
-                        if (ammountState == '0.00') {
-                          return;
-                        }
-                        context.read<ExpenseTextControllerCubit>().removeText();
-                      },
-                    ),
-                    Button(
-                      text: '🗓️',
-                      cb: (s) => _selectDate(context),
-                    ),
-                    Button(
-                      text: '✓',
-                      cb: (s) {
-                        if (double.parse(
-                              context.read<ExpenseTextControllerCubit>().state,
-                            ) <
-                            1) {
-                          return;
-                        }
-                        // show a dialog to confirm
-                        // if yes then add the transaction
-                        // if no then do nothing
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            contentPadding: const EdgeInsets.all(8),
-                            insetPadding: const EdgeInsets.all(8),
-                            title: const Text('Confirm'),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Text(
-                                  'Are you sure you want to add this transaction?',
-                                ),
-                                Text(
-                                  'Amount: ${context.read<ExpenseTextControllerCubit>().state}',
-                                ),
-                                Text(
-                                  'Method: ${context.watch<DropdownExpenseMethodCubit>().state}',
-                                ),
-                                Text(
-                                  'Category: ${context.read<DropdownIncomeMethodCubit>().state}',
-                                ),
-                                Text('Comment: ${commentController.text}'),
-                                // Text("Date: ${currentDate.toString()}")
-                                // format the date to a readable format
-                                Text(
-                                  'Date: ${DateFormat.yMd().format(currentDate)}',
-                                ),
-                              ],
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  debugPrint(
-                                      'Spent on: ${context.read<DropdownExpenseMethodCubit>().state}');
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('No'),
+                  Button(
+                    text: '7',
+                    cb: (s) {
+                      context.read<ExpenseTextControllerCubit>().addText(s);
+                    },
+                  ),
+                  Button(
+                    text: r'$',
+                    cb: (s) {
+                      context.read<ExpenseTextControllerCubit>().addText(s);
+                    },
+                  ),
+                ]),
+                ButtonRow([
+                  Button(
+                    text: '2',
+                    cb: (s) {
+                      context.read<ExpenseTextControllerCubit>().addText(s);
+                    },
+                  ),
+                  Button(
+                    text: '5',
+                    cb: (s) {
+                      context.read<ExpenseTextControllerCubit>().addText(s);
+                    },
+                  ),
+                  Button(
+                    text: '8',
+                    cb: (s) {
+                      context.read<ExpenseTextControllerCubit>().addText(s);
+                    },
+                  ),
+                  Button(
+                    text: '0',
+                    cb: (s) {
+                      context.read<ExpenseTextControllerCubit>().addText(s);
+                    },
+                  ),
+                ]),
+                ButtonRow([
+                  Button(
+                    text: '3',
+                    cb: (s) {
+                      context.read<ExpenseTextControllerCubit>().addText(s);
+                    },
+                  ),
+                  Button(
+                    text: '6',
+                    cb: (s) {
+                      context.read<ExpenseTextControllerCubit>().addText(s);
+                    },
+                  ),
+                  Button(
+                    text: '9',
+                    cb: (s) {
+                      context.read<ExpenseTextControllerCubit>().addText(s);
+                    },
+                  ),
+                  Button(
+                    text: '.',
+                    cb: (s) {
+                      context.read<ExpenseTextControllerCubit>().addText(s);
+                    },
+                  ),
+                ]),
+                ButtonRow([
+                  Button(
+                    text: '❌',
+                    cb: (s) {
+                      final ammountState =
+                          context.read<ExpenseTextControllerCubit>().state;
+                      if (ammountState == '0.00') {
+                        return;
+                      }
+                      context.read<ExpenseTextControllerCubit>().removeText();
+                    },
+                  ),
+                  Button(
+                    text: '🗓️',
+                    cb: (s) => _selectDate(context),
+                  ),
+                  Button(
+                    text: '✓',
+                    cb: (s) {
+                      if (double.parse(
+                            context.read<ExpenseTextControllerCubit>().state,
+                          ) <
+                          1) {
+                        return;
+                      }
+                      // show a dialog to confirm
+                      // if yes then add the transaction
+                      // if no then do nothing
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          contentPadding: const EdgeInsets.all(8),
+                          insetPadding: const EdgeInsets.all(8),
+                          title: const Text('Confirm'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text(
+                                'Are you sure you want to add this transaction?',
                               ),
-                              TextButton(
-                                onPressed: () async {
-                                  // Text(
-                                  //   'Amount: ${context.read<ExpenseTextControllerCubit>().state}',
-                                  // ),
-
-                                  // Text(
-                                  //     'Spent on: ${context.read<DropdownExpenseMethodCubit>().state}');
-                                  // Text(
-                                  //     'Category: ${context.read<DropdownCategoryMethodCubit>().state}'),
-                                  // Text('Comment: ${commentController.text}'),
-                                  // // Text("Date: ${currentDate.toString()}")
-                                  // // format the date to a readable format
-                                  // Text(
-                                  //   'Date: ${DateFormat.yMd().format(currentDate)}',
-                                  // ),
-                                  final data = ExpenseEntity(
-                                    incomeSource: context
-                                        .read<DropdownIncomeMethodCubit>()
-                                        .state,
-                                    spentedON: context
-                                        .read<DropdownExpenseMethodCubit>()
-                                        .state,
-                                    money: double.parse(
-                                      context
-                                          .read<ExpenseTextControllerCubit>()
-                                          .state,
-                                    ),
-                                    whenItWasSpent:
-                                        DateFormat.yMd().format(currentDate),
-                                  );
-                                  final db = await IsarService().database;
-
-                                  final iml = ExpenseRepoImpl(db);
-                                  iml.createExpenseRecord(data);
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('Yes'),
+                              Text(
+                                'Amount: ${context.read<ExpenseTextControllerCubit>().state}',
+                              ),
+                              Text(
+                                'Method: ${context.watch<DropdownExpenseMethodCubit>().state}',
+                              ),
+                              Text(
+                                'Category: ${context.read<DropdownIncomeMethodCubit>().state}',
+                              ),
+                              Text('Comment: ${commentController.text}'),
+                              // Text("Date: ${currentDate.toString()}")
+                              // format the date to a readable format
+                              Text(
+                                'Date: ${DateFormat.yMd().format(currentDate)}',
                               ),
                             ],
                           ),
-                        );
-                      },
-                      big: true,
-                      color: Colors.black,
-                    ),
-                  ]),
-                ],
-              ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                debugPrint(
+                                    'Spent on: ${context.read<DropdownExpenseMethodCubit>().state}');
+                                Navigator.pop(context);
+                              },
+                              child: const Text('No'),
+                            ),
+                            TextButton(
+                              onPressed: () async {
+                                // Text(
+                                //   'Amount: ${context.read<ExpenseTextControllerCubit>().state}',
+                                // ),
+
+                                // Text(
+                                //     'Spent on: ${context.read<DropdownExpenseMethodCubit>().state}');
+                                // Text(
+                                //     'Category: ${context.read<DropdownCategoryMethodCubit>().state}'),
+                                // Text('Comment: ${commentController.text}'),
+                                // // Text("Date: ${currentDate.toString()}")
+                                // // format the date to a readable format
+                                // Text(
+                                //   'Date: ${DateFormat.yMd().format(currentDate)}',
+                                // ),
+                                final data = ExpenseEntity(
+                                  incomeSource: context
+                                      .read<DropdownIncomeMethodCubit>()
+                                      .state,
+                                  spentedON: context
+                                      .read<DropdownExpenseMethodCubit>()
+                                      .state,
+                                  money: double.parse(
+                                    context
+                                        .read<ExpenseTextControllerCubit>()
+                                        .state,
+                                  ),
+                                  whenItWasSpent:
+                                      DateFormat.yMd().format(currentDate),
+                                );
+                                final db = await IsarService().database;
+
+                                final iml = ExpenseRepoImpl(db);
+                                iml.createExpenseRecord(data);
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Yes'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    big: true,
+                    color: Colors.black,
+                  ),
+                ]),
+              ],
             ),
           ),
+        ),
 
-          /// Calculator like number buttons
-        ],
-      ),
+        /// Calculator like number buttons
+      ],
     );
   }
 
