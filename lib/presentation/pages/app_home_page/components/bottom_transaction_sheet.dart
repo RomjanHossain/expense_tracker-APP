@@ -1,4 +1,5 @@
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/data/datasources/local/isar_ins.dart';
 import 'package:expense_tracker/data/repositories/expense_repo_impl.dart';
 import 'package:expense_tracker/domain/entities/expense_entity.dart';
@@ -289,6 +290,7 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
                                   spentedON: context
                                       .read<DropdownExpenseMethodCubit>()
                                       .state,
+                                  comment: commentController.text,
                                   money: double.parse(
                                     context
                                         .read<ExpenseTextControllerCubit>()
@@ -300,8 +302,26 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
                                 final db = await IsarService().database;
 
                                 final iml = ExpenseRepoImpl(db);
-                                iml.createExpenseRecord(data);
-                                Navigator.pop(context);
+                                final isCreated =
+                                    await iml.createExpenseRecord(data);
+                                if (isCreated) {
+                                  showToast('Transaction added', Colors.green);
+                                  // reset all the values
+                                  if (!context.mounted) return;
+                                  context
+                                      .read<ExpenseTextControllerCubit>()
+                                      .clearText();
+                                  commentController.clear();
+                                  context
+                                      .read<DropdownExpenseMethodCubit>()
+                                      .changeValue('');
+                                  context
+                                      .read<DropdownIncomeMethodCubit>()
+                                      .changeValue('');
+                                  Navigator.of(context).pop();
+                                } else {
+                                  showToast('Transaction failed', Colors.red);
+                                }
                               },
                               child: const Text('Yes'),
                             ),
