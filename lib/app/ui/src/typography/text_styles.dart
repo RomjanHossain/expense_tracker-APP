@@ -1,116 +1,74 @@
-
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 /// ExpenseTracker Text Style Definitions
 class ExpenseTrackerTextStyle {
-  static const _baseTextStyle = TextStyle(
-    // package: 'app_ui',
-    fontFamily: 'OpenSans',
-    color: ExpenseTrackerColors.black,
-    fontWeight: ExpenseTrackerFontWeight.regular,
-  );
+  static final _baseTextStyle = GoogleFonts.interTextTheme();
 
-  /// Headline 1 Text Style
-  static TextStyle get headline1 {
-    return _baseTextStyle.copyWith(
-      fontSize: 56,
-      fontWeight: ExpenseTrackerFontWeight.medium,
+  /// title x (64)(80)
+  static TextStyle get titleX {
+    return _baseTextStyle.displayLarge!.copyWith(
+      fontSize: 64,
+      height: 1.25,
     );
   }
 
-  /// Headline 2 Text Style
-  static TextStyle get headline2 {
-    return _baseTextStyle.copyWith(
-      fontSize: 30,
-      fontWeight: ExpenseTrackerFontWeight.regular,
+  /// title 1 (32)(34)
+  static TextStyle get title1 {
+    return _baseTextStyle.headlineLarge!.copyWith(
+      height: 1.0625,
     );
   }
 
-  /// Headline 3 Text Style
-  static TextStyle get headline3 {
-    return _baseTextStyle.copyWith(
-      fontSize: 28,
-      fontWeight: ExpenseTrackerFontWeight.regular,
+  // title 2 (24)(22)
+  static TextStyle get title2 {
+    return _baseTextStyle.headlineSmall!.copyWith(
+      height: 0.9166666666666666,
     );
   }
 
-  /// Headline 4 Text Style
-  static TextStyle get headline4 {
-    return _baseTextStyle.copyWith(
-      fontSize: 22,
-      fontWeight: ExpenseTrackerFontWeight.bold,
-    );
-  }
-
-  /// Headline 5 Text Style
-  static TextStyle get headline5 {
-    return _baseTextStyle.copyWith(
-      fontSize: 20,
-      fontWeight: ExpenseTrackerFontWeight.medium,
-    );
-  }
-
-  /// Headline 6 Text Style
-  static TextStyle get headline6 {
-    return _baseTextStyle.copyWith(
-      fontSize: 22,
-      fontWeight: ExpenseTrackerFontWeight.bold,
-    );
-  }
-
-  /// Subtitle 1 Text Style
-  static TextStyle get subtitle1 {
-    return _baseTextStyle.copyWith(
-      fontSize: 16,
-      fontWeight: ExpenseTrackerFontWeight.bold,
-    );
-  }
-
-  /// Subtitle 2 Text Style
-  static TextStyle get subtitle2 {
-    return _baseTextStyle.copyWith(
-      fontSize: 14,
-      fontWeight: ExpenseTrackerFontWeight.bold,
-    );
-  }
-
-  /// Body Text 1 Text Style
-  static TextStyle get bodyText1 {
-    return _baseTextStyle.copyWith(
+  // title 3 (18)(22)
+  static TextStyle get title3 {
+    return _baseTextStyle.titleMedium!.copyWith(
       fontSize: 18,
-      fontWeight: ExpenseTrackerFontWeight.medium,
+      height: 1.2222222222222223,
     );
   }
 
-  /// Body Text 2 Text Style (the default)
-  static TextStyle get bodyText2 {
-    return _baseTextStyle.copyWith(
-      fontSize: 16,
-      fontWeight: ExpenseTrackerFontWeight.regular,
+  // regular 1 (16)(19)
+  static TextStyle get regular1 {
+    return _baseTextStyle.bodyLarge!.copyWith(
+      height: 1.1875,
     );
   }
 
-  /// Caption Text Style
-  static TextStyle get caption {
-    return _baseTextStyle.copyWith(
-      fontSize: 14,
-      fontWeight: ExpenseTrackerFontWeight.regular,
+  // regular 2 (16)(19)
+  static TextStyle get regular2 {
+    return _baseTextStyle.titleMedium!.copyWith(
+      height: 1.1875,
     );
   }
 
-  /// Overline Text Style
-  static TextStyle get overline {
-    return _baseTextStyle.copyWith(
-      fontSize: 16,
-      fontWeight: ExpenseTrackerFontWeight.regular,
+  // regular 3 (14)(18)
+  static TextStyle get regular3 {
+    return _baseTextStyle.bodyMedium!.copyWith(
+      height: 1.2857142857142858,
     );
   }
 
-  /// Button Text Style
-  static TextStyle get button {
-    return _baseTextStyle.copyWith(
-      fontSize: 18,
-      fontWeight: ExpenseTrackerFontWeight.medium,
+  // small 13/16
+  static TextStyle get small {
+    return _baseTextStyle.bodySmall!.copyWith(
+      fontSize: 13,
+      height: 1.2307692307692308,
+    );
+  }
+
+  // tiny
+  static TextStyle get tiny {
+    return _baseTextStyle.bodySmall!.copyWith(
+      height: 1,
     );
   }
 }
