@@ -2,54 +2,96 @@ import 'package:flutter/widgets.dart';
 
 /// Defines the color palette for the ExpenseTracker UI.
 abstract class ExpenseTrackerColors {
-  /// Black
-  static const Color black = Color(0xFF202124);
+  /*
+  dark color palette
+  */
+  /// dark
+  static const Color dark = Color(0xff0D0E0F);
+  // dark 25
+  static const Color dark25 = Color(0xff7A7E80);
+  // dark 50
+  static const Color dark50 = Color(0xff464A4D);
+  // dark 75
+  static const Color dark75 = Color(0xff161719);
+  /*
+  light color palette
+  */
+  /// light
+  static const Color light = Color(0xffffffff);
+  // light 20
+  static const Color light20 = Color(0xffE3E5E5);
+  // light 40
+  static const Color light40 = Color(0xffF2F4F5);
+  // light 60
+  static const Color light60 = Color(0xffF7F9FA);
+  // light 80
+  static const Color light80 = Color(0xffFBFBFB);
+/*
+  primary color palette
+  */
 
-  /// Black 54% opacity
-  static const Color black54 = Color(0x8A000000);
+  /// violet
+  static const Color violet = Color(0xff7F3DFF);
+  // violet 20
+  static const Color violet20 = Color(0xffEEE5FF);
+  // violet 40
+  static const Color violet40 = Color(0xffD3BDFF);
+  // violet 60
+  static const Color violet60 = Color(0xffB18AFF);
+  // violet 80
+  static const Color violet80 = Color(0xff8F57FF);
 
-  /// Black 25% opacity
-  static const Color black25 = Color(0x40202124);
+  /// red
+  static const Color red = Color(0xffFD3C4A);
+  // red 20
+  static const Color red20 = Color(0xffFDD5D7);
+  // red 40
+  static const Color red40 = Color(0xffFDA2A9);
+  // red 60
+  static const Color red60 = Color(0xffFD6F7A);
+  // red 80
+  static const Color red80 = Color(0xffFD5662);
 
-  /// Gray b4b4b4
-  static const Color gray = Color(0xFFEBEBEB);
+  /// green
+  static const Color green = Color(0xff00A86B);
+  // green 20
+  static const Color green20 = Color(0xffCFFAEA);
+  // green 40
+  static const Color green40 = Color(0xff93EACA);
+  // green 60
+  static const Color green60 = Color(0xff65D1AA);
+  // green 80
+  static const Color green80 = Color(0xff2AB784);
 
-  /// DarkGray
-  static const Color darkGray = Color(0xFFB4B4B4);
+  /// yellow
+  static const Color yellow = Color(0xffFCAC12);
+  // yellow 20
+  static const Color yellow20 = Color(0xffFCEED4);
+  // yellow 40
+  static const Color yellow40 = Color(0xffFCDDA1);
+  // yellow 60
+  static const Color yellow60 = Color(0xffFCCC6F);
+  // yellow 80
+  static const Color yellow80 = Color(0xffFCBB3C);
 
-  /// White
-  static const Color white = Color(0xFFFFFFFF);
+  /// blue
+  static const Color blue = Color(0xff0077FF);
+  // blue 20
+  static const Color blue20 = Color(0xffBDDCFF);
+  // blue 40
+  static const Color blue40 = Color(0xff8AC0FF);
+  // blue 60
+  static const Color blue60 = Color(0xff57A5FF);
+  // blue 80
+  static const Color blue80 = Color(0xff248AFF);
 
-  /// WhiteBackground
-  static const Color whiteBackground = Color(0xFFfbfbfd);
-
-  /// DarkBackground
-  static const Color darkBackground = Color(0xFF030304);
-
-  /// Transparent
-  static const Color transparent = Color(0x00000000);
-
-  /// Primary
-  static const Color primary = Color(0xFF521edb);
-
-  /// Secondary
-  static const Color secondary = Color(0xFFd45e55);
-
-  /// Green
-  static const Color green = Color(0xFF3fBC5C);
-
-  /// Orange
-  static const Color orange = Color(0xFFFFBB00);
-
-  /// Charcoal
-  static const Color charcoal = Color(0xBF202124);
-
-  /// CharcoalGrey
-  static const Color charcoalGrey = Color(0xFFF5f5f5);
-
-  /// border color
-  static const Color border = Color(0xFFaeaec9);
-
-  /// error color
-  static const Color errorColor = Color(0xffe74c3c);
+  // linear gradient of hex 8b50ff with 100% opacity to 24% opacity
+  static LinearGradient violetGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      const Color(0xff8B50FF),
+      const Color(0xff8B50FF).withOpacity(0.24),
+    ],
+  );
 }
