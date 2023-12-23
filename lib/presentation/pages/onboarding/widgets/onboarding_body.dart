@@ -1,9 +1,10 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/cubit/cubit.dart';
+import 'package:expense_tracker/presentation/pages/onboarding_setup_pin/onboarding_setup_pin.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
-import 'package:expense_tracker/presentation/pages/onboarding/cubit/cubit.dart';
 import 'package:flutter_svg/svg.dart';
 
 /// {@template onboarding_body}
@@ -160,7 +161,12 @@ class _OnboardingBodyState extends State<OnboardingBody> {
               child: Hero(
                 tag: 'intro',
                 child: PrimaryButton(
-                  onPress: () {},
+                  onPress: () {
+                    Navigator.push(
+                      context,
+                      OnboardingSetupPinPage.route(),
+                    );
+                  },
                   text: 'Set up your account',
                 ),
               ),
