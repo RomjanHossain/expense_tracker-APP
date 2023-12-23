@@ -1,4 +1,3 @@
-import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,6 +17,7 @@ class ExpenseTrackerTextStyle {
   static TextStyle get title1 {
     return _baseTextStyle.headlineLarge!.copyWith(
       height: 1.0625,
+      fontSize: 32,
     );
   }
 
@@ -25,6 +25,7 @@ class ExpenseTrackerTextStyle {
   static TextStyle get title2 {
     return _baseTextStyle.headlineSmall!.copyWith(
       height: 0.9166666666666666,
+      fontSize: 24,
     );
   }
 
@@ -40,6 +41,7 @@ class ExpenseTrackerTextStyle {
   static TextStyle get regular1 {
     return _baseTextStyle.bodyLarge!.copyWith(
       height: 1.1875,
+      fontSize: 16,
     );
   }
 
@@ -47,6 +49,7 @@ class ExpenseTrackerTextStyle {
   static TextStyle get regular2 {
     return _baseTextStyle.titleMedium!.copyWith(
       height: 1.1875,
+      fontSize: 16,
     );
   }
 
@@ -54,6 +57,7 @@ class ExpenseTrackerTextStyle {
   static TextStyle get regular3 {
     return _baseTextStyle.bodyMedium!.copyWith(
       height: 1.2857142857142858,
+      fontSize: 14,
     );
   }
 
@@ -69,6 +73,7 @@ class ExpenseTrackerTextStyle {
   static TextStyle get tiny {
     return _baseTextStyle.bodySmall!.copyWith(
       height: 1,
+      fontSize: 12,
     );
   }
 }
