@@ -12,7 +12,13 @@ class OnboardingCubit extends Cubit<int> {
         emit(state + 1);
       } else {
         emit(0);
+        // cancel the timer
+        timer.cancel();
       }
     });
+  }
+  // change the state 
+  void changeState(int value) {
+    emit(value);
   }
 }
