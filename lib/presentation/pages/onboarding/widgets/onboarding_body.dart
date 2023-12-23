@@ -48,69 +48,106 @@ class _OnboardingBodyState extends State<OnboardingBody> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OnboardingCubit, int>(
-      builder: (context, state) {
-        // change the state of the pageview
+      buildWhen: (previous, current) {
+        if (previous == current) {
+          return false;
+        }
         _pageController.animateToPage(
-          state,
+          current,
           duration: const Duration(milliseconds: 350),
           curve: Curves.easeIn,
         );
+        return previous != current;
+      },
+      builder: (context, state) {
+        // change the state of the pageview
+        // _pageController.animateToPage(
+        //   state,
+        //   duration: const Duration(milliseconds: 350),
+        //   curve: Curves.easeIn,
+        // );
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               flex: 3,
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: 3,
-                scrollBehavior: const ScrollBehavior().copyWith(
-                    overscroll: false, physics: const BouncingScrollPhysics()),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
-                    child: Column(
-                      children: [
-                        SvgPicture.asset(
-                          _images[index],
-                          height: 200,
-                          width: 200,
-                        ),
-                        const SizedBox(height: 20),
-                        Text(
-                          _titles[index],
-                          style: ExpenseTrackerTextStyle.title1!
-                              .copyWith(fontWeight: FontWeight.w600),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 25),
-                        Text(
-                          _subtitles[index],
-                          style: ExpenseTrackerTextStyle.regular1.copyWith(
-                            fontWeight: FontWeight.w400,
-                            color: ExpenseTrackerColors.charcoal,
+              child: ScrollConfiguration(
+                behavior: const ScrollBehavior().copyWith(
+                  overscroll: true,
+                  physics: const BouncingScrollPhysics(),
+                ),
+                child: PageView.builder(
+                  onPageChanged: (value) {
+                    context.read<OnboardingCubit>().changeState(value);
+                    _pageController.animateToPage(
+                      value,
+                      duration: const Duration(milliseconds: 350),
+                      curve: Curves.easeIn,
+                    );
+                  },
+                  controller: _pageController,
+                  itemCount: 3,
+                  physics: const BouncingScrollPhysics(),
+                  // scrollBehavior: const ScrollBehavior().copyWith(
+                  //     overscroll: true, physics: const BouncingScrollPhysics()),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            _images[index],
+                            height: 200,
+                            width: 200,
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 20),
-                      ],
-                    ),
-                  );
-                },
+                          const SizedBox(height: 20),
+                          Text(
+                            _titles[index],
+                            style: ExpenseTrackerTextStyle.title1!
+                                .copyWith(fontWeight: FontWeight.w600),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 25),
+                          Text(
+                            _subtitles[index],
+                            style: ExpenseTrackerTextStyle.regular1.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: ExpenseTrackerColors.charcoal,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 for (int i = 0; i < 3; i++)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: CircleAvatar(
-                      backgroundColor: state == i.toDouble()
-                          ? ExpenseTrackerColors.violet
-                          : ExpenseTrackerColors.violet20,
-                      radius: state == i ? 10 : 5,
+                  InkWell(
+                    onTap: () {
+                      context.read<OnboardingCubit>().changeState(i);
+                      _pageController.animateToPage(
+                        i,
+                        duration: const Duration(milliseconds: 350),
+                        curve: Curves.easeIn,
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: CircleAvatar(
+                        backgroundColor: state == i.toDouble()
+                            ? ExpenseTrackerColors.violet
+                            : ExpenseTrackerColors.violet20,
+                        radius: state == i ? 10 : 5,
+                      ),
                     ),
                   ),
               ],
@@ -120,7 +157,13 @@ class _OnboardingBodyState extends State<OnboardingBody> {
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
               ),
-              child: PrimaryButton(onPress: () {}, text: 'Set up your account'),
+              child: Hero(
+                tag: 'intro',
+                child: PrimaryButton(
+                  onPress: () {},
+                  text: 'Set up your account',
+                ),
+              ),
             ),
             const SizedBox(height: 50),
           ],
