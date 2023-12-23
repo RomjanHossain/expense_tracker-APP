@@ -41,7 +41,7 @@ class Button extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          color: ExpenseTrackerColors.charcoalGrey,
+          color: ExpenseTrackerColors.charcoal,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
@@ -53,14 +53,15 @@ class Button extends StatelessWidget {
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              foregroundColor: Colors.transparent,),
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.transparent,
+          ),
           child: Text(
             text,
-            style: ExpenseTrackerTextStyle.headline2.copyWith(
-              color: color,
-              fontWeight: FontWeight.w600,
-            ),
+            // style: ExpenseTrackerTextStyle.headline2.copyWith(
+            //   color: color,
+            //   fontWeight: FontWeight.w600,
+            // ),
           ),
           onPressed: () => cb(text),
         ),
