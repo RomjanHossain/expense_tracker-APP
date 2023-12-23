@@ -4,6 +4,7 @@ import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expens
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/expense_text_controller_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
+import 'package:expense_tracker/presentation/pages/splash_screen/view/splash_screen_page.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -34,8 +35,8 @@ class App extends StatelessWidget {
         themeMode: ThemeMode.light,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        // home: const SplashScreenPage(),
-        home: const AppHomePagePage(),
+        home: const SplashScreenPage(),
+        // home: const AppHomePagePage(),
       ),
     );
   }
