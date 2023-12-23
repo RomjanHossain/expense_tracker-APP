@@ -18,7 +18,8 @@ class ExpenseMethodsDropdown extends StatelessWidget {
         return DropdownButton<CategoryModel>(
           onTap: () {
             debugPrint(
-                "Dropdown value cubit -> ${context.read<DropdownExpenseMethodCubit>().state}");
+              'Dropdown value cubit -> ${context.read<DropdownExpenseMethodCubit>().state}',
+            );
           },
           borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
           underline: Container(),
@@ -47,7 +48,7 @@ class ExpenseMethodsDropdown extends StatelessWidget {
                             e.title.trim(),
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
-                            style: ExpenseTrackerTextStyle.caption,
+                            // style: ExpenseTrackerTextStyle.caption,
                           ),
                         ),
                       ),
@@ -60,7 +61,8 @@ class ExpenseMethodsDropdown extends StatelessWidget {
             // debugPrint('Selected ${s!.title} ${s.id}');
             context.read<DropdownExpenseMethodCubit>().changeValue(s!.id);
             debugPrint(
-                "Dropdown value cubit -> ${context.read<DropdownExpenseMethodCubit>().state}");
+              'Dropdown value cubit -> ${context.read<DropdownExpenseMethodCubit>().state}',
+            );
             // debugPrint(
             //   'from the dropdown expense method cubit -> ${ExpenseTrackerCategories.singleExpenseMethod(state).id} | ${ExpenseTrackerCategories.singleExpenseMethod(state).title} ',
             // );
