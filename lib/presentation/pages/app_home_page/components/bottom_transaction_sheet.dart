@@ -62,10 +62,10 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
         ///* Show the type [Expense] or [Income] or [Borrowed] or [Lent]
         Text(
           'Expenses',
-          style: ExpenseTrackerTextStyle.subtitle1.copyWith(
-            fontWeight: FontWeight.w300,
-            color: Colors.grey.shade400,
-          ),
+          // style: ExpenseTrackerTextStyle.subtitle1.copyWith(
+          //   fontWeight: FontWeight.w300,
+          //   color: Colors.grey.shade400,
+          // ),
         ),
 
         /// User inputed amount
@@ -90,7 +90,7 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
                     ),
                     Text(
                       state,
-                      style: ExpenseTrackerTextStyle.headline1,
+                      // style: ExpenseTrackerTextStyle.headline1,
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -110,9 +110,9 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
               top: 11,
               right: 15,
             ),
-            hintStyle: ExpenseTrackerTextStyle.bodyText2.copyWith(
-              color: Colors.grey.shade400,
-            ),
+            // hintStyle: ExpenseTrackerTextStyle.bodyText2.copyWith(
+            //   color: Colors.grey.shade400,
+            // ),
             border: InputBorder.none,
           ),
         ),
@@ -330,7 +330,7 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
                       );
                     },
                     big: true,
-                    color: Colors.black,
+                    // color: Colors.black,
                   ),
                 ]),
               ],
