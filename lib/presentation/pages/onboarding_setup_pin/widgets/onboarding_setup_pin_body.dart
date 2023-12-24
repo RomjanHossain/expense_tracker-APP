@@ -129,12 +129,7 @@ class OnboardingSetupPinBody extends StatelessWidget {
                           context.read<ExpenseTextControllerCubit>().addText(s);
                         },
                       ),
-                      Button(
-                        text: '->',
-                        cb: (s) {
-                          context.read<ExpenseTextControllerCubit>().addText(s);
-                        },
-                      ),
+                      ArrowButton(cb: (_) {  },),
                     ]),
                   ],
                 )),

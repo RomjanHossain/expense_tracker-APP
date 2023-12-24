@@ -330,7 +330,7 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
                       );
                     },
                     big: true,
-                    color: Colors.black,
+                    // color: Colors.black,
                   ),
                 ]),
               ],
