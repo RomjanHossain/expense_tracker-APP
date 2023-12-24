@@ -49,7 +49,7 @@ class _IncomeMehodsDropdownState extends State<IncomeMehodsDropdown> {
                             e.title.trim(),
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
-                            style: ExpenseTrackerTextStyle.caption,
+                            // style: ExpenseTrackerTextStyle.caption,
                           ),
                         ),
                       ),

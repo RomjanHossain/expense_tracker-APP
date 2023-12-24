@@ -41,17 +41,18 @@ class AppHomePageScaffold extends StatelessWidget {
       body: const AppHomePageView(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: ExpenseTrackerColors.violet,
         shape: const CircleBorder(),
-        backgroundColor: ExpenseTrackerColors.primary,
+        // backgroundColor: ExpenseTrackerColors.primary,
         child: const Icon(
           Icons.add,
         ),
         onPressed: () {
-          showBarModalBottomSheet(
-            context: context,
-            expand: true,
-            builder: (c) => AddTransactionBottomSheet(),
-          );
+          // showBarModalBottomSheet(
+          //   context: context,
+          //   expand: true,
+          //   builder: (c) => AddTransactionBottomSheet(),
+          // );
         },
         //params
       ),

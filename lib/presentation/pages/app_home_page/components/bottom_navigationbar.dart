@@ -2,7 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/svg.dart';
 
 class ExpanseTrackerBottomNavBar extends StatelessWidget {
   const ExpanseTrackerBottomNavBar({
@@ -17,6 +17,22 @@ class ExpanseTrackerBottomNavBar extends StatelessWidget {
     Icons.settings_rounded,
   ];
 
+  // svg icons bototm
+  static const svgIcons = <String>[
+    'assets/icons/home.svg',
+    'assets/icons/transaction.svg',
+    'assets/icons/pie_chart.svg',
+    'assets/icons/user.svg',
+  ];
+
+  // botom texts
+  static const texts = <String>[
+    'Home',
+    'Transactions',
+    'Budgets',
+    'Profile',
+  ];
+
   @override
   Widget build(BuildContext context) {
     final count =
@@ -25,17 +41,38 @@ class ExpanseTrackerBottomNavBar extends StatelessWidget {
       onTap: (p0) {
         context.read<AppHomePageBloc>().add(ChangeAppHomePageEvent(p0));
       },
+      backgroundColor: ExpenseTrackerColors.light80,
       activeIndex: count,
+      // height: 60,
       itemCount: 4,
       gapLocation: GapLocation.center,
       notchSmoothness: NotchSmoothness.defaultEdge,
       tabBuilder: (index, isActive) {
         final color = isActive
-            ? ExpenseTrackerColors.primary
+            ? ExpenseTrackerColors.violet
             : ExpenseTrackerColors.charcoal;
-        return Icon(
-          icons[index],
-          color: color,
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 5,
+              ),
+              child: SvgPicture.asset(
+                svgIcons[index],
+                color: color,
+                height: 24,
+              ),
+            ),
+            Text(
+              texts[index],
+              style: ExpenseTrackerTextStyle.small.copyWith(
+                color: color,
+                fontSize: 10,
+              ),
+            ),
+          ],
         );
       },
     );
