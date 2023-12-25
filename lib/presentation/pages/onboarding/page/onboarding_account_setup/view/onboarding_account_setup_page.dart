@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/widgets/onboarding_account_setup_body.dart';
+import 'package:flutter/material.dart';
 
 /// {@template onboarding_account_setup_page}
 /// A description for OnboardingAccountSetupPage
@@ -11,18 +12,35 @@ class OnboardingAccountSetupPage extends StatelessWidget {
 
   /// The static route for OnboardingAccountSetupPage
   static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(builder: (_) => const OnboardingAccountSetupPage());
+    return MaterialPageRoute<dynamic>(
+        builder: (_) => const OnboardingAccountSetupPage());
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => OnboardingAccountSetupBloc(),
-      child: const Scaffold(
-        body: OnboardingAccountSetupView(),
+      child: Scaffold(
+        backgroundColor: ExpenseTrackerColors.violet,
+        appBar: AppBar(
+          backgroundColor: ExpenseTrackerColors.violet,
+          elevation: 0,
+          title: const Text(
+            'Add new account',
+            style: TextStyle(color: Colors.white),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          centerTitle: true,
+        ),
+        body: const OnboardingAccountSetupView(),
       ),
     );
-  }    
+  }
 }
 
 /// {@template onboarding_account_setup_view}
