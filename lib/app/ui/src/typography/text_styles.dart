@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// ExpenseTracker Text Style Definitions
+//// ExpenseTracker Text Style Definitions
 class ExpenseTrackerTextStyle {
   static final _baseTextStyle = GoogleFonts.interTextTheme();
 
-  /// title x (64)(80)
+  //// title x (64)(80)
   static TextStyle get titleX {
     return _baseTextStyle.displayLarge!.copyWith(
       fontSize: 64,
@@ -13,7 +13,7 @@ class ExpenseTrackerTextStyle {
     );
   }
 
-  /// title 1 (32)(34)
+  //// title 1 (32)(34)
   static TextStyle get title1 {
     return _baseTextStyle.headlineLarge!.copyWith(
       height: 1.0625,
@@ -21,7 +21,7 @@ class ExpenseTrackerTextStyle {
     );
   }
 
-  // title 2 (24)(22)
+  /// title 2 (24)(22)
   static TextStyle get title2 {
     return _baseTextStyle.headlineSmall!.copyWith(
       height: 0.9166666666666666,
@@ -29,7 +29,7 @@ class ExpenseTrackerTextStyle {
     );
   }
 
-  // title 3 (18)(22)
+  /// title 3 (18)(22)
   static TextStyle get title3 {
     return _baseTextStyle.titleMedium!.copyWith(
       fontSize: 18,
@@ -37,7 +37,7 @@ class ExpenseTrackerTextStyle {
     );
   }
 
-  // regular 1 (16)(19)
+  /// regular 1 (16)(19)
   static TextStyle get regular1 {
     return _baseTextStyle.bodyLarge!.copyWith(
       height: 1.1875,
@@ -45,7 +45,7 @@ class ExpenseTrackerTextStyle {
     );
   }
 
-  // regular 2 (16)(19)
+  /// regular 2 (16)(19)
   static TextStyle get regular2 {
     return _baseTextStyle.titleMedium!.copyWith(
       height: 1.1875,
@@ -53,7 +53,7 @@ class ExpenseTrackerTextStyle {
     );
   }
 
-  // regular 3 (14)(18)
+  /// regular 3 (14)(18)
   static TextStyle get regular3 {
     return _baseTextStyle.bodyMedium!.copyWith(
       height: 1.2857142857142858,
@@ -61,7 +61,7 @@ class ExpenseTrackerTextStyle {
     );
   }
 
-  // small 13/16
+  /// small 13/16
   static TextStyle get small {
     return _baseTextStyle.bodySmall!.copyWith(
       fontSize: 13,
@@ -69,7 +69,7 @@ class ExpenseTrackerTextStyle {
     );
   }
 
-  // tiny
+  /// tiny
   static TextStyle get tiny {
     return _baseTextStyle.bodySmall!.copyWith(
       height: 1,
