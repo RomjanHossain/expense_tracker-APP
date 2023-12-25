@@ -1,5 +1,4 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
-import 'package:expense_tracker/presentation/cubit/expense_text_controller_cubit.dart';
 import 'package:expense_tracker/presentation/pages/onboarding_setup_pin/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/input_btn.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/single_btn.dart';
@@ -14,10 +13,25 @@ class OnboardingSetupPinBody extends StatelessWidget {
   /// {@macro onboarding_setup_pin_body}
   const OnboardingSetupPinBody({super.key});
 
+  Color getColor(String pin, int index) {
+    // if the pin is empty, return the default color
+    if (pin.isEmpty) {
+      return ExpenseTrackerColors.violet;
+    }
+    // now check if the index is less than the length of the pin
+    // if it is, return the default color
+    if (index < pin.length) {
+      return const Color(0xffeee5ff);
+    }
+    // if it is not, return the default color
+    return ExpenseTrackerColors.violet;
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return BlocBuilder<OnboardingSetupPinBloc, OnboardingSetupPinState>(
+    return BlocConsumer<OnboardingSetupPinBloc, OnboardingSetupPinState>(
+      buildWhen: (previous, current) => previous.pin != current.pin,
       builder: (context, state) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -37,14 +51,14 @@ class OnboardingSetupPinBody extends StatelessWidget {
               children: [
                 for (int i = 0; i < 4; i++)
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: CircleAvatar(
-                      backgroundColor: Color(0xffeee5ff),
+                      backgroundColor: const Color(0xffeee5ff),
+                      radius: 15,
                       child: CircleAvatar(
                         radius: 12,
-                        backgroundColor: ExpenseTrackerColors.violet,
+                        backgroundColor: getColor(state.pin, i),
                       ),
-                      radius: 15,
                     ),
                   ),
               ],
@@ -60,19 +74,25 @@ class OnboardingSetupPinBody extends StatelessWidget {
                       Button(
                         text: '1',
                         cb: (s) {
-                          context.read<ExpenseTextControllerCubit>().addText(s);
+                          context.read<OnboardingSetupPinBloc>().add(
+                                AddTextOnboardingSetupPinEvent(pin: s),
+                              );
                         },
                       ),
                       Button(
                         text: '4',
                         cb: (s) {
-                          context.read<ExpenseTextControllerCubit>().addText(s);
+                          context.read<OnboardingSetupPinBloc>().add(
+                                AddTextOnboardingSetupPinEvent(pin: s),
+                              );
                         },
                       ),
                       Button(
                         text: '7',
                         cb: (s) {
-                          context.read<ExpenseTextControllerCubit>().addText(s);
+                          context.read<OnboardingSetupPinBloc>().add(
+                                AddTextOnboardingSetupPinEvent(pin: s),
+                              );
                         },
                       ),
                       Button(
@@ -87,25 +107,33 @@ class OnboardingSetupPinBody extends StatelessWidget {
                       Button(
                         text: '2',
                         cb: (s) {
-                          context.read<ExpenseTextControllerCubit>().addText(s);
+                          context.read<OnboardingSetupPinBloc>().add(
+                                AddTextOnboardingSetupPinEvent(pin: s),
+                              );
                         },
                       ),
                       Button(
                         text: '5',
                         cb: (s) {
-                          context.read<ExpenseTextControllerCubit>().addText(s);
+                          context.read<OnboardingSetupPinBloc>().add(
+                                AddTextOnboardingSetupPinEvent(pin: s),
+                              );
                         },
                       ),
                       Button(
                         text: '8',
                         cb: (s) {
-                          context.read<ExpenseTextControllerCubit>().addText(s);
+                          context.read<OnboardingSetupPinBloc>().add(
+                                AddTextOnboardingSetupPinEvent(pin: s),
+                              );
                         },
                       ),
                       Button(
                         text: '0',
                         cb: (s) {
-                          context.read<ExpenseTextControllerCubit>().addText(s);
+                          context.read<OnboardingSetupPinBloc>().add(
+                                AddTextOnboardingSetupPinEvent(pin: s),
+                              );
                         },
                       ),
                     ]),
@@ -114,27 +142,54 @@ class OnboardingSetupPinBody extends StatelessWidget {
                       Button(
                         text: '3',
                         cb: (s) {
-                          context.read<ExpenseTextControllerCubit>().addText(s);
+                          context.read<OnboardingSetupPinBloc>().add(
+                                AddTextOnboardingSetupPinEvent(pin: s),
+                              );
                         },
                       ),
                       Button(
                         text: '6',
                         cb: (s) {
-                          context.read<ExpenseTextControllerCubit>().addText(s);
+                          context.read<OnboardingSetupPinBloc>().add(
+                                AddTextOnboardingSetupPinEvent(pin: s),
+                              );
                         },
                       ),
                       Button(
                         text: '9',
                         cb: (s) {
-                          context.read<ExpenseTextControllerCubit>().addText(s);
+                          context.read<OnboardingSetupPinBloc>().add(
+                                AddTextOnboardingSetupPinEvent(pin: s),
+                              );
                         },
                       ),
-                      ArrowButton(cb: (_) {  },),
+                      if (state.pin.length == 4)
+                        ArrowButton(
+                          cb: (_) {
+                            // goto next page
+                          },
+                        )
+                      else
+                        Button(
+                          text: '',
+                          cb: (s) {},
+                        ),
                     ]),
                   ],
                 )),
           ],
         );
+      },
+      listener: (BuildContext context, OnboardingSetupPinState state) {
+        if (state is OnboardingSetupPinError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: ExpenseTrackerColors.red,
+              content: Text('Pin must be 4 digits'),
+            ),
+          );
+        }
       },
     );
   }
