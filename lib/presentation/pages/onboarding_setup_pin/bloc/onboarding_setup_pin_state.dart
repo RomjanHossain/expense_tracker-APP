@@ -6,21 +6,21 @@ part of 'onboarding_setup_pin_bloc.dart';
 class OnboardingSetupPinState extends Equatable {
   /// {@macro onboarding_setup_pin_state}
   const OnboardingSetupPinState({
-    this.customProperty = 'Default Value',
+    this.pin = '',
   });
 
   /// A description for customProperty
-  final String customProperty;
+  final String pin;
 
   @override
-  List<Object> get props => [customProperty];
+  List<Object> get props => [pin];
 
   /// Creates a copy of the current OnboardingSetupPinState with property changes
   OnboardingSetupPinState copyWith({
-    String? customProperty,
+    String? pin,
   }) {
     return OnboardingSetupPinState(
-      customProperty: customProperty ?? this.customProperty,
+      pin: pin ?? this.pin,
     );
   }
 }
@@ -31,4 +31,9 @@ class OnboardingSetupPinState extends Equatable {
 class OnboardingSetupPinInitial extends OnboardingSetupPinState {
   /// {@macro onboarding_setup_pin_initial}
   const OnboardingSetupPinInitial() : super();
+}
+
+// error state
+class OnboardingSetupPinError extends OnboardingSetupPinState {
+  const OnboardingSetupPinError() : super();
 }
