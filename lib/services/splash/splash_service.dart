@@ -1,6 +1,5 @@
 import 'package:expense_tracker/presentation/pages/onboarding/onboarding.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashService {
@@ -43,7 +42,10 @@ Route<dynamic> _createRoute() {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) =>
         const OnboardingPage(),
-    transitionDuration: 2.seconds,
+    transitionDuration: const Duration(
+      seconds: 3,
+      milliseconds: 500,
+    ),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       // ignore: prefer_int_literals
       const begin = Offset(0.0, 1.0);
