@@ -1,4 +1,5 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/data/datasources/local/utils_data/local_ac_type.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/size_config.dart';
 import 'package:flutter/material.dart';
@@ -80,14 +81,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
           //do account type dropdown
           DropdownButtonFormField(
             dropdownColor: ExpenseTrackerColors.violet,
-            items: [
-              'Bank',
-              'Credit Card',
-              'Mobile Banking',
-              'Wallet',
-              'Cash',
-              'Other',
-            ]
+            items: accountTypesDB
                 .map(
                   (e) => DropdownMenuItem(
                     value: e,
@@ -135,9 +129,12 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
               if (d is String) _onAccountTypeChanged(d);
             },
           ),
-          PrimaryButton(
-            onPress: () {},
-            text: 'Continue',
+          Hero(
+            tag: 'onboarding_account_setup_intro_button',
+            child: PrimaryButton(
+              onPress: () {},
+              text: 'Continue',
+            ),
           ),
         ],
       ),
