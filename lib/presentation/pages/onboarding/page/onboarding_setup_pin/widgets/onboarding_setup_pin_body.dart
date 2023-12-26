@@ -23,7 +23,7 @@ class OnboardingSetupPinBody extends StatelessWidget {
     // now check if the index is less than the length of the pin
     // if it is, return the default color
     if (index < pin.length) {
-      return const Color(0xffeee5ff);
+      return ExpenseTrackerColors.violet20;
     }
     // if it is not, return the default color
     return ExpenseTrackerColors.violet;
