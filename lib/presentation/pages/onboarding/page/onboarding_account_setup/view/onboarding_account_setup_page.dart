@@ -1,6 +1,7 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/widgets/onboarding_account_setup_body.dart';
+import 'package:expense_tracker/services/animation/page_animation.dart';
 import 'package:flutter/material.dart';
 
 /// {@template onboarding_account_setup_page}
@@ -12,8 +13,9 @@ class OnboardingAccountSetupPage extends StatelessWidget {
 
   /// The static route for OnboardingAccountSetupPage
   static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(
-        builder: (_) => const OnboardingAccountSetupPage());
+    return PageAnimation.fadeThroughTransitionPageWrapper(
+      const OnboardingAccountSetupPage(),
+    );
   }
 
   @override
