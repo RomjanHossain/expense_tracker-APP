@@ -1,4 +1,5 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/view/onboarding_account_setup_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup_intro/widgets/onboarding_account_setup_intro_body.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
@@ -12,20 +13,25 @@ class OnboardingAccountSetupIntroPage extends StatelessWidget {
 
   /// The static route for OnboardingAccountSetupIntroPage
   static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(builder: (_) => const OnboardingAccountSetupIntroPage());
+    return MaterialPageRoute<dynamic>(
+        builder: (_) => const OnboardingAccountSetupIntroPage());
   }
-   
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: const OnboardingAccountSetupIntroView(),
       bottomNavigationBar: BottomAppBar(
-          color: ExpenseTrackerColors.scaffoldBackground,
-          elevation: 0,
-          child: PrimaryButton(onPress: () {}, text: 'Let’s go'),
-        ),
+        color: ExpenseTrackerColors.scaffoldBackground,
+        elevation: 0,
+        child: PrimaryButton(
+            onPress: () {
+              Navigator.push(context, OnboardingAccountSetupPage.route());
+            },
+            text: 'Let’s go'),
+      ),
     );
-  } 
+  }
 }
 
 /// {@template onboarding_account_setup_intro_view}
