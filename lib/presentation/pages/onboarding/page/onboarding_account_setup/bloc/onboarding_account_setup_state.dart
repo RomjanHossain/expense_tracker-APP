@@ -6,21 +6,34 @@ part of 'onboarding_account_setup_bloc.dart';
 class OnboardingAccountSetupState extends Equatable {
   /// {@macro onboarding_account_setup_state}
   const OnboardingAccountSetupState({
-    this.customProperty = 'Default Value',
-  });
+    this.createAccount=const CreateAccountEntity(
+      acName: '',
+      acType: AccountType.cash,
+      acBalance: 0.0,
+      acLogo: '',
+    
+    ),
+  }) ;
 
-  /// A description for customProperty
-  final String customProperty;
+  /// A description for createAccount
+  final CreateAccountEntity createAccount;
 
   @override
-  List<Object> get props => [customProperty];
+  List<Object?> get props => [];
 
-  /// Creates a copy of the current OnboardingAccountSetupState with property changes
   OnboardingAccountSetupState copyWith({
-    String? customProperty,
+    String? accountName,
+    AccountType? accountType,
+    double? balance,
+    String? accountLogo,
   }) {
     return OnboardingAccountSetupState(
-      customProperty: customProperty ?? this.customProperty,
+      createAccount: CreateAccountEntity(
+        acName: accountName ?? createAccount.acName,
+        acType: accountType ?? createAccount.acType,
+        acBalance: balance ?? createAccount.acBalance,
+        acLogo: accountLogo ?? createAccount.acLogo,
+      )
     );
   }
 }
