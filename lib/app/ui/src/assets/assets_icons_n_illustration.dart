@@ -1,6 +1,6 @@
 abstract class ExpenseAssets {
   static const String _icons = 'assets/icons/';
-  static const String _mobileBanking = 'assets/icons/Mobile Banking/';
+  static const String _mobileBanking = 'assets/icons/MobileBanking/';
   static const String _illustrations = 'assets/illustrations/';
 
   /*
@@ -124,9 +124,22 @@ abstract class ExpenseAssets {
   // Upay
   static const String upayIcon = '${_mobileBanking}upay.png';
   // mCash
-  static const String mCashIcon = '${_mobileBanking}mCash.png';
+  static const String mCashIcon = '${_mobileBanking}mcash.png';
   // ok
   static const String okIcon = '${_mobileBanking}ok.png';
   // t-cash
   static const String tCashIcon = '${_mobileBanking}tcash.png';
+
+  ///* get all mobile banking icons
+  static List<String> get allMobileBankingIcons => [
+        bkashIcon,
+        nagadIcon,
+        rocketIcon,
+        sureCashIcon,
+        ucashIcon,
+        upayIcon,
+        mCashIcon,
+        okIcon,
+        tCashIcon,
+      ];
 }
