@@ -22,16 +22,25 @@ class OnboardingAccountSetupBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text(
-              'Balance',
-              style: ExpenseTrackerTextStyle.title3.copyWith(
-                color: ExpenseTrackerColors.light80.withOpacity(0.64),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                'Balance',
+                style: ExpenseTrackerTextStyle.title3.copyWith(
+                  color: ExpenseTrackerColors.light80.withOpacity(0.64),
+                ),
               ),
             ),
-            Text(
-              r'$0.00',
-              style:
-                  ExpenseTrackerTextStyle.titleX.copyWith(color: Colors.white),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 5,
+              ),
+              child: Text(
+                '\$${state.createAccount.acBalance}',
+                style: ExpenseTrackerTextStyle.titleX
+                    .copyWith(color: Colors.white),
+              ),
             ),
             const AddAccountBottomContainer(),
           ],
