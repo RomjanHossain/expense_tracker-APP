@@ -14,7 +14,8 @@ class OnboardingAccountSetupIntroPage extends StatelessWidget {
   /// The static route for OnboardingAccountSetupIntroPage
   static Route<dynamic> route() {
     return MaterialPageRoute<dynamic>(
-        builder: (_) => const OnboardingAccountSetupIntroPage());
+      builder: (_) => const OnboardingAccountSetupIntroPage(),
+    );
   }
 
   @override
@@ -24,11 +25,15 @@ class OnboardingAccountSetupIntroPage extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
         color: ExpenseTrackerColors.scaffoldBackground,
         elevation: 0,
-        child: PrimaryButton(
+        child: Hero(
+          tag: 'onboarding_account_setup_intro_button',
+          child: PrimaryButton(
             onPress: () {
               Navigator.push(context, OnboardingAccountSetupPage.route());
             },
-            text: 'Let’s go'),
+            text: 'Let’s go',
+          ),
+        ),
       ),
     );
   }
