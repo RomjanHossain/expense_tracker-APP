@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 abstract class ExpenseTrackerColors {
   /// scaffold background color (f7f9fa) 
   static const Color scaffoldBackground = Color(0xffF7F9FA);
+  /// inactive selected box color (f1f1fa)
+  static const Color inactiveSelectedBox = Color(0xffF1F1FA);
 
   /// inactive icon color (c6c6c6)
   static const Color charcoal = Color(0xffc6c6c6);
