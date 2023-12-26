@@ -1,8 +1,10 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_ac_type.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class AddAccountBottomContainer extends StatefulWidget {
   const AddAccountBottomContainer({
@@ -16,7 +18,9 @@ class AddAccountBottomContainer extends StatefulWidget {
 
 class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
   late TextEditingController _controller;
-  late String _accountType;
+  late TextEditingController _amountController;
+  String _accountType = '';
+  String _acLogo = '';
   void _onAccountTypeChanged(String? value) {
     setState(() {
       _accountType = value!;
@@ -27,18 +31,20 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
   void initState() {
     super.initState();
     _controller = TextEditingController();
+    _amountController = TextEditingController();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _amountController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: getProportionateScreenHeight(300),
+      height: getProportionateScreenHeight(_accountType.isEmpty ? 300 : 450),
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
         // color: ExpenseTrackerColors.violet,
@@ -129,6 +135,150 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
               if (d is String) _onAccountTypeChanged(d);
             },
           ),
+          if (_accountType.isNotEmpty) ...[
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                _accountType,
+                textAlign: TextAlign.left,
+                style: ExpenseTrackerTextStyle.regular1.copyWith(
+                  fontWeight: FontWeight.w600,
+                  // color: ExpenseTrackerColors.light80.withOpacity(0.64),
+                ),
+              ),
+            ),
+            if (AccountTypeHelper.fromString(_accountType) ==
+                AccountType.mobileBanking)
+              Wrap(
+                children: [
+                  for (final i
+                      in ExpenseAssets.allMobileBankingIcons.getRange(0, 7))
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _acLogo = i;
+                        });
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        height: getProportionateScreenHeight(40),
+                        width: getProportionateScreenWidth(70),
+                        decoration: BoxDecoration(
+                          // color: ExpenseTrackerColors.inactiveSelectedBox,
+                          color: i == _acLogo
+                              ? ExpenseTrackerColors.violet20
+                              : ExpenseTrackerColors.inactiveSelectedBox,
+                          borderRadius: BorderRadius.circular(10),
+                          border: i == _acLogo
+                              ? Border.all(
+                                  color: ExpenseTrackerColors.violet,
+                                )
+                              : Border.all(
+                                  width: 0,
+                                  color: Colors.transparent,
+                                ),
+                        ),
+                        child: i.endsWith('.svg')
+                            ? SvgPicture.asset(
+                                i,
+                              )
+                            : Image.asset(
+                                i,
+                              ),
+                      ),
+                    ),
+                  InkWell(
+                    onTap: () async {
+                      await showModalBottomSheet<void>(
+                        context: context,
+                        builder: (context) => SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 20,
+                                ),
+                                child: Text(
+                                  _accountType,
+                                  textAlign: TextAlign.left,
+                                  style:
+                                      ExpenseTrackerTextStyle.regular1.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    // color: ExpenseTrackerColors.light80.withOpacity(0.64),
+                                  ),
+                                ),
+                              ),
+                              Wrap(
+                                children: [
+                                  for (final i
+                                      in ExpenseAssets.allMobileBankingIcons)
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          _acLogo = i;
+                                        });
+                                      },
+                                      child: Container(
+                                        margin: const EdgeInsets.all(5),
+                                        height:
+                                            getProportionateScreenHeight(40),
+                                        width: getProportionateScreenWidth(70),
+                                        decoration: BoxDecoration(
+                                          // color: ExpenseTrackerColors.inactiveSelectedBox,
+                                          color: i == _acLogo
+                                              ? ExpenseTrackerColors.violet20
+                                              : ExpenseTrackerColors
+                                                  .inactiveSelectedBox,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: i == _acLogo
+                                              ? Border.all(
+                                                  color: ExpenseTrackerColors
+                                                      .violet,
+                                                )
+                                              : Border.all(
+                                                  width: 0,
+                                                  color: Colors.transparent,
+                                                ),
+                                        ),
+                                        child: i.endsWith('.svg')
+                                            ? SvgPicture.asset(
+                                                i,
+                                              )
+                                            : Image.asset(
+                                                i,
+                                              ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(5),
+                      height: getProportionateScreenHeight(40),
+                      width: getProportionateScreenWidth(70),
+                      decoration: BoxDecoration(
+                        color: const Color(0xffeee5ff),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                          child: Text(
+                        'See All',
+                        style: ExpenseTrackerTextStyle.tiny.copyWith(
+                          color: ExpenseTrackerColors.violet,
+                        ),
+                      )),
+                    ),
+                  ),
+                ],
+              ),
+          ],
           Hero(
             tag: 'onboarding_account_setup_intro_button',
             child: PrimaryButton(
