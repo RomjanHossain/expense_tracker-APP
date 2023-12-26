@@ -1,5 +1,6 @@
 abstract class ExpenseAssets {
   static const String _icons = 'assets/icons/';
+  static const String _mobileBanking = 'assets/icons/Mobile Banking/';
   static const String _illustrations = 'assets/illustrations/';
 
   /*
@@ -106,4 +107,26 @@ abstract class ExpenseAssets {
   // Your email is on the way
   static const String yourEmailIsOnTheWayIll =
       '${_illustrations}your_email_is_on_the_way.svg';
+
+  /*
+    All mobile banking icons are down below
+  */
+  // Bkash
+  static const String bkashIcon = '${_mobileBanking}bkash.svg';
+  // Nagad
+  static const String nagadIcon = '${_mobileBanking}nagad.svg';
+  // Rocket
+  static const String rocketIcon = '${_mobileBanking}rocket.svg';
+  // SureCash
+  static const String sureCashIcon = '${_mobileBanking}surecash.png';
+  // ucash
+  static const String ucashIcon = '${_mobileBanking}ucash.svg';
+  // Upay
+  static const String upayIcon = '${_mobileBanking}upay.png';
+  // mCash
+  static const String mCashIcon = '${_mobileBanking}mCash.png';
+  // ok
+  static const String okIcon = '${_mobileBanking}ok.png';
+  // t-cash
+  static const String tCashIcon = '${_mobileBanking}tcash.png';
 }
