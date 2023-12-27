@@ -6,20 +6,19 @@ part of 'onboarding_account_setup_bloc.dart';
 class OnboardingAccountSetupState extends Equatable {
   /// {@macro onboarding_account_setup_state}
   const OnboardingAccountSetupState({
-    this.createAccount=const CreateAccountEntity(
+    this.createAccount = const CreateAccountEntity(
       acName: '',
-      acType: AccountType.cash,
-      acBalance: 0.0,
+      acType: null,
+      acBalance: 0,
       acLogo: '',
-    
     ),
-  }) ;
+  });
 
   /// A description for createAccount
   final CreateAccountEntity createAccount;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [createAccount];
 
   OnboardingAccountSetupState copyWith({
     String? accountName,
@@ -28,13 +27,12 @@ class OnboardingAccountSetupState extends Equatable {
     String? accountLogo,
   }) {
     return OnboardingAccountSetupState(
-      createAccount: CreateAccountEntity(
-        acName: accountName ?? createAccount.acName,
-        acType: accountType ?? createAccount.acType,
-        acBalance: balance ?? createAccount.acBalance,
-        acLogo: accountLogo ?? createAccount.acLogo,
-      )
-    );
+        createAccount: CreateAccountEntity(
+      acName: accountName ?? createAccount.acName,
+      acType: accountType ?? createAccount.acType,
+      acBalance: balance ?? createAccount.acBalance,
+      acLogo: accountLogo ?? createAccount.acLogo,
+    ));
   }
 }
 
@@ -45,3 +43,13 @@ class OnboardingAccountSetupInitial extends OnboardingAccountSetupState {
   /// {@macro onboarding_account_setup_initial}
   const OnboardingAccountSetupInitial() : super();
 }
+
+// class OnboardingAccountSetupLoading extends OnboardingAccountSetupState {
+//   const OnboardingAccountSetupLoading() : super();
+// }
+
+// class OnboardingAccountSetupLoaded extends OnboardingAccountSetupState {
+//   const OnboardingAccountSetupLoaded(this.createAccount) : super();
+//   @override
+//   final CreateAccountEntity createAccount;
+// }
