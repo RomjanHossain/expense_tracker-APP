@@ -15,3 +15,20 @@ class CustomOnboardingSetupPinEvent extends OnboardingSetupPinEvent {
   /// {@macro custom_onboarding_setup_pin_event}
   const CustomOnboardingSetupPinEvent();
 }
+
+// add text
+class AddTextOnboardingSetupPinEvent extends OnboardingSetupPinEvent {
+
+  const AddTextOnboardingSetupPinEvent({required this.pin});
+  final String pin;
+}
+
+// remove text
+class RemoveTextOnboardingSetupPinEvent extends OnboardingSetupPinEvent {
+  const RemoveTextOnboardingSetupPinEvent();
+}
+
+// clear text
+class ClearTextOnboardingSetupPinEvent extends OnboardingSetupPinEvent {
+  const ClearTextOnboardingSetupPinEvent();
+}

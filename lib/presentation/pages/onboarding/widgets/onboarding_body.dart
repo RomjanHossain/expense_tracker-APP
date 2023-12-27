@@ -2,7 +2,7 @@ import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.da
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/cubit/cubit.dart';
-import 'package:expense_tracker/presentation/pages/onboarding_setup_pin/onboarding_setup_pin.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/view/onboarding_setup_pin_page.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

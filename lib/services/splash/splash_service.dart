@@ -1,6 +1,6 @@
 import 'package:expense_tracker/presentation/pages/onboarding/onboarding.dart';
+import 'package:expense_tracker/services/animation/page_animation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashService {
@@ -13,7 +13,14 @@ class SplashService {
       Future.delayed(const Duration(seconds: 3), () {
         Navigator.pushReplacement<void, void>(
           context,
-          _createRoute(),
+          // _createRoute(),
+          PageAnimation.fromCenterToBottom(
+            const OnboardingPage(),
+            duration: const Duration(
+              seconds: 3,
+              milliseconds: 500,
+            ),
+          ),
         );
       });
     } else if (keepLogin == false) {
@@ -37,26 +44,4 @@ class SplashService {
       // );
     }
   }
-}
-
-Route<dynamic> _createRoute() {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) =>
-        const OnboardingPage(),
-    transitionDuration: 2.seconds,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      // ignore: prefer_int_literals
-      const begin = Offset(0.0, 1.0);
-      const end = Offset.zero;
-      const curve = Curves.ease;
-
-      final tween =
-          Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
 }

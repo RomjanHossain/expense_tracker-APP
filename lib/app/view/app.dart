@@ -5,6 +5,7 @@ import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income
 import 'package:expense_tracker/presentation/cubit/expense_text_controller_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
 import 'package:expense_tracker/presentation/pages/splash_screen/view/splash_screen_page.dart';
+import 'package:expense_tracker/utils/constrants/size_config.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -12,6 +13,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return MultiBlocProvider(
       providers: [
         // ExpenseTextControllerCubit

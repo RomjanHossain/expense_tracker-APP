@@ -67,3 +67,45 @@ class Button extends StatelessWidget {
     );
   }
 }
+
+class ArrowButton extends StatelessWidget implements Button {
+  const ArrowButton({
+    required this.cb,
+    super.key,
+  });
+
+  final void Function(String) cb;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: ExpenseTrackerColors.violet,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.transparent,
+          ),
+          child: const Icon(
+            Icons.arrow_forward,
+            size: 40,
+            color: ExpenseTrackerColors.light80,
+          ),
+          onPressed: () => cb('arrow'),
+        ),
+      ),
+    );
+  }
+
+  @override
+  // TODO: implement big
+  bool get big => throw UnimplementedError();
+
+  @override
+  // TODO: implement text
+  String get text => throw UnimplementedError();
+}
