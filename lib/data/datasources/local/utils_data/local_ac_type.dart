@@ -37,4 +37,21 @@ class AccountTypeHelper {
         return AccountType.other;
     }
   }
+
+  static String toString2(AccountType accountType) {
+    switch (accountType) {
+      case AccountType.bank:
+        return 'Bank';
+      case AccountType.creditCard:
+        return 'Credit Card';
+      case AccountType.mobileBanking:
+        return 'Mobile Banking';
+      case AccountType.wallet:
+        return 'Wallet';
+      case AccountType.cash:
+        return 'Cash';
+      case AccountType.other:
+        return 'Other';
+    }
+  }
 }
