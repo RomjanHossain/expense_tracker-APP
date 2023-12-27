@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_ac_type.dart';
 import 'package:expense_tracker/domain/entities/create_account_entity/create_account_entity.dart';
+import 'package:flutter/material.dart';
 part 'onboarding_account_setup_event.dart';
 part 'onboarding_account_setup_state.dart';
 
@@ -20,7 +21,7 @@ class OnboardingAccountSetupBloc
     AddBalanceEvent event,
     Emitter<OnboardingAccountSetupState> emit,
   ) {
-    emit(state . copyWith(
+    emit(state.copyWith(
       balance: event.balance,
     ));
   }
@@ -29,16 +30,19 @@ class OnboardingAccountSetupBloc
     AddAccountTypeEvent event,
     Emitter<OnboardingAccountSetupState> emit,
   ) {
-    emit(state . copyWith(
+    debugPrint('Account Type fromEvent: ${event.accountType}');
+    debugPrint('Account Type fromState: ${state.createAccount.acType}');
+    emit(state.copyWith(
       accountType: event.accountType,
     ));
+    debugPrint('Account Type fromState: ${state.createAccount.acType}');
   }
 
   FutureOr<void> _onAddAccountNameEvent(
     AddAccountNameEvent event,
     Emitter<OnboardingAccountSetupState> emit,
   ) {
-    emit(state . copyWith(
+    emit(state.copyWith(
       accountName: event.accountName,
     ));
   }
@@ -47,7 +51,7 @@ class OnboardingAccountSetupBloc
     AddAccountLogoEvent event,
     Emitter<OnboardingAccountSetupState> emit,
   ) {
-    emit(state . copyWith(
+    emit(state.copyWith(
       accountLogo: event.accountLogo,
     ));
   }
