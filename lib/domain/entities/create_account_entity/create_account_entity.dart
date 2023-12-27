@@ -6,7 +6,7 @@ part 'create_account_entity.freezed.dart';
 class CreateAccountEntity with _$CreateAccountEntity {
   const factory CreateAccountEntity({
     required String acName,
-    required AccountType acType,
+    required AccountType? acType,
     required double acBalance,
     String? acLogo,
   }) = _CreateAccountEntity;
