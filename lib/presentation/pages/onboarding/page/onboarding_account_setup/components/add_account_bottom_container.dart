@@ -19,20 +19,17 @@ class AddAccountBottomContainer extends StatefulWidget {
 }
 
 class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
-  late TextEditingController _controller;
-  late TextEditingController _amountController;
+  late TextEditingController _accountName;
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
-    _amountController = TextEditingController();
+    _accountName = TextEditingController();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
-    _amountController.dispose();
+    _accountName.dispose();
     super.dispose();
   }
 
@@ -66,8 +63,14 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const TextField(
-            decoration: InputDecoration(
+          TextField(
+            keyboardType: TextInputType.name,
+            onChanged: (d) {
+              context.read<OnboardingAccountSetupBloc>().add(
+                    AddAccountNameEvent(d),
+                  );
+            },
+            decoration: const InputDecoration(
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 borderSide: BorderSide(
@@ -340,7 +343,12 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
           Hero(
             tag: 'onboarding_account_setup_intro_button',
             child: PrimaryButton(
-              onPress: () {},
+              onPress: () {
+                debugPrint('Balance: ${createACState.acBalance}');
+                debugPrint('Name: ${createACState.acName}');
+                debugPrint('Type: ${createACState.acType}');
+                debugPrint('Logo: ${createACState.acLogo}');
+              },
               text: 'Continue',
             ),
           ),
