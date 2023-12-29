@@ -1,7 +1,9 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/account_type_helper.dart';
+import 'package:expense_tracker/data/datasources/local/utils_data/local_banking.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_mobile_banking.dart';
+import 'package:expense_tracker/data/datasources/local/utils_data/mobile_banking_db.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/size_config.dart';
@@ -36,7 +38,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
   final forbidenList = [
     AccountType.cash,
     AccountType.other,
-    AccountType.wallet
+    AccountType.wallet,
   ];
 
   @override
@@ -63,97 +65,12 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          TextField(
-            keyboardType: TextInputType.name,
-            onChanged: (d) {
-              context.read<OnboardingAccountSetupBloc>().add(
-                    AddAccountNameEvent(d),
-                  );
-            },
-            decoration: const InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                borderSide: BorderSide(
-                  color: ExpenseTrackerColors.violet,
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                borderSide: BorderSide(
-                  color: ExpenseTrackerColors.light60,
-                ),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                borderSide: BorderSide(
-                  color: ExpenseTrackerColors.light60,
-                ),
-              ),
-              hintText: 'Account name',
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 10,
-              ),
-            ),
-          ),
+          //! Account name
+          const AccountNameTextField(),
           //do account type dropdown
-          DropdownButtonFormField(
-            dropdownColor: ExpenseTrackerColors.violet,
-            items: accountTypesDB
-                .map(
-                  (e) => DropdownMenuItem(
-                    value: e,
-                    child: Text(
-                      e,
-                      style: ExpenseTrackerTextStyle.regular3.copyWith(
-                        color: ExpenseTrackerColors.light20,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
-            isExpanded: true,
-            decoration: const InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                borderSide: BorderSide(
-                  color: ExpenseTrackerColors.violet,
-                ),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                borderSide: BorderSide(
-                  color: ExpenseTrackerColors.light60,
-                ),
-              ),
-              hintText: 'Account type',
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                borderSide: BorderSide(
-                  color: ExpenseTrackerColors.light60,
-                ),
-              ),
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 10,
-              ),
-            ),
-            borderRadius: BorderRadius.circular(20),
-            icon: const Icon(
-              Icons.keyboard_arrow_down,
-              color: ExpenseTrackerColors.light20,
-            ),
-            onChanged: (d) {
-              if (d is String) {
-                context.read<OnboardingAccountSetupBloc>().add(
-                      AddAccountTypeEvent(AccountTypeHelper.fromString(d)),
-                    );
-                // _onAccountTypeChanged(d);
-              }
-            },
-          ),
+          const AccountTypeDropdown(),
           if (!forbidenList.contains(createACState.acType)) ...[
-            //* text
+            //* text of Ac type
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -167,6 +84,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                 ),
               ),
             ),
+            //* account type icons
             if (createACState.acType != null) ...[
               SizedBox(
                 height: getProportionateScreenHeight(110),
@@ -178,6 +96,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                     childAspectRatio: 1.5,
                   ),
                   children: [
+                    //! if mobile banking
                     if (createACState.acType == AccountType.mobileBanking)
                       for (final i
                           in ExpenseAssets.allMobileBankingIcons.getRange(0, 7))
@@ -187,32 +106,71 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                   AddAccountLogoEvent(i),
                                 );
                           },
-                          child: Container(
-                            margin: const EdgeInsets.all(5),
-                            height: getProportionateScreenHeight(40),
-                            width: getProportionateScreenWidth(70),
-                            decoration: BoxDecoration(
-                              // color: ExpenseTrackerColors.inactiveSelectedBox,
-                              color: i == createACState.acLogo
-                                  ? ExpenseTrackerColors.violet20
-                                  : ExpenseTrackerColors.inactiveSelectedBox,
-                              borderRadius: BorderRadius.circular(10),
-                              border: i == createACState.acLogo
-                                  ? Border.all(
-                                      color: ExpenseTrackerColors.violet,
+                          child: Tooltip(
+                            message: mobileBankingReverse[i],
+                            child: Container(
+                              margin: const EdgeInsets.all(5),
+                              height: getProportionateScreenHeight(40),
+                              width: getProportionateScreenWidth(70),
+                              decoration: BoxDecoration(
+                                // color: ExpenseTrackerColors.inactiveSelectedBox,
+                                color: i == createACState.acLogo
+                                    ? ExpenseTrackerColors.violet20
+                                    : ExpenseTrackerColors.inactiveSelectedBox,
+                                borderRadius: BorderRadius.circular(10),
+                                border: i == createACState.acLogo
+                                    ? Border.all(
+                                        color: ExpenseTrackerColors.violet,
+                                      )
+                                    : Border.all(
+                                        width: 0,
+                                        color: Colors.transparent,
+                                      ),
+                              ),
+                              child: i.endsWith('.svg')
+                                  ? SvgPicture.asset(
+                                      i,
                                     )
-                                  : Border.all(
-                                      width: 0,
-                                      color: Colors.transparent,
+                                  : Image.asset(
+                                      i,
                                     ),
                             ),
-                            child: i.endsWith('.svg')
-                                ? SvgPicture.asset(
-                                    i,
-                                  )
-                                : Image.asset(
-                                    i,
-                                  ),
+                          ),
+                        ),
+                    //! all bnaking
+                    if (createACState.acType == AccountType.bank)
+                      for (final i in realBanking.getRange(0, 7))
+                        InkWell(
+                          onTap: () {
+                            context.read<OnboardingAccountSetupBloc>().add(
+                                  AddAccountLogoEvent(i),
+                                );
+                          },
+                          child: Tooltip(
+                            message: i,
+                            child: Container(
+                              margin: const EdgeInsets.all(5),
+                              height: getProportionateScreenHeight(40),
+                              width: getProportionateScreenWidth(70),
+                              decoration: BoxDecoration(
+                                // color: ExpenseTrackerColors.inactiveSelectedBox,
+                                color: i == createACState.acLogo
+                                    ? ExpenseTrackerColors.violet20
+                                    : ExpenseTrackerColors.inactiveSelectedBox,
+                                borderRadius: BorderRadius.circular(10),
+                                border: i == createACState.acLogo
+                                    ? Border.all(
+                                        color: ExpenseTrackerColors.violet,
+                                      )
+                                    : Border.all(
+                                        width: 0,
+                                        color: Colors.transparent,
+                                      ),
+                              ),
+                              child: Image.asset(
+                                '${ExpenseAssets.bankingAsset}$i.png',
+                              ),
+                            ),
                           ),
                         ),
 
@@ -220,6 +178,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                     InkWell(
                       onTap: () async {
                         showBottomSheet<OnboardingAccountSetupBloc>(
+                          backgroundColor: Colors.indigo,
                           context: context,
                           builder: (context) => SizedBox(
                             width: double.infinity,
@@ -245,72 +204,155 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                     ),
                                   ),
                                 ),
-                                Wrap(
-                                  children: [
-                                    for (final i
-                                        in ExpenseAssets.allMobileBankingIcons)
-                                      BlocConsumer<OnboardingAccountSetupBloc,
-                                          OnboardingAccountSetupState>(
-                                        listener: (context, state) {},
-                                        builder: (context, state) {
-                                          return InkWell(
-                                            onTap: () {
-                                              context
-                                                  .read<
-                                                      OnboardingAccountSetupBloc>()
-                                                  .add(
-                                                    AddAccountLogoEvent(i),
-                                                  );
-                                            },
-                                            child: Container(
-                                              margin: const EdgeInsets.all(5),
-                                              height:
-                                                  getProportionateScreenHeight(
-                                                40,
-                                              ),
-                                              width:
-                                                  getProportionateScreenWidth(
-                                                70,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                // color: ExpenseTrackerColors.inactiveSelectedBox,
-                                                color: i ==
-                                                        state.createAccount
-                                                            .acLogo
-                                                    ? ExpenseTrackerColors
-                                                        .violet20
-                                                    : ExpenseTrackerColors
-                                                        .inactiveSelectedBox,
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                  10,
-                                                ),
-                                                border: i ==
-                                                        state.createAccount
-                                                            .acLogo
-                                                    ? Border.all(
-                                                        color:
-                                                            ExpenseTrackerColors
-                                                                .violet,
-                                                      )
-                                                    : Border.all(
-                                                        width: 0,
-                                                        color:
-                                                            Colors.transparent,
+                                Expanded(
+                                  child: SingleChildScrollView(
+                                    physics: const BouncingScrollPhysics(),
+                                    child: Wrap(
+                                      children: [
+                                        if (createACState.acType ==
+                                            AccountType.bank)
+                                          for (final i in realBanking)
+                                            BlocConsumer<
+                                                OnboardingAccountSetupBloc,
+                                                OnboardingAccountSetupState>(
+                                              listener: (context, state) {},
+                                              builder: (context, state) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    context
+                                                        .read<
+                                                            OnboardingAccountSetupBloc>()
+                                                        .add(
+                                                          AddAccountLogoEvent(
+                                                              i),
+                                                        );
+                                                  },
+                                                  child: Tooltip(
+                                                    message: i,
+                                                    child: Container(
+                                                      margin:
+                                                          const EdgeInsets.all(
+                                                              5),
+                                                      height:
+                                                          getProportionateScreenHeight(
+                                                        40,
                                                       ),
-                                              ),
-                                              child: i.endsWith('.svg')
-                                                  ? SvgPicture.asset(
-                                                      i,
-                                                    )
-                                                  : Image.asset(
-                                                      i,
+                                                      width:
+                                                          getProportionateScreenWidth(
+                                                        70,
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                        // color: ExpenseTrackerColors.inactiveSelectedBox,
+                                                        color: i ==
+                                                                state
+                                                                    .createAccount
+                                                                    .acLogo
+                                                            ? ExpenseTrackerColors
+                                                                .violet20
+                                                            : ExpenseTrackerColors
+                                                                .inactiveSelectedBox,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                          10,
+                                                        ),
+                                                        border: i ==
+                                                                state
+                                                                    .createAccount
+                                                                    .acLogo
+                                                            ? Border.all(
+                                                                color:
+                                                                    ExpenseTrackerColors
+                                                                        .violet,
+                                                              )
+                                                            : Border.all(
+                                                                width: 0,
+                                                                color: Colors
+                                                                    .transparent,
+                                                              ),
+                                                      ),
+                                                      child: Image.asset(
+                                                        '${ExpenseAssets.bankingAsset}$i.png',
+                                                      ),
                                                     ),
+                                                  ),
+                                                );
+                                              },
                                             ),
-                                          );
-                                        },
-                                      ),
-                                  ],
+                                        for (final i in ExpenseAssets
+                                            .allMobileBankingIcons)
+                                          BlocConsumer<
+                                              OnboardingAccountSetupBloc,
+                                              OnboardingAccountSetupState>(
+                                            listener: (context, state) {},
+                                            builder: (context, state) {
+                                              return InkWell(
+                                                onTap: () {
+                                                  context
+                                                      .read<
+                                                          OnboardingAccountSetupBloc>()
+                                                      .add(
+                                                        AddAccountLogoEvent(i),
+                                                      );
+                                                },
+                                                child: Tooltip(
+                                                  message:
+                                                      mobileBankingReverse[i],
+                                                  child: Container(
+                                                    margin:
+                                                        const EdgeInsets.all(5),
+                                                    height:
+                                                        getProportionateScreenHeight(
+                                                      40,
+                                                    ),
+                                                    width:
+                                                        getProportionateScreenWidth(
+                                                      70,
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      // color: ExpenseTrackerColors.inactiveSelectedBox,
+                                                      color: i ==
+                                                              state
+                                                                  .createAccount
+                                                                  .acLogo
+                                                          ? ExpenseTrackerColors
+                                                              .violet20
+                                                          : ExpenseTrackerColors
+                                                              .inactiveSelectedBox,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                        10,
+                                                      ),
+                                                      border: i ==
+                                                              state
+                                                                  .createAccount
+                                                                  .acLogo
+                                                          ? Border.all(
+                                                              color:
+                                                                  ExpenseTrackerColors
+                                                                      .violet,
+                                                            )
+                                                          : Border.all(
+                                                              width: 0,
+                                                              color: Colors
+                                                                  .transparent,
+                                                            ),
+                                                    ),
+                                                    child: i.endsWith('.svg')
+                                                        ? SvgPicture.asset(
+                                                            i,
+                                                          )
+                                                        : Image.asset(
+                                                            i,
+                                                          ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -353,6 +395,114 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class AccountTypeDropdown extends StatelessWidget {
+  const AccountTypeDropdown({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonFormField(
+      dropdownColor: ExpenseTrackerColors.violet,
+      items: accountTypesDB
+          .map(
+            (e) => DropdownMenuItem(
+              value: e,
+              child: Text(
+                e,
+                style: ExpenseTrackerTextStyle.regular3.copyWith(
+                  color: ExpenseTrackerColors.light20,
+                ),
+              ),
+            ),
+          )
+          .toList(),
+      isExpanded: true,
+      decoration: const InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(
+            color: ExpenseTrackerColors.violet,
+          ),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(
+            color: ExpenseTrackerColors.light60,
+          ),
+        ),
+        hintText: 'Account type',
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(
+            color: ExpenseTrackerColors.light60,
+          ),
+        ),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
+      ),
+      borderRadius: BorderRadius.circular(20),
+      icon: const Icon(
+        Icons.keyboard_arrow_down,
+        color: ExpenseTrackerColors.light20,
+      ),
+      onChanged: (d) {
+        if (d is String) {
+          context.read<OnboardingAccountSetupBloc>().add(
+                AddAccountTypeEvent(AccountTypeHelper.fromString(d)),
+              );
+          // _onAccountTypeChanged(d);
+        }
+      },
+    );
+  }
+}
+
+class AccountNameTextField extends StatelessWidget {
+  const AccountNameTextField({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      keyboardType: TextInputType.name,
+      onChanged: (d) {
+        context.read<OnboardingAccountSetupBloc>().add(
+              AddAccountNameEvent(d),
+            );
+      },
+      decoration: const InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(
+            color: ExpenseTrackerColors.violet,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(
+            color: ExpenseTrackerColors.light60,
+          ),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(
+            color: ExpenseTrackerColors.light60,
+          ),
+        ),
+        hintText: 'Account name',
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
       ),
     );
   }
