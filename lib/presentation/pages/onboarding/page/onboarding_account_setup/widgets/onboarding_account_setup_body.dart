@@ -2,6 +2,7 @@ import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/components/add_account_bottom_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// {@template onboarding_account_setup_body}
 /// Body of the OnboardingAccountSetupPage.
@@ -60,6 +61,9 @@ class _OnboardingAccountSetupBodyState
               child: TextField(
                 controller: _accountBalanceController,
                 keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
                 style: ExpenseTrackerTextStyle.titleX.copyWith(
                   color: ExpenseTrackerColors.light80,
                 ),
