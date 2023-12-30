@@ -5,6 +5,7 @@ import 'package:expense_tracker/data/datasources/local/utils_data/local_banking.
 import 'package:expense_tracker/data/datasources/local/utils_data/local_mobile_banking.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/mobile_banking_db.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/bloc.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/page/successfully_account_created.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/size_config.dart';
 import 'package:flutter/material.dart';
@@ -138,7 +139,8 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                           ),
                         ),
                     //! all bnaking
-                    if (createACState.acType == AccountType.bank)
+                    if (createACState.acType == AccountType.bank ||
+                        createACState.acType == AccountType.creditCard)
                       for (final i in realBanking.getRange(0, 7))
                         InkWell(
                           onTap: () {
@@ -210,7 +212,9 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                     child: Wrap(
                                       children: [
                                         if (createACState.acType ==
-                                            AccountType.bank)
+                                                AccountType.bank ||
+                                            createACState.acType ==
+                                                AccountType.creditCard)
                                           for (final i in realBanking)
                                             BlocConsumer<
                                                 OnboardingAccountSetupBloc,
@@ -390,6 +394,31 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                 debugPrint('Name: ${createACState.acName}');
                 debugPrint('Type: ${createACState.acType}');
                 debugPrint('Logo: ${createACState.acLogo}');
+                if (createACState.acBalance.isNaN) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please enter a valid balance'),
+                    ),
+                  );
+                  return;
+                } else if (createACState.acName.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please enter a valid account name'),
+                    ),
+                  );
+                  return;
+                } else if (createACState.acType == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please select an account type'),
+                    ),
+                  );
+                  return;
+                } else {
+                  // show a success page
+                  Navigator.push(context, SuccessfullyAccountCreated.route());
+                }
               },
               text: 'Continue',
             ),
