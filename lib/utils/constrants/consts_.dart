@@ -14,3 +14,6 @@ final width10 = SizedBox(width: 10.w);
 final width20 = SizedBox(width: 20.w);
 // 30w Width
 final width30 = SizedBox(width: 30.w);
+
+///* home page segmented buttons enum(today, week, month, year)
+enum SegmentedButtonsData { today, week, month, year }
