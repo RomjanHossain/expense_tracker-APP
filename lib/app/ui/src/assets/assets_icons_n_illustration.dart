@@ -1,6 +1,7 @@
 abstract class ExpenseAssets {
   static const String _icons = 'assets/icons/';
   static const String _mobileBanking = 'assets/icons/MobileBanking/';
+  static const String bankingAsset = 'assets/icons/Bank/';
   static const String _illustrations = 'assets/illustrations/';
 
   /*

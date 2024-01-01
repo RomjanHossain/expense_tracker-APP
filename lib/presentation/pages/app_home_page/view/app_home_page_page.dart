@@ -1,12 +1,11 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/bottom_navigationbar.dart';
-import 'package:expense_tracker/presentation/pages/app_home_page/components/bottom_transaction_sheet.dart';
 // import 'package:expense_tracker/presentation/pages/app_home_page/components/add_transaction_sheet.dart';
 // import 'package:expense_tracker/presentation/pages/app_home_page/components/app_bottom_navigationbar.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/widgets/app_home_page_body.dart';
+import 'package:expense_tracker/services/animation/page_animation.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 /// {@template app_home_page_page}
 /// 67149812
@@ -17,8 +16,14 @@ class AppHomePagePage extends StatelessWidget {
   const AppHomePagePage({super.key});
 
   /// The static route for AppHomePagePage
-  static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(builder: (_) => const AppHomePagePage());
+  static Route<dynamic> route({Duration duration = const Duration(milliseconds: 500)}) {
+    // return MaterialPageRoute<dynamic>(
+    //   builder: (_) => const AppHomePagePage(),
+    // );
+    return PageAnimation.fromCenterToBottom(
+      const AppHomePagePage(),
+      duration: duration,
+    );
   }
 
   @override

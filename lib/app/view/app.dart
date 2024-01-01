@@ -32,6 +32,7 @@ class App extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ExpenseTrackerTheme.standard,
         darkTheme: ExpenseTrackerTheme.darkTheme,
         themeMode: ThemeMode.light,
