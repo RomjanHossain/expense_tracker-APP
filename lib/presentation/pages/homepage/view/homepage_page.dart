@@ -3,10 +3,10 @@ import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.da
 import 'package:expense_tracker/data/datasources/local/utils_data/all_months.dart';
 import 'package:expense_tracker/presentation/pages/homepage/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/dropdown_months.dart';
+import 'package:expense_tracker/presentation/pages/homepage/components/expense_graph.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/ie_small_card.dart';
 import 'package:expense_tracker/presentation/pages/homepage/widgets/homepage_body.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -78,22 +78,28 @@ class _HomepagePageState extends State<HomepagePage> {
                         ),
                       ),
                       height10,
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          IESmallCard(
-                            svgAsset: ExpenseAssets.incomeIcon,
-                            color: ExpenseTrackerColors.green,
-                            title: 'Income',
-                            money: '2024',
-                          ),
-                          IESmallCard(
-                            svgAsset: ExpenseAssets.expenseIcon,
-                            color: ExpenseTrackerColors.red,
-                            title: 'Expense',
-                            money: '2023',
-                          ),
-                        ],
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            const IESmallCard(
+                              svgAsset: ExpenseAssets.incomeIcon,
+                              color: ExpenseTrackerColors.green,
+                              title: 'Income',
+                              money: '2024',
+                            ),
+                            width10,
+                            const IESmallCard(
+                              svgAsset: ExpenseAssets.expenseIcon,
+                              color: ExpenseTrackerColors.red,
+                              title: 'Expense',
+                              money: '2023',
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -158,68 +164,73 @@ class _HomepagePageState extends State<HomepagePage> {
                       child: Text(
                         'Spend Frequency',
                         style: ExpenseTrackerTextStyle.title3.copyWith(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.2,
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: AspectRatio(
-                        aspectRatio: 1.7,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(18),
-                            ),
-                            // color: Color(0xff232d37),
-                          ),
-                          child: LineChart(
-                            LineChartData(
-                              gridData: const FlGridData(
-                                show: false,
-                              ),
-                              borderData: FlBorderData(
-                                show: false,
-                              ),
-                              titlesData: const FlTitlesData(
-                                show: false,
-                              ),
-                              lineBarsData: [
-                                LineChartBarData(
-                                  spots: const [
-                                    FlSpot(0, 3),
-                                    FlSpot(2.6, 2),
-                                    FlSpot(4.9, 5),
-                                    FlSpot(6.8, 3.1),
-                                    FlSpot(8, 4),
-                                    FlSpot(9.5, 3),
-                                    FlSpot(11, 4),
-                                  ],
-                                  color: ExpenseTrackerColors.violet,
-                                  isCurved: true,
-                                  barWidth: 6.h,
-                                  isStrokeCapRound: true,
-                                  dotData: const FlDotData(
-                                    show: false,
-                                  ),
-                                  belowBarData: BarAreaData(
-                                    show: true,
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Color(0xffCA50FF).withOpacity(0.24),
-                                        Color(0xff8B50FF).withOpacity(0),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                    const Expanded(
+                      child: HomeExpenseGraph(),
                     ),
                   ],
+                ),
+              ),
+            ),
+
+            ///* segmented buttons
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20).h,
+                child: SegmentedButton<SegmentedButtonsData>(
+                  showSelectedIcon: false,
+                  style: ButtonStyle(
+                    // textStyle: MaterialStateProperty.resolveWith(
+                    //     (states) => ExpenseTrackerTextStyle.regular3.copyWith(
+                    //           color: states.contains(MaterialState.selected)
+                    //               ? ExpenseTrackerColors.yellow
+                    //               : ExpenseTrackerColors.light20,
+                    //           fontWeight:
+                    //               states.contains(MaterialState.selected)
+                    //                   ? FontWeight.bold
+                    //                   : FontWeight.normal,
+                    //         )),
+                    side: MaterialStateProperty.all(
+                      BorderSide.none,
+                    ),
+                    // backgroundColor: MaterialStateProperty.all(
+                    //   ExpenseTrackerColors.yellow20,
+                    // ),
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                      (states) => states.contains(MaterialState.selected)
+                          ? ExpenseTrackerColors.yellow20
+                          : ExpenseTrackerColors.scaffoldBackground,
+                    ),
+                  ),
+                  segments: [
+                    const ButtonSegment<SegmentedButtonsData>(
+                      label: Text(
+                        'Today',
+                        // style: ExpenseTrackerTextStyle.regular3.copyWith(
+                        //   color: ExpenseTrackerColors.yellow,
+                        //   fontWeight: FontWeight.bold,
+                        // ),
+                      ),
+                      value: SegmentedButtonsData.today,
+                    ),
+                    const ButtonSegment<SegmentedButtonsData>(
+                      label: Text('Week'),
+                      value: SegmentedButtonsData.week,
+                    ),
+                    const ButtonSegment<SegmentedButtonsData>(
+                      label: Text('Month'),
+                      value: SegmentedButtonsData.month,
+                    ),
+                    const ButtonSegment<SegmentedButtonsData>(
+                      label: Text('Year'),
+                      value: SegmentedButtonsData.year,
+                    ),
+                  ],
+                  selected: const {SegmentedButtonsData.today},
                 ),
               ),
             ),
