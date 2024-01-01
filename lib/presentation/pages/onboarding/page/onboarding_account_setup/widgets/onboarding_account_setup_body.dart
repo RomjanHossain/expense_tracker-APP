@@ -45,17 +45,6 @@ class _OnboardingAccountSetupBodyState
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(
-            //     horizontal: 10,
-            //     vertical: 5,
-            //   ),
-            //   child: Text(
-            //     '\$${state.createAccount.acBalance}',
-            //     style: ExpenseTrackerTextStyle.titleX
-            //         .copyWith(color: Colors.white),
-            //   ),
-            // ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: TextField(
