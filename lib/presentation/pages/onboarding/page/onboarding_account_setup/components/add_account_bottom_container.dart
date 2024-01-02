@@ -7,8 +7,8 @@ import 'package:expense_tracker/data/datasources/local/utils_data/mobile_banking
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/page/successfully_account_created.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
-import 'package:expense_tracker/utils/constrants/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AddAccountBottomContainer extends StatefulWidget {
@@ -47,13 +47,13 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
     final createACState =
         context.watch<OnboardingAccountSetupBloc>().state.createAccount;
     return Container(
-      height: getProportionateScreenHeight(
+      height: 
         createACState.acType == null
-            ? 300
+            ? 300.h
             : forbidenList.contains(createACState.acType)
-                ? 300
-                : 450,
-      ),
+                ? 300.h
+                : 450.h,
+      
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
         // color: ExpenseTrackerColors.violet,
@@ -88,7 +88,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
             //* account type icons
             if (createACState.acType != null) ...[
               SizedBox(
-                height: getProportionateScreenHeight(110),
+                height: 110.h,
                 child: GridView(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
@@ -111,8 +111,8 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                             message: mobileBankingReverse[i],
                             child: Container(
                               margin: const EdgeInsets.all(5),
-                              height: getProportionateScreenHeight(40),
-                              width: getProportionateScreenWidth(70),
+                              height: 40.h,
+                              width: 70.w,
                               decoration: BoxDecoration(
                                 // color: ExpenseTrackerColors.inactiveSelectedBox,
                                 color: i == createACState.acLogo
@@ -152,8 +152,8 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                             message: i,
                             child: Container(
                               margin: const EdgeInsets.all(5),
-                              height: getProportionateScreenHeight(40),
-                              width: getProportionateScreenWidth(70),
+                              height: 40.h,
+                              width: 70.w,
                               decoration: BoxDecoration(
                                 // color: ExpenseTrackerColors.inactiveSelectedBox,
                                 color: i == createACState.acLogo
@@ -238,13 +238,9 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                                           const EdgeInsets.all(
                                                               5),
                                                       height:
-                                                          getProportionateScreenHeight(
-                                                        40,
-                                                      ),
+                                                       40.h,
                                                       width:
-                                                          getProportionateScreenWidth(
-                                                        70,
-                                                      ),
+                                                       70.w,
                                                       decoration: BoxDecoration(
                                                         // color: ExpenseTrackerColors.inactiveSelectedBox,
                                                         color: i ==
@@ -306,13 +302,9 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                                     margin:
                                                         const EdgeInsets.all(5),
                                                     height:
-                                                        getProportionateScreenHeight(
-                                                      40,
-                                                    ),
+                                                     40.h,
                                                     width:
-                                                        getProportionateScreenWidth(
-                                                      70,
-                                                    ),
+                                                     70.w,
                                                     decoration: BoxDecoration(
                                                       // color: ExpenseTrackerColors.inactiveSelectedBox,
                                                       color: i ==
@@ -365,8 +357,8 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                       },
                       child: Container(
                         margin: const EdgeInsets.all(5),
-                        height: getProportionateScreenHeight(40),
-                        width: getProportionateScreenWidth(70),
+                        height: 40.h,
+                        width: 70.w,
                         decoration: BoxDecoration(
                           color: const Color(0xffeee5ff),
                           borderRadius: BorderRadius.circular(10),

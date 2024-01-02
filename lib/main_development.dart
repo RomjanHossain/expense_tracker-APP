@@ -1,6 +1,7 @@
 import 'package:expense_tracker/app/app.dart';
 import 'package:expense_tracker/bootstrap.dart';
-
-void main() {
-  bootstrap(() => const App());
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+void main() async{
+    await ScreenUtil.ensureScreenSize();
+  await bootstrap(() => const App());
 }
