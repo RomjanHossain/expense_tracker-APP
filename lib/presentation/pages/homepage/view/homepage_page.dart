@@ -5,6 +5,7 @@ import 'package:expense_tracker/presentation/pages/homepage/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/dropdown_months.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/expense_graph.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/ie_small_card.dart';
+import 'package:expense_tracker/presentation/pages/homepage/components/segmented_button_wid.dart';
 import 'package:expense_tracker/presentation/pages/homepage/widgets/homepage_body.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/material.dart';
@@ -178,73 +179,75 @@ class _HomepagePageState extends State<HomepagePage> {
             ),
 
             ///* segmented buttons
+            const SliverToBoxAdapter(
+              child: HomeSegmentedButtonsWidget(),
+            ),
+
+            /// * recent transactions
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20).h,
-                child: SegmentedButton<SegmentedButtonsData>(
-                  showSelectedIcon: false,
-                  style: ButtonStyle(
-                    // textStyle: MaterialStateProperty.resolveWith(
-                    //     (states) => ExpenseTrackerTextStyle.regular3.copyWith(
-                    //           color: states.contains(MaterialState.selected)
-                    //               ? ExpenseTrackerColors.yellow
-                    //               : ExpenseTrackerColors.light20,
-                    //           fontWeight:
-                    //               states.contains(MaterialState.selected)
-                    //                   ? FontWeight.bold
-                    //                   : FontWeight.normal,
-                    //         )),
-                    side: MaterialStateProperty.all(
-                      BorderSide.none,
-                    ),
-                    // backgroundColor: MaterialStateProperty.all(
-                    //   ExpenseTrackerColors.yellow20,
-                    // ),
-                    backgroundColor: MaterialStateProperty.resolveWith(
-                      (states) => states.contains(MaterialState.selected)
-                          ? ExpenseTrackerColors.yellow20
-                          : ExpenseTrackerColors.scaffoldBackground,
-                    ),
-                  ),
-                  segments: [
-                    const ButtonSegment<SegmentedButtonsData>(
-                      label: Text(
-                        'Today',
-                        // style: ExpenseTrackerTextStyle.regular3.copyWith(
-                        //   color: ExpenseTrackerColors.yellow,
-                        //   fontWeight: FontWeight.bold,
-                        // ),
+                padding: EdgeInsets.all(15.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Recent Transactions',
+                      style: ExpenseTrackerTextStyle.title3.copyWith(
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.2,
                       ),
-                      value: SegmentedButtonsData.today,
                     ),
-                    const ButtonSegment<SegmentedButtonsData>(
-                      label: Text('Week'),
-                      value: SegmentedButtonsData.week,
-                    ),
-                    const ButtonSegment<SegmentedButtonsData>(
-                      label: Text('Month'),
-                      value: SegmentedButtonsData.month,
-                    ),
-                    const ButtonSegment<SegmentedButtonsData>(
-                      label: Text('Year'),
-                      value: SegmentedButtonsData.year,
-                    ),
+                    FilledButton.tonal(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            ExpenseTrackerColors.violet20,
+                          ),
+                          side: MaterialStateProperty.all(
+                            BorderSide.none,
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          'see all',
+                          style: ExpenseTrackerTextStyle.regular3.copyWith(
+                            color: ExpenseTrackerColors.violet,
+                          ),
+                        )),
                   ],
-                  selected: const {SegmentedButtonsData.today},
                 ),
               ),
             ),
-            const SliverToBoxAdapter(
-              child: HomepageView(),
-            ),
+
+            ///* list of transactions
             SliverList.builder(
               itemCount: 100,
               itemBuilder: (context, index) {
                 final now = DateTime.now();
                 return ListTile(
-                  title: Text('${calanderMonths[now.month - 1]} data $index'),
+                  title: const Text('Shopping'),
+                  trailing: const Column(children: [
+                    Text('-123'),
+                    Text('10 AM'),
+                  ]),
+                  subtitle: const Text(
+                    'Buy some groceries from the store',
+                  ),
+                  isThreeLine: true,
+                  leading: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50.r),
+                      color: ExpenseTrackerColors.violet,
+                    ),
+                    child: const Icon(
+                      Icons.shopping_bag,
+                      // color: ExpenseTrackerColors.white,
+                    ),
+                  ),
                 );
               },
+            ),
+            const SliverToBoxAdapter(
+              child: HomepageView(),
             ),
           ],
         ),
