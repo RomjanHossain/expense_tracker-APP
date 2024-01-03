@@ -120,38 +120,6 @@ class _HomepagePageState extends State<HomepagePage> {
                   height: 24.h,
                 ),
               ],
-              // bottom: PreferredSize(
-              //   preferredSize: const Size.fromHeight(100),
-              //   child: Container(
-              //     color: Colors.lime,
-              //     margin: const EdgeInsets.only(bottom: 10),
-              //     child: const Column(
-              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //       children: [
-              //         Text(
-              //           'Account Balance',
-              //           style: TextStyle(
-              //             fontSize: 20,
-              //             fontWeight: FontWeight.bold,
-              //           ),
-              //         ),
-              //         Text(
-              //           '\$1000',
-              //           style: TextStyle(
-              //             fontSize: 20,
-              //             fontWeight: FontWeight.bold,
-              //           ),
-              //         ),
-              //         Row(
-              //           children: [
-              //             Text('income'),
-              //             Text('expense'),
-              //           ],
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
             ),
             // a graph for showing todays expense
             SliverToBoxAdapter(
@@ -223,27 +191,94 @@ class _HomepagePageState extends State<HomepagePage> {
               itemCount: 100,
               itemBuilder: (context, index) {
                 final now = DateTime.now();
-                return ListTile(
-                  title: const Text('Shopping'),
-                  trailing: const Column(children: [
-                    Text('-123'),
-                    Text('10 AM'),
-                  ]),
-                  subtitle: const Text(
-                    'Buy some groceries from the store',
-                  ),
-                  isThreeLine: true,
-                  leading: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50.r),
-                      color: ExpenseTrackerColors.violet,
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.all(10.h),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.r),
+                            color: ExpenseTrackerColors.violet20,
+                          ),
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(10.h),
+                          child: SvgPicture.asset(
+                            'assets/icons/expense.svg',
+                            color: ExpenseTrackerColors.violet,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Shopping',
+                              style: ExpenseTrackerTextStyle.regular1.copyWith(
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.2,
+                                color: ExpenseTrackerColors.dark25,
+                              ),
+                            ),
+                            Text(
+                              'Buy some groceries from the storxxxxxxxxxxxxxxxxxxxxe'
+                                      .substring(0, 18) +
+                                  '...',
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              style: ExpenseTrackerTextStyle.regular3.copyWith(
+                                color: ExpenseTrackerColors.light20,
+                              ),
+                              maxLines: 1,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    child: const Icon(
-                      Icons.shopping_bag,
-                      // color: ExpenseTrackerColors.white,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          '-123',
+                          style: ExpenseTrackerTextStyle.title3.copyWith(
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.2,
+                            color: ExpenseTrackerColors.red,
+                          ),
+                        ),
+                        Text(
+                          '${now.hour}:${now.minute}' ' AM',
+                          style: ExpenseTrackerTextStyle.small.copyWith(
+                            color: ExpenseTrackerColors.light20,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
+                  ],
                 );
+                // return ListTile(
+                //   title: const Text('Shopping'),
+                //   trailing: const Column(children: [
+                //     Text('-123'),
+                //     Text('10 AM'),
+                //   ]),
+                //   subtitle: const Text(
+                //     'Buy some groceries from the store',
+                //   ),
+                //   isThreeLine: true,
+                //   leading: Container(
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(50.r),
+                //       color: ExpenseTrackerColors.violet,
+                //     ),
+                //     child: const Icon(
+                //       Icons.shopping_bag,
+                //       // color: ExpenseTrackerColors.white,
+                //     ),
+                //   ),
+                // );
               },
             ),
             const SliverToBoxAdapter(
