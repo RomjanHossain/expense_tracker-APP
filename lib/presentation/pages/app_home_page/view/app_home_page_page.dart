@@ -6,6 +6,8 @@ import 'package:expense_tracker/presentation/pages/app_home_page/components/bott
 import 'package:expense_tracker/presentation/pages/app_home_page/widgets/app_home_page_body.dart';
 import 'package:expense_tracker/services/animation/page_animation.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 /// {@template app_home_page_page}
 /// 67149812
@@ -16,7 +18,9 @@ class AppHomePagePage extends StatelessWidget {
   const AppHomePagePage({super.key});
 
   /// The static route for AppHomePagePage
-  static Route<dynamic> route({Duration duration = const Duration(milliseconds: 500)}) {
+  static Route<dynamic> route({
+    Duration duration = const Duration(milliseconds: 500),
+  }) {
     // return MaterialPageRoute<dynamic>(
     //   builder: (_) => const AppHomePagePage(),
     // );
@@ -45,22 +49,65 @@ class AppHomePageScaffold extends StatelessWidget {
     return Scaffold(
       body: const AppHomePageView(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: SpeedDial(
+        activeIcon: Icons.close,
+        icon: Icons.add,
         backgroundColor: ExpenseTrackerColors.violet,
-        shape: const CircleBorder(),
-        // backgroundColor: ExpenseTrackerColors.primary,
-        child: const Icon(
-          Icons.add,
-        ),
-        onPressed: () {
-          // showBarModalBottomSheet(
-          //   context: context,
-          //   expand: true,
-          //   builder: (c) => AddTransactionBottomSheet(),
-          // );
-        },
-        //params
+        overlayColor: ExpenseTrackerColors.violet.withOpacity(0.1),
+        direction: SpeedDialDirection.up,
+        children: [
+          SpeedDialChild(
+            child: const Icon(Icons.add),
+            backgroundColor: ExpenseTrackerColors.violet,
+            label: 'Add Transaction',
+            onTap: () {},
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.add),
+            backgroundColor: ExpenseTrackerColors.violet,
+            label: 'Add Transaction',
+            onTap: () {},
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.add),
+            backgroundColor: ExpenseTrackerColors.violet,
+            label: 'Add Transaction',
+            onTap: () {},
+          ),
+        ],
       ),
+      // floatingActionButton: ExpandableFab(
+      //   children: [
+      //     FloatingActionButton.small(
+      //       onPressed: () {},
+      //       child: const Icon(Icons.add),
+      //     ),
+      //     FloatingActionButton.small(
+      //       onPressed: () {},
+      //       child: const Icon(Icons.add),
+      //     ),
+      //     FloatingActionButton.small(
+      //       onPressed: () {},
+      //       child: const Icon(Icons.add),
+      //     ),
+      //   ],
+      // ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: ExpenseTrackerColors.violet,
+      //   shape: const CircleBorder(),
+      //   // backgroundColor: ExpenseTrackerColors.primary,
+      //   child: const Icon(
+      //     Icons.add,
+      //   ),
+      //   onPressed: () {
+      //     // showBarModalBottomSheet(
+      //     //   context: context,
+      //     //   expand: true,
+      //     //   builder: (c) => AddTransactionBottomSheet(),
+      //     // );
+      //   },
+      //   //params
+      // ),
       bottomNavigationBar: const ExpanseTrackerBottomNavBar(),
     );
   }
