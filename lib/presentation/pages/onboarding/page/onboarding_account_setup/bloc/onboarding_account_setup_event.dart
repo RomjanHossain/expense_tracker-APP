@@ -1,11 +1,10 @@
 part of 'onboarding_account_setup_bloc.dart';
 
-abstract class OnboardingAccountSetupEvent  extends Equatable {
+abstract class OnboardingAccountSetupEvent extends Equatable {
   const OnboardingAccountSetupEvent();
 
   @override
   List<Object> get props => [];
-
 }
 
 /// {@template custom_onboarding_account_setup_event}
@@ -27,6 +26,7 @@ class AddAccountNameEvent extends OnboardingAccountSetupEvent {
   const AddAccountNameEvent(this.accountName);
   final String accountName;
 }
+
 /// add account type event
 class AddAccountTypeEvent extends OnboardingAccountSetupEvent {
   const AddAccountTypeEvent(this.accountType);

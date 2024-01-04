@@ -222,9 +222,8 @@ class _HomepagePageState extends State<HomepagePage> {
                               ),
                             ),
                             Text(
-                              'Buy some groceries from the storxxxxxxxxxxxxxxxxxxxxe'
-                                      .substring(0, 18) +
-                                  '...',
+                              '${'Buy some groceries from the storxxxxxxxxxxxxxxxxxxxxe'
+                                      .substring(0, 18)}...',
                               softWrap: true,
                               overflow: TextOverflow.ellipsis,
                               style: ExpenseTrackerTextStyle.regular3.copyWith(
@@ -275,7 +274,7 @@ class _HomepagePageState extends State<HomepagePage> {
                 //     ),
                 //     child: const Icon(
                 //       Icons.shopping_bag,
-                //       // color: ExpenseTrackerColors.white,
+                //       // color: ExpenseTrackerExpenseTrackerColors.white,
                 //     ),
                 //   ),
                 // );

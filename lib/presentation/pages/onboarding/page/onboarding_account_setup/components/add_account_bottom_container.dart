@@ -47,17 +47,15 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
     final createACState =
         context.watch<OnboardingAccountSetupBloc>().state.createAccount;
     return Container(
-      height: 
-        createACState.acType == null
-            ? 300.h
-            : forbidenList.contains(createACState.acType)
-                ? 300.h
-                : 450.h,
-      
+      height: createACState.acType == null
+          ? 300.h
+          : forbidenList.contains(createACState.acType)
+              ? 300.h
+              : 450.h,
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
         // color: ExpenseTrackerColors.violet,
-        color: Colors.white,
+        color: ExpenseTrackerColors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -237,10 +235,8 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                                       margin:
                                                           const EdgeInsets.all(
                                                               5),
-                                                      height:
-                                                       40.h,
-                                                      width:
-                                                       70.w,
+                                                      height: 40.h,
+                                                      width: 70.w,
                                                       decoration: BoxDecoration(
                                                         // color: ExpenseTrackerColors.inactiveSelectedBox,
                                                         color: i ==
@@ -301,10 +297,8 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                                   child: Container(
                                                     margin:
                                                         const EdgeInsets.all(5),
-                                                    height:
-                                                     40.h,
-                                                    width:
-                                                     70.w,
+                                                    height: 40.h,
+                                                    width: 70.w,
                                                     decoration: BoxDecoration(
                                                       // color: ExpenseTrackerColors.inactiveSelectedBox,
                                                       color: i ==

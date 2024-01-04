@@ -34,9 +34,9 @@ class IESmallCard extends StatelessWidget {
             margin: EdgeInsets.only(
               right: 10.w,
             ),
-            padding: EdgeInsets.all(5).r,
+            padding: const EdgeInsets.all(5).r,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: ExpenseTrackerColors.white,
               borderRadius: BorderRadius.circular(15).w,
             ),
             child: SvgPicture.asset(

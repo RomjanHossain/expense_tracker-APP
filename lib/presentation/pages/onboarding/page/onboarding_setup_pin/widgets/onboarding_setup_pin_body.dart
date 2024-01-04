@@ -45,7 +45,7 @@ class OnboardingSetupPinBody extends StatelessWidget {
                     ? 'Ok. Re type your PIN again.'
                     : "Let's setup your PIN",
                 style: ExpenseTrackerTextStyle.title3.copyWith(
-                  color: Colors.white,
+                  color: ExpenseTrackerColors.white,
                 ),
               ),
             ),
