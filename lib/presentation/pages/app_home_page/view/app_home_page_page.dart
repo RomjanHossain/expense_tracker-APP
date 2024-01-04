@@ -1,13 +1,18 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/bottom_navigationbar.dart';
 // import 'package:expense_tracker/presentation/pages/app_home_page/components/add_transaction_sheet.dart';
 // import 'package:expense_tracker/presentation/pages/app_home_page/components/app_bottom_navigationbar.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/widgets/app_home_page_body.dart';
+import 'package:expense_tracker/presentation/pages/expenseform/expenseform.dart';
 import 'package:expense_tracker/services/animation/page_animation.dart';
+import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:pie_menu/pie_menu.dart';
 // import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+// import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 /// {@template app_home_page_page}
 /// 67149812
@@ -46,69 +51,83 @@ class AppHomePageScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const AppHomePageView(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: SpeedDial(
-        activeIcon: Icons.close,
-        icon: Icons.add,
-        backgroundColor: ExpenseTrackerColors.violet,
-        overlayColor: ExpenseTrackerColors.violet.withOpacity(0.1),
-        direction: SpeedDialDirection.up,
-        children: [
-          SpeedDialChild(
-            child: const Icon(Icons.add),
-            backgroundColor: ExpenseTrackerColors.violet,
-            label: 'Add Transaction',
-            onTap: () {},
-          ),
-          SpeedDialChild(
-            child: const Icon(Icons.add),
-            backgroundColor: ExpenseTrackerColors.violet,
-            label: 'Add Transaction',
-            onTap: () {},
-          ),
-          SpeedDialChild(
-            child: const Icon(Icons.add),
-            backgroundColor: ExpenseTrackerColors.violet,
-            label: 'Add Transaction',
-            onTap: () {},
-          ),
-        ],
+    return PieCanvas(
+      theme: const PieTheme(
+        overlayColor: ExpenseTrackerColors.violet20,
+        pointerColor: ExpenseTrackerColors.blue,
+        pointerSize: 0.01,
       ),
-      // floatingActionButton: ExpandableFab(
-      //   children: [
-      //     FloatingActionButton.small(
-      //       onPressed: () {},
-      //       child: const Icon(Icons.add),
-      //     ),
-      //     FloatingActionButton.small(
-      //       onPressed: () {},
-      //       child: const Icon(Icons.add),
-      //     ),
-      //     FloatingActionButton.small(
-      //       onPressed: () {},
-      //       child: const Icon(Icons.add),
-      //     ),
-      //   ],
-      // ),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: ExpenseTrackerColors.violet,
-      //   shape: const CircleBorder(),
-      //   // backgroundColor: ExpenseTrackerColors.primary,
-      //   child: const Icon(
-      //     Icons.add,
-      //   ),
-      //   onPressed: () {
-      //     // showBarModalBottomSheet(
-      //     //   context: context,
-      //     //   expand: true,
-      //     //   builder: (c) => AddTransactionBottomSheet(),
-      //     // );
-      //   },
-      //   //params
-      // ),
-      bottomNavigationBar: const ExpanseTrackerBottomNavBar(),
+      child: Scaffold(
+        body: const AppHomePageView(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: PieMenu(
+          actions: [
+            PieAction(
+              tooltip: const Text(
+                '',
+              ),
+              onSelect: () {
+                Navigator.push(
+                    context, ExpenseformPage.route(ExpenseType.income));
+              },
+              child: FloatingActionButton(
+                onPressed: () {},
+                backgroundColor: ExpenseTrackerColors.green,
+                shape: const CircleBorder(),
+                // backgroundColor: ExpenseTrackerColors.primary,
+                child: SvgPicture.asset(
+                  ExpenseAssets.incomeIcon,
+                  color: ExpenseTrackerColors.white,
+                ),
+              ),
+            ),
+            PieAction(
+              tooltip: const Text(''),
+              onSelect: () {
+                Navigator.push(
+                    context, ExpenseformPage.route(ExpenseType.transfer));
+              },
+              child: FloatingActionButton(
+                onPressed: null,
+                backgroundColor: ExpenseTrackerColors.blue,
+                shape: const CircleBorder(),
+                // backgroundColor: ExpenseTrackerColors.primary,
+                child: SvgPicture.asset(
+                  ExpenseAssets.transactionIcon,
+                  color: ExpenseTrackerColors.white,
+                ),
+              ),
+            ),
+            PieAction(
+              tooltip: const Text(''),
+              onSelect: () {
+                Navigator.push(
+                    context, ExpenseformPage.route(ExpenseType.expense));
+              },
+              child: FloatingActionButton(
+                onPressed: () {},
+                backgroundColor: ExpenseTrackerColors.red,
+                shape: const CircleBorder(),
+                // backgroundColor: ExpenseTrackerColors.primary,
+                child: SvgPicture.asset(
+                  ExpenseAssets.expenseIcon,
+                  color: ExpenseTrackerColors.white,
+                ),
+              ),
+            ),
+          ],
+          child: FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: ExpenseTrackerColors.violet,
+            shape: const CircleBorder(),
+            // backgroundColor: ExpenseTrackerColors.primary,
+            child: const Icon(
+              Icons.add,
+            ),
+          ),
+        ),
+        bottomNavigationBar: const ExpanseTrackerBottomNavBar(),
+      ),
     );
   }
 }
