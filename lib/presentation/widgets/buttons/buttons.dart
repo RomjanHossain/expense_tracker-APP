@@ -12,7 +12,7 @@ class PrimaryButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(double.infinity, 48),
-        foregroundColor: Colors.white,
+        foregroundColor: ExpenseTrackerColors.white,
         backgroundColor: ExpenseTrackerColors.violet,
         shape: const RoundedRectangleBorder(
           borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
