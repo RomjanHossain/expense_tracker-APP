@@ -100,69 +100,78 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
               ),
             ),
             // the form
-            if (widget.expenseType == ExpenseType.income)
-              Container(
-                padding: const EdgeInsets.all(15),
-                height: MediaQuery.of(context).size.height * 0.6,
-                decoration: const BoxDecoration(
-                  color: ExpenseTrackerColors.white,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(32),
-                  ),
+
+            Container(
+              padding: const EdgeInsets.all(15),
+              height: widget.expenseType == ExpenseType.income ||
+                      widget.expenseType == ExpenseType.expense
+                  ? MediaQuery.of(context).size.height * 0.6
+                  : MediaQuery.of(context).size.height * 0.5,
+              decoration: const BoxDecoration(
+                color: ExpenseTrackerColors.white,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(32),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  if (widget.expenseType == ExpenseType.income ||
+                      widget.expenseType == ExpenseType.expense)
                     const ExpenseMethodsDropdown(),
-                    //* description
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10,
-                      ).h,
-                      child: TextField(
-                        controller: _descriptionController,
-                        keyboardType: TextInputType.name,
-                        onChanged: (d) {},
-                        decoration: const InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(
-                              color: ExpenseTrackerColors.violet,
-                            ),
+                  //* description
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                    ).h,
+                    child: TextField(
+                      controller: _descriptionController,
+                      keyboardType: TextInputType.name,
+                      onChanged: (d) {},
+                      decoration: const InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide: BorderSide(
+                            color: ExpenseTrackerColors.violet,
                           ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(
-                              color: ExpenseTrackerColors.light60,
-                            ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide: BorderSide(
+                            color: ExpenseTrackerColors.light60,
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            borderSide: BorderSide(
-                              color: ExpenseTrackerColors.light60,
-                            ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          borderSide: BorderSide(
+                            color: ExpenseTrackerColors.light60,
                           ),
-                          hintText: 'Description',
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
-                          ),
+                        ),
+                        hintText: 'Description',
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
                         ),
                       ),
                     ),
-                    //! wallet (place holder)
-                    //*** [TODO: wallet from db]
+                  ),
+                  //! wallet (place holder)
+                  //*** [TODO: wallet from db]
+                  if (widget.expenseType == ExpenseType.income ||
+                      widget.expenseType == ExpenseType.expense)
                     const IncomeMehodsDropdown(),
-                    //* attachment filed with dotted border
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 10,
-                      ).h,
-                      child: AttachmentPicker(
-                        selectIMGController: imageFieldController,
-                      ),
+                  //* attachment filed with dotted border
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                    ).h,
+                    child: AttachmentPicker(
+                      selectIMGController: imageFieldController,
                     ),
+                  ),
+                  if (widget.expenseType == ExpenseType.income ||
+                      widget.expenseType == ExpenseType.expense)
                     //* repeat */
                     ListTile(
                       title: const Text('Repeat'),
@@ -172,14 +181,14 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                         onChanged: (value) {},
                       ),
                     ),
-                    //** a submit button */
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: PrimaryButton(onPress: () {}, text: 'Continue'),
-                    ),
-                  ],
-                ),
+                  //** a submit button */
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: PrimaryButton(onPress: () {}, text: 'Continue'),
+                  ),
+                ],
               ),
+            ),
           ],
         );
       },
