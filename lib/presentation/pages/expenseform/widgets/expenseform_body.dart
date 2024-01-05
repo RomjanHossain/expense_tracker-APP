@@ -3,9 +3,11 @@ import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_expense_method.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_income_methods.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
+import 'package:expense_tracker/presentation/pages/expenseform/components/attachment_picker.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// {@template expenseform_body}
 /// Body of the ExpenseformPage.
@@ -24,10 +26,12 @@ class ExpenseformBody extends StatefulWidget {
 class _ExpenseformBodyState extends State<ExpenseformBody> {
   final _accountBalanceController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final imageFieldController = TextEditingController();
   @override
   void dispose() {
     _accountBalanceController.dispose();
     _descriptionController.dispose();
+    imageFieldController.dispose();
     super.dispose();
   }
 
@@ -109,39 +113,53 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                   children: [
                     const ExpenseMethodsDropdown(),
                     //* description
-                    TextField(
-                      controller: _descriptionController,
-                      keyboardType: TextInputType.name,
-                      onChanged: (d) {},
-                      decoration: const InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(
-                            color: ExpenseTrackerColors.violet,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10,
+                      ).h,
+                      child: TextField(
+                        controller: _descriptionController,
+                        keyboardType: TextInputType.name,
+                        onChanged: (d) {},
+                        decoration: const InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(
+                              color: ExpenseTrackerColors.violet,
+                            ),
                           ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(
-                            color: ExpenseTrackerColors.light60,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(
+                              color: ExpenseTrackerColors.light60,
+                            ),
                           ),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          borderSide: BorderSide(
-                            color: ExpenseTrackerColors.light60,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            borderSide: BorderSide(
+                              color: ExpenseTrackerColors.light60,
+                            ),
                           ),
-                        ),
-                        hintText: 'Description',
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 10,
+                          hintText: 'Description',
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ),
                         ),
                       ),
                     ),
-                    //! wallet (place holder) 
+                    //! wallet (place holder)
                     //*** [TODO: wallet from db]
                     const IncomeMehodsDropdown(),
+                    //* attachment filed with dotted border
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10,
+                      ).h,
+                      child: AttachmentPicker(
+                        selectIMGController: imageFieldController,
+                      ),
+                    ),
                   ],
                 ),
               ),
