@@ -12,6 +12,7 @@ dependencies:
   animations: ^2.0.8
   bloc: ^8.1.2
   cupertino_icons: ^1.0.2
+  dotted_border: ^2.1.0
   equatable: ^2.0.5
   fl_chart: ^0.66.0
   flutter:
@@ -25,6 +26,7 @@ dependencies:
   fluttertoast: ^8.2.4
   freezed_annotation: ^2.4.1
   google_fonts: ^6.1.0
+  image_picker: ^1.0.6
   intl: ^0.18.1
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1
