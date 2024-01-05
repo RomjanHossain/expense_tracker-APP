@@ -13,13 +13,15 @@ class ExpenseTrackerTheme {
       // appBarTheme: _appBarTheme,
       elevatedButtonTheme: _elevatedButtonTheme,
       outlinedButtonTheme: _outlinedButtonTheme,
-      // textTheme: _textTheme,
-      // // dialogBackgroundColor: ExpenseTrackerExpenseTrackerColors.whiteBackground,
-      // dialogTheme: _dialogTheme,
-      // tooltipTheme: _tooltipTheme,
-      // bottomSheetTheme: _bottomSheetTheme,
-      // tabBarTheme: _tabBarTheme,
-      // dividerTheme: _dividerTheme,
+      // switch button theme
+      switchTheme: SwitchThemeData(
+        thumbColor: MaterialStateProperty.all<Color>(
+          ExpenseTrackerColors.violet,
+        ),
+        trackColor: MaterialStateProperty.all<Color>(
+          ExpenseTrackerColors.violet20,
+        ),
+      ),
       useMaterial3: true,
     );
   }
@@ -36,13 +38,15 @@ class ExpenseTrackerTheme {
       // appBarTheme: _appBarTheme,
       elevatedButtonTheme: _elevatedButtonTheme,
       outlinedButtonTheme: _outlinedButtonTheme,
-      // textTheme: _textTheme,
-      // // dialogBackgroundColor: ExpenseTrackerColors.darkBackground,
-      // dialogTheme: _dialogTheme,
-      // tooltipTheme: _tooltipTheme,
-      // bottomSheetTheme: _bottomSheetTheme,
-      // tabBarTheme: _tabBarTheme,
-      // dividerTheme: _dividerTheme,
+      // switch button theme
+      switchTheme: SwitchThemeData(
+        thumbColor: MaterialStateProperty.all<Color>(
+          ExpenseTrackerColors.violet,
+        ),
+        trackColor: MaterialStateProperty.all<Color>(
+          ExpenseTrackerColors.violet20,
+        ),
+      ),
     );
   }
 
