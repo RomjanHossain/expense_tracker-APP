@@ -4,6 +4,7 @@ import 'package:expense_tracker/presentation/pages/app_home_page/components/drop
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_income_methods.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/attachment_picker.dart';
+import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -110,6 +111,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                   ),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     const ExpenseMethodsDropdown(),
                     //* description
@@ -159,6 +162,20 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                       child: AttachmentPicker(
                         selectIMGController: imageFieldController,
                       ),
+                    ),
+                    //* repeat */
+                    ListTile(
+                      title: const Text('Repeat'),
+                      subtitle: const Text('Repeat transaction'),
+                      trailing: Switch(
+                        value: true,
+                        onChanged: (value) {},
+                      ),
+                    ),
+                    //** a submit button */
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: PrimaryButton(onPress: () {}, text: 'Continue'),
                     ),
                   ],
                 ),
