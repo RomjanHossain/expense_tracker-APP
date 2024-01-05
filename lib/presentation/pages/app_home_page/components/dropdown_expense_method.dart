@@ -1,3 +1,4 @@
+import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/theme.dart';
 import 'package:expense_tracker/data/models/category_model.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
@@ -14,22 +15,44 @@ class ExpenseMethodsDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<DropdownExpenseMethodCubit, String>(
       builder: (context, state) {
-        return DropdownButton<CategoryModel>(
+        return DropdownButtonFormField<CategoryModel>(
           onTap: () {
             debugPrint(
               'Dropdown value cubit -> ${context.read<DropdownExpenseMethodCubit>().state}',
             );
           },
           borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
-          underline: Container(),
+          // underline: Container(),
+          decoration: const InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderSide: BorderSide(
+                color: ExpenseTrackerColors.violet,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderSide: BorderSide(
+                color: ExpenseTrackerColors.light60,
+              ),
+            ),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 10,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              borderSide: BorderSide(
+                color: ExpenseTrackerColors.light60,
+              ),
+            ),
+          ),
           isExpanded: true, //Adding this property, does the magic
           hint: const Text('Expenses'),
           icon: const Icon(Icons.keyboard_arrow_down),
-          alignment: Alignment.center,
+          alignment: Alignment.centerLeft,
           dropdownColor: const Color(0xfff5f5f5), // Dropdown open Color
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
+
           value: ExpenseTrackerCategories.singleexpensesCategory(state),
           items: ExpenseTrackerCategories.expensesCategories
               .map(
@@ -40,15 +63,13 @@ class ExpenseMethodsDropdown extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(e.icon),
-                      Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Text(
-                            e.title.trim(),
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            // style: ExpenseTrackerTextStyle.caption,
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Text(
+                          e.title.trim(),
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          // style: ExpenseTrackerTextStyle.caption,
                         ),
                       ),
                     ],

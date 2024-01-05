@@ -19,20 +19,50 @@ class _IncomeMehodsDropdownState extends State<IncomeMehodsDropdown> {
   Widget build(BuildContext context) {
     return BlocBuilder<DropdownIncomeMethodCubit, String>(
       builder: (context, state) {
-        return DropdownButton<CategoryModel>(
+        return DropdownButtonFormField<CategoryModel>(
           borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
-          underline: Container(),
+          // underline: Container(),
+          decoration: const InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderSide: BorderSide(
+                color: ExpenseTrackerColors.violet,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderSide: BorderSide(
+                color: ExpenseTrackerColors.light60,
+              ),
+            ),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 10,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              borderSide: BorderSide(
+                color: ExpenseTrackerColors.light60,
+              ),
+            ),
+          ),
+          elevation: 2,
           isExpanded: true, //Adding this property, does the magic
           dropdownColor: const Color(0xfff5f5f5), // Dropdown open Color
           icon: const Icon(Icons.keyboard_arrow_down),
           // value: CategoryModel(title: 'Housing', icon: Icons.house),
-          hint: const Text('Income Source'),
+          hint: const Text(
+            'Income Source',
+            // style: ExpenseTrackerTextStyle.regular2,
+            // textAlign: TextAlign.start,
+          ),
           // padding: const EdgeInsets.all(0),
           value: ExpenseTrackerCategories.singleIncomeMethods(state),
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
+
+          alignment: Alignment.centerLeft,
+          // padding: const EdgeInsets.symmetric(
+          //   horizontal: 10,
+          // ),
           items: ExpenseTrackerCategories.incomeMethods
               .map(
                 (e) => DropdownMenuItem<CategoryModel>(
@@ -42,15 +72,13 @@ class _IncomeMehodsDropdownState extends State<IncomeMehodsDropdown> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(e.icon),
-                      Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Text(
-                            e.title.trim(),
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            // style: ExpenseTrackerTextStyle.caption,
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Text(
+                          e.title.trim(),
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          // style: ExpenseTrackerTextStyle.caption,
                         ),
                       ),
                     ],
