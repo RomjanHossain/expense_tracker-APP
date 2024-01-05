@@ -1,5 +1,4 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
-import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:flutter/material.dart';
 
 /// primary button
