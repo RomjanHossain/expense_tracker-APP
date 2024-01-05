@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:expense_tracker/app/ui/src/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -72,12 +73,12 @@ class _AttachmentPickerState extends State<AttachmentPicker> {
                       Navigator.pop(context);
                       getImage(ImageSource.gallery);
                     },
-                    style: ButtonStyle(
+                    style: const ButtonStyle(
                       // backgroundColor:
                       //     const MaterialStatePropertyAll(priceBoxColor),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
                         ),
                       ),
                     ),
@@ -101,12 +102,12 @@ class _AttachmentPickerState extends State<AttachmentPicker> {
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: ElevatedButton(
-                    style: ButtonStyle(
+                    style: const ButtonStyle(
                       // backgroundColor:
                       //     const MaterialStatePropertyAll(priceBoxColor),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
                         ),
                       ),
                     ),
