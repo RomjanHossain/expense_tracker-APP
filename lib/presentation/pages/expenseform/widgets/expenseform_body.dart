@@ -9,6 +9,7 @@ import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/attachment_picker.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -289,6 +290,9 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           vertical: 10,
                         ),
                       ),
+                      style: const TextStyle(
+                        color: ExpenseTrackerColors.dark50,
+                      ),
                     ),
                   ),
                   //! wallet (place holder)
@@ -315,10 +319,43 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           color: ExpenseTrackerColors.dark25,
                         ),
                       ),
-                      subtitle: const Text(
-                        'Repeat transaction',
-                        style: TextStyle(
-                          color: ExpenseTrackerColors.light20,
+                      // subtitle:  Text(
+                      //   'Repeat transaction',
+                      //   style: TextStyle(
+                      //     color: ExpenseTrackerColors.light20,
+                      //   ),
+                      // ),
+                      subtitle: RichText(
+                        text: TextSpan(
+                          text: 'Repeat transaction',
+                          style: ExpenseTrackerTextStyle.tiny.copyWith(
+                            color: ExpenseTrackerColors.light20,
+                          ),
+                          children: [
+                            if (state.isExpense) ...[
+                              const TextSpan(text: ', '),
+                              TextSpan(
+                                text: 'set your own time',
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    // show a bottom modal sheet
+                                    showBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return Container(
+                                          height: 200,
+                                          color: Colors.amber,
+                                        );
+                                      },
+                                    );
+                                  },
+                                style: ExpenseTrackerTextStyle.tiny.copyWith(
+                                    color: ExpenseTrackerColors.blue,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: ExpenseTrackerColors.blue),
+                              ),
+                            ]
+                          ],
                         ),
                       ),
                       trailing: Switch(
