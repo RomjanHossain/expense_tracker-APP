@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/app/ui/src/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -145,22 +146,45 @@ class _AttachmentPickerState extends State<AttachmentPicker> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: myAlert,
-      child: image != null
-          ? ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.file(
-                File(
-                  image!.path,
+      onTap: () {
+        // show a bottom sheet
+        showModalBottomSheet(
+          context: context,
+          builder: (context) => Container(
+            height: 150.h,
+            child: Row(
+              children: [
+                Container(
+                  child: Column(
+                    children: [
+                      Icon(Icons.camera_alt),
+                      Text('Camera'),
+                    ],
+                  ),
                 ),
-                fit: BoxFit.cover,
-                height: 250.h,
+              ],
+            ),
+          ),
+        );
+      },
+      child: image != null
+          ? Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.file(
+                  File(
+                    image!.path,
+                  ),
+                  fit: BoxFit.cover,
+                  height: 40.h,
+                ),
               ),
             )
           : DottedBorder(
               radius: const Radius.circular(15),
               borderType: BorderType.RRect,
               dashPattern: const [8, 4],
+              color: ExpenseTrackerColors.light60,
               // borderPadding: const EdgeInsets.all(20),
               padding: const EdgeInsets.all(20),
               child: Row(
@@ -168,7 +192,7 @@ class _AttachmentPickerState extends State<AttachmentPicker> {
                 children: [
                   const Icon(
                     Icons.attach_file,
-                    color: Colors.black,
+                    color: ExpenseTrackerColors.light20,
                     size: 30,
                   ),
                   SizedBox(
@@ -177,7 +201,7 @@ class _AttachmentPickerState extends State<AttachmentPicker> {
                   const Text(
                     'Add Attachment',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: ExpenseTrackerColors.light20,
                       fontSize: 12,
                     ),
                   ),
