@@ -6,21 +6,35 @@ part of 'expenseform_bloc.dart';
 class ExpenseformState extends Equatable {
   /// {@macro expenseform_state}
   const ExpenseformState({
-    this.customProperty = 'Default Value',
+    // this.expenseId = '',
+    // this.incomeSourceId = '',
+    this.isExpense = false,
   });
 
-  /// A description for customProperty
-  final String customProperty;
+  /// expense id
+  // final String expenseId;
+
+  /// income source id
+  // final String incomeSourceId;
+  final bool isExpense;
 
   @override
-  List<Object> get props => [customProperty];
+  List<Object> get props => [
+        // expenseId,
+        // incomeSourceId,
+        isExpense,
+      ];
 
   /// Creates a copy of the current ExpenseformState with property changes
   ExpenseformState copyWith({
-    String? customProperty,
+    // String? expenseId,
+    // String? incomeSourceId,
+    bool? isExpense,
   }) {
     return ExpenseformState(
-      customProperty: customProperty ?? this.customProperty,
+      // expenseId: expenseId ?? this.expenseId,
+      // incomeSourceId: incomeSourceId ?? this.incomeSourceId,
+      isExpense: isExpense ?? this.isExpense,
     );
   }
 }
