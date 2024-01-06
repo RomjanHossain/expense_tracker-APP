@@ -48,10 +48,18 @@ class ExpenseMethodsDropdown extends StatelessWidget {
             ),
           ),
           isExpanded: true, //Adding this property, does the magic
-          hint: const Text('Expenses'),
-          icon: const Icon(Icons.keyboard_arrow_down),
+          hint: const Text(
+            'Expenses',
+            style: TextStyle(
+              color: ExpenseTrackerColors.light20,
+            ),
+          ),
+          icon: const Icon(
+            Icons.keyboard_arrow_down,
+            color: ExpenseTrackerColors.light20,
+          ),
           alignment: Alignment.centerLeft,
-          dropdownColor: const Color(0xfff5f5f5), // Dropdown open Color
+          dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
 
           value: ExpenseTrackerCategories.singleexpensesCategory(state),
           items: ExpenseTrackerCategories.expensesCategories
@@ -62,14 +70,27 @@ class ExpenseMethodsDropdown extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(e.icon),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Text(
-                          e.title.trim(),
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          // style: ExpenseTrackerTextStyle.caption,
+                      Text(
+                        e.icon,
+                        style: const TextStyle(
+                          color: ExpenseTrackerColors.light20,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Text(
+                            e.title.trim(),
+                            // softWrap: false,
+
+                            maxLines: 1,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            // style: ExpenseTrackerTextStyle.caption,
+                            style: const TextStyle(
+                              color: ExpenseTrackerColors.light20,
+                            ),
+                          ),
                         ),
                       ),
                     ],
