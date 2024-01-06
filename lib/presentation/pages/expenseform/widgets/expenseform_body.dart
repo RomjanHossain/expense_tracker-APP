@@ -1,6 +1,7 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/data/datasources/local/utils_data/all_months.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_expense_method.dart';
@@ -343,18 +344,213 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                       context: context,
                                       builder: (context) {
                                         return Container(
-                                          height: 200,
-                                          color: Colors.amber,
+                                          height: 300.h,
+                                          alignment: Alignment.center,
+                                          margin: const EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                          ).h,
+                                          decoration: const BoxDecoration(
+                                            // color: ExpenseTrackerColors.blue,
+                                            borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(32),
+                                            ),
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .start, // start
+                                            children: [
+                                              Text(
+                                                'Start of subscription',
+                                                style: ExpenseTrackerTextStyle
+                                                    .regular2
+                                                    .copyWith(
+                                                  color: ExpenseTrackerColors
+                                                      .dark25,
+                                                  fontStyle: FontStyle.italic,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                              // row of the frequency dropdown (subscriptionsFrequency), months dropdown (calendermotns) and date dropdown according to the month selected
+                                              Row(
+                                                children: [
+                                                  // frequency dropdown
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                        8,
+                                                      ),
+                                                      child: DropdownButton(
+                                                        // value: 'Daily',
+                                                        onChanged: (value) {
+                                                          context
+                                                              .read<
+                                                                  ExpenseformBloc>()
+                                                              .add(
+                                                                ChangeSubType(
+                                                                  value
+                                                                      .toString(),
+                                                                ),
+                                                              );
+                                                        },
+                                                        items:
+                                                            subscriptionsFrequency
+                                                                .map(
+                                                                  (e) =>
+                                                                      DropdownMenuItem(
+                                                                    value: e,
+                                                                    child:
+                                                                        Text(e),
+                                                                  ),
+                                                                )
+                                                                .toList(),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  // months dropdown
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                        8,
+                                                      ),
+                                                      child: DropdownButton(
+                                                        // value: 'January',
+                                                        onChanged: (value) {
+                                                          context
+                                                              .read<
+                                                                  ExpenseformBloc>()
+                                                              .add(
+                                                                ChangeSubStartMonth(
+                                                                  value
+                                                                      .toString(),
+                                                                ),
+                                                              );
+                                                        },
+                                                        items: calanderMonths
+                                                            .map(
+                                                              (e) =>
+                                                                  DropdownMenuItem(
+                                                                value: e,
+                                                                child: Text(e),
+                                                              ),
+                                                            )
+                                                            .toList(),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  // date dropdown
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                        8,
+                                                      ),
+                                                      child: DropdownButton(
+                                                        // value: '1',
+                                                        onChanged: (value) {
+                                                          context
+                                                              .read<
+                                                                  ExpenseformBloc>()
+                                                              .add(
+                                                                ChangeSubStart(
+                                                                  value
+                                                                      .toString(),
+                                                                ),
+                                                              );
+                                                        },
+                                                        items: List.generate(
+                                                          31,
+                                                          (index) =>
+                                                              DropdownMenuItem(
+                                                            value:
+                                                                '${index + 1}',
+                                                            child: Text(
+                                                              '${index + 1}',
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              // end of subscription (date picker)
+                                              Text(
+                                                'End of subscription',
+                                                style: ExpenseTrackerTextStyle
+                                                    .regular2
+                                                    .copyWith(
+                                                  color: ExpenseTrackerColors
+                                                      .dark25,
+                                                  fontStyle: FontStyle.italic,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                              // date picker for the end of subscription (not a dropdown)
+                                              Row(
+                                                children: [
+                                                  Text('Date'),
+                                                  Expanded(
+                                                    child: GestureDetector(
+                                                      child: Text('Select'),
+                                                      onTap: () async {
+                                                        // show a date picker
+                                                        final date =
+                                                            await showDatePicker(
+                                                          context: context,
+                                                          confirmText: 'Set',
+                                                          initialDate:
+                                                              DateTime.now(),
+                                                          firstDate:
+                                                              DateTime.now(),
+                                                          lastDate:
+                                                              DateTime.now()
+                                                                  .add(
+                                                            const Duration(
+                                                              days: 365 * 10,
+                                                            ),
+                                                          ),
+                                                        );
+                                                        if (date != null) {
+                                                          if (!context
+                                                              .mounted) {
+                                                            return;
+                                                          }
+                                                          context
+                                                              .read<
+                                                                  ExpenseformBloc>()
+                                                              .add(
+                                                                ChangeSubEnd(
+                                                                  date,
+                                                                ),
+                                                              );
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              PrimaryButton(
+                                                onPress: () {},
+                                                text: 'Next',
+                                              ),
+                                            ],
+                                          ),
                                         );
                                       },
                                     );
                                   },
                                 style: ExpenseTrackerTextStyle.tiny.copyWith(
-                                    color: ExpenseTrackerColors.blue,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: ExpenseTrackerColors.blue),
+                                  color: ExpenseTrackerColors.blue,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: ExpenseTrackerColors.blue,
+                                ),
                               ),
-                            ]
+                            ],
                           ],
                         ),
                       ),
@@ -369,26 +565,31 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                     ),
                   //! ** a submit button */
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: PrimaryButton(
                       onPress: () {
                         debugPrint(
-                            'Money Amount: ${_accountBalanceController.text}');
+                          'Money Amount: ${_accountBalanceController.text}',
+                        );
                         if (widget.expenseType == ExpenseType.transfer) {
                           debugPrint('From: ${_fromFieldController.text}');
                           debugPrint('To: ${_toFieldController.text}');
                           debugPrint(
-                              'Description: ${_descriptionController.text}');
+                            'Description: ${_descriptionController.text}',
+                          );
                           debugPrint(
                             'Attachment: ${imageFieldController.text}',
                           );
                         } else {
                           debugPrint(
-                              'Expense: ${context.read<DropdownExpenseMethodCubit>().state}');
+                            'Expense: ${context.read<DropdownExpenseMethodCubit>().state}',
+                          );
                           debugPrint(
-                              'Description: ${_descriptionController.text}');
+                            'Description: ${_descriptionController.text}',
+                          );
                           debugPrint(
-                              'Income Source: ${context.read<DropdownIncomeMethodCubit>().state}');
+                            'Income Source: ${context.read<DropdownIncomeMethodCubit>().state}',
+                          );
                           debugPrint(
                             'attachment: ${imageFieldController.text}',
                           );
@@ -407,3 +608,11 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
     );
   }
 }
+
+const subscriptionsFrequency = [
+  'Daily',
+  'Weekly',
+  'Monthly',
+  'Yearly',
+  'Lifetime',
+];
