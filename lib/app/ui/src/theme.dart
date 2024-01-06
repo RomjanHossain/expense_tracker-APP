@@ -13,13 +13,15 @@ class ExpenseTrackerTheme {
       // appBarTheme: _appBarTheme,
       elevatedButtonTheme: _elevatedButtonTheme,
       outlinedButtonTheme: _outlinedButtonTheme,
-      // textTheme: _textTheme,
-      // // dialogBackgroundColor: ExpenseTrackerColors.whiteBackground,
-      // dialogTheme: _dialogTheme,
-      // tooltipTheme: _tooltipTheme,
-      // bottomSheetTheme: _bottomSheetTheme,
-      // tabBarTheme: _tabBarTheme,
-      // dividerTheme: _dividerTheme,
+      // switch button theme
+      switchTheme: SwitchThemeData(
+        thumbColor: MaterialStateProperty.all<Color>(
+          ExpenseTrackerColors.violet,
+        ),
+        trackColor: MaterialStateProperty.all<Color>(
+          ExpenseTrackerColors.violet20,
+        ),
+      ),
       useMaterial3: true,
     );
   }
@@ -36,13 +38,15 @@ class ExpenseTrackerTheme {
       // appBarTheme: _appBarTheme,
       elevatedButtonTheme: _elevatedButtonTheme,
       outlinedButtonTheme: _outlinedButtonTheme,
-      // textTheme: _textTheme,
-      // // dialogBackgroundColor: ExpenseTrackerColors.darkBackground,
-      // dialogTheme: _dialogTheme,
-      // tooltipTheme: _tooltipTheme,
-      // bottomSheetTheme: _bottomSheetTheme,
-      // tabBarTheme: _tabBarTheme,
-      // dividerTheme: _dividerTheme,
+      // switch button theme
+      switchTheme: SwitchThemeData(
+        thumbColor: MaterialStateProperty.all<Color>(
+          ExpenseTrackerColors.violet,
+        ),
+        trackColor: MaterialStateProperty.all<Color>(
+          ExpenseTrackerColors.violet20,
+        ),
+      ),
     );
   }
 
@@ -178,7 +182,7 @@ class ExpenseTrackerTheme {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        foregroundColor: Colors.white,
+        foregroundColor: ExpenseTrackerColors.white,
         backgroundColor: ExpenseTrackerColors.violet,
         shape: const RoundedRectangleBorder(
           borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
@@ -196,7 +200,7 @@ class ExpenseTrackerTheme {
         shape: const RoundedRectangleBorder(
           borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
         ),
-        // side: const BorderSide(color: ExpenseTrackerColors.white, width: 2),
+        // side: const BorderSide(color: ExpenseTrackerExpenseTrackerColors.white, width: 2),
         minimumSize: const Size(double.infinity, 48),
       ),
     );
@@ -209,7 +213,7 @@ class ExpenseTrackerTheme {
   //       borderRadius: BorderRadius.all(Radius.circular(5)),
   //     ),
   //     padding: EdgeInsets.all(10),
-  //     textStyle: TextStyle(color: ExpenseTrackerColors.white),
+  //     textStyle: TextStyle(color: ExpenseTrackerExpenseTrackerColors.white),
   //   );
   // }
 
@@ -223,7 +227,7 @@ class ExpenseTrackerTheme {
 
   // static BottomSheetThemeData get _bottomSheetTheme {
   //   return const BottomSheetThemeData(
-  //     backgroundColor: ExpenseTrackerColors.whiteBackground,
+  //     backgroundColor: ExpenseTrackerExpenseTrackerColors.whiteBackground,
   //     shape: RoundedRectangleBorder(
   //       borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
   //     ),

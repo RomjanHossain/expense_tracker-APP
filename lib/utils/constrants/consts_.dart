@@ -17,3 +17,6 @@ final width30 = SizedBox(width: 30.w);
 
 ///* home page segmented buttons enum(today, week, month, year)
 enum SegmentedButtonsData { today, week, month, year }
+
+///& types of expenses enum (income, expense, transfer)
+enum ExpenseType { income, expense, transfer }

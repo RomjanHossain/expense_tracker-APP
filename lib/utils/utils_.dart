@@ -1,3 +1,4 @@
+import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -10,7 +11,7 @@ void showToast(String msg, Color? color) {
     toastLength: Toast.LENGTH_LONG,
     gravity: ToastGravity.BOTTOM,
     backgroundColor: color,
-    textColor: Colors.white,
+    textColor: ExpenseTrackerColors.white,
     fontSize: 16,
   );
 }

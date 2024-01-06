@@ -29,10 +29,11 @@ class OnboardingAccountSetupPage extends StatelessWidget {
           elevation: 0,
           title: const Text(
             'Add new account',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: ExpenseTrackerColors.white),
           ),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon:
+                const Icon(Icons.arrow_back, color: ExpenseTrackerColors.white),
             onPressed: () {
               Navigator.pop(context);
             },

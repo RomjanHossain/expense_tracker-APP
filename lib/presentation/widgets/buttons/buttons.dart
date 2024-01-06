@@ -1,5 +1,4 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
-import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:flutter/material.dart';
 
 /// primary button
@@ -12,7 +11,7 @@ class PrimaryButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(double.infinity, 48),
-        foregroundColor: Colors.white,
+        foregroundColor: ExpenseTrackerColors.white,
         backgroundColor: ExpenseTrackerColors.violet,
         shape: const RoundedRectangleBorder(
           borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
