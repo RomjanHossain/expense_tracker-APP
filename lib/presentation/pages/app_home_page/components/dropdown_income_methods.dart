@@ -75,7 +75,7 @@ class IncomeMehodsDropdown extends StatelessWidget {
                       Text(
                         e.icon,
                         style: const TextStyle(
-                          color: ExpenseTrackerColors.light20,
+                          color: ExpenseTrackerColors.green,
                         ),
                       ),
                       Expanded(
@@ -86,7 +86,7 @@ class IncomeMehodsDropdown extends StatelessWidget {
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                              color: ExpenseTrackerColors.light20,
+                              color: ExpenseTrackerColors.dark50,
                             ),
                             // style: ExpenseTrackerTextStyle.caption,
                           ),
