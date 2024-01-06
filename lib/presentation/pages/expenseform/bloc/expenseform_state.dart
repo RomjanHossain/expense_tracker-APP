@@ -8,14 +8,21 @@ class ExpenseformState extends Equatable {
   const ExpenseformState({
     // this.expenseId = '',
     // this.incomeSourceId = '',
+    this.subStartDay,
+    this.subStartMonth,
+    this.subEnd,
+    this.subType,
     this.isExpense = false,
   });
 
-  /// expense id
-  // final String expenseId;
+  /// subscription start date
+  final String? subStartMonth;
+  final String? subStartDay;
 
-  /// income source id
-  // final String incomeSourceId;
+  /// subscription end date
+  final DateTime? subEnd;
+  // sub type
+  final String? subType;
   final bool isExpense;
 
   @override
@@ -30,11 +37,21 @@ class ExpenseformState extends Equatable {
     // String? expenseId,
     // String? incomeSourceId,
     bool? isExpense,
+    DateTime? subStart,
+    DateTime? subEnd,
+    String? subType,
+    String? subStartDay,
+    String? subStartMonth,
   }) {
     return ExpenseformState(
       // expenseId: expenseId ?? this.expenseId,
       // incomeSourceId: incomeSourceId ?? this.incomeSourceId,
       isExpense: isExpense ?? this.isExpense,
+      // subStart: subStart ?? this.subStart,
+      subEnd: subEnd ?? this.subEnd,
+      subType: subType ?? this.subType,
+      subStartDay: subStartDay ?? this.subStartDay,
+      subStartMonth: subStartMonth ?? this.subStartMonth,
     );
   }
 }

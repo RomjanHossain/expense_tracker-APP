@@ -33,6 +33,42 @@ class ChangeIncomeSourceId extends ExpenseformEvent {
   List<Object> get props => [incomeSourceId];
 }
 
+// change subscription start date
+class ChangeSubStart extends ExpenseformEvent {
+  const ChangeSubStart(this.subStartDay);
+  final String subStartDay;
+
+  @override
+  List<Object> get props => [subStartDay];
+}
+
+// change subscription start month
+class ChangeSubStartMonth extends ExpenseformEvent {
+  const ChangeSubStartMonth(this.subStartMonth);
+  final String subStartMonth;
+
+  @override
+  List<Object> get props => [subStartMonth];
+}
+
+// change subscription end date
+class ChangeSubEnd extends ExpenseformEvent {
+  const ChangeSubEnd(this.subEnd);
+  final DateTime subEnd;
+
+  @override
+  List<Object> get props => [subEnd];
+}
+
+// change subscription type
+class ChangeSubType extends ExpenseformEvent {
+  const ChangeSubType(this.subType);
+  final String subType;
+
+  @override
+  List<Object> get props => [subType];
+}
+
 // change repeat
 class ChangeRepeat extends ExpenseformEvent {
   // ignore: avoid_positional_boolean_parameters
