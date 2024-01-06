@@ -61,7 +61,7 @@ class ExpenseMethodsDropdown extends StatelessWidget {
           alignment: Alignment.centerLeft,
           dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
 
-          value: ExpenseTrackerCategories.singleexpensesCategory(state),
+          // value: ExpenseTrackerCategories.singleexpensesCategory(state),
           items: ExpenseTrackerCategories.expensesCategories
               .map(
                 (e) => DropdownMenuItem<CategoryModel>(
@@ -73,7 +73,7 @@ class ExpenseMethodsDropdown extends StatelessWidget {
                       Text(
                         e.icon,
                         style: const TextStyle(
-                          color: ExpenseTrackerColors.light20,
+                          color: ExpenseTrackerColors.green,
                         ),
                       ),
                       Expanded(
@@ -88,7 +88,7 @@ class ExpenseMethodsDropdown extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             // style: ExpenseTrackerTextStyle.caption,
                             style: const TextStyle(
-                              color: ExpenseTrackerColors.light20,
+                              color: ExpenseTrackerColors.dark50,
                             ),
                           ),
                         ),
