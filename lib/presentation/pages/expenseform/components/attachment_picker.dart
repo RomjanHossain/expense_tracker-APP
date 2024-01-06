@@ -51,97 +51,6 @@ class _AttachmentPickerState extends State<AttachmentPicker> {
     }
   }
 
-  //show popup dialog
-  void myAlert() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          title: const Text('Select Attachment Image'),
-          content: SizedBox(
-            height: MediaQuery.of(context).size.height / 6,
-            width: MediaQuery.of(context).size.width / 2,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: ElevatedButton(
-                    //if user click this button, user can upload image from gallery
-                    onPressed: () {
-                      Navigator.pop(context);
-                      getImage(ImageSource.gallery);
-                    },
-                    style: const ButtonStyle(
-                      // backgroundColor:
-                      //     const MaterialStatePropertyAll(priceBoxColor),
-                      shape: MaterialStatePropertyAll(
-                        RoundedRectangleBorder(
-                          borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
-                        ),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.image,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        const Text(
-                          'From Gallery',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: ElevatedButton(
-                    style: const ButtonStyle(
-                      // backgroundColor:
-                      //     const MaterialStatePropertyAll(priceBoxColor),
-                      shape: MaterialStatePropertyAll(
-                        RoundedRectangleBorder(
-                          borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
-                        ),
-                      ),
-                    ),
-                    //if user click this button. user can upload image from camera
-                    onPressed: () {
-                      Navigator.pop(context);
-                      getImage(ImageSource.camera);
-                    },
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.camera,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        const Text(
-                          'From Camera',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   ///* Upload picture GONE
   @override
   Widget build(BuildContext context) {
@@ -151,16 +60,33 @@ class _AttachmentPickerState extends State<AttachmentPicker> {
         showModalBottomSheet(
           context: context,
           builder: (context) => Container(
-            height: 150.h,
+            height: 200.h,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  child: Column(
-                    children: [
-                      Icon(Icons.camera_alt),
-                      Text('Camera'),
-                    ],
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                    getImage(ImageSource.camera);
+                  },
+                  child: AttachmentCard(
+                    icon: Icons.camera_alt_rounded,
+                    text: 'Camera',
                   ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    getImage(ImageSource.gallery);
+                  },
+                  child: AttachmentCard(
+                    icon: Icons.image_rounded,
+                    text: 'Image',
+                  ),
+                ),
+                AttachmentCard(
+                  icon: Icons.document_scanner_rounded,
+                  text: 'Document',
                 ),
               ],
             ),
@@ -208,6 +134,45 @@ class _AttachmentPickerState extends State<AttachmentPicker> {
                 ],
               ),
             ),
+    );
+  }
+}
+
+class AttachmentCard extends StatelessWidget {
+  const AttachmentCard({
+    required this.icon,
+    required this.text,
+    super.key,
+  });
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      height: 100.h,
+      width: 100.w,
+      decoration: BoxDecoration(
+        color: ExpenseTrackerColors.violet20,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            color: ExpenseTrackerColors.violet,
+          ),
+          Text(
+            text,
+            style: ExpenseTrackerTextStyle.regular3.copyWith(
+              color: ExpenseTrackerColors.violet,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
