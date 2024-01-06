@@ -94,17 +94,46 @@ class _AttachmentPickerState extends State<AttachmentPicker> {
         );
       },
       child: image != null
-          ? Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.file(
-                  File(
-                    image!.path,
+          ? Stack(
+              children: [
+                Center(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.file(
+                      File(
+                        image!.path,
+                      ),
+                      fit: BoxFit.cover,
+                      height: 40.h,
+                    ),
                   ),
-                  fit: BoxFit.cover,
-                  height: 40.h,
                 ),
-              ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        image = null;
+                        widget.selectIMGController?.text = '';
+                      });
+                    },
+                    child: Container(
+                      height: 20.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                        color: ExpenseTrackerColors.light20,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Icon(
+                        Icons.close,
+                        color: ExpenseTrackerColors.light60,
+                        size: 15,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             )
           : DottedBorder(
               radius: const Radius.circular(15),
