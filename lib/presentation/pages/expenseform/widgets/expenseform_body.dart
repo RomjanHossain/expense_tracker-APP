@@ -1,5 +1,8 @@
+import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
+import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_expense_method.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_income_methods.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
@@ -9,6 +12,7 @@ import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 /// {@template expenseform_body}
 /// Body of the ExpenseformPage.
@@ -27,12 +31,20 @@ class ExpenseformBody extends StatefulWidget {
 class _ExpenseformBodyState extends State<ExpenseformBody> {
   final _accountBalanceController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final _transformController = TextEditingController();
+  final _transtoController = TextEditingController();
   final imageFieldController = TextEditingController();
+  final _fromFieldController = TextEditingController();
+  final _toFieldController = TextEditingController();
   @override
   void dispose() {
     _accountBalanceController.dispose();
     _descriptionController.dispose();
     imageFieldController.dispose();
+    _transformController.dispose();
+    _transtoController.dispose();
+    _fromFieldController.dispose();
+    _toFieldController.dispose();
     super.dispose();
   }
 
@@ -120,6 +132,127 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                   if (widget.expenseType == ExpenseType.income ||
                       widget.expenseType == ExpenseType.expense)
                     const ExpenseMethodsDropdown(),
+                  if (widget.expenseType == ExpenseType.transfer)
+                    Stack(
+                      children: [
+                        Row(
+                          children: [
+                            // from **
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                ).h,
+                                child: TextField(
+                                  controller: _fromFieldController,
+                                  keyboardType: TextInputType.name,
+                                  decoration: InputDecoration(
+                                    focusedBorder: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      borderSide: BorderSide(
+                                        color: ExpenseTrackerColors.violet,
+                                      ),
+                                    ),
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      borderSide: BorderSide(
+                                        color: ExpenseTrackerColors.light60,
+                                      ),
+                                    ),
+                                    border: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(15)),
+                                      borderSide: BorderSide(
+                                        color: ExpenseTrackerColors.light60,
+                                      ),
+                                    ),
+                                    hintText: 'From',
+                                    hintStyle: ExpenseTrackerTextStyle.regular2
+                                        .copyWith(
+                                      color: ExpenseTrackerColors.light20,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 10,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            //**to */
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                ).h,
+                                child: TextField(
+                                  controller: _toFieldController,
+                                  keyboardType: TextInputType.name,
+                                  decoration: InputDecoration(
+                                    focusedBorder: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      borderSide: BorderSide(
+                                        color: ExpenseTrackerColors.violet,
+                                      ),
+                                    ),
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      borderSide: BorderSide(
+                                        color: ExpenseTrackerColors.light60,
+                                      ),
+                                    ),
+                                    border: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(15)),
+                                      borderSide: BorderSide(
+                                        color: ExpenseTrackerColors.light60,
+                                      ),
+                                    ),
+                                    hintText: 'To',
+                                    hintStyle: ExpenseTrackerTextStyle.regular2
+                                        .copyWith(
+                                      color: ExpenseTrackerColors.light20,
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 10,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Align(
+                          child: Container(
+                            height: 40.h,
+                            width: 40.w,
+                            decoration: BoxDecoration(
+                              color: ExpenseTrackerColors.light80,
+                              borderRadius: BorderRadius.circular(50).r,
+                              border: Border.all(
+                                color: ExpenseTrackerColors.light60,
+                                width: 2,
+                              ),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10,
+                            ).h,
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 10,
+                            ).h,
+                            child: SvgPicture.asset(
+                              ExpenseAssets.transactionColorIcon,
+                              // color: ExpenseTrackerColors.violet,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   //* description
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -128,28 +261,30 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                     child: TextField(
                       controller: _descriptionController,
                       keyboardType: TextInputType.name,
-                      onChanged: (d) {},
-                      decoration: const InputDecoration(
-                        focusedBorder: OutlineInputBorder(
+                      decoration: InputDecoration(
+                        focusedBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           borderSide: BorderSide(
                             color: ExpenseTrackerColors.violet,
                           ),
                         ),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           borderSide: BorderSide(
                             color: ExpenseTrackerColors.light60,
                           ),
                         ),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15)),
                           borderSide: BorderSide(
                             color: ExpenseTrackerColors.light60,
                           ),
                         ),
                         hintText: 'Description',
-                        contentPadding: EdgeInsets.symmetric(
+                        hintStyle: ExpenseTrackerTextStyle.regular2.copyWith(
+                          color: ExpenseTrackerColors.light20,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
                           horizontal: 20,
                           vertical: 10,
                         ),
@@ -174,17 +309,57 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                       widget.expenseType == ExpenseType.expense)
                     //* repeat */
                     ListTile(
-                      title: const Text('Repeat'),
-                      subtitle: const Text('Repeat transaction'),
+                      title: const Text(
+                        'Repeat',
+                        style: TextStyle(
+                          color: ExpenseTrackerColors.dark25,
+                        ),
+                      ),
+                      subtitle: const Text(
+                        'Repeat transaction',
+                        style: TextStyle(
+                          color: ExpenseTrackerColors.light20,
+                        ),
+                      ),
                       trailing: Switch(
-                        value: true,
-                        onChanged: (value) {},
+                        value: state.isExpense,
+                        onChanged: (value) {
+                          context.read<ExpenseformBloc>().add(
+                                ChangeRepeat(value),
+                              );
+                        },
                       ),
                     ),
-                  //** a submit button */
+                  //! ** a submit button */
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: PrimaryButton(onPress: () {}, text: 'Continue'),
+                    child: PrimaryButton(
+                      onPress: () {
+                        debugPrint(
+                            'Money Amount: ${_accountBalanceController.text}');
+                        if (widget.expenseType == ExpenseType.transfer) {
+                          debugPrint('From: ${_fromFieldController.text}');
+                          debugPrint('To: ${_toFieldController.text}');
+                          debugPrint(
+                              'Description: ${_descriptionController.text}');
+                          debugPrint(
+                            'Attachment: ${imageFieldController.text}',
+                          );
+                        } else {
+                          debugPrint(
+                              'Expense: ${context.read<DropdownExpenseMethodCubit>().state}');
+                          debugPrint(
+                              'Description: ${_descriptionController.text}');
+                          debugPrint(
+                              'Income Source: ${context.read<DropdownIncomeMethodCubit>().state}');
+                          debugPrint(
+                            'attachment: ${imageFieldController.text}',
+                          );
+                          debugPrint('Repeat: ${state.isExpense}');
+                        }
+                      },
+                      text: 'Continue',
+                    ),
                   ),
                 ],
               ),
