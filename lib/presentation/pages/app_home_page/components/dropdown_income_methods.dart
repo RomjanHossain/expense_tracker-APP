@@ -5,16 +5,11 @@ import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart'
 import 'package:expense_tracker/utils/constrants/expense_category_tracker_.dart';
 import 'package:flutter/material.dart';
 
-class IncomeMehodsDropdown extends StatefulWidget {
+class IncomeMehodsDropdown extends StatelessWidget {
   const IncomeMehodsDropdown({
     super.key,
   });
 
-  @override
-  State<IncomeMehodsDropdown> createState() => _IncomeMehodsDropdownState();
-}
-
-class _IncomeMehodsDropdownState extends State<IncomeMehodsDropdown> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DropdownIncomeMethodCubit, String>(
@@ -48,16 +43,22 @@ class _IncomeMehodsDropdownState extends State<IncomeMehodsDropdown> {
           ),
           elevation: 2,
           isExpanded: true, //Adding this property, does the magic
-          dropdownColor: const Color(0xfff5f5f5), // Dropdown open Color
-          icon: const Icon(Icons.keyboard_arrow_down),
+          dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
+          icon: const Icon(
+            Icons.keyboard_arrow_down,
+            color: ExpenseTrackerColors.light20,
+          ),
           // value: CategoryModel(title: 'Housing', icon: Icons.house),
           hint: const Text(
             'Income Source',
+            style: TextStyle(
+              color: ExpenseTrackerColors.light20,
+            ),
             // style: ExpenseTrackerTextStyle.regular2,
             // textAlign: TextAlign.start,
           ),
           // padding: const EdgeInsets.all(0),
-          value: ExpenseTrackerCategories.singleIncomeMethods(state),
+          // value: ExpenseTrackerCategories.singleIncomeMethods(state),
 
           alignment: Alignment.centerLeft,
           // padding: const EdgeInsets.symmetric(
@@ -71,14 +72,24 @@ class _IncomeMehodsDropdownState extends State<IncomeMehodsDropdown> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(e.icon),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Text(
-                          e.title.trim(),
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          // style: ExpenseTrackerTextStyle.caption,
+                      Text(
+                        e.icon,
+                        style: const TextStyle(
+                          color: ExpenseTrackerColors.light20,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Text(
+                            e.title.trim(),
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: ExpenseTrackerColors.light20,
+                            ),
+                            // style: ExpenseTrackerTextStyle.caption,
+                          ),
                         ),
                       ),
                     ],
