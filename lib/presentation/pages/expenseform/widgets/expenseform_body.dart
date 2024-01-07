@@ -59,8 +59,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
       listener: (context, state) {},
       builder: (context, state) {
         // 29 Dec, 2025 (datetime format)
-        final date =
-            DateFormat('dd MMM, yyyy').format(state.subEnd ?? DateTime.now());
+        final date = DateFormat('dd MMM, yyyy')
+            .format(state.expenseFormEntity.subEnd ?? DateTime.now());
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
@@ -341,7 +341,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                             color: ExpenseTrackerColors.light20,
                           ),
                           children: [
-                            if (state.isExpense) ...[
+                            if (state.expenseFormEntity.isExpense) ...[
                               const TextSpan(text: ', '),
                               TextSpan(
                                 text: 'set your own time',
@@ -351,16 +351,16 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
 
                                     showModalBottomSheet<void>(
                                       context: context,
-                                      barrierColor: widget.expenseType ==
-                                              ExpenseType.income
-                                          ? ExpenseTrackerColors.green20
-                                              .withOpacity(0.5)
-                                          : widget.expenseType ==
-                                                  ExpenseType.expense
-                                              ? ExpenseTrackerColors.red20
-                                                  .withOpacity(0.5)
-                                              : ExpenseTrackerColors.blue20
-                                                  .withOpacity(0.5),
+                                      // barrierColor: widget.expenseType ==
+                                      //         ExpenseType.income
+                                      //     ? ExpenseTrackerColors.green20
+                                      //         .withOpacity(0.5)
+                                      //     : widget.expenseType ==
+                                      //             ExpenseType.expense
+                                      //         ? ExpenseTrackerColors.red20
+                                      //             .withOpacity(0.5)
+                                      //         : ExpenseTrackerColors.blue20
+                                      //             .withOpacity(0.5),
                                       builder: (context) {
                                         //! TODO: show shit
                                         return const SubscriptionBottomSheet();
@@ -378,7 +378,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                         ),
                       ),
                       trailing: Switch(
-                        value: state.isExpense,
+                        value: state.expenseFormEntity.isExpense,
                         onChanged: (value) {
                           context.read<ExpenseformBloc>().add(
                                 ChangeRepeat(value),
@@ -416,7 +416,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           debugPrint(
                             'attachment: ${imageFieldController.text}',
                           );
-                          debugPrint('Repeat: ${state.isExpense}');
+                          debugPrint(
+                              'Repeat: ${state.expenseFormEntity.isExpense}');
                         }
                       },
                       text: 'Continue',
