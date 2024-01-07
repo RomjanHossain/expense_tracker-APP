@@ -11,6 +11,10 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
     // on<ChangeExpenseId>(_onChangeExpenseId);
     // on<ChangeIncomeSourceId>(_onChangeIncomeSourceId);
     on<ChangeRepeat>(_onChangeRepeat);
+    on<ChangeSubEnd>(_onChangeSubEnd);
+    on<ChangeSubStart>(_onChangeSubStart);
+    on<ChangeSubStartMonth>(_onChangeSubStartMonth);
+    on<ChangeSubType>(_onChangeSubType);
   }
 
   FutureOr<void> _onCustomExpenseformEvent(
@@ -34,6 +38,38 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
   // ) {
   //   emit(state.copyWith(incomeSourceId: event.incomeSourceId));
   // }
+
+  // change subscription start date
+  FutureOr<void> _onChangeSubStart(
+    ChangeSubStart event,
+    Emitter<ExpenseformState> emit,
+  ) {
+    emit(state.copyWith(subStartDay: event.subStartDay));
+  }
+
+  // change subscription start month
+  FutureOr<void> _onChangeSubStartMonth(
+    ChangeSubStartMonth event,
+    Emitter<ExpenseformState> emit,
+  ) {
+    emit(state.copyWith(subStartMonth: event.subStartMonth));
+  }
+
+  // change subscription end date
+  FutureOr<void> _onChangeSubEnd(
+    ChangeSubEnd event,
+    Emitter<ExpenseformState> emit,
+  ) {
+    emit(state.copyWith(subEnd: event.subEnd));
+  }
+
+  // change subscription type
+  FutureOr<void> _onChangeSubType(
+    ChangeSubType event,
+    Emitter<ExpenseformState> emit,
+  ) {
+    emit(state.copyWith(subType: event.subType));
+  }
 
   // change repeat
   FutureOr<void> _onChangeRepeat(
