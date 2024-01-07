@@ -93,6 +93,8 @@ class SubscriptionBottomSheet extends StatelessWidget {
                                   value.toString(),
                                 ),
                               );
+                          debugPrint(
+                              'value : $value ${state.expenseFormEntity.subType}');
                         },
                         items: subscriptionsFrequency
                             .map(
@@ -213,8 +215,13 @@ class SubscriptionBottomSheet extends StatelessWidget {
               ),
               PrimaryButton(
                 onPress: () {
-                  debugPrint('sub end date : ${state.subEnd}');
-                  debugPrint('mon :${state.subStartMonth}');
+                  debugPrint(
+                      'sub end date : ${state.expenseFormEntity.subEnd}');
+                  debugPrint('mon :${state.expenseFormEntity.subStartMonth}');
+                  debugPrint(
+                      'sub start : ${state.expenseFormEntity.subStartDay}');
+                  debugPrint('sub type : ${state.expenseFormEntity.subType}');
+                  // debugPrint('sub end : ${state.isExpense}');
                 },
                 text: 'Next',
               ),
