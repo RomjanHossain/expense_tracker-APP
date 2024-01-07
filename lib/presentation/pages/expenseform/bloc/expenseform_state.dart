@@ -6,30 +6,30 @@ part of 'expenseform_bloc.dart';
 class ExpenseformState extends Equatable {
   /// {@macro expenseform_state}
   const ExpenseformState({
-    // this.expenseId = '',
-    // this.incomeSourceId = '',
-    this.subStartDay,
-    this.subStartMonth,
-    this.subEnd,
-    this.subType,
-    this.isExpense = false,
+ this.expenseFormEntity = const ExpenseFormEntity(
+    // expenseId: '',
+    // incomeSourceId: '',
+    isExpense: false,
+    // subStart: DateTime.now(),
+    // subEnd: DateTime.now(),
+    // subStartDay: '1',
+    // subStartMonth: 'January',
+  ),
+
   });
 
-  /// subscription start date
-  final String? subStartMonth;
-  final String? subStartDay;
-
-  /// subscription end date
-  final DateTime? subEnd;
-  // sub type
-  final String? subType;
-  final bool isExpense;
+  final ExpenseFormEntity expenseFormEntity;
 
   @override
   List<Object> get props => [
         // expenseId,
         // incomeSourceId,
-        isExpense,
+        // isExpense,
+        expenseFormEntity,
+        // subStartDay!,
+        // subStartMonth!,
+        // subEnd!,
+        // subType!,
       ];
 
   /// Creates a copy of the current ExpenseformState with property changes
@@ -46,12 +46,20 @@ class ExpenseformState extends Equatable {
     return ExpenseformState(
       // expenseId: expenseId ?? this.expenseId,
       // incomeSourceId: incomeSourceId ?? this.incomeSourceId,
-      isExpense: isExpense ?? this.isExpense,
-      // subStart: subStart ?? this.subStart,
-      subEnd: subEnd ?? this.subEnd,
-      subType: subType ?? this.subType,
-      subStartDay: subStartDay ?? this.subStartDay,
-      subStartMonth: subStartMonth ?? this.subStartMonth,
+      // isExpense: isExpense ?? this.isExpense,
+      // // subStart: subStart ?? this.subStart,
+      // subEnd: subEnd ?? this.subEnd,
+      // subType: subType ?? this.subType,
+      // subStartDay: subStartDay ?? this.subStartDay,
+      // subStartMonth: subStartMonth ?? this.subStartMonth,
+      expenseFormEntity: expenseFormEntity.copyWith(
+        isExpense: isExpense ?? expenseFormEntity.isExpense,
+        // subStart: subStart ?? expenseFormEntity.subStart,
+        subEnd: subEnd ?? expenseFormEntity.subEnd,
+        subType: subType ?? expenseFormEntity.subType,
+        subStartDay: subStartDay ?? expenseFormEntity.subStartDay,
+        subStartMonth: subStartMonth ?? expenseFormEntity.subStartMonth,
+      ),
     );
   }
 }

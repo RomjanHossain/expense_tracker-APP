@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:expense_tracker/domain/entities/expense_form_entity/expense_form_entity.dart';
 part 'expenseform_event.dart';
 part 'expenseform_state.dart';
 
