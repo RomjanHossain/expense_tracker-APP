@@ -8,13 +8,16 @@ import 'package:expense_tracker/presentation/pages/app_home_page/components/drop
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_income_methods.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/attachment_picker.dart';
+import 'package:expense_tracker/presentation/pages/expenseform/components/subscription_bottom.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 /// {@template expenseform_body}
 /// Body of the ExpenseformPage.
@@ -52,8 +55,12 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ExpenseformBloc, ExpenseformState>(
+    return BlocConsumer<ExpenseformBloc, ExpenseformState>(
+      listener: (context, state) {},
       builder: (context, state) {
+        // 29 Dec, 2025 (datetime format)
+        final date =
+            DateFormat('dd MMM, yyyy').format(state.subEnd ?? DateTime.now());
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
@@ -115,7 +122,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
             ),
             // the form
 
-            Container(
+            AnimatedContainer(
               padding: const EdgeInsets.all(15),
               height: widget.expenseType == ExpenseType.income ||
                       widget.expenseType == ExpenseType.expense
@@ -127,6 +134,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                   top: Radius.circular(32),
                 ),
               ),
+              duration: 500.milliseconds,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -340,207 +348,22 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     // show a bottom modal sheet
-                                    showBottomSheet(
+
+                                    showModalBottomSheet<void>(
                                       context: context,
+                                      barrierColor: widget.expenseType ==
+                                              ExpenseType.income
+                                          ? ExpenseTrackerColors.green20
+                                              .withOpacity(0.5)
+                                          : widget.expenseType ==
+                                                  ExpenseType.expense
+                                              ? ExpenseTrackerColors.red20
+                                                  .withOpacity(0.5)
+                                              : ExpenseTrackerColors.blue20
+                                                  .withOpacity(0.5),
                                       builder: (context) {
-                                        return Container(
-                                          height: 300.h,
-                                          alignment: Alignment.center,
-                                          margin: const EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                          ).h,
-                                          decoration: const BoxDecoration(
-                                            // color: ExpenseTrackerColors.blue,
-                                            borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(32),
-                                            ),
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .start, // start
-                                            children: [
-                                              Text(
-                                                'Start of subscription',
-                                                style: ExpenseTrackerTextStyle
-                                                    .regular2
-                                                    .copyWith(
-                                                  color: ExpenseTrackerColors
-                                                      .dark25,
-                                                  fontStyle: FontStyle.italic,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                              // row of the frequency dropdown (subscriptionsFrequency), months dropdown (calendermotns) and date dropdown according to the month selected
-                                              Row(
-                                                children: [
-                                                  // frequency dropdown
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                        8,
-                                                      ),
-                                                      child: DropdownButton(
-                                                        // value: 'Daily',
-                                                        onChanged: (value) {
-                                                          context
-                                                              .read<
-                                                                  ExpenseformBloc>()
-                                                              .add(
-                                                                ChangeSubType(
-                                                                  value
-                                                                      .toString(),
-                                                                ),
-                                                              );
-                                                        },
-                                                        items:
-                                                            subscriptionsFrequency
-                                                                .map(
-                                                                  (e) =>
-                                                                      DropdownMenuItem(
-                                                                    value: e,
-                                                                    child:
-                                                                        Text(e),
-                                                                  ),
-                                                                )
-                                                                .toList(),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  // months dropdown
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                        8,
-                                                      ),
-                                                      child: DropdownButton(
-                                                        // value: 'January',
-                                                        onChanged: (value) {
-                                                          context
-                                                              .read<
-                                                                  ExpenseformBloc>()
-                                                              .add(
-                                                                ChangeSubStartMonth(
-                                                                  value
-                                                                      .toString(),
-                                                                ),
-                                                              );
-                                                        },
-                                                        items: calanderMonths
-                                                            .map(
-                                                              (e) =>
-                                                                  DropdownMenuItem(
-                                                                value: e,
-                                                                child: Text(e),
-                                                              ),
-                                                            )
-                                                            .toList(),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  // date dropdown
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                        8,
-                                                      ),
-                                                      child: DropdownButton(
-                                                        // value: '1',
-                                                        onChanged: (value) {
-                                                          context
-                                                              .read<
-                                                                  ExpenseformBloc>()
-                                                              .add(
-                                                                ChangeSubStart(
-                                                                  value
-                                                                      .toString(),
-                                                                ),
-                                                              );
-                                                        },
-                                                        items: List.generate(
-                                                          31,
-                                                          (index) =>
-                                                              DropdownMenuItem(
-                                                            value:
-                                                                '${index + 1}',
-                                                            child: Text(
-                                                              '${index + 1}',
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              // end of subscription (date picker)
-                                              Text(
-                                                'End of subscription',
-                                                style: ExpenseTrackerTextStyle
-                                                    .regular2
-                                                    .copyWith(
-                                                  color: ExpenseTrackerColors
-                                                      .dark25,
-                                                  fontStyle: FontStyle.italic,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                              // date picker for the end of subscription (not a dropdown)
-                                              Row(
-                                                children: [
-                                                  Text('Date'),
-                                                  Expanded(
-                                                    child: GestureDetector(
-                                                      child: Text('Select'),
-                                                      onTap: () async {
-                                                        // show a date picker
-                                                        final date =
-                                                            await showDatePicker(
-                                                          context: context,
-                                                          confirmText: 'Set',
-                                                          initialDate:
-                                                              DateTime.now(),
-                                                          firstDate:
-                                                              DateTime.now(),
-                                                          lastDate:
-                                                              DateTime.now()
-                                                                  .add(
-                                                            const Duration(
-                                                              days: 365 * 10,
-                                                            ),
-                                                          ),
-                                                        );
-                                                        if (date != null) {
-                                                          if (!context
-                                                              .mounted) {
-                                                            return;
-                                                          }
-                                                          context
-                                                              .read<
-                                                                  ExpenseformBloc>()
-                                                              .add(
-                                                                ChangeSubEnd(
-                                                                  date,
-                                                                ),
-                                                              );
-                                                        }
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              PrimaryButton(
-                                                onPress: () {},
-                                                text: 'Next',
-                                              ),
-                                            ],
-                                          ),
-                                        );
+                                        //! TODO: show shit
+                                        return const SubscriptionBottomSheet();
                                       },
                                     );
                                   },
@@ -607,6 +430,36 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
       },
     );
   }
+
+  InputDecoration dropdownInputDecoration(String hintText) => InputDecoration(
+        isDense: true,
+        focusedBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(
+            color: ExpenseTrackerColors.violet,
+          ),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(
+            color: ExpenseTrackerColors.light60,
+          ),
+        ),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(
+            color: ExpenseTrackerColors.light60,
+          ),
+        ),
+        hintText: hintText,
+        hintStyle: ExpenseTrackerTextStyle.regular2.copyWith(
+          color: ExpenseTrackerColors.light20,
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
+      );
 }
 
 const subscriptionsFrequency = [
