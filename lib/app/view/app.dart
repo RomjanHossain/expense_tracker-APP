@@ -4,6 +4,7 @@ import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expens
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/expense_text_controller_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
+import 'package:expense_tracker/presentation/pages/expenseform/bloc/expenseform_bloc.dart';
 import 'package:expense_tracker/presentation/pages/splash_screen/view/splash_screen_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,6 +31,10 @@ class App extends StatelessWidget {
         /// dropdown values [expended Category methods]
         BlocProvider(
           create: (context) => DropdownIncomeMethodCubit(),
+        ),
+        //ExpenseformBloc
+        BlocProvider(
+          create: (context) => ExpenseformBloc(),
         ),
       ],
       child: MaterialApp(
