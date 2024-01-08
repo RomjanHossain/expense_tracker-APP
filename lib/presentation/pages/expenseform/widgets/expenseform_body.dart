@@ -53,14 +53,16 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
     super.dispose();
   }
 
+  String getFormateDate(DateTime date) =>
+      DateFormat('dd MMM, yyyy').format(date);
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ExpenseformBloc, ExpenseformState>(
       listener: (context, state) {},
       builder: (context, state) {
         // 29 Dec, 2025 (datetime format)
-        final date = DateFormat('dd MMM, yyyy')
-            .format(state.expenseFormEntity.subEnd ?? DateTime.now());
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
@@ -126,7 +128,9 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
               padding: const EdgeInsets.all(15),
               height: widget.expenseType == ExpenseType.income ||
                       widget.expenseType == ExpenseType.expense
-                  ? MediaQuery.of(context).size.height * 0.6
+                  ? state.expenseFormEntity.subStart != null
+                      ? MediaQuery.of(context).size.height * 0.7
+                      : MediaQuery.of(context).size.height * 0.6
                   : MediaQuery.of(context).size.height * 0.5,
               decoration: const BoxDecoration(
                 color: ExpenseTrackerColors.white,
@@ -351,18 +355,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
 
                                     showModalBottomSheet<void>(
                                       context: context,
-                                      // barrierColor: widget.expenseType ==
-                                      //         ExpenseType.income
-                                      //     ? ExpenseTrackerColors.green20
-                                      //         .withOpacity(0.5)
-                                      //     : widget.expenseType ==
-                                      //             ExpenseType.expense
-                                      //         ? ExpenseTrackerColors.red20
-                                      //             .withOpacity(0.5)
-                                      //         : ExpenseTrackerColors.blue20
-                                      //             .withOpacity(0.5),
                                       builder: (context) {
-                                        //! TODO: show shit
+                                        //! TODO: show
                                         return const SubscriptionBottomSheet();
                                       },
                                     );
@@ -386,6 +380,75 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                         },
                       ),
                     ),
+                  //!!! TODO: show subscription
+                  if (state.expenseFormEntity.isExpense) ...[
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              const Text('Freqency'),
+                              // Text('${state.expenseFormEntity.subType} - ${state.expenseFormEntity.subStart?getFormateDate(state.expenseFormEntity.subStart):""}'),
+                              RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                  text: '${state.expenseFormEntity.subType} - ',
+                                  style: ExpenseTrackerTextStyle.tiny.copyWith(
+                                    color: ExpenseTrackerColors.light20,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: state.expenseFormEntity.subStart !=
+                                              null
+                                          ? DateFormat('MMMM dd').format(
+                                              state.expenseFormEntity.subStart!,
+                                            )
+                                          : '',
+                                      style:
+                                          ExpenseTrackerTextStyle.tiny.copyWith(
+                                        color: ExpenseTrackerColors.light20,
+                                        // decoration: TextDecoration.underline,
+                                        // decorationColor:
+                                        //     ExpenseTrackerColors.blue,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // end date
+                        Expanded(
+                          child: Column(
+                            children: [
+                              const Text('End After'),
+                              Text(
+                                state.expenseFormEntity.subStart != null
+                                    ? getFormateDate(
+                                        state.expenseFormEntity.subStart!,
+                                      )
+                                    : '',
+                                style: ExpenseTrackerTextStyle.tiny.copyWith(
+                                  color: ExpenseTrackerColors.light20,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: SecondaryButton(
+                            text: 'Edit',
+                            onPress: () => showModalBottomSheet<void>(
+                              context: context,
+                              builder: (context) =>
+                                  const SubscriptionBottomSheet(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                   //! ** a submit button */
                   Padding(
                     padding: const EdgeInsets.all(8),
@@ -417,7 +480,29 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                             'attachment: ${imageFieldController.text}',
                           );
                           debugPrint(
-                              'Repeat: ${state.expenseFormEntity.isExpense}');
+                            'Repeat: ${state.expenseFormEntity.isExpense}',
+                          );
+                          showDialog<void>(
+                            context: context,
+                            builder: (context) => const SuccessAlertDialog(),
+                          );
+                          Future.delayed(
+                            const Duration(seconds: 3),
+                            () {
+                              // reset the form
+                              context.read<ExpenseformBloc>().add(
+                                    ResetExpenseForm(),
+                                  );
+                              // textcontroller clear
+                              _accountBalanceController.clear();
+                              _descriptionController.clear();
+                              imageFieldController.clear();
+                              _fromFieldController.clear();
+                              _toFieldController.clear();
+                              // pop the dialog
+                              Navigator.of(context).pop();
+                            },
+                          );
                         }
                       },
                       text: 'Continue',
@@ -461,6 +546,44 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
           vertical: 10,
         ),
       );
+}
+
+class SuccessAlertDialog extends StatelessWidget {
+  const SuccessAlertDialog({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: ExpenseTrackerColors.white,
+      insetPadding: const EdgeInsets.all(10),
+      // title: const Text('Success'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.check_circle_sharp,
+            color: ExpenseTrackerColors.violet,
+            size: 48,
+          ),
+          Text(
+            'Transaction has been successfully added',
+            style: ExpenseTrackerTextStyle.small,
+          ),
+        ],
+      ),
+      // actions: [
+      //   TextButton(
+      //     onPressed: () {
+      //       // Navigator.of(context).pop();
+      //       // Navigator.of(context).pop();
+      //     },
+      //     child: const Text('Ok'),
+      //   ),
+      // ],
+    );
+  }
 }
 
 const subscriptionsFrequency = [
