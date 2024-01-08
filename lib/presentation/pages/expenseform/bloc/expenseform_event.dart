@@ -35,11 +35,11 @@ class ChangeIncomeSourceId extends ExpenseformEvent {
 
 // change subscription start date
 class ChangeSubStart extends ExpenseformEvent {
-  const ChangeSubStart(this.subStartDay);
-  final String subStartDay;
+  const ChangeSubStart(this.subStart);
+  final DateTime subStart;
 
   @override
-  List<Object> get props => [subStartDay];
+  List<Object> get props => [subStart];
 }
 
 // change subscription start month
@@ -78,3 +78,5 @@ class ChangeRepeat extends ExpenseformEvent {
   @override
   List<Object> get props => [isExpense];
 }
+
+class ResetExpenseForm extends ExpenseformEvent {}

@@ -14,8 +14,9 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
     on<ChangeRepeat>(_onChangeRepeat);
     on<ChangeSubEnd>(_onChangeSubEnd);
     on<ChangeSubStart>(_onChangeSubStart);
-    on<ChangeSubStartMonth>(_onChangeSubStartMonth);
+    // on<ChangeSubStartMonth>(_onChangeSubStartMonth);
     on<ChangeSubType>(_onChangeSubType);
+    on<ResetExpenseForm>(_onResetExpenseForm);
   }
 
   FutureOr<void> _onCustomExpenseformEvent(
@@ -45,16 +46,16 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
     ChangeSubStart event,
     Emitter<ExpenseformState> emit,
   ) {
-    emit(state.copyWith(subStartDay: event.subStartDay));
+    emit(state.copyWith(subStart: event.subStart));
   }
 
   // change subscription start month
-  FutureOr<void> _onChangeSubStartMonth(
-    ChangeSubStartMonth event,
-    Emitter<ExpenseformState> emit,
-  ) {
-    emit(state.copyWith(subStartMonth: event.subStartMonth));
-  }
+  // FutureOr<void> _onChangeSubStartMonth(
+  //   ChangeSubStartMonth event,
+  //   Emitter<ExpenseformState> emit,
+  // ) {
+  //   emit(state.copyWith(subStartMonth: event.subStartMonth));
+  // }
 
   // change subscription end date
   FutureOr<void> _onChangeSubEnd(
@@ -78,5 +79,12 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
     Emitter<ExpenseformState> emit,
   ) {
     emit(state.copyWith(isExpense: event.isExpense));
+  }
+  // reset
+  FutureOr<void> _onResetExpenseForm(
+    ResetExpenseForm event,
+    Emitter<ExpenseformState> emit,
+  ) {
+    emit(const ExpenseformInitial());
   }
 }

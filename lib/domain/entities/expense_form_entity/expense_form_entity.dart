@@ -4,9 +4,11 @@ part 'expense_form_entity.freezed.dart';
 @freezed
 class ExpenseFormEntity with _$ExpenseFormEntity {
   const factory ExpenseFormEntity({
-    required bool isExpense, /// subscription start date
-    String? subStartMonth,
-    String? subStartDay,
+    required bool isExpense,
+
+    /// subscription start date
+    DateTime? subStart,
+    // String? subStartDay,
 
     /// subscription end date
     DateTime? subEnd,
