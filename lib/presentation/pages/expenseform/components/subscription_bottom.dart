@@ -7,6 +7,7 @@ import 'package:expense_tracker/presentation/pages/expenseform/widgets/expensefo
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class SubscriptionBottomSheet extends StatelessWidget {
   const SubscriptionBottomSheet({super.key});
@@ -64,7 +65,7 @@ class SubscriptionBottomSheet extends StatelessWidget {
             children: [
               Text(
                 'Start of subscription',
-                style: ExpenseTrackerTextStyle.regular2.copyWith(
+                style: ExpenseTrackerTextStyle.regular3.copyWith(
                   color: ExpenseTrackerColors.dark25,
                   fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.w600,
@@ -75,104 +76,145 @@ class SubscriptionBottomSheet extends StatelessWidget {
                 children: [
                   // frequency dropdown
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(
-                        8,
+                    child: DropdownButtonFormField(
+                      decoration: dropdownInputDecoration(
+                        'Frequency',
                       ),
-                      child: DropdownButtonFormField(
-                        decoration: dropdownInputDecoration(
-                          'Frequency',
-                        ),
-                        style: const TextStyle(
-                          color: ExpenseTrackerColors.dark50,
-                        ),
-                        // value: 'Daily',
-                        onChanged: (value) {
-                          context.read<ExpenseformBloc>().add(
-                                ChangeSubType(
-                                  value.toString(),
-                                ),
-                              );
-                          debugPrint(
-                              'value : $value ${state.expenseFormEntity.subType}');
-                        },
-                        items: subscriptionsFrequency
-                            .map(
-                              (e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e),
+                      style: const TextStyle(
+                        color: ExpenseTrackerColors.dark50,
+                      ),
+                      // value: 'Daily',
+                      onChanged: (value) {
+                        context.read<ExpenseformBloc>().add(
+                              ChangeSubType(
+                                value.toString(),
                               ),
-                            )
-                            .toList(),
+                            );
+                        debugPrint(
+                          'value : $value ${state.expenseFormEntity.subType}',
+                        );
+                      },
+                      items: subscriptionsFrequency
+                          .map(
+                            (e) => DropdownMenuItem(
+                              value: e,
+                              child: Text(
+                                e,
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                  // a text box to pick a date
+                  Expanded(
+                    child: GestureDetector(
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: ExpenseTrackerColors.violet20,
+                          ),
+                        ),
+                        child: Text('some Date'
+                            // DateFormat('dd MMM, yyyy').format(
+                            //   state.expenseFormEntity.subStart ?? DateTime.now(),
+                            // ),
+                            ),
                       ),
+                      onTap: () async {
+                        // show a date picker
+                        final date = await showDatePicker(
+                          context: context,
+                          confirmText: 'Set',
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime.now().add(
+                            const Duration(
+                              days: 365 * 10,
+                            ),
+                          ),
+                        );
+                        if (date != null) {
+                          if (!context.mounted) {
+                            return;
+                          }
+                          // context.read<ExpenseformBloc>().add(
+                          //       ChangeSubStart(
+                          //         date,
+                          //       ),
+                          //     );
+                        }
+                      },
                     ),
                   ),
                   // months dropdown
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(
-                        8,
-                      ),
-                      child: DropdownButtonFormField(
-                        decoration: dropdownInputDecoration(
-                          'Month',
-                        ),
-                        // value: 'January',
-                        onChanged: (value) {
-                          context.read<ExpenseformBloc>().add(
-                                ChangeSubStartMonth(
-                                  value.toString(),
-                                ),
-                              );
-                        },
-                        items: calanderMonths
-                            .map(
-                              (e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
-                  ),
-                  // date dropdown
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(
-                        8,
-                      ),
-                      child: DropdownButtonFormField(
-                        decoration: dropdownInputDecoration(
-                          'Date',
-                        ),
+                  // Expanded(
+                  //   child: DropdownButtonFormField(
+                  //     decoration: dropdownInputDecoration(
+                  //       'Month',
+                  //     ),
+                  //     // value: 'January',
+                  //     onChanged: (value) {
+                  //       context.read<ExpenseformBloc>().add(
+                  //             ChangeSubStartMonth(
+                  //               value.toString(),
+                  //             ),
+                  //           );
+                  //     },
+                  //     items: calanderMonths
+                  //         .map(
+                  //           (e) => DropdownMenuItem(
+                  //             value: e,
+                  //             child: Text(
+                  //               e,
+                  //               softWrap: true,
+                  //               overflow: TextOverflow.ellipsis,
+                  //             ),
+                  //           ),
+                  //         )
+                  //         .toList(),
+                  //   ),
+                  // ),
+                  // // date dropdown
+                  // Expanded(
+                  //   child: DropdownButtonFormField(
+                  //     decoration: dropdownInputDecoration(
+                  //       'Date',
+                  //     ),
 
-                        // value: '1',
-                        onChanged: (value) {
-                          context.read<ExpenseformBloc>().add(
-                                ChangeSubStart(
-                                  value.toString(),
-                                ),
-                              );
-                        },
-                        items: List.generate(
-                          31,
-                          (index) => DropdownMenuItem(
-                            value: '${index + 1}',
-                            child: Text(
-                              '${index + 1}',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  //     // value: '1',
+                  //     onChanged: (value) {
+                  //       context.read<ExpenseformBloc>().add(
+                  //             ChangeSubStart(
+                  //               value.toString(),
+                  //             ),
+                  //           );
+                  //     },
+                  //     items: List.generate(
+                  //       31,
+                  //       (index) => DropdownMenuItem(
+                  //         value: '${index + 1}',
+                  //         child: Text(
+                  //           '${index + 1}',
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
               // end of subscription (date picker)
               Text(
                 'End of subscription',
-                style: ExpenseTrackerTextStyle.regular2.copyWith(
+                style: ExpenseTrackerTextStyle.regular3.copyWith(
                   color: ExpenseTrackerColors.dark25,
                   fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.w600,
@@ -181,10 +223,14 @@ class SubscriptionBottomSheet extends StatelessWidget {
               // date picker for the end of subscription (not a dropdown)
               Row(
                 children: [
-                  Text('Date'),
+                  const Text('Date'),
                   Expanded(
                     child: GestureDetector(
-                      child: Text('date'),
+                      child: Text(
+                        DateFormat('dd MMM, yyyy').format(
+                          state.expenseFormEntity.subEnd ?? DateTime.now(),
+                        ),
+                      ),
                       onTap: () async {
                         // show a date picker
                         final date = await showDatePicker(
@@ -216,10 +262,12 @@ class SubscriptionBottomSheet extends StatelessWidget {
               PrimaryButton(
                 onPress: () {
                   debugPrint(
-                      'sub end date : ${state.expenseFormEntity.subEnd}');
+                    'sub end date : ${state.expenseFormEntity.subEnd}',
+                  );
                   debugPrint('mon :${state.expenseFormEntity.subStartMonth}');
                   debugPrint(
-                      'sub start : ${state.expenseFormEntity.subStartDay}');
+                    'sub start : ${state.expenseFormEntity.subStartDay}',
+                  );
                   debugPrint('sub type : ${state.expenseFormEntity.subType}');
                   // debugPrint('sub end : ${state.isExpense}');
                 },
