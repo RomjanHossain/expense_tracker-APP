@@ -118,3 +118,5 @@ lib/data/models/category_model.freezed.dart
 lib/data/datasources/local/expense/expense_isardb.g.dart
 lib/domain/entities/expense_entity.freezed.dart
 lib/domain/entities/create_account_entity/create_account_entity.freezed.dart
+lib/data/models/local_db_model/category_local_db_model.freezed.dart
+lib/domain/entities/expense_form_entity/expense_form_entity.freezed.dart
