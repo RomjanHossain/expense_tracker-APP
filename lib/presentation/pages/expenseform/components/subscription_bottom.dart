@@ -123,112 +123,10 @@ class SubscriptionBottomSheet extends StatelessWidget {
                             color: ExpenseTrackerColors.violet20,
                           ),
                         ),
-                        child: Text('some Date'
-                            // DateFormat('dd MMM, yyyy').format(
-                            //   state.expenseFormEntity.subStart ?? DateTime.now(),
-                            // ),
-                            ),
-                      ),
-                      onTap: () async {
-                        // show a date picker
-                        final date = await showDatePicker(
-                          context: context,
-                          confirmText: 'Set',
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime.now().add(
-                            const Duration(
-                              days: 365 * 10,
-                            ),
+                        child: Text(
+                          DateFormat('dd MMM, yyyy').format(
+                            state.expenseFormEntity.subStart ?? DateTime.now(),
                           ),
-                        );
-                        if (date != null) {
-                          if (!context.mounted) {
-                            return;
-                          }
-                          // context.read<ExpenseformBloc>().add(
-                          //       ChangeSubStart(
-                          //         date,
-                          //       ),
-                          //     );
-                        }
-                      },
-                    ),
-                  ),
-                  // months dropdown
-                  // Expanded(
-                  //   child: DropdownButtonFormField(
-                  //     decoration: dropdownInputDecoration(
-                  //       'Month',
-                  //     ),
-                  //     // value: 'January',
-                  //     onChanged: (value) {
-                  //       context.read<ExpenseformBloc>().add(
-                  //             ChangeSubStartMonth(
-                  //               value.toString(),
-                  //             ),
-                  //           );
-                  //     },
-                  //     items: calanderMonths
-                  //         .map(
-                  //           (e) => DropdownMenuItem(
-                  //             value: e,
-                  //             child: Text(
-                  //               e,
-                  //               softWrap: true,
-                  //               overflow: TextOverflow.ellipsis,
-                  //             ),
-                  //           ),
-                  //         )
-                  //         .toList(),
-                  //   ),
-                  // ),
-                  // // date dropdown
-                  // Expanded(
-                  //   child: DropdownButtonFormField(
-                  //     decoration: dropdownInputDecoration(
-                  //       'Date',
-                  //     ),
-
-                  //     // value: '1',
-                  //     onChanged: (value) {
-                  //       context.read<ExpenseformBloc>().add(
-                  //             ChangeSubStart(
-                  //               value.toString(),
-                  //             ),
-                  //           );
-                  //     },
-                  //     items: List.generate(
-                  //       31,
-                  //       (index) => DropdownMenuItem(
-                  //         value: '${index + 1}',
-                  //         child: Text(
-                  //           '${index + 1}',
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
-              // end of subscription (date picker)
-              Text(
-                'End of subscription',
-                style: ExpenseTrackerTextStyle.regular3.copyWith(
-                  color: ExpenseTrackerColors.dark25,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              // date picker for the end of subscription (not a dropdown)
-              Row(
-                children: [
-                  const Text('Date'),
-                  Expanded(
-                    child: GestureDetector(
-                      child: Text(
-                        DateFormat('dd MMM, yyyy').format(
-                          state.expenseFormEntity.subEnd ?? DateTime.now(),
                         ),
                       ),
                       onTap: () async {
@@ -249,7 +147,7 @@ class SubscriptionBottomSheet extends StatelessWidget {
                             return;
                           }
                           context.read<ExpenseformBloc>().add(
-                                ChangeSubEnd(
+                                ChangeSubStart(
                                   date,
                                 ),
                               );
@@ -259,17 +157,96 @@ class SubscriptionBottomSheet extends StatelessWidget {
                   ),
                 ],
               ),
+              // end of subscription (date picker)
+              Text(
+                'End of subscription Date',
+                style: ExpenseTrackerTextStyle.regular3.copyWith(
+                  color: ExpenseTrackerColors.dark25,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              // date picker for the end of subscription (not a dropdown)
+              GestureDetector(
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: ExpenseTrackerColors.violet20,
+                    ),
+                  ),
+                  child: Text(
+                    DateFormat('dd MMM, yyyy').format(
+                      state.expenseFormEntity.subEnd ?? DateTime.now(),
+                    ),
+                  ),
+                ),
+                onTap: () async {
+                  // show a date picker
+                  final date = await showDatePicker(
+                    context: context,
+                    confirmText: 'Set',
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime.now().add(
+                      const Duration(
+                        days: 365 * 10,
+                      ),
+                    ),
+                  );
+                  if (date != null) {
+                    if (!context.mounted) {
+                      return;
+                    }
+                    context.read<ExpenseformBloc>().add(
+                          ChangeSubEnd(
+                            date,
+                          ),
+                        );
+                  }
+                },
+              ),
+
               PrimaryButton(
                 onPress: () {
                   debugPrint(
                     'sub end date : ${state.expenseFormEntity.subEnd}',
                   );
-                  debugPrint('mon :${state.expenseFormEntity.subStartMonth}');
-                  debugPrint(
-                    'sub start : ${state.expenseFormEntity.subStartDay}',
-                  );
+                  debugPrint('start :${state.expenseFormEntity.subStart}');
+                  // debugPrint(
+                  //   'sub start : ${state.expenseFormEntity.subStartDay}',
+                  // );
                   debugPrint('sub type : ${state.expenseFormEntity.subType}');
                   // debugPrint('sub end : ${state.isExpense}');
+
+                  // the startDate and endDate cannot be same and frequency cannot be null
+                  if (state.expenseFormEntity.subStart ==
+                      state.expenseFormEntity.subEnd) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Start and end date cannot be same',
+                        ),
+                      ),
+                    );
+                    return;
+                  }
+                  if (state.expenseFormEntity.subType == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Please select a frequency',
+                        ),
+                      ),
+                    );
+                    return;
+                  }
+                  Navigator.of(context).pop();
                 },
                 text: 'Next',
               ),
