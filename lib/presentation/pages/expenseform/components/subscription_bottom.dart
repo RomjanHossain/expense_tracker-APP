@@ -1,6 +1,5 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
-import 'package:expense_tracker/data/datasources/local/utils_data/all_months.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/expenseform_bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/widgets/expenseform_body.dart';
@@ -201,6 +200,18 @@ class SubscriptionBottomSheet extends StatelessWidget {
                   );
                   if (date != null) {
                     if (!context.mounted) {
+                      return;
+                    }
+                    // check if the end date is before the start date
+                    if (date.isBefore(
+                        state.expenseFormEntity.subStart ?? DateTime.now())) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'End date cannot be before start date',
+                          ),
+                        ),
+                      );
                       return;
                     }
                     context.read<ExpenseformBloc>().add(

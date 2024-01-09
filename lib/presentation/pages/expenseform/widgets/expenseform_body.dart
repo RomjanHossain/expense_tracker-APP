@@ -1,7 +1,6 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
-import 'package:expense_tracker/data/datasources/local/utils_data/all_months.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_expense_method.dart';
@@ -381,7 +380,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                       ),
                     ),
                   //!!! TODO: show subscription
-                  if (state.expenseFormEntity.isExpense) ...[
+                  if (state.expenseFormEntity.isExpense &&
+                      state.expenseFormEntity.subStart != null) ...[
                     Row(
                       children: [
                         Expanded(
