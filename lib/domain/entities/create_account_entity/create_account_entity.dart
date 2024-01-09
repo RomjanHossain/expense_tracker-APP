@@ -10,30 +10,4 @@ class CreateAccountEntity with _$CreateAccountEntity {
     required double acBalance,
     String? acLogo,
   }) = _CreateAccountEntity;
-  // final String acName;
-  // final AccountType acType;
-  // final double acBalance;
-  // final String? acLogo;
-
-  // CreateAccountEntity copyWith({
-  //   String? acName,
-  //   AccountType? acType,
-  //   double? acBalance,
-  //   String? acLogo,
-  // }) {
-  //   return CreateAccountEntity(
-  //     acName: acName ?? this.acName,
-  //     acType: acType ?? this.acType,
-  //     acBalance: acBalance ?? this.acBalance,
-  //     acLogo: acLogo ?? this.acLogo,
-  //   );
-  // }
-
-  // @override
-  // List<Object?> get props => [
-  //   acName,
-  //   acType,
-  //   acBalance,
-  //   acLogo,
-  // ];
 }

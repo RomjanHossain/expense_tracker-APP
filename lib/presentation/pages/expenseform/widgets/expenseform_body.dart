@@ -1,19 +1,23 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/data/datasources/local/utils_data/all_months.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_expense_method.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_income_methods.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/attachment_picker.dart';
+import 'package:expense_tracker/presentation/pages/expenseform/components/subscription_bottom.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 /// {@template expenseform_body}
 /// Body of the ExpenseformPage.
@@ -49,10 +53,16 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
     super.dispose();
   }
 
+  String getFormateDate(DateTime date) =>
+      DateFormat('dd MMM, yyyy').format(date);
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ExpenseformBloc, ExpenseformState>(
+    return BlocConsumer<ExpenseformBloc, ExpenseformState>(
+      listener: (context, state) {},
       builder: (context, state) {
+        // 29 Dec, 2025 (datetime format)
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
@@ -114,11 +124,13 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
             ),
             // the form
 
-            Container(
+            AnimatedContainer(
               padding: const EdgeInsets.all(15),
               height: widget.expenseType == ExpenseType.income ||
                       widget.expenseType == ExpenseType.expense
-                  ? MediaQuery.of(context).size.height * 0.6
+                  ? state.expenseFormEntity.subStart != null
+                      ? MediaQuery.of(context).size.height * 0.7
+                      : MediaQuery.of(context).size.height * 0.6
                   : MediaQuery.of(context).size.height * 0.5,
               decoration: const BoxDecoration(
                 color: ExpenseTrackerColors.white,
@@ -126,6 +138,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                   top: Radius.circular(32),
                 ),
               ),
+              duration: 500.milliseconds,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -332,34 +345,34 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                             color: ExpenseTrackerColors.light20,
                           ),
                           children: [
-                            if (state.isExpense) ...[
+                            if (state.expenseFormEntity.isExpense) ...[
                               const TextSpan(text: ', '),
                               TextSpan(
                                 text: 'set your own time',
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     // show a bottom modal sheet
-                                    showBottomSheet(
+
+                                    showModalBottomSheet<void>(
                                       context: context,
                                       builder: (context) {
-                                        return Container(
-                                          height: 200,
-                                          color: Colors.amber,
-                                        );
+                                        //! TODO: show
+                                        return const SubscriptionBottomSheet();
                                       },
                                     );
                                   },
                                 style: ExpenseTrackerTextStyle.tiny.copyWith(
-                                    color: ExpenseTrackerColors.blue,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: ExpenseTrackerColors.blue),
+                                  color: ExpenseTrackerColors.blue,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: ExpenseTrackerColors.blue,
+                                ),
                               ),
-                            ]
+                            ],
                           ],
                         ),
                       ),
                       trailing: Switch(
-                        value: state.isExpense,
+                        value: state.expenseFormEntity.isExpense,
                         onChanged: (value) {
                           context.read<ExpenseformBloc>().add(
                                 ChangeRepeat(value),
@@ -367,32 +380,129 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                         },
                       ),
                     ),
+                  //!!! TODO: show subscription
+                  if (state.expenseFormEntity.isExpense) ...[
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              const Text('Freqency'),
+                              // Text('${state.expenseFormEntity.subType} - ${state.expenseFormEntity.subStart?getFormateDate(state.expenseFormEntity.subStart):""}'),
+                              RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                  text: '${state.expenseFormEntity.subType} - ',
+                                  style: ExpenseTrackerTextStyle.tiny.copyWith(
+                                    color: ExpenseTrackerColors.light20,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: state.expenseFormEntity.subStart !=
+                                              null
+                                          ? DateFormat('MMMM dd').format(
+                                              state.expenseFormEntity.subStart!,
+                                            )
+                                          : '',
+                                      style:
+                                          ExpenseTrackerTextStyle.tiny.copyWith(
+                                        color: ExpenseTrackerColors.light20,
+                                        // decoration: TextDecoration.underline,
+                                        // decorationColor:
+                                        //     ExpenseTrackerColors.blue,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // end date
+                        Expanded(
+                          child: Column(
+                            children: [
+                              const Text('End After'),
+                              Text(
+                                state.expenseFormEntity.subStart != null
+                                    ? getFormateDate(
+                                        state.expenseFormEntity.subStart!,
+                                      )
+                                    : '',
+                                style: ExpenseTrackerTextStyle.tiny.copyWith(
+                                  color: ExpenseTrackerColors.light20,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: SecondaryButton(
+                            text: 'Edit',
+                            onPress: () => showModalBottomSheet<void>(
+                              context: context,
+                              builder: (context) =>
+                                  const SubscriptionBottomSheet(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                   //! ** a submit button */
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: PrimaryButton(
                       onPress: () {
                         debugPrint(
-                            'Money Amount: ${_accountBalanceController.text}');
+                          'Money Amount: ${_accountBalanceController.text}',
+                        );
                         if (widget.expenseType == ExpenseType.transfer) {
                           debugPrint('From: ${_fromFieldController.text}');
                           debugPrint('To: ${_toFieldController.text}');
                           debugPrint(
-                              'Description: ${_descriptionController.text}');
+                            'Description: ${_descriptionController.text}',
+                          );
                           debugPrint(
                             'Attachment: ${imageFieldController.text}',
                           );
                         } else {
                           debugPrint(
-                              'Expense: ${context.read<DropdownExpenseMethodCubit>().state}');
+                            'Expense: ${context.read<DropdownExpenseMethodCubit>().state}',
+                          );
                           debugPrint(
-                              'Description: ${_descriptionController.text}');
+                            'Description: ${_descriptionController.text}',
+                          );
                           debugPrint(
-                              'Income Source: ${context.read<DropdownIncomeMethodCubit>().state}');
+                            'Income Source: ${context.read<DropdownIncomeMethodCubit>().state}',
+                          );
                           debugPrint(
                             'attachment: ${imageFieldController.text}',
                           );
-                          debugPrint('Repeat: ${state.isExpense}');
+                          debugPrint(
+                            'Repeat: ${state.expenseFormEntity.isExpense}',
+                          );
+                          showDialog<void>(
+                            context: context,
+                            builder: (context) => const SuccessAlertDialog(),
+                          );
+                          Future.delayed(
+                            const Duration(seconds: 3),
+                            () {
+                              // reset the form
+                              context.read<ExpenseformBloc>().add(
+                                    ResetExpenseForm(),
+                                  );
+                              // textcontroller clear
+                              _accountBalanceController.clear();
+                              _descriptionController.clear();
+                              imageFieldController.clear();
+                              _fromFieldController.clear();
+                              _toFieldController.clear();
+                              // pop the dialog
+                              Navigator.of(context).pop();
+                            },
+                          );
                         }
                       },
                       text: 'Continue',
@@ -406,4 +516,80 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
       },
     );
   }
+
+  InputDecoration dropdownInputDecoration(String hintText) => InputDecoration(
+        isDense: true,
+        focusedBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(
+            color: ExpenseTrackerColors.violet,
+          ),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(
+            color: ExpenseTrackerColors.light60,
+          ),
+        ),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderSide: BorderSide(
+            color: ExpenseTrackerColors.light60,
+          ),
+        ),
+        hintText: hintText,
+        hintStyle: ExpenseTrackerTextStyle.regular2.copyWith(
+          color: ExpenseTrackerColors.light20,
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
+      );
 }
+
+class SuccessAlertDialog extends StatelessWidget {
+  const SuccessAlertDialog({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: ExpenseTrackerColors.white,
+      insetPadding: const EdgeInsets.all(10),
+      // title: const Text('Success'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.check_circle_sharp,
+            color: ExpenseTrackerColors.violet,
+            size: 48,
+          ),
+          Text(
+            'Transaction has been successfully added',
+            style: ExpenseTrackerTextStyle.small,
+          ),
+        ],
+      ),
+      // actions: [
+      //   TextButton(
+      //     onPressed: () {
+      //       // Navigator.of(context).pop();
+      //       // Navigator.of(context).pop();
+      //     },
+      //     child: const Text('Ok'),
+      //   ),
+      // ],
+    );
+  }
+}
+
+const subscriptionsFrequency = [
+  'Daily',
+  'Weekly',
+  'Monthly',
+  'Yearly',
+  'Lifetime',
+];

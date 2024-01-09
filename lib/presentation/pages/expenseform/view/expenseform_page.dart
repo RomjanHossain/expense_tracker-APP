@@ -24,41 +24,40 @@ class ExpenseformPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ExpenseformBloc(),
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: expenseType == ExpenseType.income
+          ? ExpenseTrackerColors.green
+          : expenseType == ExpenseType.expense
+              ? ExpenseTrackerColors.red
+              : ExpenseTrackerColors.blue,
+      appBar: AppBar(
         backgroundColor: expenseType == ExpenseType.income
             ? ExpenseTrackerColors.green
             : expenseType == ExpenseType.expense
                 ? ExpenseTrackerColors.red
                 : ExpenseTrackerColors.blue,
-        appBar: AppBar(
-          backgroundColor: expenseType == ExpenseType.income
-              ? ExpenseTrackerColors.green
+        centerTitle: true,
+        title: Text(
+          expenseType == ExpenseType.income
+              ? 'Income'
               : expenseType == ExpenseType.expense
-                  ? ExpenseTrackerColors.red
-                  : ExpenseTrackerColors.blue,
-          centerTitle: true,
-          title: Text(
-            expenseType == ExpenseType.income
-                ? 'Income'
-                : expenseType == ExpenseType.expense
-                    ? 'Expense'
-                    : 'Transfer',
-            style: ExpenseTrackerTextStyle.regular1.copyWith(
-              fontWeight: FontWeight.w500,
-              color: ExpenseTrackerColors.white,
-            ),
-          ),
-          leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(
-              Icons.arrow_back_outlined,
-              color: ExpenseTrackerColors.white,
-            ),
+                  ? 'Expense'
+                  : 'Transfer',
+          style: ExpenseTrackerTextStyle.regular1.copyWith(
+            fontWeight: FontWeight.w500,
+            color: ExpenseTrackerColors.white,
           ),
         ),
-        body: ExpenseformView(expenseType: expenseType,),
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back_outlined,
+            color: ExpenseTrackerColors.white,
+          ),
+        ),
+      ),
+      body: ExpenseformView(
+        expenseType: expenseType,
       ),
     );
   }
@@ -73,6 +72,8 @@ class ExpenseformView extends StatelessWidget {
   final ExpenseType expenseType;
   @override
   Widget build(BuildContext context) {
-    return  ExpenseformBody(expenseType: expenseType,);
+    return ExpenseformBody(
+      expenseType: expenseType,
+    );
   }
 }
