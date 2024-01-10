@@ -6,16 +6,15 @@ part of 'expenseform_bloc.dart';
 class ExpenseformState extends Equatable {
   /// {@macro expenseform_state}
   const ExpenseformState({
- this.expenseFormEntity = const ExpenseFormEntity(
-    // expenseId: '',
-    // incomeSourceId: '',
-    isExpense: false,
-    // subStart: DateTime.now(),
-    // subEnd: DateTime.now(),
-    // subStartDay: '1',
-    // subStartMonth: 'January',
-  ),
-
+    this.expenseFormEntity = const ExpenseFormEntity(
+      // expenseId: '',
+      // incomeSourceId: '',
+      isExpense: false,
+      // subStart: DateTime.now(),
+      // subEnd: DateTime.now(),
+      // subStartDay: '1',
+      // subStartMonth: 'January',
+    ),
   });
 
   final ExpenseFormEntity expenseFormEntity;
@@ -40,8 +39,8 @@ class ExpenseformState extends Equatable {
     DateTime? subStart,
     DateTime? subEnd,
     String? subType,
-    String? subStartDay,
-    String? subStartMonth,
+    // String? subStartDa,
+    // String? subStartMonth,
   }) {
     return ExpenseformState(
       // expenseId: expenseId ?? this.expenseId,
@@ -54,11 +53,11 @@ class ExpenseformState extends Equatable {
       // subStartMonth: subStartMonth ?? this.subStartMonth,
       expenseFormEntity: expenseFormEntity.copyWith(
         isExpense: isExpense ?? expenseFormEntity.isExpense,
-        // subStart: subStart ?? expenseFormEntity.subStart,
+        subStart: subStart ?? expenseFormEntity.subStart,
         subEnd: subEnd ?? expenseFormEntity.subEnd,
         subType: subType ?? expenseFormEntity.subType,
-        subStartDay: subStartDay ?? expenseFormEntity.subStartDay,
-        subStartMonth: subStartMonth ?? expenseFormEntity.subStartMonth,
+        // subStartDay: subStartDay ?? expenseFormEntity.subStartDay,
+        // subStartMonth: subStartMonth ?? expenseFormEntity.subStartMonth,
       ),
     );
   }
