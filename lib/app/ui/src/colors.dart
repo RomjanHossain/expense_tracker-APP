@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 /// Defines the color palette for the ExpenseTracker UI.
 abstract class ExpenseTrackerColors {
   ///* while color
-  static const Color white = Color(0xffffffff);
+  // static const Color white = Color(0xffffffff);
 
   /// scaffold background color (f7f9fa)
   static const Color scaffoldBackground = Color(0xffF7F9FA);
@@ -20,10 +20,10 @@ abstract class ExpenseTrackerColors {
   static const Color dark = Color(0xff0D0E0F);
 
   /// dark 25
-  static const Color dark25 = Color(0xff7A7E80);
+  static const Color dark25 = Color(0xff292B2D);
 
   /// dark 50
-  static const Color dark50 = Color(0xff464A4D);
+  static const Color dark50 = Color(0xff212325);
 
   /// dark 75
   static const Color dark75 = Color(0xff161719);
@@ -37,13 +37,13 @@ abstract class ExpenseTrackerColors {
   static const Color light20 = Color(0xff91919f);
 
   /// light 40
-  static const Color light40 = Color(0xffF2F4F5);
+  static const Color light40 = Color(0xffE3E5E5);
 
   /// light 60
-  static const Color light60 = Color(0xffF7F9FA);
+  static const Color light60 = Color(0xffF1F1FA);
 
   /// light 80
-  static const Color light80 = Color(0xffFBFBFB);
+  static const Color light80 = Color(0xffFCFCFC);
 /*
   primary color palette
   */
