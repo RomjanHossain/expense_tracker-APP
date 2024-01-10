@@ -12,7 +12,7 @@ void showToast(String msg, Color? color) {
     toastLength: Toast.LENGTH_LONG,
     gravity: ToastGravity.BOTTOM,
     backgroundColor: color,
-    textColor: ExpenseTrackerColors.white,
+    textColor: ExpenseTrackerColors.light,
     fontSize: 16,
   );
 }

@@ -55,7 +55,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
         // color: ExpenseTrackerColors.violet,
-        color: ExpenseTrackerColors.white,
+        color: ExpenseTrackerColors.light,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),

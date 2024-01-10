@@ -6,7 +6,7 @@ class ExpenseTrackerTheme {
   /// Standard `ThemeData` for ExpenseTracker UI.
   static ThemeData get standard {
     return ThemeData(
-      scaffoldBackgroundColor: ExpenseTrackerColors.scaffoldBackground,
+      scaffoldBackgroundColor: ExpenseTrackerColors.light,
       colorScheme: ColorScheme.fromSwatch(
         accentColor: ExpenseTrackerColors.violet,
       ),
@@ -182,7 +182,7 @@ class ExpenseTrackerTheme {
     return ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        foregroundColor: ExpenseTrackerColors.white,
+        foregroundColor: ExpenseTrackerColors.light,
         backgroundColor: ExpenseTrackerColors.violet,
         shape: const RoundedRectangleBorder(
           borderRadius: ExpenseTrackerTheme.borderRadiusSmall,

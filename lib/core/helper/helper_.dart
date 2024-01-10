@@ -7,7 +7,7 @@ void showToast(String msg, [Color? color]) {
     msg: msg,
     toastLength: Toast.LENGTH_LONG,
     gravity: ToastGravity.BOTTOM,
-    backgroundColor: color ?? ExpenseTrackerColors.white,
-    textColor: color != null ? ExpenseTrackerColors.white : Colors.black,
+    backgroundColor: color ?? ExpenseTrackerColors.light,
+    textColor: color != null ? ExpenseTrackerColors.light : Colors.black,
   );
 }

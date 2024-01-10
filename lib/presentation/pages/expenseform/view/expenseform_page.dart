@@ -1,5 +1,4 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
-import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/widgets/expenseform_body.dart';
 import 'package:expense_tracker/services/animation/page_animation.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
@@ -45,14 +44,14 @@ class ExpenseformPage extends StatelessWidget {
                   : 'Transfer',
           style: ExpenseTrackerTextStyle.regular1.copyWith(
             fontWeight: FontWeight.w500,
-            color: ExpenseTrackerColors.white,
+            color: ExpenseTrackerColors.light,
           ),
         ),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
           icon: const Icon(
             Icons.arrow_back_outlined,
-            color: ExpenseTrackerColors.white,
+            color: ExpenseTrackerColors.light,
           ),
         ),
       ),

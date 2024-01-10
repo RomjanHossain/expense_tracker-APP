@@ -31,7 +31,7 @@ class TransactionGraphPageBody extends StatelessWidget {
                       child: DropdownButtonFormField(
                         decoration:
                             dropdownInputDecoration('Frequency').copyWith(
-                          fillColor: ExpenseTrackerColors.white,
+                          fillColor: ExpenseTrackerColors.light,
                         ),
                         items: subscriptionsFrequency
                             .map(
@@ -91,10 +91,10 @@ class TransactionGraphPageBody extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: ExpenseTrackerColors.violet20,
                   borderRadius: BorderRadius.circular(10).r,
-                  border: Border.all(
-                    color: ExpenseTrackerColors.violet,
-                    // width: 1,
-                  ),
+                  // border: Border.all(
+                  //   color: ExpenseTrackerColors.violet,
+                  //   // width: 1,
+                  // ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,121 +125,81 @@ class TransactionGraphPageBody extends StatelessWidget {
                 itemCount: 5,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  // return Container(
-                  //   child: Row(
-                  //     children: [
-                  //       // icon
-                  //       Container(
-                  //         height: 40.h,
-                  //         width: 40.w,
-                  //         decoration: BoxDecoration(
-                  //           color: ExpenseTrackerColors.violet20,
-                  //           borderRadius: BorderRadius.circular(10).r,
-                  //         ),
-                  //         child: const Icon(
-                  //           Icons.shopping_bag,
-                  //           color: ExpenseTrackerColors.violet,
-                  //         ),
-                  //       ),
-                  //       Column(
-                  //         children: [
-                  //           // title
-                  //           Text(
-                  //             'Shopping',
-                  //             style: ExpenseTrackerTextStyle.regular2.copyWith(
-                  //               fontWeight: FontWeight.w600,
-                  //               letterSpacing: 0.5,
-                  //             ),
-                  //           ),
-                  //           // subtitle
-                  //           Text(
-                  //             'Shopping',
-                  //             style: ExpenseTrackerTextStyle.small.copyWith(
-                  //               color: ExpenseTrackerColors.light20,
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //       // +ve or -ve amount and date
-                  //       Column(
-                  //         children: [
-                  //           // amount
-                  //           Text(
-                  //             '-\$100',
-                  //             style: ExpenseTrackerTextStyle.regular2.copyWith(
-                  //               fontWeight: FontWeight.w600,
-                  //               letterSpacing: 0.5,
-                  //             ),
-                  //           ),
-                  //           // date
-                  //           Text(
-                  //             'Today',
-                  //             style: ExpenseTrackerTextStyle.small.copyWith(
-                  //               color: ExpenseTrackerColors.light20,
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ],
-                  //   ),
-                  // );
-                  return Card(
-                    elevation: 0,
-                    child: ListTile(
-                      leading: Container(
-                        height: 40.h,
-                        width: 40.w,
-                        decoration: BoxDecoration(
-                          color: ExpenseTrackerColors.violet20,
-                          borderRadius: BorderRadius.circular(10).r,
-                        ),
-                        child: const Icon(
-                          Icons.shopping_bag,
-                          color: ExpenseTrackerColors.violet,
-                        ),
-                      ),
-                      title: Text(
-                        'Shopping',
-                        style: ExpenseTrackerTextStyle.regular2.copyWith(
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                      subtitle: Text(
-                        'Shopping',
-                        style: ExpenseTrackerTextStyle.small.copyWith(
-                          color: ExpenseTrackerColors.light20,
-                        ),
-                      ),
-                      trailing: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // amount
-                          Text(
-                            '-\$100',
-                            style: ExpenseTrackerTextStyle.regular3.copyWith(
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 0.5,
-                            ),
-                          ),
-                          // date
-                          Text(
-                            'Today',
-                            style: ExpenseTrackerTextStyle.small.copyWith(
-                              color: ExpenseTrackerColors.light20,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                  return CardOfExpense();
                 },
               ),
             ],
           ),
         );
       },
+    );
+  }
+}
+
+class CardOfExpense extends StatelessWidget {
+  const CardOfExpense({
+    super.key,
+  });
+  // final Color color;
+  // final String title;
+  // final String subtitle;
+  // final String amount;
+  // final String date;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 0,
+      child: ListTile(
+        leading: Container(
+          height: 40.h,
+          width: 40.w,
+          decoration: BoxDecoration(
+            color: ExpenseTrackerColors.violet20,
+            borderRadius: BorderRadius.circular(10).r,
+          ),
+          child: const Icon(
+            Icons.shopping_bag,
+            color: ExpenseTrackerColors.violet,
+          ),
+        ),
+        title: Text(
+          'Shopping',
+          style: ExpenseTrackerTextStyle.regular2.copyWith(
+            fontWeight: FontWeight.w600,
+            color: ExpenseTrackerColors.dark25,
+            letterSpacing: 0.5,
+          ),
+        ),
+        subtitle: Text(
+          'Shopping are dnot ',
+          style: ExpenseTrackerTextStyle.small.copyWith(
+            color: ExpenseTrackerColors.light20,
+          ),
+        ),
+        trailing: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // amount
+            Text(
+              r'-$100',
+              style: ExpenseTrackerTextStyle.regular3.copyWith(
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+                color: ExpenseTrackerColors.red,
+              ),
+            ),
+            // date
+            Text(
+              'Today',
+              style: ExpenseTrackerTextStyle.small.copyWith(
+                color: ExpenseTrackerColors.light20,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

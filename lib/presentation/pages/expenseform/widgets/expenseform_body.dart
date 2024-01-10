@@ -132,7 +132,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                       : MediaQuery.of(context).size.height * 0.6
                   : MediaQuery.of(context).size.height * 0.5,
               decoration: const BoxDecoration(
-                color: ExpenseTrackerColors.white,
+                color: ExpenseTrackerColors.light,
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(32),
                 ),
@@ -528,7 +528,7 @@ class SuccessAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: ExpenseTrackerColors.white,
+      backgroundColor: ExpenseTrackerColors.light,
       insetPadding: const EdgeInsets.all(10),
       // title: const Text('Success'),
       content: Column(
