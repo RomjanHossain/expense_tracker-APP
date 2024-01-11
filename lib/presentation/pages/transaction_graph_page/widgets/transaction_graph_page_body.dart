@@ -3,6 +3,7 @@ import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_
 import 'package:expense_tracker/presentation/pages/expenseform/expenseform.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
+import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/transaction_filter_sheet.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,30 +50,47 @@ class TransactionGraphPageBody extends StatelessWidget {
                     // spacer
                     const Spacer(),
                     // a popup menu button to show the list of subscriptions
-                    IconButton.filled(
-                      onPressed: () async {
-                        // a bottom sheet to filter
-                      },
-                      style: ButtonStyle(
-                        // ractangular shape
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10).r,
-                          ),
-                        ),
-                        // border
-                        side: MaterialStateProperty.all(
-                          const BorderSide(
-                            color: ExpenseTrackerColors.light60,
-                          ),
-                        ),
-                        // backgorund color to trans
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.transparent),
+                    Badge(
+                      label: const Text(
+                        '3',
                       ),
-                      icon: const Icon(
-                        Icons.filter_list,
-                        color: ExpenseTrackerColors.dark50,
+                      backgroundColor: ExpenseTrackerColors.violet,
+                      isLabelVisible: true,
+                      // alignment: Alignment.center,
+                      largeSize: 20.r,
+                      child: IconButton.filled(
+                        onPressed: () async {
+                          // a bottom sheet to
+                          await showModalBottomSheet<void>(
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (context) {
+                              // return const ExpenseForm();
+                              return const TransactionFilterSheet();
+                            },
+                          );
+                        },
+                        style: ButtonStyle(
+                          // ractangular shape
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10).r,
+                            ),
+                          ),
+                          // border
+                          side: MaterialStateProperty.all(
+                            const BorderSide(
+                              color: ExpenseTrackerColors.light60,
+                            ),
+                          ),
+                          // backgorund color to trans
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                        ),
+                        icon: const Icon(
+                          Icons.filter_list,
+                          color: ExpenseTrackerColors.dark50,
+                        ),
                       ),
                     ),
                   ],
