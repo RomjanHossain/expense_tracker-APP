@@ -1,6 +1,8 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/expenseform.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/bloc.dart';
+import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,35 +49,32 @@ class TransactionGraphPageBody extends StatelessWidget {
                     // spacer
                     const Spacer(),
                     // a popup menu button to show the list of subscriptions
-                    PopupMenuButton(
+                    IconButton.filled(
+                      onPressed: () async {
+                        // a bottom sheet to filter
+                      },
+                      style: ButtonStyle(
+                        // ractangular shape
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10).r,
+                          ),
+                        ),
+                        // border
+                        side: MaterialStateProperty.all(
+                          const BorderSide(
+                            color: ExpenseTrackerColors.light60,
+                          ),
+                        ),
+                        // backgorund color to trans
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.transparent),
+                      ),
                       icon: const Icon(
                         Icons.filter_list,
-                        // color: ExpenseTrackerColors.violet,
+                        color: ExpenseTrackerColors.dark50,
                       ),
-                      itemBuilder: (context) => [
-                        const PopupMenuItem(
-                          value: 'add',
-                          child: Text('Add Subscription'),
-                        ),
-                        const PopupMenuItem(
-                          value: 'edit',
-                          child: Text('Edit Subscription'),
-                        ),
-                        const PopupMenuItem(
-                          value: 'delete',
-                          child: Text('Delete Subscription'),
-                        ),
-                      ],
-                      onSelected: (value) {
-                        // if (value == 'add') {
-                        //   Navigator.of(context).push(
-                        //     MaterialPageRoute(
-                        //       builder: (context) => ExpenseForm(),
-                        //     ),
-                        //   );
-                        // }
-                      },
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -125,81 +124,21 @@ class TransactionGraphPageBody extends StatelessWidget {
                 itemCount: 5,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return CardOfExpense();
+                  return const CardOfExpense(
+                    cardOfExpense: CardOfExpenseEntity(
+                      color: ExpenseTrackerColors.violet,
+                      title: 'householdRepairs',
+                      subtitle: 'Walmart',
+                      amount: 23,
+                      date: 'Today',
+                    ),
+                  );
                 },
               ),
             ],
           ),
         );
       },
-    );
-  }
-}
-
-class CardOfExpense extends StatelessWidget {
-  const CardOfExpense({
-    super.key,
-  });
-  // final Color color;
-  // final String title;
-  // final String subtitle;
-  // final String amount;
-  // final String date;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      child: ListTile(
-        leading: Container(
-          height: 40.h,
-          width: 40.w,
-          decoration: BoxDecoration(
-            color: ExpenseTrackerColors.violet20,
-            borderRadius: BorderRadius.circular(10).r,
-          ),
-          child: const Icon(
-            Icons.shopping_bag,
-            color: ExpenseTrackerColors.violet,
-          ),
-        ),
-        title: Text(
-          'Shopping',
-          style: ExpenseTrackerTextStyle.regular2.copyWith(
-            fontWeight: FontWeight.w600,
-            color: ExpenseTrackerColors.dark25,
-            letterSpacing: 0.5,
-          ),
-        ),
-        subtitle: Text(
-          'Shopping are dnot ',
-          style: ExpenseTrackerTextStyle.small.copyWith(
-            color: ExpenseTrackerColors.light20,
-          ),
-        ),
-        trailing: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // amount
-            Text(
-              r'-$100',
-              style: ExpenseTrackerTextStyle.regular3.copyWith(
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-                color: ExpenseTrackerColors.red,
-              ),
-            ),
-            // date
-            Text(
-              'Today',
-              style: ExpenseTrackerTextStyle.small.copyWith(
-                color: ExpenseTrackerColors.light20,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
