@@ -10,6 +10,7 @@ class ExpenseTrackerTheme {
       colorScheme: ColorScheme.fromSwatch(
         accentColor: ExpenseTrackerColors.violet,
       ),
+      // primaryColor: ExpenseTrackerColors.violet,
       // appBarTheme: _appBarTheme,
       elevatedButtonTheme: _elevatedButtonTheme,
       outlinedButtonTheme: _outlinedButtonTheme,
