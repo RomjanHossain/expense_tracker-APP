@@ -10,7 +10,7 @@ class CardOfExpenseEntity with _$CardOfExpenseEntity {
     required Color color,
     required String title,
     required String subtitle,
-    required String amount,
+    required double amount,
     required String date,
   }) = _CardOfExpenseEntity;
 }
