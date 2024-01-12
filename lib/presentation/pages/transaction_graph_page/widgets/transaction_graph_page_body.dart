@@ -4,6 +4,8 @@ import 'package:expense_tracker/presentation/pages/expenseform/expenseform.dart'
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/transaction_filter_sheet.dart';
+import 'package:expense_tracker/presentation/pages/transaction_graph_page/widgets/financial_reports_quick.dart';
+import 'package:expense_tracker/services/animation/page_animation.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -96,37 +98,48 @@ class TransactionGraphPageBody extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 10,
-                ),
-                margin: const EdgeInsets.symmetric(
-                  // horizontal: 10,
-                  vertical: 20,
-                ),
-                decoration: BoxDecoration(
-                  color: ExpenseTrackerColors.violet20,
-                  borderRadius: BorderRadius.circular(10).r,
-                  // border: Border.all(
-                  //   color: ExpenseTrackerColors.violet,
-                  //   // width: 1,
-                  // ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'See your financial reports',
-                      style: ExpenseTrackerTextStyle.small.copyWith(
+              GestureDetector(
+                onTap: () {
+                  //! financial reports
+                  Navigator.push(
+                    context,
+                    PageAnimation.fadeThroughTransitionPageWrapper(
+                      const FinancialReportsQuick(),
+                    ),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
+                  ),
+                  margin: const EdgeInsets.symmetric(
+                    // horizontal: 10,
+                    vertical: 20,
+                  ),
+                  decoration: BoxDecoration(
+                    color: ExpenseTrackerColors.violet20,
+                    borderRadius: BorderRadius.circular(10).r,
+                    // border: Border.all(
+                    //   color: ExpenseTrackerColors.violet,
+                    //   // width: 1,
+                    // ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'See your financial reports',
+                        style: ExpenseTrackerTextStyle.small.copyWith(
+                          color: ExpenseTrackerColors.violet,
+                        ),
+                      ),
+                      const Icon(
+                        Icons.navigate_next,
                         color: ExpenseTrackerColors.violet,
                       ),
-                    ),
-                    const Icon(
-                      Icons.navigate_next,
-                      color: ExpenseTrackerColors.violet,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               // today
