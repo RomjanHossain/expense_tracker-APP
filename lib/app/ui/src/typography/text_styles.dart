@@ -13,10 +13,11 @@ class ExpenseTrackerTextStyle {
     );
   }
 
-  //// title 1 (32)(34)
+  /// title 1 (32)(39)
   static TextStyle get title1 {
     return _baseTextStyle.headlineLarge!.copyWith(
-      height: 1.0625,
+      // height: 1.0625,
+      height: 1.21875,
       fontSize: 32,
     );
   }
@@ -38,7 +39,7 @@ class ExpenseTrackerTextStyle {
   }
 
   /// regular 1 (16)(19)
-  static TextStyle get regular1 {
+  static TextStyle get body1 {
     return _baseTextStyle.bodyLarge!.copyWith(
       height: 1.1875,
       fontSize: 16,
@@ -46,7 +47,7 @@ class ExpenseTrackerTextStyle {
   }
 
   /// regular 2 (16)(19)
-  static TextStyle get regular2 {
+  static TextStyle get body2 {
     return _baseTextStyle.titleMedium!.copyWith(
       height: 1.1875,
       fontSize: 16,
@@ -54,7 +55,7 @@ class ExpenseTrackerTextStyle {
   }
 
   /// regular 3 (14)(18)
-  static TextStyle get regular3 {
+  static TextStyle get body3 {
     return _baseTextStyle.bodyMedium!.copyWith(
       height: 1.2857142857142858,
       fontSize: 14,
