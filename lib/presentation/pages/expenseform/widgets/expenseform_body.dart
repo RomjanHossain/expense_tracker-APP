@@ -132,7 +132,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                       : MediaQuery.of(context).size.height * 0.6
                   : MediaQuery.of(context).size.height * 0.5,
               decoration: const BoxDecoration(
-                color: ExpenseTrackerColors.white,
+                color: ExpenseTrackerColors.light,
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(32),
                 ),
@@ -182,8 +182,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                       ),
                                     ),
                                     hintText: 'From',
-                                    hintStyle: ExpenseTrackerTextStyle.regular2
-                                        .copyWith(
+                                    hintStyle:
+                                        ExpenseTrackerTextStyle.body2.copyWith(
                                       color: ExpenseTrackerColors.light20,
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(
@@ -226,8 +226,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                       ),
                                     ),
                                     hintText: 'To',
-                                    hintStyle: ExpenseTrackerTextStyle.regular2
-                                        .copyWith(
+                                    hintStyle:
+                                        ExpenseTrackerTextStyle.body2.copyWith(
                                       color: ExpenseTrackerColors.light20,
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(
@@ -294,7 +294,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           ),
                         ),
                         hintText: 'Description',
-                        hintStyle: ExpenseTrackerTextStyle.regular2.copyWith(
+                        hintStyle: ExpenseTrackerTextStyle.body2.copyWith(
                           color: ExpenseTrackerColors.light20,
                         ),
                         contentPadding: const EdgeInsets.symmetric(
@@ -516,36 +516,6 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
       },
     );
   }
-
-  InputDecoration dropdownInputDecoration(String hintText) => InputDecoration(
-        isDense: true,
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.violet,
-          ),
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
-        ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
-        ),
-        hintText: hintText,
-        hintStyle: ExpenseTrackerTextStyle.regular2.copyWith(
-          color: ExpenseTrackerColors.light20,
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
-      );
 }
 
 class SuccessAlertDialog extends StatelessWidget {
@@ -556,7 +526,7 @@ class SuccessAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: ExpenseTrackerColors.white,
+      backgroundColor: ExpenseTrackerColors.light,
       insetPadding: const EdgeInsets.all(10),
       // title: const Text('Success'),
       content: Column(
@@ -591,5 +561,5 @@ const subscriptionsFrequency = [
   'Weekly',
   'Monthly',
   'Yearly',
-  'Lifetime',
+  // 'Lifetime',
 ];

@@ -55,7 +55,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
         // color: ExpenseTrackerColors.violet,
-        color: ExpenseTrackerColors.white,
+        color: ExpenseTrackerColors.light,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -77,7 +77,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                     ? AccountTypeHelper.toString2(createACState.acType!)
                     : '',
                 textAlign: TextAlign.left,
-                style: ExpenseTrackerTextStyle.regular1.copyWith(
+                style: ExpenseTrackerTextStyle.body1.copyWith(
                   fontWeight: FontWeight.w600,
                   // color: ExpenseTrackerColors.light80.withOpacity(0.64),
                 ),
@@ -197,8 +197,8 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                           )
                                         : '',
                                     textAlign: TextAlign.left,
-                                    style: ExpenseTrackerTextStyle.regular1
-                                        .copyWith(
+                                    style:
+                                        ExpenseTrackerTextStyle.body1.copyWith(
                                       fontWeight: FontWeight.w600,
                                       // color: ExpenseTrackerColors.light80.withOpacity(0.64),
                                     ),
@@ -430,7 +430,7 @@ class AccountTypeDropdown extends StatelessWidget {
               value: e,
               child: Text(
                 e,
-                style: ExpenseTrackerTextStyle.regular3.copyWith(
+                style: ExpenseTrackerTextStyle.body3.copyWith(
                   color: ExpenseTrackerColors.light20,
                 ),
               ),

@@ -36,7 +36,7 @@ class IESmallCard extends StatelessWidget {
             ),
             padding: const EdgeInsets.all(5).r,
             decoration: BoxDecoration(
-              color: ExpenseTrackerColors.white,
+              color: ExpenseTrackerColors.light,
               borderRadius: BorderRadius.circular(15).w,
             ),
             child: SvgPicture.asset(
@@ -48,7 +48,7 @@ class IESmallCard extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: ExpenseTrackerTextStyle.regular3.copyWith(
+                style: ExpenseTrackerTextStyle.body3.copyWith(
                   color: ExpenseTrackerColors.light80,
                   // fontWeight: FontWeight.bold,
                 ),

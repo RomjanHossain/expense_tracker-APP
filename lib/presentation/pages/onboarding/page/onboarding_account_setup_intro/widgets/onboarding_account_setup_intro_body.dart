@@ -12,29 +12,29 @@ class OnboardingAccountSetupIntroBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 100,
-                  bottom: 30,
-                ),
-                child: Text(
-                  "Let's setup your account!",
-                  style: ExpenseTrackerTextStyle.title1.copyWith(
-                    fontSize: 36,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 100,
+              bottom: 30,
+            ),
+            child: Text(
+              "Let's setup your account!",
+              style: ExpenseTrackerTextStyle.title1.copyWith(
+                fontSize: 36,
+                fontWeight: FontWeight.w500,
               ),
-              Text(
-                'Account can be your bank, credit card or your wallet.',
-                style: ExpenseTrackerTextStyle.regular3,
-              ),
-            ],
+            ),
           ),
-        );
+          Text(
+            'Account can be your bank, credit card or your wallet.',
+            style: ExpenseTrackerTextStyle.body3,
+          ),
+        ],
+      ),
+    );
   }
 }

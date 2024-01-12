@@ -54,7 +54,7 @@ class IncomeMehodsDropdown extends StatelessWidget {
             style: TextStyle(
               color: ExpenseTrackerColors.light20,
             ),
-            // style: ExpenseTrackerTextStyle.regular2,
+            // style: ExpenseTrackerTextStyle.body2,
             // textAlign: TextAlign.start,
           ),
           // padding: const EdgeInsets.all(0),

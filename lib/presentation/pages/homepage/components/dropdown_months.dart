@@ -22,7 +22,7 @@ class _DropdownMonthsState extends State<DropdownMonths> {
       child: DropdownButton(
         alignment: Alignment.center,
         elevation: 0,
-        style: ExpenseTrackerTextStyle.regular3.copyWith(
+        style: ExpenseTrackerTextStyle.body3.copyWith(
           color: ExpenseTrackerColors.dark50,
         ),
         icon: SvgPicture.asset(

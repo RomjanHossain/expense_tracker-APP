@@ -77,7 +77,7 @@ class AppHomePageScaffold extends StatelessWidget {
                 // backgroundColor: ExpenseTrackerColors.primary,
                 child: SvgPicture.asset(
                   ExpenseAssets.incomeIcon,
-                  color: ExpenseTrackerColors.white,
+                  color: ExpenseTrackerColors.light,
                 ),
               ),
             ),
@@ -94,7 +94,7 @@ class AppHomePageScaffold extends StatelessWidget {
                 // backgroundColor: ExpenseTrackerColors.primary,
                 child: SvgPicture.asset(
                   ExpenseAssets.transactionIcon,
-                  color: ExpenseTrackerColors.white,
+                  color: ExpenseTrackerColors.light,
                 ),
               ),
             ),
@@ -111,7 +111,7 @@ class AppHomePageScaffold extends StatelessWidget {
                 // backgroundColor: ExpenseTrackerColors.primary,
                 child: SvgPicture.asset(
                   ExpenseAssets.expenseIcon,
-                  color: ExpenseTrackerColors.white,
+                  color: ExpenseTrackerColors.light,
                 ),
               ),
             ),

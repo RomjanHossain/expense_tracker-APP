@@ -11,7 +11,8 @@ class TransactionGraphPagePage extends StatelessWidget {
 
   /// The static route for TransactionGraphPagePage
   static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(builder: (_) => const TransactionGraphPagePage());
+    return MaterialPageRoute<dynamic>(
+        builder: (_) => const TransactionGraphPagePage());
   }
 
   @override
@@ -22,7 +23,7 @@ class TransactionGraphPagePage extends StatelessWidget {
         body: TransactionGraphPageView(),
       ),
     );
-  }    
+  }
 }
 
 /// {@template transaction_graph_page_view}

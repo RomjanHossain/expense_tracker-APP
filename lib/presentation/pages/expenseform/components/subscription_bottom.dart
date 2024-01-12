@@ -31,7 +31,7 @@ class SubscriptionBottomSheet extends StatelessWidget {
           ),
         ),
         hintText: hintText,
-        hintStyle: ExpenseTrackerTextStyle.regular2.copyWith(
+        hintStyle: ExpenseTrackerTextStyle.body2.copyWith(
           color: ExpenseTrackerColors.light20,
         ),
         contentPadding: const EdgeInsets.symmetric(
@@ -64,7 +64,7 @@ class SubscriptionBottomSheet extends StatelessWidget {
             children: [
               Text(
                 'Start of subscription',
-                style: ExpenseTrackerTextStyle.regular3.copyWith(
+                style: ExpenseTrackerTextStyle.body3.copyWith(
                   color: ExpenseTrackerColors.dark25,
                   fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.w600,
@@ -159,7 +159,7 @@ class SubscriptionBottomSheet extends StatelessWidget {
               // end of subscription (date picker)
               Text(
                 'End of subscription Date',
-                style: ExpenseTrackerTextStyle.regular3.copyWith(
+                style: ExpenseTrackerTextStyle.body3.copyWith(
                   color: ExpenseTrackerColors.dark25,
                   fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.w600,
