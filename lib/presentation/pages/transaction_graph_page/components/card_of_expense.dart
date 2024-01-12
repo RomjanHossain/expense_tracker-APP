@@ -1,4 +1,3 @@
-
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/data/datasources/local/category/category_local_data.dart';
 import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
@@ -45,7 +44,7 @@ class CardOfExpense extends StatelessWidget {
                 (element) => element.id == cardOfExpense.title,
               )
               .title,
-          style: ExpenseTrackerTextStyle.regular2.copyWith(
+          style: ExpenseTrackerTextStyle.body2.copyWith(
             fontWeight: FontWeight.w600,
             color: ExpenseTrackerColors.dark25,
             letterSpacing: 0.5,
@@ -64,7 +63,7 @@ class CardOfExpense extends StatelessWidget {
             // amount
             Text(
               '${cardOfExpense.amount < 0 ? "-" : "+"}\$${cardOfExpense.amount}',
-              style: ExpenseTrackerTextStyle.regular3.copyWith(
+              style: ExpenseTrackerTextStyle.body3.copyWith(
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.5,
                 color: cardOfExpense.amount < 0

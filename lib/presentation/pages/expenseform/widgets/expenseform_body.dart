@@ -182,8 +182,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                       ),
                                     ),
                                     hintText: 'From',
-                                    hintStyle: ExpenseTrackerTextStyle.regular2
-                                        .copyWith(
+                                    hintStyle:
+                                        ExpenseTrackerTextStyle.body2.copyWith(
                                       color: ExpenseTrackerColors.light20,
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(
@@ -226,8 +226,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                       ),
                                     ),
                                     hintText: 'To',
-                                    hintStyle: ExpenseTrackerTextStyle.regular2
-                                        .copyWith(
+                                    hintStyle:
+                                        ExpenseTrackerTextStyle.body2.copyWith(
                                       color: ExpenseTrackerColors.light20,
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(
@@ -294,7 +294,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           ),
                         ),
                         hintText: 'Description',
-                        hintStyle: ExpenseTrackerTextStyle.regular2.copyWith(
+                        hintStyle: ExpenseTrackerTextStyle.body2.copyWith(
                           color: ExpenseTrackerColors.light20,
                         ),
                         contentPadding: const EdgeInsets.symmetric(
@@ -516,8 +516,6 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
       },
     );
   }
-
-
 }
 
 class SuccessAlertDialog extends StatelessWidget {

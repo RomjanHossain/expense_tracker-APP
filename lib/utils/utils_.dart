@@ -17,32 +17,32 @@ void showToast(String msg, Color? color) {
   );
 }
 
-  InputDecoration dropdownInputDecoration(String hintText) => InputDecoration(
-        isDense: true,
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.violet,
-          ),
+InputDecoration dropdownInputDecoration(String hintText) => InputDecoration(
+      isDense: true,
+      focusedBorder: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderSide: BorderSide(
+          color: ExpenseTrackerColors.violet,
         ),
-        enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
+      ),
+      enabledBorder: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderSide: BorderSide(
+          color: ExpenseTrackerColors.light60,
         ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
+      ),
+      border: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+        borderSide: BorderSide(
+          color: ExpenseTrackerColors.light60,
         ),
-        hintText: hintText,
-        hintStyle: ExpenseTrackerTextStyle.regular2.copyWith(
-          color: ExpenseTrackerColors.light20,
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
-      );
+      ),
+      hintText: hintText,
+      hintStyle: ExpenseTrackerTextStyle.body2.copyWith(
+        color: ExpenseTrackerColors.light20,
+      ),
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 10,
+      ),
+    );

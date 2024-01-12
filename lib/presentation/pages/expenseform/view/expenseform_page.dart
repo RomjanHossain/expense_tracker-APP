@@ -42,7 +42,7 @@ class ExpenseformPage extends StatelessWidget {
               : expenseType == ExpenseType.expense
                   ? 'Expense'
                   : 'Transfer',
-          style: ExpenseTrackerTextStyle.regular1.copyWith(
+          style: ExpenseTrackerTextStyle.body1.copyWith(
             fontWeight: FontWeight.w500,
             color: ExpenseTrackerColors.light,
           ),

@@ -195,7 +195,7 @@ class AttachmentCard extends StatelessWidget {
           ),
           Text(
             text,
-            style: ExpenseTrackerTextStyle.regular3.copyWith(
+            style: ExpenseTrackerTextStyle.body3.copyWith(
               color: ExpenseTrackerColors.violet,
               fontWeight: FontWeight.w500,
             ),

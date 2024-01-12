@@ -114,7 +114,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                           const SizedBox(height: 25),
                           Text(
                             _subtitles[index],
-                            style: ExpenseTrackerTextStyle.regular1.copyWith(
+                            style: ExpenseTrackerTextStyle.body1.copyWith(
                               fontWeight: FontWeight.w400,
                               color: ExpenseTrackerColors.charcoal,
                             ),

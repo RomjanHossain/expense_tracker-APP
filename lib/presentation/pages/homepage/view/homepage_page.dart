@@ -62,7 +62,7 @@ class _HomepagePageState extends State<HomepagePage> {
                     children: [
                       Text(
                         'Account Balance',
-                        style: ExpenseTrackerTextStyle.regular3.copyWith(
+                        style: ExpenseTrackerTextStyle.body3.copyWith(
                           color: ExpenseTrackerColors.light20,
                         ),
                       ),
@@ -177,7 +177,7 @@ class _HomepagePageState extends State<HomepagePage> {
                         onPressed: () {},
                         child: Text(
                           'see all',
-                          style: ExpenseTrackerTextStyle.regular3.copyWith(
+                          style: ExpenseTrackerTextStyle.body3.copyWith(
                             color: ExpenseTrackerColors.violet,
                           ),
                         )),
@@ -215,18 +215,17 @@ class _HomepagePageState extends State<HomepagePage> {
                           children: [
                             Text(
                               'Shopping',
-                              style: ExpenseTrackerTextStyle.regular1.copyWith(
+                              style: ExpenseTrackerTextStyle.body1.copyWith(
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.2,
                                 color: ExpenseTrackerColors.dark25,
                               ),
                             ),
                             Text(
-                              '${'Buy some groceries from the storxxxxxxxxxxxxxxxxxxxxe'
-                                      .substring(0, 18)}...',
+                              '${'Buy some groceries from the storxxxxxxxxxxxxxxxxxxxxe'.substring(0, 18)}...',
                               softWrap: true,
                               overflow: TextOverflow.ellipsis,
-                              style: ExpenseTrackerTextStyle.regular3.copyWith(
+                              style: ExpenseTrackerTextStyle.body3.copyWith(
                                 color: ExpenseTrackerColors.light20,
                               ),
                               maxLines: 1,

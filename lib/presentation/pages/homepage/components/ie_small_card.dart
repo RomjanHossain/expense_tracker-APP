@@ -48,7 +48,7 @@ class IESmallCard extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: ExpenseTrackerTextStyle.regular3.copyWith(
+                style: ExpenseTrackerTextStyle.body3.copyWith(
                   color: ExpenseTrackerColors.light80,
                   // fontWeight: FontWeight.bold,
                 ),

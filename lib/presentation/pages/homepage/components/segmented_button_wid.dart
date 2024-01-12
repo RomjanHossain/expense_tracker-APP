@@ -17,7 +17,7 @@ class HomeSegmentedButtonsWidget extends StatelessWidget {
         showSelectedIcon: false,
         style: ButtonStyle(
           textStyle: MaterialStateProperty.resolveWith(
-              (states) => ExpenseTrackerTextStyle.regular3.copyWith(
+              (states) => ExpenseTrackerTextStyle.body3.copyWith(
                     color: states.contains(MaterialState.selected)
                         ? ExpenseTrackerColors.yellow
                         : ExpenseTrackerColors.yellow,
@@ -41,7 +41,7 @@ class HomeSegmentedButtonsWidget extends StatelessWidget {
           ButtonSegment<SegmentedButtonsData>(
             label: Text(
               'Today',
-              style: ExpenseTrackerTextStyle.regular3.copyWith(
+              style: ExpenseTrackerTextStyle.body3.copyWith(
                 color: ExpenseTrackerColors.yellow,
                 fontWeight: FontWeight.bold,
               ),
