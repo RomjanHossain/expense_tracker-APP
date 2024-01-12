@@ -20,29 +20,84 @@ class _FinancialReportsQuickState extends State<FinancialReportsQuick> {
     liquidController = LiquidController();
   }
 
+  final pages = const [
+    QuickReportsView(
+      title: 'This Month',
+      amount: 233,
+      color: ExpenseTrackerColors.red,
+      type: QuickReportType.expense,
+    ),
+    QuickReportsView(
+      title: 'This Month',
+      amount: 233,
+      color: ExpenseTrackerColors.green,
+      type: QuickReportType.income,
+    ),
+    QuickReportsView(
+      title: 'This Month',
+      amount: 233,
+      color: ExpenseTrackerColors.violet,
+      type: QuickReportType.transfer,
+    ),
+  ];
+  int page = 0;
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: LiquidSwipe(
-        waveType: WaveType.circularReveal,
-        pages: const [
-          QuickReportsView(
-            title: 'This Month',
-            amount: 233,
-            color: ExpenseTrackerColors.red,
-            type: QuickReportType.expense,
+    return Scaffold(
+      backgroundColor: pages[page].color,
+      appBar: AppBar(),
+      body: Column(
+        children: [
+          Row(
+            children: [
+              for (final x in List.generate(3, (index) => index))
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      liquidController.animateToPage(
+                        page: x,
+                        // duration: const Duration(milliseconds: 500),
+                      );
+                      // setState(() {});
+                    },
+                    child: Container(
+                      height: 5.h,
+                      decoration: BoxDecoration(
+                        color: x == page
+                            ? ExpenseTrackerColors.light
+                            : ExpenseTrackerColors.light.withOpacity(
+                                0.3,
+                              ),
+                        borderRadius: BorderRadius.circular(10).r,
+                      ),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 5,
+                        vertical: 10,
+                      ),
+                    ),
+                  ),
+                )
+            ],
           ),
-          QuickReportsView(
-            title: 'This Month',
-            amount: 233,
-            color: ExpenseTrackerColors.green,
-            type: QuickReportType.income,
-          ),
-          QuickReportsView(
-            title: 'This Month',
-            amount: 233,
-            color: ExpenseTrackerColors.violet,
-            type: QuickReportType.transfer,
+          Expanded(
+            child: LiquidSwipe(
+              enableSideReveal: true,
+              onPageChangeCallback: (page) {
+                debugPrint('page chaged');
+                // liquidController.animateToPage(page: page);
+                setState(() {
+                  this.page = page;
+                });
+              },
+              waveType: WaveType.circularReveal,
+              liquidController: liquidController,
+              pages: pages,
+            ),
           ),
         ],
       ),
@@ -73,7 +128,7 @@ class QuickReportsView extends StatelessWidget {
     return ColoredBox(
       color: color,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
@@ -104,8 +159,14 @@ class QuickReportsView extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.symmetric(
+            margin: const EdgeInsets.only(
+              bottom: 20,
+              // vertical: 20,
+              left: 15, right: 15,
+            ),
+            padding: const EdgeInsets.symmetric(
               horizontal: 20,
+              vertical: 20,
             ),
             decoration: BoxDecoration(
               color: ExpenseTrackerColors.light,
@@ -133,6 +194,9 @@ class QuickReportsView extends StatelessWidget {
                     horizontal: 10,
                     vertical: 5,
                   ),
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 15,
+                  ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -155,11 +219,20 @@ class QuickReportsView extends StatelessWidget {
                         ),
                         // color: ExpenseTrackerColors.violet,
                       ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
                       Text(categoryLocalData2.first.title),
                     ],
                   ),
                 ),
-                const Text(r'$1000'),
+                Text(
+                  r'$1000',
+                  style: ExpenseTrackerTextStyle.title1.copyWith(
+                    color: ExpenseTrackerColors.dark,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),
