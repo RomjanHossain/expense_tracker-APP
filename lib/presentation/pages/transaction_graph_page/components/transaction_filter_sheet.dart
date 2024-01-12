@@ -1,5 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/data/datasources/local/category/category_local_data.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +15,7 @@ class TransactionFilterSheet extends StatefulWidget {
 }
 
 class _TransactionFilterSheetState extends State<TransactionFilterSheet> {
-  final bottomTitle = ExpenseTrackerTextStyle.regular3.copyWith(
+  final bottomTitle = ExpenseTrackerTextStyle.body3.copyWith(
     fontWeight: FontWeight.bold,
     letterSpacing: 1.2,
   );
@@ -32,7 +33,7 @@ class _TransactionFilterSheetState extends State<TransactionFilterSheet> {
         children: [
           //! reset transaction filters
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -52,7 +53,7 @@ class _TransactionFilterSheetState extends State<TransactionFilterSheet> {
                   onPressed: () {},
                   child: Text(
                     'Reset',
-                    style: ExpenseTrackerTextStyle.regular3.copyWith(
+                    style: ExpenseTrackerTextStyle.body3.copyWith(
                       color: ExpenseTrackerColors.violet,
                     ),
                   ),
@@ -62,7 +63,7 @@ class _TransactionFilterSheetState extends State<TransactionFilterSheet> {
           ),
           //! Filter by (income/expense/transfer)
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Text(
               'Filter',
               style: bottomTitle,
@@ -100,7 +101,7 @@ class _TransactionFilterSheetState extends State<TransactionFilterSheet> {
           ),
           //! Filter by (category)
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Text(
               'Sort by',
               style: bottomTitle,
@@ -139,26 +140,72 @@ class _TransactionFilterSheetState extends State<TransactionFilterSheet> {
           ),
           //! Category
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Text(
               'Category',
               style: bottomTitle,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
+          Padding(
+            padding: const EdgeInsets.all(8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Choose Category'),
-                Row(
-                  children: [
-                    Text('0 Selected'),
-                    Icon(
-                      Icons.navigate_next,
-                      color: ExpenseTrackerColors.violet,
-                    ),
-                  ],
+                const Text('Choose Category'),
+                GestureDetector(
+                  onTap: () async {
+                    // show bottom sheet of categories (categoryLocalData2)
+                    await showModalBottomSheet<void>(
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (context) {
+                        // return const ExpenseForm();
+                        // return const TransactionFilterSheet();
+                        return SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Text(
+                                  'Choose Category',
+                                  style: bottomTitle,
+                                ),
+                              ),
+                              Expanded(
+                                child: ListView.builder(
+                                  itemCount: categoryLocalData2.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      leading: Text(
+                                        categoryLocalData2[index].icon,
+                                        // color: categoryLocalData2[index].color,
+                                      ),
+                                      title: Text(
+                                        categoryLocalData2[index].title,
+                                      ),
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: const Row(
+                    children: [
+                      Text('0 Selected'),
+                      Icon(
+                        Icons.navigate_next,
+                        color: ExpenseTrackerColors.violet,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
