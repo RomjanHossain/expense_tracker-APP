@@ -1,8 +1,12 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/widgets/expenseform_body.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/bloc/bloc.dart';
+import 'package:expense_tracker/presentation/pages/expensereport/components/chart_below_card.dart';
+import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
 import 'package:expense_tracker/presentation/widgets/charts/line_charts.dart';
+import 'package:expense_tracker/presentation/widgets/charts/pie_carts.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -100,6 +104,25 @@ class ExpensereportBody extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Expanded(
+                      child: Stack(
+                    children: [
+                      ExpensePieGraph(
+                        pieRadius: 5.r * 4,
+                      ),
+                      Positioned.fill(
+                        child: Center(
+                          child: Text(
+                            r'$3245',
+                            style: ExpenseTrackerTextStyle.title2.copyWith(
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
                 ],
               ),
             ),
@@ -133,6 +156,39 @@ class ExpensereportBody extends StatelessWidget {
                   ExpenseType2.income,
                 },
               ),
+            ),
+            // for pie
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: 3,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: PieChartBelowDataComponent(
+                    amount: -1 + index.toDouble(),
+                    color: ExpenseTrackerColors.blue60,
+                    title: 'householdRepairs',
+                  ),
+                );
+              },
+            ),
+            // t
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: 3,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return const CardOfExpense(
+                  cardOfExpense: CardOfExpenseEntity(
+                    color: ExpenseTrackerColors.violet,
+                    title: 'householdRepairs',
+                    subtitle: 'Walmart',
+                    amount: 23,
+                    date: 'Today',
+                  ),
+                );
+              },
             ),
           ],
         );
