@@ -20,3 +20,21 @@ enum SegmentedButtonsData { today, week, month, year }
 
 ///& types of expenses enum (income, expense, transfer)
 enum ExpenseType { income, expense, transfer }
+// only income and expense type
+enum ExpenseType2 { income, expense }
+
+
+// Enum: AccountType
+enum AccountType {
+  bank,
+  creditCard,
+  mobileBanking,
+  wallet,
+  cash,
+  other,
+}
+// chart type
+enum ChartType {
+  line,
+  pie,
+}

@@ -3,11 +3,12 @@ import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.da
 import 'package:expense_tracker/data/datasources/local/utils_data/all_months.dart';
 import 'package:expense_tracker/presentation/pages/homepage/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/dropdown_months.dart';
-import 'package:expense_tracker/presentation/pages/homepage/components/expense_graph.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/ie_small_card.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/segmented_button_wid.dart';
 import 'package:expense_tracker/presentation/pages/homepage/widgets/homepage_body.dart';
+import 'package:expense_tracker/presentation/widgets/charts/line_charts.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -139,7 +140,17 @@ class _HomepagePageState extends State<HomepagePage> {
                       ),
                     ),
                     const Expanded(
-                      child: HomeExpenseGraph(),
+                      child: ExpenseLineGraph(
+                        spots: [
+                          FlSpot(0, 3),
+                          FlSpot(2.6, 2),
+                          FlSpot(4.9, 5),
+                          FlSpot(6.8, 3.1),
+                          FlSpot(8, 4),
+                          FlSpot(9.5, 3),
+                          FlSpot(11, 4),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -166,21 +177,22 @@ class _HomepagePageState extends State<HomepagePage> {
                       ),
                     ),
                     FilledButton.tonal(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            ExpenseTrackerColors.violet20,
-                          ),
-                          side: MaterialStateProperty.all(
-                            BorderSide.none,
-                          ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          ExpenseTrackerColors.violet20,
                         ),
-                        onPressed: () {},
-                        child: Text(
-                          'see all',
-                          style: ExpenseTrackerTextStyle.body3.copyWith(
-                            color: ExpenseTrackerColors.violet,
-                          ),
-                        )),
+                        side: MaterialStateProperty.all(
+                          BorderSide.none,
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        'see all',
+                        style: ExpenseTrackerTextStyle.body3.copyWith(
+                          color: ExpenseTrackerColors.violet,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

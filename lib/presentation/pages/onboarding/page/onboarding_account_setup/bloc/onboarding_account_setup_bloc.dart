@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:expense_tracker/data/datasources/local/utils_data/account_type_helper.dart';
 import 'package:expense_tracker/domain/entities/create_account_entity/create_account_entity.dart';
+import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/material.dart';
 part 'onboarding_account_setup_event.dart';
 part 'onboarding_account_setup_state.dart';

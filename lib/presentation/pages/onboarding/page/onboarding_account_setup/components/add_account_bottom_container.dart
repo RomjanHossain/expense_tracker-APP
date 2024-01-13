@@ -7,6 +7,7 @@ import 'package:expense_tracker/data/datasources/local/utils_data/mobile_banking
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/page/successfully_account_created.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
+import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';

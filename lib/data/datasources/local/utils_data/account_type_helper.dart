@@ -1,13 +1,6 @@
 
-// Enum: AccountType
-enum AccountType {
-  bank,
-  creditCard,
-  mobileBanking,
-  wallet,
-  cash,
-  other,
-}
+
+import 'package:expense_tracker/utils/constrants/consts_.dart';
 
 class AccountTypeHelper {
   static AccountType fromString(String accountType) {
