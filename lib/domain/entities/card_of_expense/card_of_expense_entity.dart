@@ -14,8 +14,3 @@ class CardOfExpenseEntity with _$CardOfExpenseEntity {
     required String date,
   }) = _CardOfExpenseEntity;
 }
-
-enum ExpenseOrAdd {
-  expense,
-  add,
-}

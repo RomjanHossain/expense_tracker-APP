@@ -1,6 +1,9 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/data/datasources/local/category/category_local_data.dart';
+import 'package:expense_tracker/presentation/pages/expensereport/view/expensereport_page.dart';
+import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
+import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
@@ -25,19 +28,19 @@ class _FinancialReportsQuickState extends State<FinancialReportsQuick> {
       title: 'This Month',
       amount: 233,
       color: ExpenseTrackerColors.red,
-      type: QuickReportType.expense,
+      type: ExpenseType.expense,
     ),
     QuickReportsView(
       title: 'This Month',
       amount: 233,
       color: ExpenseTrackerColors.green,
-      type: QuickReportType.income,
+      type: ExpenseType.income,
     ),
     QuickReportsView(
       title: 'This Month',
       amount: 233,
       color: ExpenseTrackerColors.violet,
-      type: QuickReportType.transfer,
+      type: ExpenseType.transfer,
     ),
   ];
   int page = 0;
@@ -105,11 +108,6 @@ class _FinancialReportsQuickState extends State<FinancialReportsQuick> {
   }
 }
 
-enum QuickReportType {
-  income,
-  expense,
-  transfer,
-}
 
 class QuickReportsView extends StatelessWidget {
   const QuickReportsView({
@@ -120,7 +118,7 @@ class QuickReportsView extends StatelessWidget {
     super.key,
   });
   final String title;
-  final QuickReportType type;
+  final ExpenseType type;
   final Color color;
   final int amount;
   @override
@@ -132,19 +130,19 @@ class QuickReportsView extends StatelessWidget {
         children: [
           Text(
             title,
-            style: ExpenseTrackerTextStyle.title2.copyWith(
+            style: ExpenseTrackerTextStyle.title3.copyWith(
               color: ExpenseTrackerColors.light.withOpacity(0.7),
             ),
           ),
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              text: type == QuickReportType.expense
+              text: type == ExpenseType.expense
                   ? 'You Spend 💸'
-                  : type == QuickReportType.income
+                  : type == ExpenseType.income
                       ? 'You Earn 💰'
                       : 'You Transfer 💸',
-              style: ExpenseTrackerTextStyle.title1.copyWith(
+              style: ExpenseTrackerTextStyle.title2.copyWith(
                 color: ExpenseTrackerColors.light,
               ),
               children: [
@@ -178,7 +176,9 @@ class QuickReportsView extends StatelessWidget {
                   'and your biggest expend is from',
                   style: ExpenseTrackerTextStyle.title2.copyWith(
                     color: ExpenseTrackerColors.dark,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.2,
+                    height: 1.2,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -190,9 +190,8 @@ class QuickReportsView extends StatelessWidget {
                       color: ExpenseTrackerColors.light40,
                     ),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
+                  padding: const EdgeInsets.all(
+                    10,
                   ),
                   margin: const EdgeInsets.symmetric(
                     vertical: 15,
@@ -222,7 +221,13 @@ class QuickReportsView extends StatelessWidget {
                       SizedBox(
                         width: 10.w,
                       ),
-                      Text(categoryLocalData2.first.title),
+                      Text(
+                        categoryLocalData2.first.title,
+                        style: ExpenseTrackerTextStyle.body3.copyWith(
+                          color: ExpenseTrackerColors.dark,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -236,6 +241,16 @@ class QuickReportsView extends StatelessWidget {
               ],
             ),
           ),
+          if (type == ExpenseType.transfer)
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: SecondaryButton(
+                onPress: () {
+                  Navigator.push(context, ExpensereportPage.route());
+                },
+                text: 'See full details',
+              ),
+            ),
         ],
       ),
     );

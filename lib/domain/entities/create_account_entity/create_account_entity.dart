@@ -1,4 +1,4 @@
-import 'package:expense_tracker/data/datasources/local/utils_data/account_type_helper.dart';
+import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'create_account_entity.freezed.dart';
