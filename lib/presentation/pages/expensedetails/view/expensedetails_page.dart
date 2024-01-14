@@ -1,19 +1,15 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/custom_app_bar.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/cubit/cubit.dart';
-import 'package:expense_tracker/presentation/pages/expensedetails/widgets/expensedetails_body.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// {@template expensedetails_page}
 /// A description for ExpensedetailsPage
-/// {@endtemplate}
 class ExpensedetailsPage extends StatelessWidget {
   /// {@macro expensedetails_page}
-  const ExpensedetailsPage({super.key, required this.color});
+  const ExpensedetailsPage({required this.color, super.key});
 
   final Color color;
 
