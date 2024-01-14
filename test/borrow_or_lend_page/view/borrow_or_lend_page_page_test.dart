@@ -8,12 +8,12 @@ void main() {
   group('BorrowOrLendPagePage', () {
     group('route', () {
       test('is routable', () {
-        expect(BorrowOrLendPagePage.route(), isA<MaterialPageRoute>());
+        expect(BudgetPage.route(), isA<MaterialPageRoute>());
       });
     });
 
     testWidgets('renders BorrowOrLendPageView', (tester) async {
-      await tester.pumpWidget(MaterialApp(home: BorrowOrLendPagePage()));
+      await tester.pumpWidget(MaterialApp(home: BudgetPage()));
       expect(find.byType(BorrowOrLendPageView), findsOneWidget);
     });
   });

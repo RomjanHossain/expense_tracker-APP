@@ -17,7 +17,7 @@ class AppHomePageBody extends StatelessWidget {
   static const pages = [
     HomepagePage(),
     TransactionGraphPagePage(),
-    BorrowOrLendPagePage(),
+    BudgetPage(),
     ProfilePagePage(),
   ];
   @override
