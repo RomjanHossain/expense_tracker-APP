@@ -313,7 +313,10 @@ final categoryLocalData = <String, CategoryLocalModel>{
 
 final categoryLocalData2 = <CategoryModel>[
   const CategoryModel(
-      id: 'mortgageRent', title: 'Mortgage or rent', icon: '🏠'),
+    id: 'mortgageRent',
+    title: 'Mortgage or rent',
+    icon: '🏠',
+  ),
   const CategoryModel(id: 'propertyTaxes', title: 'Property taxes', icon: '🏡'),
   const CategoryModel(
     id: 'householdRepairs',
@@ -392,7 +395,10 @@ final categoryLocalData2 = <CategoryModel>[
   const CategoryModel(id: 'urgentCare', title: 'Urgent care', icon: '🚑'),
   const CategoryModel(id: 'medications', title: 'Medications', icon: '💊'),
   const CategoryModel(
-      id: 'medicalDevices', title: 'Medical devices', icon: '🩺'),
+    id: 'medicalDevices',
+    title: 'Medical devices',
+    icon: '🩺',
+  ),
   const CategoryModel(
     id: 'hsaContributionsExpenses',
     title: 'Health savings account (HSA) contributions or expenses',
@@ -419,9 +425,15 @@ final categoryLocalData2 = <CategoryModel>[
     icon: '🔒🏡',
   ),
   const CategoryModel(
-      id: 'autoInsurance', title: 'Auto insurance', icon: '🚗🔒'),
+    id: 'autoInsurance',
+    title: 'Auto insurance',
+    icon: '🚗🔒',
+  ),
   const CategoryModel(
-      id: 'lifeInsurance', title: 'Life insurance', icon: '💼🔒'),
+    id: 'lifeInsurance',
+    title: 'Life insurance',
+    icon: '💼🔒',
+  ),
   const CategoryModel(
     id: 'disabilityInsurance',
     title: 'Disability insurance',
@@ -494,7 +506,10 @@ final categoryLocalData2 = <CategoryModel>[
   ),
   const CategoryModel(id: 'yourCollege', title: 'Your college', icon: '👩‍🎓'),
   const CategoryModel(
-      id: 'schoolSupplies', title: 'School supplies', icon: '📓'),
+    id: 'schoolSupplies',
+    title: 'School supplies',
+    icon: '📓',
+  ),
   const CategoryModel(id: 'books', title: 'Books', icon: '📚'),
   const CategoryModel(id: 'emergencyFund', title: 'Emergency fund', icon: '💰'),
   const CategoryModel(
