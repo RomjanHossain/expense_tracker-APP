@@ -1,5 +1,7 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/detail_center_card.dart';
+import 'package:expense_tracker/presentation/pages/expensedetails/components/sucess_alter.dart';
+import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,10 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return Stack(
       clipBehavior: Clip.none,
       fit: StackFit.expand,
@@ -60,7 +65,72 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
               right: 10,
             ),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                // bottom modal sheet
+                showModalBottomSheet<void>(
+                  context: context,
+                  isDismissible: false,
+                  builder: (context) {
+                    return SizedBox(
+                      height: 200.h,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            'Remove this transaction?',
+                            style: ExpenseTrackerTextStyle.title3.copyWith(
+                              color: ExpenseTrackerColors.dark,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Are you sure do you wanna remove this transaction?',
+                            style: ExpenseTrackerTextStyle.body2.copyWith(
+                              color: ExpenseTrackerColors.light20,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: SecondaryButton(
+                                    onPress: () => Navigator.pop(context),
+                                    text: 'No',
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Expanded(
+                                  child: PrimaryButton(
+                                    onPress: () async {
+                                      Navigator.pop(context);
+                                      // show alert dialog for 2 seconds then pop
+                                      await showDialog<void>(
+                                        context: context,
+                                        builder: (context) {
+                                          Future.delayed(
+                                            2.seconds,
+                                            () => Navigator.pop(context),
+                                          );
+                                          return const SuccessfullyDeleted();
+                                        },
+                                      );
+                                    },
+                                    text: 'Yes',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
               icon: const Icon(
                 CupertinoIcons.delete_solid,
                 color: ExpenseTrackerColors.light,
@@ -109,7 +179,6 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                       'Buy some groceries',
                       style: ExpenseTrackerTextStyle.body3.copyWith(
                         color: ExpenseTrackerColors.light80,
-                        
                       ),
                     ),
                   ),
@@ -131,15 +200,16 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
           // center the avatar
           duration: 600.milliseconds,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: AnimatedOpacity(
               duration: 600.milliseconds,
               opacity: 1 - shrinkOffset / expandedHeight,
               child: Card(
-                margin: const EdgeInsets.all(0
-                    // right: 80.w,
-                    // vertical: 10.h,
-                    ),
+                margin: const EdgeInsets.all(
+                  0,
+                  // right: 80.w,
+                  // vertical: 10.h,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.r),
                 ),
