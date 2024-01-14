@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 /// {@template borrow_or_lend_page_page}
 /// A description for BorrowOrLendPagePage
 /// {@endtemplate}
-class BorrowOrLendPagePage extends StatelessWidget {
+class BudgetPage extends StatelessWidget {
   /// {@macro borrow_or_lend_page_page}
-  const BorrowOrLendPagePage({super.key});
+  const BudgetPage({super.key});
 
   /// The static route for BorrowOrLendPagePage
   static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(builder: (_) => const BorrowOrLendPagePage());
+    return MaterialPageRoute<dynamic>(builder: (_) => const BudgetPage());
   }
 
   @override
@@ -22,7 +22,7 @@ class BorrowOrLendPagePage extends StatelessWidget {
         body: BorrowOrLendPageView(),
       ),
     );
-  }    
+  }
 }
 
 /// {@template borrow_or_lend_page_view}
