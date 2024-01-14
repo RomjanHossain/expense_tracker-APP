@@ -1,5 +1,6 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
+import 'package:expense_tracker/presentation/pages/expensedetails/view/expensedetails_page.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/expenseform.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
@@ -155,13 +156,21 @@ class TransactionGraphPageBody extends StatelessWidget {
                 itemCount: 5,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return const CardOfExpense(
-                    cardOfExpense: CardOfExpenseEntity(
-                      color: ExpenseTrackerColors.violet,
-                      title: 'householdRepairs',
-                      subtitle: 'Walmart',
-                      amount: 23,
-                      date: 'Today',
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        ExpensedetailsPage.route(ExpenseTrackerColors.red),
+                      );
+                    },
+                    child: const CardOfExpense(
+                      cardOfExpense: CardOfExpenseEntity(
+                        color: ExpenseTrackerColors.violet,
+                        title: 'householdRepairs',
+                        subtitle: 'Walmart',
+                        amount: 23,
+                        date: 'Today',
+                      ),
                     ),
                   );
                 },
