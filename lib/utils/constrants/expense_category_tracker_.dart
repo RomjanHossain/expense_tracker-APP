@@ -9,6 +9,9 @@ class ExpenseTrackerCategories {
 
   /// list of categories of expenses only Headers
   static List<CategoryModel> expensesCategories = categoryLocalData2;
+  // list of String of expenses only
+  static List<String> expenseCategoriesStrings =
+      categoryLocalData2.map((e) => e.title).toList();
   static CategoryModel? singleexpensesCategory(String key) =>
       categoryLocalData2.where((element) => element.id == key).firstOrNull;
   // income methods
