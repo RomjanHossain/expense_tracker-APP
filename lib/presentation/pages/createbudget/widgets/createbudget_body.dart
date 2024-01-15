@@ -80,8 +80,9 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
                   topRight: Radius.circular(40.r),
                 ),
               ),
+              alignment: Alignment.bottomCenter,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // a dropdown of ExpenseTrackerCategories
                   Padding(
