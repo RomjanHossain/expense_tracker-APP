@@ -6,28 +6,42 @@ part of 'createbudget_cubit.dart';
 class CreatebudgetState extends Equatable {
   /// {@macro createbudget}
   const CreatebudgetState({
-    this.customProperty = 'Default Value',
+    this.budget = const CreateBudgetEntity(
+      amount: 0,
+      category: '',
+      isReceiveAlert: false,
+      percent: 0,
+    ),
   });
 
   /// A description for customProperty
-  final String customProperty;
+  final CreateBudgetEntity budget;
 
   @override
-  List<Object> get props => [customProperty];
+  List<Object> get props => [budget];
 
   /// Creates a copy of the current CreatebudgetState with property changes
   CreatebudgetState copyWith({
-    String? customProperty,
+    String? cat,bool? isAlert,
+    double? ammount,
+    double? percent,
   }) {
     return CreatebudgetState(
-      customProperty: customProperty ?? this.customProperty,
+      budget: budget.copyWith(
+        amount: ammount ?? budget.amount,
+        category: cat ?? budget.category,
+        isReceiveAlert: isAlert ?? budget.isReceiveAlert,
+        percent: percent ?? budget.percent,
+      ),
     );
   }
 }
+
 /// {@template createbudget_initial}
 /// The initial state of CreatebudgetState
 /// {@endtemplate}
 class CreatebudgetInitial extends CreatebudgetState {
   /// {@macro createbudget_initial}
   const CreatebudgetInitial() : super();
+  
 }
