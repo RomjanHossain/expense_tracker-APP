@@ -29,7 +29,6 @@ class ExpensereportPage extends StatelessWidget {
             'Financial Report',
             style: ExpenseTrackerTextStyle.title3,
           ),
-          centerTitle: true,
         ),
         body: const ExpensereportView(),
       ),

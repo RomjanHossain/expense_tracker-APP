@@ -2,10 +2,11 @@ import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.da
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/cubit/cubit.dart';
-import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/view/onboarding_setup_pin_page.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 /// {@template onboarding_body}
 /// Body of the OnboardingPage.
@@ -61,12 +62,6 @@ class _OnboardingBodyState extends State<OnboardingBody> {
         return previous != current;
       },
       builder: (context, state) {
-        // change the state of the pageview
-        // _pageController.animateToPage(
-        //   state,
-        //   duration: const Duration(milliseconds: 350),
-        //   curve: Curves.easeIn,
-        // );
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -93,16 +88,16 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                   //     overscroll: true, physics: const BouncingScrollPhysics()),
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
                             _images[index],
-                            height: 200,
-                            width: 200,
+                            height: 200.h,
+                            width: 200.w,
                           ),
                           const SizedBox(height: 20),
                           Text(
@@ -111,7 +106,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                                 .copyWith(fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
                           ),
-                          const SizedBox(height: 25),
+                          SizedBox(height: 25.h),
                           Text(
                             _subtitles[index],
                             style: ExpenseTrackerTextStyle.body1.copyWith(
@@ -120,7 +115,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20.h),
                         ],
                       ),
                     );
@@ -153,25 +148,22 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                   ),
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
               ),
               child: Hero(
                 tag: 'intro',
                 child: PrimaryButton(
                   onPress: () {
-                    Navigator.push(
-                      context,
-                      OnboardingSetupPinPage.route(),
-                    );
+                    context.pushNamed('setup-pin');
                   },
                   text: 'Set up your account',
                 ),
               ),
             ),
-            const SizedBox(height: 50),
+            SizedBox(height: 50.h),
           ],
         );
       },

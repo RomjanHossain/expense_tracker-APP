@@ -115,6 +115,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
                     SlideTransition(
                       position: Tween(
                         begin: const Offset(-1, 0),
+                        // ignore: use_named_constants
                         end: const Offset(0.0, 0.0),
                       ).animate(_movementController),
                       child: AnimatedOpacity(
