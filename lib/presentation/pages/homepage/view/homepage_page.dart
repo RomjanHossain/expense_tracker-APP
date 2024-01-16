@@ -41,6 +41,7 @@ class _HomepagePageState extends State<HomepagePage> {
           slivers: [
             SliverAppBar(
               expandedHeight: 250.h,
+              centerTitle: true,
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   decoration: const BoxDecoration(

@@ -16,6 +16,7 @@ class DetailBudget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail Budget'),
+        centerTitle: true,
         actions: [
           // delete
           IconButton(
