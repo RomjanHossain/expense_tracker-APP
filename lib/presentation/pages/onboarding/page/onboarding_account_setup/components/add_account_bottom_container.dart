@@ -179,7 +179,8 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                     InkWell(
                       onTap: () async {
                         showBottomSheet<OnboardingAccountSetupBloc>(
-                          backgroundColor: Colors.indigo,
+                          backgroundColor: ExpenseTrackerColors.light,
+                          elevation: 8,
                           context: context,
                           builder: (context) => SizedBox(
                             width: double.infinity,
