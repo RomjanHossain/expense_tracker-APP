@@ -1,6 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
-import 'package:expense_tracker/presentation/pages/borrow_or_lend_page/borrow_or_lend_page.dart';
+import 'package:expense_tracker/presentation/pages/budget/view/budget_page.dart';
 import 'package:expense_tracker/presentation/pages/homepage/homepage.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/profile_page.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/transaction_graph_page.dart';

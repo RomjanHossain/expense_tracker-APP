@@ -1,5 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/presentation/pages/createbudget/cubit/cubit.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/expense_category_tracker_.dart';
@@ -40,7 +41,17 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const Text('How much do yo want to spend?'),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
+              ),
+              child: Text(
+                'How much do yo want to spend?',
+                style: ExpenseTrackerTextStyle.body2.copyWith(
+                  color: ExpenseTrackerColors.light80,
+                ),
+              ),
+            ),
             // dorra bil
             TextField(
               controller: _accountBalanceController,
@@ -53,7 +64,14 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
               ),
               onSubmitted: (value) {},
               onEditingComplete: () {},
-              onChanged: (value) {},
+              onChanged: (value) {
+                if (state.budget.amount != double.tryParse(value)) {
+                  context.read<CreatebudgetCubit>().changeAmmount(
+                        double.tryParse(value) ?? 0,
+                      );
+                }
+                // context.read<CreatebudgetCubit>().changeAmmount(value);
+              },
               decoration: InputDecoration(
                 hintText: '0.00',
                 prefixIcon: const Icon(
@@ -70,7 +88,7 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
             // form box
             AnimatedContainer(
               duration: 300.milliseconds,
-              height: 0.4.sh,
+              height: state.budget.isReceiveAlert ? 0.4.sh : 0.35.sh,
               // height: 0.3.sh,
               decoration: BoxDecoration(
                 color: ExpenseTrackerColors.light,
@@ -80,8 +98,9 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
                   topRight: Radius.circular(40.r),
                 ),
               ),
+              alignment: Alignment.bottomCenter,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // a dropdown of ExpenseTrackerCategories
                   Padding(
@@ -125,7 +144,11 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
                             ),
                           )
                           .toList(),
-                      onChanged: (s) {},
+                      onChanged: (s) {
+                        if (s != null) {
+                          context.read<CreatebudgetCubit>().changeCategory(s);
+                        }
+                      },
                     ),
                   ),
                   ListTile(
@@ -135,39 +158,78 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
                         color: ExpenseTrackerColors.dark25,
                       ),
                     ),
-                    // subtitle:  Text(
-                    //   'Repeat transaction',
-                    //   style: TextStyle(
-                    //     color: ExpenseTrackerColors.light20,
-                    //   ),
-                    // ),
                     subtitle: const Text(
                       'Receive alert when it reaches some point.',
                       style: TextStyle(color: ExpenseTrackerColors.light20),
                     ),
                     trailing: Switch(
-                      value: true,
-                      onChanged: (value) {},
+                      value: state.budget.isReceiveAlert,
+                      onChanged: (value) {
+                        if (value) {
+                          context.read<CreatebudgetCubit>().activeAlert();
+                        } else {
+                          context.read<CreatebudgetCubit>().deactiveAlert();
+                        }
+                      },
                     ),
                   ),
                   // a linear slider
-                  SliderTheme(
-                    data: SliderThemeData(
-                      thumbShape: CustomRoundedRectangleBorder(),
+                  if (state.budget.isReceiveAlert)
+                    SliderTheme(
+                      data: SliderThemeData(
+                        thumbShape: CustomRoundedRectangleBorder(),
+                        valueIndicatorTextStyle:
+                            const TextStyle(color: ExpenseTrackerColors.light),
+                        showValueIndicator:
+                            ShowValueIndicator.onlyForContinuous,
+                      ),
+                      child: Slider(
+                        value: state.budget.percent,
+                        label: '${state.budget.percent.toStringAsFixed(0)}%',
+
+                        activeColor: ExpenseTrackerColors.violet,
+                        inactiveColor: ExpenseTrackerColors.light40,
+                        onChanged: (value) {
+                          context
+                              .read<CreatebudgetCubit>()
+                              .changePercent(value);
+                        },
+                        // min: 0,
+                        max: 100,
+                      ),
                     ),
-                    child: Slider(
-                      value: 50,
-                      label: '50%',
-                      activeColor: ExpenseTrackerColors.violet,
-                      inactiveColor: ExpenseTrackerColors.light40,
-                      onChanged: (value) {},
-                      min: 5,
-                      max: 100,
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: PrimaryButton(onPress: () {}, text: 'Continue'),
+                    child: PrimaryButton(
+                      onPress: () {
+                        // get all values
+                        final amount = double.tryParse(
+                          _accountBalanceController.text,
+                        );
+                        if (state.budget.amount == 0 || amount == null) {
+                          // show error
+                          showToast('Please enter a valid amount');
+                          return;
+                        }
+                        if (state.budget.category.isEmpty) {
+                          showToast('Please select a category');
+                          return;
+                        }
+                        if (state.budget.isReceiveAlert) {
+                          if (state.budget.percent == 0) {
+                            showToast('Please select a percent');
+                            return;
+                          }
+                        }
+                        // all okay
+                        debugPrint('amount :${state.budget.amount}');
+                        debugPrint('category :${state.budget.category}');
+                        debugPrint(
+                            'isReceiveAlert :${state.budget.isReceiveAlert}');
+                        debugPrint('percent :${state.budget.percent}');
+                      },
+                      text: 'Continue',
+                    ),
                   ),
                 ],
               ),

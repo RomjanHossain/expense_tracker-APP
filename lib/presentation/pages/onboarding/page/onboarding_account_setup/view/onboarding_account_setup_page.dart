@@ -23,6 +23,7 @@ class OnboardingAccountSetupPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => OnboardingAccountSetupBloc(),
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         backgroundColor: ExpenseTrackerColors.violet,
         appBar: AppBar(
           backgroundColor: ExpenseTrackerColors.violet,
