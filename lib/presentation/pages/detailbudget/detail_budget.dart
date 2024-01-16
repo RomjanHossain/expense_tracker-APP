@@ -19,7 +19,50 @@ class DetailBudget extends StatelessWidget {
         actions: [
           // delete
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              // show bottom modal dialog
+              await showModalBottomSheet<void>(
+                context: context,
+                builder: (context) {
+                  return Container(
+                    height: 0.2.sh,
+                    color: ExpenseTrackerColors.light,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Are you sure you want to delete this budget?',
+                          style: TextStyle(
+                            color: ExpenseTrackerColors.dark,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: 20.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            // cancel
+                            SecondaryButton(
+                              onPress: () {
+                                Navigator.pop(context);
+                              },
+                              text: 'Cancel',
+                            ),
+                            // delete
+                            PrimaryButton(
+                              onPress: () {
+                                Navigator.pop(context);
+                              },
+                              text: 'Delete',
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
             icon: const Icon(
               CupertinoIcons.delete,
             ),
@@ -45,7 +88,10 @@ class DetailBudget extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 10.h,
+                    horizontal: 8.h,
+                  ),
                   child: Text(
                     'Remaining',
                     style: ExpenseTrackerTextStyle.title2.copyWith(
@@ -61,17 +107,23 @@ class DetailBudget extends StatelessWidget {
                     color: ExpenseTrackerColors.dark,
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(8),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 10.h,
+                    horizontal: 8.h,
+                  ),
                   child: AmountProgressIndicator(
                     color: ExpenseTrackerColors.yellow,
                     value: 0.8,
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
+                  margin: EdgeInsets.symmetric(
+                    vertical: 20.h,
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 5.h,
                   ),
                   decoration: BoxDecoration(
                     color: ExpenseTrackerColors.red,
