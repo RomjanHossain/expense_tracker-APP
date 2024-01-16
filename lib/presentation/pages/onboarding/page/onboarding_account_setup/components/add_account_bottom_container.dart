@@ -87,13 +87,15 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
             //* account type icons
             if (createACState.acType != null) ...[
               SizedBox(
-                height: 110.h,
+                height: 100.h,
                 child: GridView(
+                  // physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     childAspectRatio: 1.5,
+                    mainAxisExtent: 50,
                   ),
                   children: [
                     //! if mobile banking
