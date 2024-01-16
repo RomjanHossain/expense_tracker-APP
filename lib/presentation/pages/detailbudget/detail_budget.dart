@@ -1,5 +1,6 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/presentation/pages/detailbudget/components/delete_budget_sheet.dart';
 import 'package:expense_tracker/presentation/widgets/amount_progress_indicator.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/presentation/widgets/category_with_border.dart';
@@ -24,42 +25,7 @@ class DetailBudget extends StatelessWidget {
               await showModalBottomSheet<void>(
                 context: context,
                 builder: (context) {
-                  return Container(
-                    height: 0.2.sh,
-                    color: ExpenseTrackerColors.light,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Are you sure you want to delete this budget?',
-                          style: TextStyle(
-                            color: ExpenseTrackerColors.dark,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(height: 20.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            // cancel
-                            SecondaryButton(
-                              onPress: () {
-                                Navigator.pop(context);
-                              },
-                              text: 'Cancel',
-                            ),
-                            // delete
-                            PrimaryButton(
-                              onPress: () {
-                                Navigator.pop(context);
-                              },
-                              text: 'Delete',
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
+                  return const RemoveBudgetSheet();
                 },
               );
             },
@@ -112,7 +78,7 @@ class DetailBudget extends StatelessWidget {
                     vertical: 10.h,
                     horizontal: 8.h,
                   ),
-                  child: AmountProgressIndicator(
+                  child: const AmountProgressIndicator(
                     color: ExpenseTrackerColors.yellow,
                     value: 0.8,
                   ),
