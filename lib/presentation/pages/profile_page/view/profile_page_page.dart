@@ -19,11 +19,10 @@ class ProfilePagePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => ProfilePageBloc(),
       child: const Scaffold(
-        backgroundColor: Color(0xfff6f6f6),
         body: ProfilePageView(),
       ),
     );
-  }
+  }    
 }
 
 /// {@template profile_page_view}

@@ -1,10 +1,9 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup_intro/view/onboarding_account_setup_intro_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/input_btn.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/single_btn.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 /// {@template onboarding_setup_pin_body}
 /// Body of the OnboardingSetupPinPage.
@@ -32,7 +31,7 @@ class OnboardingSetupPinBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return BlocConsumer<OnboardingSetupPinBloc, OnboardingSetupPinState>(
       buildWhen: (previous, current) => previous.pin != current.pin,
       builder: (context, state) {
@@ -40,7 +39,7 @@ class OnboardingSetupPinBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.h),
+              padding: const EdgeInsets.symmetric(vertical: 20),
               child: Text(
                 _controller.text.isNotEmpty && _controller.text.length == 4
                     ? 'Ok. Re type your PIN again.'
@@ -50,7 +49,7 @@ class OnboardingSetupPinBody extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20.h),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -68,13 +67,13 @@ class OnboardingSetupPinBody extends StatelessWidget {
                   ),
               ],
             ),
-            SizedBox(height: 50.h),
+            const SizedBox(height: 50),
             // numbers
             SizedBox(
-                // height: size.height * 0.4,
-                height: 0.4.sh,
+                height: size.height * 0.4,
                 child: Row(
                   children: [
+                    // 1, 4, 7 and $
                     ButtonRow([
                       Button(
                         text: '1',
@@ -175,11 +174,10 @@ class OnboardingSetupPinBody extends StatelessWidget {
                                 _controller.text.length == 4) {
                               if (state.pin == _controller.text) {
                                 //TODO: goto next page
-                                context.goNamed('account-setup-intro');
-                                // Navigator.push(
-                                //   context,
-                                //   OnboardingAccountSetupIntroPage.route(),
-                                // );
+                                Navigator.push(
+                                  context,
+                                  OnboardingAccountSetupIntroPage.route(),
+                                );
                                 _controller
                                   ..clear()
                                   ..dispose();

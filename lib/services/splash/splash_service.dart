@@ -1,5 +1,6 @@
+import 'package:expense_tracker/presentation/pages/onboarding/onboarding.dart';
+import 'package:expense_tracker/services/animation/page_animation.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashService {
@@ -10,7 +11,17 @@ class SplashService {
 
     if (firstRun == null) {
       Future.delayed(const Duration(seconds: 3), () {
-        context.pushNamed('onboarding');
+        Navigator.pushReplacement<void, void>(
+          context,
+          // _createRoute(),
+          PageAnimation.fromCenterToBottom(
+            const OnboardingPage(),
+            duration: const Duration(
+              seconds: 3,
+              milliseconds: 500,
+            ),
+          ),
+        );
       });
     } else if (keepLogin == false) {
       Future.delayed(const Duration(seconds: 2), () {
