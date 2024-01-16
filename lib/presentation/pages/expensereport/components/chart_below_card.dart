@@ -1,8 +1,9 @@
-
 import 'dart:ui';
 
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/presentation/widgets/amount_progress_indicator.dart';
+import 'package:expense_tracker/presentation/widgets/category_with_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,27 +25,7 @@ class PieChartBelowDataComponent extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: ExpenseTrackerColors.light80,
-                borderRadius: BorderRadius.circular(50.r),
-                border: Border.all(
-                  color: ExpenseTrackerColors.light60,
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CircleAvatar(
-                    radius: 5.r,
-                    backgroundColor: color,
-                  ),
-                  SizedBox(width: 10.w),
-                  Text(title),
-                ],
-              ),
-            ),
+            CategoryWithBorder(color: color, title: title),
             Text(
               '\$$amount',
               style: ExpenseTrackerTextStyle.body2.copyWith(
@@ -59,17 +40,7 @@ class PieChartBelowDataComponent extends StatelessWidget {
         ),
         SizedBox(height: 10.h),
         // linear progress bar
-        LinearProgressIndicator(
-          value: 0.7,
-          borderRadius: BorderRadius.all(
-            Radius.circular(50.r),
-          ),
-          minHeight: 8.h,
-          backgroundColor: ExpenseTrackerColors.light60,
-          valueColor: AlwaysStoppedAnimation<Color>(
-            color,
-          ),
-        ),
+        AmountProgressIndicator(color: color, value: 0.3,),
       ],
     );
   }
