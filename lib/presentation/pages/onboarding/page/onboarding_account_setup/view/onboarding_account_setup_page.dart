@@ -39,7 +39,6 @@ class OnboardingAccountSetupPage extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
-          centerTitle: true,
         ),
         body: const OnboardingAccountSetupView(),
       ),

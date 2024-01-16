@@ -14,7 +14,6 @@ class DetailAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: const Text('Detail Account'),
         actions: [
           // edit icon btn

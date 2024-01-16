@@ -1,7 +1,7 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account_page.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
-import 'package:expense_tracker/presentation/pages/settings/settings_page.dart';
+import 'package:expense_tracker/presentation/pages/settings/view/settings_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -121,6 +121,7 @@ class ProfilePageBody extends StatelessWidget {
                                     builder: (_) => const SettingsPage(),
                                   ),
                                 );
+
                               default:
                                 Navigator.push(
                                   context,
