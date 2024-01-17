@@ -2,11 +2,16 @@ import 'dart:ui';
 
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/presentation/pages/app_home_page/view/app_home_page_page.dart';
+import 'package:expense_tracker/presentation/pages/expenseform/view/expenseform_page.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/page/successfully_account_created.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/view/onboarding_account_setup_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup_intro/view/onboarding_account_setup_intro_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/view/onboarding_setup_pin_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/view/onboarding_page.dart';
 import 'package:expense_tracker/presentation/pages/splash_screen/view/splash_screen_page.dart';
 import 'package:expense_tracker/services/animation/page_transitions.dart';
+import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
@@ -78,6 +83,130 @@ final routeOfTheApp = GoRouter(
               );
             },
           ),
+          routes: [
+            // OnboardingAccountSetupPage
+            GoRoute(
+              path: 'account-setup',
+              name: 'account-setup',
+              pageBuilder: (context, state) => CustomTransitionPage(
+                child: const OnboardingAccountSetupPage(),
+                transitionDuration: 500.milliseconds,
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return FadeThroughTransition(
+                    fillColor: ExpenseTrackerColors.light20,
+                    animation: animation,
+                    secondaryAnimation: secondaryAnimation,
+                    child: child,
+                  );
+                },
+              ),
+              routes: [
+                /// SuccessfullyAccountCreated
+                GoRoute(
+                  path: 'successfully-account-created',
+                  name: 'successfully-account-created',
+                  pageBuilder: (context, state) => CustomTransitionPage(
+                    child: const SuccessfullyAccountCreated(),
+                    transitionDuration: 500.milliseconds,
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return SharedAxisTransition(
+                        fillColor: ExpenseTrackerColors.light20,
+                        animation: animation,
+                        secondaryAnimation: secondaryAnimation,
+                        transitionType: SharedAxisTransitionType.scaled,
+                        child: child,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        //! APPS home page
+        GoRoute(
+          path: 'home',
+          name: 'home',
+          pageBuilder: (context, state) => CustomTransitionPage(
+            child: const AppHomePagePage(),
+            transitionDuration: 1.seconds,
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return SlideTransition(
+                position: PageTransitions().fromCenterToBottom(animation),
+                child: child,
+              );
+            },
+          ),
+          // routes of fab
+          routes: [
+            // ExpenseformPage
+            GoRoute(
+              path: 'income',
+              name: 'income',
+              pageBuilder: (context, state) {
+                final type = state.extra! as ExpenseType;
+                return CustomTransitionPage(
+                  child: ExpenseformPage(
+                    expenseType: type,
+                  ),
+                  transitionDuration: 1.seconds,
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return SlideTransition(
+                      position: PageTransitions().fromCenterToBottom(animation),
+                      child: child,
+                    );
+                  },
+                );
+              },
+            ),
+            GoRoute(
+              path: 'expense',
+              name: 'expense',
+              pageBuilder: (context, state) {
+                final type = state.extra! as ExpenseType;
+                return CustomTransitionPage(
+                  child: ExpenseformPage(
+                    expenseType: type,
+                  ),
+                  transitionDuration: 1.seconds,
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return SlideTransition(
+                      position: PageTransitions().fromCenterToBottom(animation),
+                      child: child,
+                    );
+                  },
+                );
+              },
+            ),
+            GoRoute(
+              path: 'transfer',
+              name: 'transfer',
+              pageBuilder: (context, state) {
+                final type = state.extra! as ExpenseType;
+                return CustomTransitionPage(
+                  child: ExpenseformPage(
+                    expenseType: type,
+                  ),
+                  transitionDuration: 1.seconds,
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return SlideTransition(
+                      position: PageTransitions().fromCenterToBottom(animation),
+                      child: child,
+                    );
+                  },
+                );
+              },
+            ),
+          ],
+          onExit: (context) async {
+            return false;
+          },
         ),
       ],
     ),
