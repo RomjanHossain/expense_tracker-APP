@@ -10,10 +10,10 @@ class TransactionGraphPagePage extends StatelessWidget {
   const TransactionGraphPagePage({super.key});
 
   /// The static route for TransactionGraphPagePage
-  static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(
-        builder: (_) => const TransactionGraphPagePage());
-  }
+  // static Route<dynamic> route() {
+  //   return MaterialPageRoute<dynamic>(
+  //       builder: (_) => const TransactionGraphPagePage());
+  // }
 
   @override
   Widget build(BuildContext context) {

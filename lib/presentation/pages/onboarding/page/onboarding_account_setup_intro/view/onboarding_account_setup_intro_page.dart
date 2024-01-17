@@ -1,8 +1,8 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
-import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/view/onboarding_account_setup_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup_intro/widgets/onboarding_account_setup_intro_body.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 /// {@template onboarding_account_setup_intro_page}
 /// A description for OnboardingAccountSetupIntroPage
@@ -10,13 +10,6 @@ import 'package:flutter/material.dart';
 class OnboardingAccountSetupIntroPage extends StatelessWidget {
   /// {@macro onboarding_account_setup_intro_page}
   const OnboardingAccountSetupIntroPage({super.key});
-
-  /// The static route for OnboardingAccountSetupIntroPage
-  static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(
-      builder: (_) => const OnboardingAccountSetupIntroPage(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +22,10 @@ class OnboardingAccountSetupIntroPage extends StatelessWidget {
           tag: 'onboarding_account_setup_intro_button',
           child: PrimaryButton(
             onPress: () {
-              Navigator.push(context, OnboardingAccountSetupPage.route());
+              // Navigator.push(context, OnboardingAccountSetupPage.route());
+              context.pushNamed(
+                'account-setup',
+              );
             },
             text: 'Let’s go',
           ),

@@ -1,20 +1,12 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
-import 'package:expense_tracker/presentation/pages/app_home_page/view/app_home_page_page.dart';
-import 'package:expense_tracker/services/animation/page_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class SuccessfullyAccountCreated extends StatefulWidget {
   const SuccessfullyAccountCreated({super.key});
-
-  /// The static route for SuccessfullyAccountCreated
-  static Route<dynamic> route() {
-    return PageAnimation.sharedAxisTransitionPageWrapper(
-      const SuccessfullyAccountCreated(),
-    );
-  }
 
   @override
   State<SuccessfullyAccountCreated> createState() =>
@@ -28,10 +20,11 @@ class _SuccessfullyAccountCreatedState
     super.initState();
     // after 1.5 seconds, navigate to the next page
     Future.delayed(1.5.seconds, () {
-      Navigator.of(context).pushAndRemoveUntil(
-        AppHomePagePage.route(duration: 1.seconds),
-        (route) => false,
-      );
+      // Navigator.of(context).pushAndRemoveUntil(
+      //   AppHomePagePage.route(duration: 1.seconds),
+      //   (route) => false,
+      // );
+      context.goNamed('home');
     });
   }
 

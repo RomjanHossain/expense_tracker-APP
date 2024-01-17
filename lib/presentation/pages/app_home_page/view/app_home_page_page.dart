@@ -5,11 +5,10 @@ import 'package:expense_tracker/presentation/pages/app_home_page/components/bott
 // import 'package:expense_tracker/presentation/pages/app_home_page/components/add_transaction_sheet.dart';
 // import 'package:expense_tracker/presentation/pages/app_home_page/components/app_bottom_navigationbar.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/widgets/app_home_page_body.dart';
-import 'package:expense_tracker/presentation/pages/expenseform/expenseform.dart';
-import 'package:expense_tracker/services/animation/page_animation.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pie_menu/pie_menu.dart';
 // import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 // import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -21,19 +20,6 @@ import 'package:pie_menu/pie_menu.dart';
 class AppHomePagePage extends StatelessWidget {
   /// {@macro app_home_page_page}
   const AppHomePagePage({super.key});
-
-  /// The static route for AppHomePagePage
-  static Route<dynamic> route({
-    Duration duration = const Duration(milliseconds: 500),
-  }) {
-    // return MaterialPageRoute<dynamic>(
-    //   builder: (_) => const AppHomePagePage(),
-    // );
-    return PageAnimation.fromCenterToBottom(
-      const AppHomePagePage(),
-      duration: duration,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +53,10 @@ class AppHomePageScaffold extends StatelessWidget {
                 '',
               ),
               onSelect: () {
-                Navigator.push(
-                    context, ExpenseformPage.route(ExpenseType.income));
+                context.pushNamed(
+                  'income',
+                  extra: ExpenseType.income,
+                );
               },
               child: FloatingActionButton(
                 onPressed: () {},
@@ -84,8 +72,12 @@ class AppHomePageScaffold extends StatelessWidget {
             PieAction(
               tooltip: const Text(''),
               onSelect: () {
-                Navigator.push(
-                    context, ExpenseformPage.route(ExpenseType.transfer));
+                // Navigator.push(
+                //     context, ExpenseformPage.route(ExpenseType.transfer));
+                context.pushNamed(
+                  'transfer',
+                  extra: ExpenseType.transfer,
+                );
               },
               child: FloatingActionButton(
                 onPressed: null,
@@ -101,8 +93,12 @@ class AppHomePageScaffold extends StatelessWidget {
             PieAction(
               tooltip: const Text(''),
               onSelect: () {
-                Navigator.push(
-                    context, ExpenseformPage.route(ExpenseType.expense));
+                // Navigator.push(
+                //     context, ExpenseformPage.route(ExpenseType.expense));
+                context.pushNamed(
+                  'expense',
+                  extra: ExpenseType.expense,
+                );
               },
               child: FloatingActionButton(
                 onPressed: () {},

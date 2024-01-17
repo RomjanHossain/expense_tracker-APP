@@ -1,8 +1,8 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/widgets/onboarding_account_setup_body.dart';
-import 'package:expense_tracker/services/animation/page_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 /// {@template onboarding_account_setup_page}
 /// A description for OnboardingAccountSetupPage
@@ -10,13 +10,6 @@ import 'package:flutter/material.dart';
 class OnboardingAccountSetupPage extends StatelessWidget {
   /// {@macro onboarding_account_setup_page}
   const OnboardingAccountSetupPage({super.key});
-
-  /// The static route for OnboardingAccountSetupPage
-  static Route<dynamic> route() {
-    return PageAnimation.fadeThroughTransitionPageWrapper(
-      const OnboardingAccountSetupPage(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +29,7 @@ class OnboardingAccountSetupPage extends StatelessWidget {
             icon:
                 const Icon(Icons.arrow_back, color: ExpenseTrackerColors.light),
             onPressed: () {
-              Navigator.pop(context);
+              context.pop();
             },
           ),
         ),
