@@ -254,6 +254,25 @@ final routeOfTheApp = GoRouter(
                 },
               ),
             ),
+
+            ///! CurrencyPage
+            GoRoute(
+              path: 'currency',
+              name: 'currency',
+              pageBuilder: (context, state) => CustomTransitionPage(
+                child: const ThemePage(),
+                transitionDuration: 500.milliseconds,
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return CupertinoPageTransition(
+                    primaryRouteAnimation: animation,
+                    secondaryRouteAnimation: secondaryAnimation,
+                    linearTransition: true,
+                    child: child,
+                  );
+                },
+              ),
+            ),
           ],
         ),
 
