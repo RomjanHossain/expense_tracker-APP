@@ -67,6 +67,7 @@ class SettingsBody extends StatelessWidget {
                   children: [
                     FutureBuilder<String>(
                       future: getTrailing(x),
+                      key: Key(x),
                       builder: (context, snapshot) {
                         return Text(
                           snapshot.data ?? '',

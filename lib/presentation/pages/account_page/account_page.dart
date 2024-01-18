@@ -22,7 +22,7 @@ class AccountPage extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            height: 200,
+            height: 200.h,
             width: double.infinity,
             decoration: const BoxDecoration(
                 // color: ExpenseTrackerColors.violet,
@@ -58,8 +58,9 @@ class AccountPage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      CupertinoPageRoute(
-                          builder: (_) => const DetailAccountPage()),
+                      CupertinoPageRoute<DetailAccountPage>(
+                        builder: (_) => const DetailAccountPage(),
+                      ),
                     );
                   },
                   contentPadding: EdgeInsets.symmetric(
