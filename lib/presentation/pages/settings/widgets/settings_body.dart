@@ -1,10 +1,9 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/presentation/pages/settings/bloc/bloc.dart';
-import 'package:expense_tracker/presentation/pages/settings/pages/currency/view/currency_page.dart';
-import 'package:expense_tracker/presentation/pages/settings/pages/theme/view/theme_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 /// {@template settings_body}
 /// Body of the SettingsPage.
@@ -28,6 +27,24 @@ class SettingsBody extends StatelessWidget {
       'About',
       'Help',
     ];
+    Future<String> getTrailing(String x) async {
+      final settingsLocalDataSourcePref = SettingsLocalDataSourcePref();
+      switch (x) {
+        case 'Currency':
+          return 'USD';
+        case 'Language':
+          return 'English';
+        case 'Theme':
+          return settingsLocalDataSourcePref.getTheme();
+        case 'Security':
+          return 'Pin';
+        case 'Notification':
+          return 'Expense Alert';
+        default:
+          return 'USD';
+      }
+    }
+
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
         return Column(
@@ -37,34 +54,30 @@ class SettingsBody extends StatelessWidget {
                 onTap: () {
                   switch (x) {
                     case 'Currency':
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute<CurrencyPage>(
-                          builder: (_) => const CurrencyPage(),
-                        ),
-                      );
+                      GoRouter.of(context).pushNamed('currency');
                     case 'Theme':
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute<ThemePage>(
-                          builder: (_) => const ThemePage(),
-                        ),
-                      );
+                      GoRouter.of(context).pushNamed('theme');
                     default:
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute<CurrencyPage>(
-                          builder: (_) => const CurrencyPage(),
-                        ),
-                      );
+                      context.pushNamed('currency');
                   }
                 },
                 title: Text(x),
-                trailing: const Row(
+                trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('USD'),
-                    Icon(
+                    FutureBuilder<String>(
+                      future: getTrailing(x),
+                      builder: (context, snapshot) {
+                        return Text(
+                          snapshot.data ?? '',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: ExpenseTrackerColors.light20,
+                          ),
+                        );
+                      },
+                    ),
+                    const Icon(
                       Icons.navigate_next,
                       color: ExpenseTrackerColors.violet,
                     ),
