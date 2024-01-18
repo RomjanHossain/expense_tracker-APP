@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/presentation/pages/account_page/account_page.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/view/app_home_page_page.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/view/expenseform_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/page/successfully_account_created.dart';
@@ -9,9 +10,12 @@ import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_ac
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup_intro/view/onboarding_account_setup_intro_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/view/onboarding_setup_pin_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/view/onboarding_page.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/theme/view/theme_page.dart';
+import 'package:expense_tracker/presentation/pages/settings/view/settings_page.dart';
 import 'package:expense_tracker/presentation/pages/splash_screen/view/splash_screen_page.dart';
 import 'package:expense_tracker/services/animation/page_transitions.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +30,7 @@ final routeOfTheApp = GoRouter(
       builder: (context, state) => const SplashScreenPage(),
     ),
 
-    /// Onboarding Screen (apps intro)
+    ///! Onboarding Screen (apps intro)
     GoRoute(
       path: '/onboarding',
       name: 'onboarding',
@@ -41,7 +45,7 @@ final routeOfTheApp = GoRouter(
         },
       ),
       routes: [
-        /// OnboardingSetupPinPage
+        ///! OnboardingSetupPinPage
         GoRoute(
           path: 'setup-pin',
           name: 'setup-pin',
@@ -66,7 +70,7 @@ final routeOfTheApp = GoRouter(
           ),
         ),
 
-        /// OnboardingAccountSetupIntroPage
+        ///! OnboardingAccountSetupIntroPage
         GoRoute(
           path: 'account-setup-intro',
           name: 'account-setup-intro',
@@ -84,7 +88,7 @@ final routeOfTheApp = GoRouter(
             },
           ),
           routes: [
-            // OnboardingAccountSetupPage
+            ///! OnboardingAccountSetupPage
             GoRoute(
               path: 'account-setup',
               name: 'account-setup',
@@ -102,7 +106,7 @@ final routeOfTheApp = GoRouter(
                 },
               ),
               routes: [
-                /// SuccessfullyAccountCreated
+                ///! SuccessfullyAccountCreated
                 GoRoute(
                   path: 'successfully-account-created',
                   name: 'successfully-account-created',
@@ -142,7 +146,7 @@ final routeOfTheApp = GoRouter(
           ),
           // routes of fab
           routes: [
-            // ExpenseformPage
+            ///! income
             GoRoute(
               path: 'income',
               name: 'income',
@@ -163,6 +167,8 @@ final routeOfTheApp = GoRouter(
                 );
               },
             ),
+
+            ///! expense
             GoRoute(
               path: 'expense',
               name: 'expense',
@@ -183,6 +189,7 @@ final routeOfTheApp = GoRouter(
                 );
               },
             ),
+            //! transfer
             GoRoute(
               path: 'transfer',
               name: 'transfer',
@@ -207,6 +214,67 @@ final routeOfTheApp = GoRouter(
           onExit: (context) async {
             return false;
           },
+        ),
+
+        ///! SettingsPage
+        GoRoute(
+          path: 'settings',
+          name: 'settings',
+          pageBuilder: (context, state) => CustomTransitionPage(
+            child: const SettingsPage(),
+            transitionDuration: 500.milliseconds,
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              debugPrint('imaging settings from context');
+              return CupertinoPageTransition(
+                // position: PageTransitions().fromCenterToBottom(animation),
+                primaryRouteAnimation: animation,
+                secondaryRouteAnimation: secondaryAnimation,
+                linearTransition: true,
+                child: child,
+              );
+            },
+          ),
+          routes: [
+            ///! ThemePage
+            GoRoute(
+              path: 'theme',
+              name: 'theme',
+              pageBuilder: (context, state) => CustomTransitionPage(
+                child: const ThemePage(),
+                transitionDuration: 500.milliseconds,
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return CupertinoPageTransition(
+                    primaryRouteAnimation: animation,
+                    secondaryRouteAnimation: secondaryAnimation,
+                    linearTransition: true,
+                    child: child,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+
+        ///! AccountPage
+        GoRoute(
+          path: 'account',
+          name: 'account',
+          pageBuilder: (context, state) => CustomTransitionPage(
+            child: const AccountPage(),
+            transitionDuration: 1.seconds,
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return CupertinoPageTransition(
+                // position: PageTransitions().fromCenterToBottom(animation),
+                primaryRouteAnimation: animation,
+                secondaryRouteAnimation: secondaryAnimation,
+                linearTransition: true,
+                child: child,
+              );
+            },
+          ),
         ),
       ],
     ),
