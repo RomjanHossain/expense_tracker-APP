@@ -19,11 +19,14 @@ class CurrencyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CurrencyCubit(),
-      child: const Scaffold(
-        body: CurrencyView(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Currency'),
+        ),
+        body: const CurrencyView(),
       ),
     );
-  }    
+  }
 }
 
 /// {@template currency_view}
