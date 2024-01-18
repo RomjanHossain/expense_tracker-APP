@@ -20,29 +20,8 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        // default settings value
-        BlocProvider<SettingsBloc>(
-          create: (context) => SettingsBloc(),
-        ),
-        // currency cubit
-        BlocProvider<CurrencyCubit>(
-          create: (context) => CurrencyCubit(),
-        ),
-        // theme cubit
-        BlocProvider<ThemeCubit>(
-          create: (context) => ThemeCubit(),
-        ),
-        // security cubit
-        BlocProvider<SecurityCubit>(
-          create: (context) => SecurityCubit(),
-        ),
-        // language cubit
-        BlocProvider<LanguageCubit>(
-          create: (context) => LanguageCubit(),
-        ),
-      ],
+    return BlocProvider<SettingsBloc>(
+      create: (context) => SettingsBloc(),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Settings'),
