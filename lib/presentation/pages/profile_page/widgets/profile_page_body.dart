@@ -1,10 +1,10 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account_page.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
-import 'package:expense_tracker/presentation/pages/settings/view/settings_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 /// {@template profile_page_body}
 /// Body of the ProfilePagePage.
@@ -19,7 +19,7 @@ class ProfilePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfilePageBloc, ProfilePageState>(
       builder: (context, state) {
-        final _iconWithTitle = [
+        final iconWithTitle = [
           (Icons.wallet, 'Account'),
           (Icons.settings, 'Settings'),
           (CupertinoIcons.tray_arrow_up_fill, 'Export Data'),
@@ -101,7 +101,7 @@ class ProfilePageBody extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    for (final i in _iconWithTitle)
+                    for (final i in iconWithTitle)
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
@@ -115,19 +115,13 @@ class ProfilePageBody extends StatelessWidget {
                                   ),
                                 );
                               case 'Settings':
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute<SettingsPage>(
-                                    builder: (_) => const SettingsPage(),
-                                  ),
+                                context.pushNamed(
+                                  'settings',
                                 );
 
                               default:
-                                Navigator.push(
-                                  context,
-                                  CupertinoPageRoute<SettingsPage>(
-                                    builder: (_) => const SettingsPage(),
-                                  ),
+                                context.pushNamed(
+                                  'settings',
                                 );
                             }
                           },
