@@ -1,3 +1,5 @@
+import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/widgets/theme_body.dart';
 import 'package:flutter/material.dart';
 
@@ -15,11 +17,14 @@ class ThemePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Theme'),
+    return BlocProvider<ThemeCubit>(
+      create: (context) => ThemeCubit()..getTheme(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Theme'),
+        ),
+        body: const ThemeView(),
       ),
-      body: const ThemeView(),
     );
   }
 }
