@@ -1,6 +1,7 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/presentation/pages/settings/bloc/bloc.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -27,23 +28,6 @@ class SettingsBody extends StatelessWidget {
       'About',
       'Help',
     ];
-    Future<String> getTrailing(String x) async {
-      final settingsLocalDataSourcePref = SettingsLocalDataSourcePref();
-      switch (x) {
-        case 'Currency':
-          return 'USD';
-        case 'Language':
-          return 'English';
-        case 'Theme':
-          return settingsLocalDataSourcePref.getTheme();
-        case 'Security':
-          return 'Pin';
-        case 'Notification':
-          return 'Expense Alert';
-        default:
-          return 'USD';
-      }
-    }
 
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
@@ -65,19 +49,7 @@ class SettingsBody extends StatelessWidget {
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    FutureBuilder<String>(
-                      future: getTrailing(x),
-                      key: Key(x),
-                      builder: (context, snapshot) {
-                        return Text(
-                          snapshot.data ?? '',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: ExpenseTrackerColors.light20,
-                          ),
-                        );
-                      },
-                    ),
+                    TrailingText(x: x),
                     const Icon(
                       Icons.navigate_next,
                       color: ExpenseTrackerColors.violet,
@@ -99,6 +71,57 @@ class SettingsBody extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class TrailingText extends StatefulWidget {
+  const TrailingText({
+    required this.x,
+    super.key,
+  });
+
+  final String x;
+
+  @override
+  State<TrailingText> createState() => _TrailingTextState();
+}
+
+class _TrailingTextState extends State<TrailingText> {
+  String trailing = '';
+  String getTrailing() {
+    final themeState = context.watch<ThemeCubit>().state;
+    switch (widget.x) {
+      case 'Currency':
+        return 'USD';
+      case 'Language':
+        return 'English';
+      case 'Theme':
+        switch (themeState) {
+          case ThemeLight():
+            return 'Light';
+          case ThemeDark():
+            return 'Dark';
+          default:
+            return 'System';
+        }
+      case 'Security':
+        return 'Pin';
+      case 'Notification':
+        return 'Expense Alert';
+      default:
+        return 'USD';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      getTrailing(),
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+        color: ExpenseTrackerColors.light20,
+      ),
     );
   }
 }
