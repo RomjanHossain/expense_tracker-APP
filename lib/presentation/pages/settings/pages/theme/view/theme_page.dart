@@ -2,6 +2,7 @@ import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.d
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/widgets/theme_body.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 /// {@template theme_page}
 /// A description for ThemePage
@@ -17,14 +18,17 @@ class ThemePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ThemeCubit>(
-      create: (context) => ThemeCubit()..getTheme(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Theme'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Theme'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            context.pop('hola');
+          },
         ),
-        body: const ThemeView(),
       ),
+      body: const ThemeView(),
     );
   }
 }
