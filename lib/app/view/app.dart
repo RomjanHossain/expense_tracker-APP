@@ -1,11 +1,14 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/routes/routes_of_the_app.dart';
+import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/expense_text_controller_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/expenseform_bloc.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -36,17 +39,54 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (context) => ExpenseformBloc(),
         ),
+        //ThemeCubit
+        BlocProvider(
+          create: (context) => ThemeCubit()..getTheme(),
+        ),
       ],
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        theme: ExpenseTrackerTheme.standard,
-        darkTheme: ExpenseTrackerTheme.darkTheme,
-        themeMode: ThemeMode.light,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        routerConfig: routeOfTheApp,
-        // home: const SplashScreenPage(),(new)
+      child: ThemeProvider(
+        builder: (context, theme) => MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          // theme: ExpenseTrackerTheme.standard,
+          // darkTheme: ExpenseTrackerTheme.darkTheme,
+          theme: theme,
+          // themeMode: ThemeMode.light,
+          // themeMode: _getThemeModeFromState(context),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          routerConfig: routeOfTheApp,
+          // home: const SplashScreenPage(),(new)
+        ),
+        initTheme: _getThemeModeFromState(),
       ),
     );
+  }
+}
+
+ThemeData _getThemeModeFromState() {
+  final settingsLocalDataSourcePref = SettingsLocalDataSourcePref();
+  final theme = settingsLocalDataSourcePref.getTheme();
+  final isPlatformDark =
+      WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+  theme.then((value) {
+    switch (value) {
+      case 'light':
+        return ExpenseTrackerTheme.standard;
+      case 'dark':
+        return ExpenseTrackerTheme.darkTheme;
+      default:
+        return isPlatformDark?ExpenseTrackerTheme.darkTheme: ExpenseTrackerTheme.standard;
+    }
+  }).catchError((e) {
+    if (isPlatformDark) {
+      return ExpenseTrackerTheme.darkTheme;
+    } else {
+      return ExpenseTrackerTheme.standard;
+    }
+  });
+  if (isPlatformDark) {
+    return ExpenseTrackerTheme.darkTheme;
+  } else {
+    return ExpenseTrackerTheme.standard;
   }
 }
