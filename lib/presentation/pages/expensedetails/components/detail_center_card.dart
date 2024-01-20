@@ -1,4 +1,3 @@
-
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,7 @@ class DetailCenterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -30,7 +30,9 @@ class DetailCenterCard extends StatelessWidget {
         Text(
           subtitle,
           style: ExpenseTrackerTextStyle.body2.copyWith(
-            color: ExpenseTrackerColors.dark,
+            color: theme.brightness == Brightness.light
+                ? ExpenseTrackerColors.dark
+                : ExpenseTrackerColors.light,
             fontWeight: FontWeight.w600,
           ),
         ),

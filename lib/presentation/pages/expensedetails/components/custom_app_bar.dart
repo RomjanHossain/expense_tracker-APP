@@ -29,6 +29,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
+    final theme = Theme.of(context);
     return Stack(
       clipBehavior: Clip.none,
       fit: StackFit.expand,
@@ -70,6 +71,9 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                 showModalBottomSheet<void>(
                   context: context,
                   isDismissible: false,
+                  backgroundColor: theme.brightness != Brightness.light
+                      ? ExpenseTrackerColors.dark
+                      : null,
                   builder: (context) {
                     return SizedBox(
                       height: 200.h,
@@ -79,7 +83,9 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                           Text(
                             'Remove this transaction?',
                             style: ExpenseTrackerTextStyle.title3.copyWith(
-                              color: ExpenseTrackerColors.dark,
+                              color: theme.brightness == Brightness.light
+                                  ? ExpenseTrackerColors.dark
+                                  : ExpenseTrackerColors.light,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -113,7 +119,10 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                         builder: (context) {
                                           Future.delayed(
                                             2.seconds,
-                                            () => Navigator.pop(context),
+                                            () {
+                                              Navigator.pop(context);
+                                              Navigator.pop(context);
+                                            },
                                           );
                                           return const SuccessfullyDeleted();
                                         },
@@ -207,8 +216,6 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
               child: Card(
                 margin: const EdgeInsets.all(
                   0,
-                  // right: 80.w,
-                  // vertical: 10.h,
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.r),

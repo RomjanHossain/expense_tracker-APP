@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/presentation/widgets/amount_progress_indicator.dart';

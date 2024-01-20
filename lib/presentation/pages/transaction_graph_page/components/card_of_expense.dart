@@ -15,6 +15,9 @@ class CardOfExpense extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Card(
+      color: theme.brightness == Brightness.light
+          ? ExpenseTrackerColors.light
+          : ExpenseTrackerColors.dark,
       elevation: 0,
       child: ListTile(
         leading: Container(

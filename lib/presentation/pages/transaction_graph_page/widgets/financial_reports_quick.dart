@@ -51,6 +51,7 @@ class _FinancialReportsQuickState extends State<FinancialReportsQuick> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: pages[page].color,
       appBar: AppBar(),
@@ -72,7 +73,9 @@ class _FinancialReportsQuickState extends State<FinancialReportsQuick> {
                       height: 5.h,
                       decoration: BoxDecoration(
                         color: x == page
-                            ? ExpenseTrackerColors.light
+                            ? theme.brightness == Brightness.dark
+                                ? ExpenseTrackerColors.dark
+                                : ExpenseTrackerColors.light
                             : ExpenseTrackerColors.light.withOpacity(
                                 0.3,
                               ),
@@ -84,7 +87,7 @@ class _FinancialReportsQuickState extends State<FinancialReportsQuick> {
                       ),
                     ),
                   ),
-                )
+                ),
             ],
           ),
           Expanded(
@@ -107,7 +110,6 @@ class _FinancialReportsQuickState extends State<FinancialReportsQuick> {
     );
   }
 }
-
 
 class QuickReportsView extends StatelessWidget {
   const QuickReportsView({
@@ -156,6 +158,7 @@ class QuickReportsView extends StatelessWidget {
               ],
             ),
           ),
+          // below box
           Container(
             margin: const EdgeInsets.only(
               bottom: 20,

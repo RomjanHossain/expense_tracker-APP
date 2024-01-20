@@ -16,13 +16,15 @@ class ExpensedetailsPage extends StatelessWidget {
   /// The static route for ExpensedetailsPage
   static Route<dynamic> route(Color col) {
     return MaterialPageRoute<dynamic>(
-        builder: (_) => ExpensedetailsPage(
-              color: col,
-            ));
+      builder: (_) => ExpensedetailsPage(
+        color: col,
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocProvider(
       create: (context) => ExpensedetailsCubit(),
       child: Scaffold(
@@ -60,7 +62,9 @@ class ExpensedetailsPage extends StatelessWidget {
                         Text(
                           '''Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. ''',
                           style: ExpenseTrackerTextStyle.body1.copyWith(
-                            color: ExpenseTrackerColors.dark,
+                            color: theme.brightness == Brightness.light
+                                ? ExpenseTrackerColors.dark
+                                : ExpenseTrackerColors.light,
                           ),
                         ),
                       ],
@@ -86,12 +90,15 @@ class ExpensedetailsPage extends StatelessWidget {
                           height: 10.h,
                         ),
                         Container(
-                            height: 100.h,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: ExpenseTrackerColors.light40,
-                              borderRadius: BorderRadius.circular(10.r),
-                            )),
+                          height: 100.h,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: theme.brightness == Brightness.light
+                                ? ExpenseTrackerColors.light40
+                                : ExpenseTrackerColors.dark25,
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
+                        ),
                       ],
                     ),
                   ),

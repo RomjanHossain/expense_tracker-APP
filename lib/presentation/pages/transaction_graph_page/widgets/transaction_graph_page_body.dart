@@ -58,12 +58,10 @@ class TransactionGraphPageBody extends StatelessWidget {
                     const Spacer(),
                     // a popup menu button to show the list of subscriptions
                     Badge(
-                      label: Text(
+                      label: const Text(
                         '3',
                         style: TextStyle(
-                          color: theme.brightness == Brightness.light
-                              ? ExpenseTrackerColors.dark
-                              : ExpenseTrackerColors.light,
+                          color: ExpenseTrackerColors.light,
                         ),
                       ),
                       backgroundColor: ExpenseTrackerColors.violet,

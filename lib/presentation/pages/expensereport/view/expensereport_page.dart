@@ -21,13 +21,21 @@ class ExpensereportPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocProvider(
       create: (context) => ExpensereportBloc(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: theme.brightness == Brightness.light
+              ? ExpenseTrackerColors.light
+              : ExpenseTrackerColors.dark,
           title: Text(
             'Financial Report',
-            style: ExpenseTrackerTextStyle.title3,
+            style: ExpenseTrackerTextStyle.title3.copyWith(
+              color: theme.brightness == Brightness.light
+                  ? ExpenseTrackerColors.dark
+                  : ExpenseTrackerColors.light,
+            ),
           ),
         ),
         body: const ExpensereportView(),

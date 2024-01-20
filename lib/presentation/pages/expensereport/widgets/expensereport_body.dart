@@ -26,6 +26,7 @@ class ExpensereportBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ExpensereportBloc, ExpensereportState>(
       builder: (context, state) {
+        final theme = Theme.of(context);
         return ListView(
           children: [
             Padding(
@@ -88,6 +89,9 @@ class ExpensereportBody extends StatelessWidget {
                       style: ExpenseTrackerTextStyle.title2.copyWith(
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.2,
+                        color: theme.brightness == Brightness.light
+                            ? ExpenseTrackerColors.dark
+                            : ExpenseTrackerColors.light,
                       ),
                     ),
                   ),
@@ -117,6 +121,9 @@ class ExpensereportBody extends StatelessWidget {
                             style: ExpenseTrackerTextStyle.title2.copyWith(
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1.2,
+                              color: theme.brightness == Brightness.light
+                                  ? ExpenseTrackerColors.dark
+                                  : ExpenseTrackerColors.light,
                             ),
                           ),
                         ),
@@ -176,7 +183,7 @@ class ExpensereportBody extends StatelessWidget {
             // t
             ListView.builder(
               shrinkWrap: true,
-              itemCount: 3,
+              itemCount: 5,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 return const CardOfExpense(
