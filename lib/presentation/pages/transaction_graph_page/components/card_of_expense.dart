@@ -13,6 +13,7 @@ class CardOfExpense extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Card(
       elevation: 0,
       child: ListTile(
@@ -46,7 +47,10 @@ class CardOfExpense extends StatelessWidget {
               .title,
           style: ExpenseTrackerTextStyle.body2.copyWith(
             fontWeight: FontWeight.w600,
-            color: ExpenseTrackerColors.dark25,
+            // color: ExpenseTrackerColors.dark25,
+            color: theme.brightness == Brightness.light
+                ? ExpenseTrackerColors.dark25
+                : ExpenseTrackerColors.light,
             letterSpacing: 0.5,
           ),
         ),

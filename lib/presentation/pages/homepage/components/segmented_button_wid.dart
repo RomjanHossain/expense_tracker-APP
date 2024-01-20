@@ -11,6 +11,7 @@ class HomeSegmentedButtonsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 10.w),
       child: SegmentedButton<SegmentedButtonsData>(
@@ -34,7 +35,7 @@ class HomeSegmentedButtonsWidget extends StatelessWidget {
           backgroundColor: MaterialStateProperty.resolveWith(
             (states) => states.contains(MaterialState.selected)
                 ? ExpenseTrackerColors.yellow20
-                : ExpenseTrackerColors.scaffoldBackground,
+                : theme.scaffoldBackgroundColor,
           ),
         ),
         segments: [

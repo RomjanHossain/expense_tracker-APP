@@ -24,6 +24,7 @@ class TransactionGraphPageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TransactionGraphPageBloc, TransactionGraphPageState>(
       builder: (context, state) {
+        final theme = Theme.of(context);
         return Padding(
           padding: const EdgeInsets.all(10),
           child: ListView(
@@ -37,7 +38,10 @@ class TransactionGraphPageBody extends StatelessWidget {
                       child: DropdownButtonFormField(
                         decoration:
                             dropdownInputDecoration('Frequency').copyWith(
-                          fillColor: ExpenseTrackerColors.light,
+                          // fillColor: ExpenseTrackerColors.light,
+                          fillColor: theme.brightness == Brightness.light
+                              ? ExpenseTrackerColors.light
+                              : ExpenseTrackerColors.dark,
                         ),
                         items: subscriptionsFrequency
                             .map(
@@ -54,8 +58,13 @@ class TransactionGraphPageBody extends StatelessWidget {
                     const Spacer(),
                     // a popup menu button to show the list of subscriptions
                     Badge(
-                      label: const Text(
+                      label: Text(
                         '3',
+                        style: TextStyle(
+                          color: theme.brightness == Brightness.light
+                              ? ExpenseTrackerColors.dark
+                              : ExpenseTrackerColors.light,
+                        ),
                       ),
                       backgroundColor: ExpenseTrackerColors.violet,
                       isLabelVisible: true,
@@ -90,9 +99,11 @@ class TransactionGraphPageBody extends StatelessWidget {
                           backgroundColor:
                               MaterialStateProperty.all(Colors.transparent),
                         ),
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.filter_list,
-                          color: ExpenseTrackerColors.dark50,
+                          color: theme.brightness == Brightness.light
+                              ? ExpenseTrackerColors.dark50
+                              : ExpenseTrackerColors.light40,
                         ),
                       ),
                     ),
@@ -149,6 +160,9 @@ class TransactionGraphPageBody extends StatelessWidget {
                 style: ExpenseTrackerTextStyle.title3.copyWith(
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.5,
+                  color: theme.brightness == Brightness.light
+                      ? ExpenseTrackerColors.dark
+                      : ExpenseTrackerColors.light,
                 ),
               ),
               ListView.builder(

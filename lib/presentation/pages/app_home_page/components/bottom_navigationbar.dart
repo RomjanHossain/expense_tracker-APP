@@ -38,15 +38,23 @@ class ExpanseTrackerBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final count =
         context.select((AppHomePageBloc bloc) => bloc.state.currentIndex);
+    final theme = Theme.of(context);
     return AnimatedBottomNavigationBar.builder(
       onTap: (p0) {
         context.read<AppHomePageBloc>().add(ChangeAppHomePageEvent(p0));
       },
-      backgroundColor: ExpenseTrackerColors.light80,
+      backgroundColor: theme.brightness == Brightness.light
+          ? ExpenseTrackerColors.light80
+          : ExpenseTrackerColors.dark75,
+      // borderColor: theme.brightness == Brightness.light
+      //     ? ExpenseTrackerColors.light80
+      //     : ExpenseTrackerColors.dark75,
       activeIndex: count,
       height: 60.h,
       itemCount: 4,
       gapLocation: GapLocation.center,
+      // splashColor: ExpenseTrackerColors.violet,
+      elevation: 0,
       notchSmoothness: NotchSmoothness.defaultEdge,
       tabBuilder: (index, isActive) {
         final color = isActive
