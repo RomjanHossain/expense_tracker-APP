@@ -26,6 +26,9 @@ class ExpenseTrackerTheme {
           ExpenseTrackerColors.violet20,
         ),
       ),
+      dividerTheme: const DividerThemeData(
+        color: Color(0xfff6f6f6),
+      ),
       useMaterial3: true,
     );
   }
@@ -34,6 +37,9 @@ class ExpenseTrackerTheme {
   static ThemeData get darkTheme {
     return ThemeData(
       scaffoldBackgroundColor: ExpenseTrackerColors.dark,
+      dividerTheme: const DividerThemeData(
+        color: Color(0xff222222),
+      ),
       useMaterial3: true,
       colorScheme: ColorScheme.fromSwatch(
         accentColor: ExpenseTrackerColors.violet,
