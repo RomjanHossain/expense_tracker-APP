@@ -1,5 +1,6 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:expense_tracker/app/ui/src/theme.dart';
+import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/settings/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/components/checkmark_circle.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';
@@ -18,17 +19,20 @@ class ThemeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
-        return ThemeSwitcher.withTheme(
-          builder: (_, ThemeSwitcherState switcher, ThemeData theme) {
+        return ThemeSwitcher.switcher(
+          // clipper: ThemeSwitcher,
+          builder: (_, ThemeSwitcherState switcher) {
             return Column(
               children: [
                 ListTile(
                   onTap: () {
-                    switcher.changeTheme(
-                        theme: ExpenseTrackerTheme.standard.copyWith(
-                      brightness: Brightness.light,
-                    ));
+                    // AppLocalizations.delegate.load(locale)
                     context.read<ThemeCubit>().useLightTheme();
+                    switcher.changeTheme(
+                      theme: ExpenseTrackerTheme.standard.copyWith(
+                        brightness: Brightness.light,
+                      ),
+                    );
                   },
                   title: const Text('Light'),
                   trailing: state is ThemeLight ? const CheckMark() : null,
@@ -36,22 +40,31 @@ class ThemeBody extends StatelessWidget {
                 ListTile(
                   title: const Text('Dark'),
                   onTap: () {
-                    switcher.changeTheme(
-                        theme: ExpenseTrackerTheme.darkTheme.copyWith(
-                      brightness: Brightness.dark,
-                    ));
                     context.read<ThemeCubit>().useDarkTheme();
+                    switcher.changeTheme(
+                      theme: ExpenseTrackerTheme.darkTheme.copyWith(
+                        brightness: Brightness.dark,
+                      ),
+                    );
                   },
                   trailing: state is ThemeDark ? const CheckMark() : null,
                 ),
                 ListTile(
                   title: const Text('System'),
                   onTap: () {
-                    switcher.changeTheme(
-                        theme: ExpenseTrackerTheme.standard.copyWith(
-                      brightness: Brightness.light,
-                    ));
                     context.read<ThemeCubit>().useSystemTheme();
+                    final isPlatformDark =
+                        WidgetsBinding.instance.window.platformBrightness ==
+                            Brightness.dark;
+                    switcher.changeTheme(
+                      theme: isPlatformDark
+                          ? ExpenseTrackerTheme.darkTheme.copyWith(
+                              brightness: Brightness.dark,
+                            )
+                          : ExpenseTrackerTheme.standard.copyWith(
+                              brightness: Brightness.light,
+                            ),
+                    );
                   },
                   trailing: state is ThemeSystem ? const CheckMark() : null,
                 ),
