@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
@@ -5,6 +6,7 @@ import 'package:expense_tracker/presentation/pages/app_home_page/components/bott
 // import 'package:expense_tracker/presentation/pages/app_home_page/components/add_transaction_sheet.dart';
 // import 'package:expense_tracker/presentation/pages/app_home_page/components/app_bottom_navigationbar.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/widgets/app_home_page_body.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -47,6 +49,7 @@ class AppHomePageScaffold extends StatelessWidget {
         body: const AppHomePageView(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: PieMenu(
+
           actions: [
             PieAction(
               tooltip: const Text(
@@ -112,14 +115,32 @@ class AppHomePageScaffold extends StatelessWidget {
               ),
             ),
           ],
-          child: FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: ExpenseTrackerColors.violet,
-            shape: const CircleBorder(),
-            // backgroundColor: ExpenseTrackerColors.primary,
-            child: const Icon(
-              Icons.add,
-            ),
+          child: ThemeSwitcher.switcher(
+            builder: (context, switcher) {
+              return FloatingActionButton(
+                onPressed: () {
+                  final themeState = context.read<ThemeCubit>().state;
+                  debugPrint('Theme state -> $themeState');
+                  switcher.changeTheme(
+                    theme: themeState is ThemeLight
+                        ? ExpenseTrackerTheme.darkTheme.copyWith(
+                            brightness: Brightness.dark,
+                          )
+                        : ExpenseTrackerTheme.standard.copyWith(
+                            brightness: Brightness.light,
+                          ),
+                  );
+                  // change the state
+                  context.read<ThemeCubit>().toggleTheme();
+                },
+                backgroundColor: ExpenseTrackerColors.violet,
+                shape: const CircleBorder(),
+                // backgroundColor: ExpenseTrackerColors.primary,
+                child: const Icon(
+                  Icons.add,
+                ),
+              );
+            },
           ),
         ),
         bottomNavigationBar: const ExpanseTrackerBottomNavBar(),
