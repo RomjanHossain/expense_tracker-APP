@@ -17,6 +17,7 @@ class ProfilePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocBuilder<ProfilePageBloc, ProfilePageState>(
       builder: (context, state) {
         final iconWithTitle = [
@@ -33,16 +34,16 @@ class ProfilePageBody extends StatelessWidget {
           ),
           child: ListView(
             children: [
+              /* Profile top section (photo/name/edit) */
               Row(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  ///! profile photo
                   CircleAvatar(
                     backgroundColor: ExpenseTrackerColors.violet,
                     radius: 33.r,
                     child: CircleAvatar(
                       radius: 31.r,
-                      backgroundColor: Colors.white,
+                      backgroundColor: ExpenseTrackerColors.light,
                       child: CircleAvatar(
                         radius: 27.r,
                         child: ClipRRect(
@@ -54,6 +55,8 @@ class ProfilePageBody extends StatelessWidget {
                       ),
                     ),
                   ),
+
+                  ///! username
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 0.05.sw,
@@ -71,7 +74,9 @@ class ProfilePageBody extends StatelessWidget {
                         Text(
                           'Iriana Saliha',
                           style: ExpenseTrackerTextStyle.title2.copyWith(
-                            color: ExpenseTrackerColors.dark75,
+                            color: theme.brightness == Brightness.light
+                                ? ExpenseTrackerColors.dark75
+                                : ExpenseTrackerColors.light60,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -86,6 +91,7 @@ class ProfilePageBody extends StatelessWidget {
                   ),
                 ],
               ),
+              /*profile bottom section (account/settings/export/import/logout)*/
               Container(
                 // height: 0.579.sh,
                 margin: EdgeInsets.symmetric(
@@ -96,14 +102,16 @@ class ProfilePageBody extends StatelessWidget {
                   vertical: 0.05.sh,
                 ),
                 decoration: BoxDecoration(
-                  color: ExpenseTrackerColors.light,
+                  color: theme.brightness == Brightness.light
+                      ? ExpenseTrackerColors.light
+                      : ExpenseTrackerColors.dark,
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Column(
                   children: [
-                    for (final i in iconWithTitle)
+                    for (final i in iconWithTitle) ...[
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8),
                         child: ListTile(
                           onTap: () {
                             switch (i.$2) {
@@ -150,7 +158,16 @@ class ProfilePageBody extends StatelessWidget {
                           title: Text(i.$2),
                         ),
                       ),
-                    const Divider(),
+                      Divider(
+                        indent: 0.1.sw,
+                        endIndent: 0.1.sw,
+                        thickness: 1,
+                        height: 0.01.sh,
+                        // color: theme.brightness == Brightness.dark
+                        //     ? const Color(0xff222222)
+                        //     : const Color(0xfff6f6f6),
+                      ),
+                    ],
                   ],
                 ),
               ),

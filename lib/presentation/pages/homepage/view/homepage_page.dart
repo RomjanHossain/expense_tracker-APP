@@ -34,6 +34,7 @@ class _HomepagePageState extends State<HomepagePage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocProvider(
       create: (context) => HomepageBloc(),
       child: Scaffold(
@@ -43,8 +44,8 @@ class _HomepagePageState extends State<HomepagePage> {
               expandedHeight: 250.h,
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20),
                     ),
@@ -52,8 +53,13 @@ class _HomepagePageState extends State<HomepagePage> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        Color(0x0ffff6e5),
-                        Color(0xffF8EDD8),
+                        if (theme.brightness == Brightness.dark) ...[
+                          ExpenseTrackerColors.violet60,
+                          ExpenseTrackerColors.violet40,
+                        ] else ...[
+                          const Color(0x0ffff6e5),
+                          const Color(0xffF8EDD8),
+                        ]
                       ],
                     ),
                   ),
@@ -63,7 +69,9 @@ class _HomepagePageState extends State<HomepagePage> {
                       Text(
                         'Account Balance',
                         style: ExpenseTrackerTextStyle.body3.copyWith(
-                          color: ExpenseTrackerColors.light20,
+                          color: theme.brightness == Brightness.dark
+                              ? ExpenseTrackerColors.dark25
+                              : ExpenseTrackerColors.light20,
                         ),
                       ),
                       Padding(
@@ -121,7 +129,7 @@ class _HomepagePageState extends State<HomepagePage> {
                 ),
               ],
             ),
-            // a graph for showing todays expense
+            //* a graph for showing todays expense
             SliverToBoxAdapter(
               child: SizedBox(
                 height: 240.h,
@@ -135,6 +143,9 @@ class _HomepagePageState extends State<HomepagePage> {
                         style: ExpenseTrackerTextStyle.title3.copyWith(
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.2,
+                          color: theme.brightness == Brightness.dark
+                              ? ExpenseTrackerColors.light
+                              : ExpenseTrackerColors.dark,
                         ),
                       ),
                     ),
@@ -173,6 +184,9 @@ class _HomepagePageState extends State<HomepagePage> {
                       style: ExpenseTrackerTextStyle.title3.copyWith(
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.2,
+                        color: theme.brightness == Brightness.dark
+                            ? ExpenseTrackerColors.light
+                            : ExpenseTrackerColors.dark,
                       ),
                     ),
                     FilledButton.tonal(
@@ -229,7 +243,10 @@ class _HomepagePageState extends State<HomepagePage> {
                               style: ExpenseTrackerTextStyle.body1.copyWith(
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.2,
-                                color: ExpenseTrackerColors.dark25,
+                                // color: ExpenseTrackerColors.dark25,
+                                color: theme.brightness == Brightness.dark
+                                    ? ExpenseTrackerColors.light
+                                    : ExpenseTrackerColors.dark,
                               ),
                             ),
                             Text(
@@ -237,7 +254,10 @@ class _HomepagePageState extends State<HomepagePage> {
                               softWrap: true,
                               overflow: TextOverflow.ellipsis,
                               style: ExpenseTrackerTextStyle.body3.copyWith(
-                                color: ExpenseTrackerColors.light20,
+                                // color: ExpenseTrackerColors.light20,
+                                color: theme.brightness == Brightness.dark
+                                    ? ExpenseTrackerColors.light20
+                                    : ExpenseTrackerColors.dark25,
                               ),
                               maxLines: 1,
                             ),
