@@ -52,4 +52,16 @@ class ThemeCubit extends Cubit<ThemeState> {
       await _settingsLocalDataSourcePref.setTheme('System');
     }
   }
+
+  // toggle theme
+  FutureOr<void> toggleTheme() async {
+    // if the current state is ThemeLight, do nothing
+    if (state is ThemeLight) {
+      emit(const ThemeDark());
+      await _settingsLocalDataSourcePref.setTheme('Dark');
+    } else if (state is ThemeDark) {
+      emit(const ThemeLight());
+      await _settingsLocalDataSourcePref.setTheme('Light');
+    }
+  }
 }
