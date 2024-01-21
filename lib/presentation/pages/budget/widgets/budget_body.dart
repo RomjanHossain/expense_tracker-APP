@@ -7,6 +7,7 @@ import 'package:expense_tracker/presentation/pages/detailbudget/detail_budget.da
 import 'package:expense_tracker/presentation/widgets/amount_progress_indicator.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/presentation/widgets/category_with_border.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -42,12 +43,12 @@ class BudgetBody extends StatelessWidget {
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(
-                        Icons.arrow_back,
+                        Icons.navigate_before,
                         color: ExpenseTrackerColors.light,
                       ),
                     ),
                     Text(
-                      'Borrow or Lend',
+                      'January',
                       style: ExpenseTrackerTextStyle.body1.copyWith(
                         color: ExpenseTrackerColors.light,
                       ),
@@ -55,7 +56,7 @@ class BudgetBody extends StatelessWidget {
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(
-                        Icons.add,
+                        Icons.navigate_next,
                         color: ExpenseTrackerColors.light,
                       ),
                     ),
@@ -71,6 +72,9 @@ class BudgetBody extends StatelessWidget {
                 itemCount: 20,
                 itemBuilder: (context, index) {
                   return OpenContainer(
+                    closedColor: isDarkMode(context)
+                        ? ExpenseTrackerColors.dark75
+                        : ExpenseTrackerColors.light80,
                     closedBuilder: (context, action) {
                       return Container(
                         margin: const EdgeInsets.symmetric(
@@ -98,7 +102,9 @@ class BudgetBody extends StatelessWidget {
                             Text(
                               r'Remaing: $2000',
                               style: ExpenseTrackerTextStyle.title3.copyWith(
-                                color: ExpenseTrackerColors.dark,
+                                color: isDarkMode(context)
+                                    ? ExpenseTrackerColors.light
+                                    : ExpenseTrackerColors.dark,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -126,7 +132,7 @@ class BudgetBody extends StatelessWidget {
                       );
                     },
                     openBuilder: (context, action) {
-                      return DetailBudget();
+                      return const DetailBudget();
                     },
                   );
                 },
@@ -154,6 +160,9 @@ class BudgetBody extends StatelessWidget {
                   bottom: 35.h,
                 ),
                 child: OpenContainer(
+                  closedColor: isDarkMode(context)
+                      ? ExpenseTrackerColors.dark75
+                      : ExpenseTrackerColors.light80,
                   closedBuilder: (context, action) {
                     return PrimaryButton(
                       onPress: action,

@@ -3,6 +3,7 @@ import 'package:expense_tracker/presentation/pages/expensedetails/components/det
 import 'package:expense_tracker/presentation/pages/expensedetails/components/sucess_alter.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -29,7 +30,6 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    final theme = Theme.of(context);
     return Stack(
       clipBehavior: Clip.none,
       fit: StackFit.expand,
@@ -71,7 +71,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                 showModalBottomSheet<void>(
                   context: context,
                   isDismissible: false,
-                  backgroundColor: theme.brightness != Brightness.light
+                  backgroundColor: isDarkMode(context)
                       ? ExpenseTrackerColors.dark
                       : null,
                   builder: (context) {
@@ -83,9 +83,9 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                           Text(
                             'Remove this transaction?',
                             style: ExpenseTrackerTextStyle.title3.copyWith(
-                              color: theme.brightness == Brightness.light
-                                  ? ExpenseTrackerColors.dark
-                                  : ExpenseTrackerColors.light,
+                              color: isDarkMode(context)
+                                  ? ExpenseTrackerColors.light
+                                  : ExpenseTrackerColors.dark,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

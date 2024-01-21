@@ -4,6 +4,7 @@ import 'package:expense_tracker/data/datasources/local/category/category_local_d
 import 'package:expense_tracker/presentation/pages/expensereport/view/expensereport_page.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
@@ -51,7 +52,6 @@ class _FinancialReportsQuickState extends State<FinancialReportsQuick> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: pages[page].color,
       appBar: AppBar(),
@@ -73,7 +73,7 @@ class _FinancialReportsQuickState extends State<FinancialReportsQuick> {
                       height: 5.h,
                       decoration: BoxDecoration(
                         color: x == page
-                            ? theme.brightness == Brightness.dark
+                            ? isDarkMode(context)
                                 ? ExpenseTrackerColors.dark
                                 : ExpenseTrackerColors.light
                             : ExpenseTrackerColors.light.withOpacity(

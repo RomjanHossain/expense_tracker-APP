@@ -6,6 +6,7 @@ import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/presentation/pages/account_page/detail_account_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/onboarding_account_setup.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,6 +18,9 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: isDarkMode(context)
+            ? ExpenseTrackerColors.dark
+            : ExpenseTrackerColors.light,
         title: const Text('Account'),
       ),
       body: Column(
@@ -37,13 +41,19 @@ class AccountPage extends StatelessWidget {
                 Text(
                   'Account Balance',
                   style: ExpenseTrackerTextStyle.body3.copyWith(
-                    color: ExpenseTrackerColors.light20,
+                    // color: ExpenseTrackerColors.light20,
+                    color: isDarkMode(context)
+                        ? ExpenseTrackerColors.light20
+                        : ExpenseTrackerColors.dark25,
                   ),
                 ),
                 Text(
                   '₦ 0.00',
                   style: ExpenseTrackerTextStyle.title1.copyWith(
-                    color: ExpenseTrackerColors.dark75,
+                    // color: ExpenseTrackerColors.dark75,
+                    color: isDarkMode(context)
+                        ? ExpenseTrackerColors.light
+                        : ExpenseTrackerColors.dark75,
                     fontSize: 40,
                   ),
                 ),
@@ -77,19 +87,30 @@ class AccountPage extends StatelessWidget {
                       color: ExpenseTrackerColors.violet20,
                       borderRadius: BorderRadius.circular(10.r),
                     ),
-                    child: const Icon(Icons.wallet),
+                    child: Icon(
+                      Icons.wallet,
+                      color: isDarkMode(context)
+                          ? ExpenseTrackerColors.violet
+                          : ExpenseTrackerColors.violet20,
+                    ),
                   ),
                   title: Text(
                     'Wallet',
                     style: ExpenseTrackerTextStyle.title3.copyWith(
-                      color: ExpenseTrackerColors.dark,
+                      // color: ExpenseTrackerColors.dark,
+                      color: isDarkMode(context)
+                          ? ExpenseTrackerColors.light
+                          : ExpenseTrackerColors.dark,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   trailing: Text(
                     '₦ 0.00',
                     style: ExpenseTrackerTextStyle.title3.copyWith(
-                      color: ExpenseTrackerColors.dark50,
+                      // color: ExpenseTrackerColors.dark50,
+                      color: isDarkMode(context)
+                          ? ExpenseTrackerColors.light40
+                          : ExpenseTrackerColors.dark50,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -101,6 +122,12 @@ class AccountPage extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8),
         child: OpenContainer(
+          openColor: isDarkMode(context)
+              ? ExpenseTrackerColors.dark
+              : ExpenseTrackerColors.light,
+          closedColor: isDarkMode(context)
+              ? ExpenseTrackerColors.dark
+              : ExpenseTrackerColors.light,
           closedBuilder: (context, action) {
             return PrimaryButton(onPress: action, text: 'Add Account');
           },

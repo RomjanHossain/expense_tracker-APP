@@ -8,6 +8,7 @@ import 'package:expense_tracker/presentation/pages/homepage/components/segmented
 import 'package:expense_tracker/presentation/pages/homepage/widgets/homepage_body.dart';
 import 'package:expense_tracker/presentation/widgets/charts/line_charts.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,7 +35,6 @@ class _HomepagePageState extends State<HomepagePage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return BlocProvider(
       create: (context) => HomepageBloc(),
       child: Scaffold(
@@ -53,7 +53,7 @@ class _HomepagePageState extends State<HomepagePage> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        if (theme.brightness == Brightness.dark) ...[
+                        if (isDarkMode(context)) ...[
                           ExpenseTrackerColors.violet60,
                           ExpenseTrackerColors.violet40,
                         ] else ...[
@@ -69,7 +69,7 @@ class _HomepagePageState extends State<HomepagePage> {
                       Text(
                         'Account Balance',
                         style: ExpenseTrackerTextStyle.body3.copyWith(
-                          color: theme.brightness == Brightness.dark
+                          color: isDarkMode(context)
                               ? ExpenseTrackerColors.dark25
                               : ExpenseTrackerColors.light20,
                         ),
@@ -143,7 +143,7 @@ class _HomepagePageState extends State<HomepagePage> {
                         style: ExpenseTrackerTextStyle.title3.copyWith(
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.2,
-                          color: theme.brightness == Brightness.dark
+                          color: isDarkMode(context)
                               ? ExpenseTrackerColors.light
                               : ExpenseTrackerColors.dark,
                         ),
@@ -184,7 +184,7 @@ class _HomepagePageState extends State<HomepagePage> {
                       style: ExpenseTrackerTextStyle.title3.copyWith(
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.2,
-                        color: theme.brightness == Brightness.dark
+                        color: isDarkMode(context)
                             ? ExpenseTrackerColors.light
                             : ExpenseTrackerColors.dark,
                       ),
@@ -244,7 +244,7 @@ class _HomepagePageState extends State<HomepagePage> {
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.2,
                                 // color: ExpenseTrackerColors.dark25,
-                                color: theme.brightness == Brightness.dark
+                                color: isDarkMode(context)
                                     ? ExpenseTrackerColors.light
                                     : ExpenseTrackerColors.dark,
                               ),
@@ -255,7 +255,7 @@ class _HomepagePageState extends State<HomepagePage> {
                               overflow: TextOverflow.ellipsis,
                               style: ExpenseTrackerTextStyle.body3.copyWith(
                                 // color: ExpenseTrackerColors.light20,
-                                color: theme.brightness == Brightness.dark
+                                color: isDarkMode(context)
                                     ? ExpenseTrackerColors.light20
                                     : ExpenseTrackerColors.dark25,
                               ),

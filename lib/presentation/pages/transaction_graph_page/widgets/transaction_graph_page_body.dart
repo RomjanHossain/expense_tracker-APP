@@ -24,7 +24,6 @@ class TransactionGraphPageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TransactionGraphPageBloc, TransactionGraphPageState>(
       builder: (context, state) {
-        final theme = Theme.of(context);
         return Padding(
           padding: const EdgeInsets.all(10),
           child: ListView(
@@ -39,7 +38,7 @@ class TransactionGraphPageBody extends StatelessWidget {
                         decoration:
                             dropdownInputDecoration('Frequency').copyWith(
                           // fillColor: ExpenseTrackerColors.light,
-                          fillColor: theme.brightness == Brightness.light
+                          fillColor: !isDarkMode(context)
                               ? ExpenseTrackerColors.light
                               : ExpenseTrackerColors.dark,
                         ),
@@ -99,7 +98,7 @@ class TransactionGraphPageBody extends StatelessWidget {
                         ),
                         icon: Icon(
                           Icons.filter_list,
-                          color: theme.brightness == Brightness.light
+                          color: !isDarkMode(context)
                               ? ExpenseTrackerColors.dark50
                               : ExpenseTrackerColors.light40,
                         ),
@@ -158,7 +157,7 @@ class TransactionGraphPageBody extends StatelessWidget {
                 style: ExpenseTrackerTextStyle.title3.copyWith(
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.5,
-                  color: theme.brightness == Brightness.light
+                  color: ! isDarkMode(context)
                       ? ExpenseTrackerColors.dark
                       : ExpenseTrackerColors.light,
                 ),

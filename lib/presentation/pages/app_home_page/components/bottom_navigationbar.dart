@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -38,14 +39,13 @@ class ExpanseTrackerBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final count =
         context.select((AppHomePageBloc bloc) => bloc.state.currentIndex);
-    final theme = Theme.of(context);
     return AnimatedBottomNavigationBar.builder(
       onTap: (p0) {
         context.read<AppHomePageBloc>().add(ChangeAppHomePageEvent(p0));
       },
-      backgroundColor: theme.brightness == Brightness.light
-          ? ExpenseTrackerColors.light80
-          : ExpenseTrackerColors.dark75,
+      backgroundColor: isDarkMode(context)
+          ? ExpenseTrackerColors.dark75
+          : ExpenseTrackerColors.light80,
       // borderColor: theme.brightness == Brightness.light
       //     ? ExpenseTrackerColors.light80
       //     : ExpenseTrackerColors.dark75,

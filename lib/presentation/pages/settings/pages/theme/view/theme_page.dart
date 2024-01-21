@@ -1,6 +1,6 @@
-import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
-import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';
+import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/widgets/theme_body.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,6 +20,9 @@ class ThemePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: isDarkMode(context)
+            ? ExpenseTrackerColors.dark
+            : ExpenseTrackerColors.light,
         title: const Text('Theme'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),

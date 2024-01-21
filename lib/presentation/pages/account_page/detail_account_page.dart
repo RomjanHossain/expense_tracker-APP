@@ -4,6 +4,7 @@ import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/view/expensedetails_page.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,6 +15,9 @@ class DetailAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: isDarkMode(context)
+            ? ExpenseTrackerColors.dark
+            : ExpenseTrackerColors.light,
         title: const Text('Detail Account'),
         actions: [
           // edit icon btn
@@ -35,7 +39,10 @@ class DetailAccountPage extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: ExpenseTrackerColors.light60,
+                  // color: ExpenseTrackerColors.light60,
+                  color: isDarkMode(context)
+                      ? ExpenseTrackerColors.dark50
+                      : ExpenseTrackerColors.light60,
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Image.asset(
@@ -51,7 +58,10 @@ class DetailAccountPage extends StatelessWidget {
                   'Paypal',
                   style: ExpenseTrackerTextStyle.title2.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: ExpenseTrackerColors.dark,
+                    // color: ExpenseTrackerColors.dark,
+                    color: isDarkMode(context)
+                        ? ExpenseTrackerColors.light40
+                        : ExpenseTrackerColors.dark,
                   ),
                 ),
               ),
@@ -59,7 +69,9 @@ class DetailAccountPage extends StatelessWidget {
                 '₦ 233.00',
                 style: ExpenseTrackerTextStyle.title1.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: ExpenseTrackerColors.dark50,
+                  color: isDarkMode(context)
+                      ? ExpenseTrackerColors.light
+                      : ExpenseTrackerColors.dark50,
                 ),
               ),
             ],
@@ -69,6 +81,9 @@ class DetailAccountPage extends StatelessWidget {
             style: ExpenseTrackerTextStyle.title3.copyWith(
               fontWeight: FontWeight.w600,
               letterSpacing: 0.5,
+              color: isDarkMode(context)
+                  ? ExpenseTrackerColors.light40
+                  : ExpenseTrackerColors.dark50,
             ),
           ),
           ListView.builder(

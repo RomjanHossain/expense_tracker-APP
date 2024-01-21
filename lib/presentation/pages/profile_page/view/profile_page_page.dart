@@ -1,6 +1,6 @@
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/widgets/profile_page_body.dart';
-import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 /// {@template profile_page_page}
@@ -17,9 +17,8 @@ class ProfilePagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     Color backGroundColor() {
-      return theme.brightness == Brightness.dark
+      return isDarkMode(context)
           ? const Color(0xff222222)
           : const Color(0xfff6f6f6);
     }

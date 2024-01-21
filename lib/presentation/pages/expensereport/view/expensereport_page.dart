@@ -2,6 +2,7 @@ import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/widgets/expensereport_body.dart';
 import 'package:expense_tracker/services/animation/page_animation.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 /// {@template expensereport_page}
@@ -21,20 +22,19 @@ class ExpensereportPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return BlocProvider(
       create: (context) => ExpensereportBloc(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: theme.brightness == Brightness.light
-              ? ExpenseTrackerColors.light
-              : ExpenseTrackerColors.dark,
+          backgroundColor: isDarkMode(context)
+              ? ExpenseTrackerColors.dark
+              : ExpenseTrackerColors.light,
           title: Text(
             'Financial Report',
             style: ExpenseTrackerTextStyle.title3.copyWith(
-              color: theme.brightness == Brightness.light
-                  ? ExpenseTrackerColors.dark
-                  : ExpenseTrackerColors.light,
+              color: isDarkMode(context)
+                  ? ExpenseTrackerColors.light
+                  : ExpenseTrackerColors.dark,
             ),
           ),
         ),

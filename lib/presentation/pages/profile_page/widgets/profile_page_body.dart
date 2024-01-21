@@ -1,6 +1,7 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account_page.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +18,6 @@ class ProfilePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return BlocBuilder<ProfilePageBloc, ProfilePageState>(
       builder: (context, state) {
         final iconWithTitle = [
@@ -74,9 +74,9 @@ class ProfilePageBody extends StatelessWidget {
                         Text(
                           'Iriana Saliha',
                           style: ExpenseTrackerTextStyle.title2.copyWith(
-                            color: theme.brightness == Brightness.light
-                                ? ExpenseTrackerColors.dark75
-                                : ExpenseTrackerColors.light60,
+                            color:  isDarkMode(context)
+                                ? ExpenseTrackerColors.light60 
+                                : ExpenseTrackerColors.dark75,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -102,9 +102,9 @@ class ProfilePageBody extends StatelessWidget {
                   vertical: 0.05.sh,
                 ),
                 decoration: BoxDecoration(
-                  color: theme.brightness == Brightness.light
-                      ? ExpenseTrackerColors.light
-                      : ExpenseTrackerColors.dark,
+                  color:  isDarkMode(context)
+                      ? ExpenseTrackerColors.dark
+                      : ExpenseTrackerColors.light,
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Column(

@@ -1,9 +1,7 @@
+import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/settings/bloc/bloc.dart';
-import 'package:expense_tracker/presentation/pages/settings/pages/currency/cubit/currency_cubit.dart';
-import 'package:expense_tracker/presentation/pages/settings/pages/language/cubit/language_cubit.dart';
-import 'package:expense_tracker/presentation/pages/settings/pages/security/cubit/security_cubit.dart';
-import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/widgets/settings_body.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 /// {@template settings_page}
@@ -24,6 +22,9 @@ class SettingsPage extends StatelessWidget {
       create: (context) => SettingsBloc(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: isDarkMode(context)
+              ? ExpenseTrackerColors.dark
+              : ExpenseTrackerColors.light,
           title: const Text('Settings'),
         ),
         body: const SettingsView(),

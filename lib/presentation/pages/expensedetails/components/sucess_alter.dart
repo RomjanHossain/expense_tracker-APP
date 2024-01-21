@@ -1,5 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,11 +12,10 @@ class SuccessfullyDeleted extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return AlertDialog(
-      backgroundColor: theme.brightness == Brightness.light
-          ? ExpenseTrackerColors.light
-          : ExpenseTrackerColors.dark,
+      backgroundColor: isDarkMode(context)
+          ? ExpenseTrackerColors.dark
+          : ExpenseTrackerColors.light,
       elevation: 0,
       contentPadding: EdgeInsets.symmetric(
         horizontal: 20.w,
@@ -51,9 +51,9 @@ class SuccessfullyDeleted extends StatelessWidget {
             Text(
               'The transaction has been removed successfully',
               style: ExpenseTrackerTextStyle.body3.copyWith(
-                color: theme.brightness == Brightness.light
-                    ? ExpenseTrackerColors.dark
-                    : ExpenseTrackerColors.light,
+                color: isDarkMode(context)
+                    ? ExpenseTrackerColors.light
+                    : ExpenseTrackerColors.dark,
               ),
               textAlign: TextAlign.center,
             ),

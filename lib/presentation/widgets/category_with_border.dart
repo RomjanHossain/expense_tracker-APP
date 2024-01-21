@@ -1,4 +1,5 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,11 +15,10 @@ class CategoryWithBorder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: theme.brightness == Brightness.light
+        color:!  isDarkMode(context)
             ? ExpenseTrackerColors.light80
             : ExpenseTrackerColors.dark,
         borderRadius: BorderRadius.circular(50.r),

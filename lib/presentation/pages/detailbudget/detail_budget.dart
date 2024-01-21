@@ -4,6 +4,7 @@ import 'package:expense_tracker/presentation/pages/detailbudget/components/delet
 import 'package:expense_tracker/presentation/widgets/amount_progress_indicator.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/presentation/widgets/category_with_border.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +16,9 @@ class DetailBudget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: isDarkMode(context)
+            ? ExpenseTrackerColors.dark
+            : ExpenseTrackerColors.light,
         title: const Text('Detail Budget'),
         actions: [
           // delete
@@ -60,7 +64,9 @@ class DetailBudget extends StatelessWidget {
                   child: Text(
                     'Remaining',
                     style: ExpenseTrackerTextStyle.title2.copyWith(
-                      color: ExpenseTrackerColors.dark,
+                      color: isDarkMode(context)
+                          ? ExpenseTrackerColors.light
+                          : ExpenseTrackerColors.dark,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -69,7 +75,9 @@ class DetailBudget extends StatelessWidget {
                   r'$100',
                   style: ExpenseTrackerTextStyle.titleX.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: ExpenseTrackerColors.dark,
+                    color: isDarkMode(context)
+                        ? ExpenseTrackerColors.light
+                        : ExpenseTrackerColors.dark,
                   ),
                 ),
                 Padding(
@@ -100,6 +108,7 @@ class DetailBudget extends StatelessWidget {
                     children: [
                       const Icon(
                         Icons.error,
+                        // color: ExpenseTrackerColors.light,
                         color: ExpenseTrackerColors.light,
                       ),
                       SizedBox(width: 10.w),

@@ -4,6 +4,7 @@ import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/presentation/pages/createbudget/cubit/cubit.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/expense_category_tracker_.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -91,7 +92,10 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
               height: state.budget.isReceiveAlert ? 0.4.sh : 0.35.sh,
               // height: 0.3.sh,
               decoration: BoxDecoration(
-                color: ExpenseTrackerColors.light,
+                // color: ExpenseTrackerColors.light,
+                color: !isDarkMode(context)
+                    ? ExpenseTrackerColors.light
+                    : ExpenseTrackerColors.dark,
                 // border radius only top right/left
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40.r),
@@ -152,10 +156,13 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
                     ),
                   ),
                   ListTile(
-                    title: const Text(
+                    title: Text(
                       'Repeat',
                       style: TextStyle(
-                        color: ExpenseTrackerColors.dark25,
+                        // color: ExpenseTrackerColors.dark25,
+                        color: isDarkMode(context)
+                            ? ExpenseTrackerColors.light
+                            : ExpenseTrackerColors.dark25,
                       ),
                     ),
                     subtitle: const Text(
