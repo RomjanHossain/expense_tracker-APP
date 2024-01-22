@@ -10,6 +10,7 @@ import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_ac
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup_intro/view/onboarding_account_setup_intro_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/view/onboarding_setup_pin_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/view/onboarding_page.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/language/language.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/view/theme_page.dart';
 import 'package:expense_tracker/presentation/pages/settings/view/settings_page.dart';
 import 'package:expense_tracker/presentation/pages/splash_screen/view/splash_screen_page.dart';
@@ -261,6 +262,25 @@ final routeOfTheApp = GoRouter(
               name: 'currency',
               pageBuilder: (context, state) => CustomTransitionPage(
                 child: const ThemePage(),
+                transitionDuration: 500.milliseconds,
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return CupertinoPageTransition(
+                    primaryRouteAnimation: animation,
+                    secondaryRouteAnimation: secondaryAnimation,
+                    linearTransition: true,
+                    child: child,
+                  );
+                },
+              ),
+            ),
+
+            ///! LanguagePage
+            GoRoute(
+              path: 'language',
+              name: 'language',
+              pageBuilder: (context, state) => CustomTransitionPage(
+                child: const LanguagePage(),
                 transitionDuration: 500.milliseconds,
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
