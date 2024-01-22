@@ -8,6 +8,7 @@ import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income
 import 'package:expense_tracker/presentation/cubit/expense_text_controller_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/expenseform_bloc.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/language/cubit/language_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,6 +44,10 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (context) => ThemeCubit()..getTheme(),
         ),
+        //LanguageCubit
+        BlocProvider(
+          create: (context) => LanguageCubit()..getLanguage(),
+        ),
       ],
       child: ThemeProvider(
         builder: (context, theme) => MaterialApp.router(
@@ -75,7 +80,9 @@ ThemeData _getThemeModeFromState() {
       case 'dark':
         return ExpenseTrackerTheme.darkTheme;
       default:
-        return isPlatformDark?ExpenseTrackerTheme.darkTheme: ExpenseTrackerTheme.standard;
+        return isPlatformDark
+            ? ExpenseTrackerTheme.darkTheme
+            : ExpenseTrackerTheme.standard;
     }
   }).catchError((e) {
     if (isPlatformDark) {
