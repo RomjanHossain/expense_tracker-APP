@@ -31,3 +31,12 @@ class LanguageInitial extends LanguageState {
   /// {@macro language_initial}
   const LanguageInitial() : super();
 }
+
+// bangla language
+class LanguageBangla extends LanguageState {
+  const LanguageBangla() : super();
+}
+// english language
+class LanguageEnglish extends LanguageState {
+  const LanguageEnglish() : super();
+}
