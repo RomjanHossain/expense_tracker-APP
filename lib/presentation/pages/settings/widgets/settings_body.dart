@@ -1,6 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
-import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/presentation/pages/settings/bloc/bloc.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/language/cubit/language_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,6 +41,8 @@ class SettingsBody extends StatelessWidget {
                       GoRouter.of(context).pushNamed('currency');
                     case 'Theme':
                       GoRouter.of(context).pushNamed('theme');
+                    case 'Language':
+                      GoRouter.of(context).pushNamed('language');
                     default:
                       context.pushNamed('currency');
                   }
@@ -91,11 +93,20 @@ class _TrailingTextState extends State<TrailingText> {
   String trailing = '';
   String getTrailing() {
     final themeState = context.watch<ThemeCubit>().state;
+    final languageState = context.watch<LanguageCubit>().state;
     switch (widget.x) {
       case 'Currency':
         return 'USD';
       case 'Language':
-        return 'English';
+        // return 'English';
+        switch (languageState) {
+          case LanguageBangla():
+            return 'Bangla';
+          case LanguageEnglish():
+            return 'English';
+          default:
+            return 'English';
+        }
       case 'Theme':
         switch (themeState) {
           case ThemeLight():
