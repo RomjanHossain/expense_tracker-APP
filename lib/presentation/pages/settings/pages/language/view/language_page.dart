@@ -1,6 +1,6 @@
-import 'package:expense_tracker/presentation/pages/settings/bloc/bloc.dart';
-import 'package:expense_tracker/presentation/pages/settings/pages/language/cubit/language_cubit.dart';
+import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/language/widgets/language_body.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 /// {@template language_page}
@@ -17,13 +17,16 @@ class LanguagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LanguageCubit(),
-      child: const Scaffold(
-        body: LanguageView(),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: isDarkMode(context)
+            ? ExpenseTrackerColors.dark
+            : ExpenseTrackerColors.light,
+        title: const Text('Language'),
       ),
+      body: const LanguageView(),
     );
-  }    
+  }
 }
 
 /// {@template language_view}
