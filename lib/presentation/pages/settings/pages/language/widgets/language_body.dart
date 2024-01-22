@@ -1,5 +1,6 @@
 import 'package:expense_tracker/presentation/pages/settings/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/language/cubit/language_cubit.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/theme/components/checkmark_circle.dart';
 import 'package:flutter/material.dart';
 
 /// {@template language_body}
@@ -15,7 +16,24 @@ class LanguageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageCubit, LanguageState>(
       builder: (context, state) {
-        return Center(child: Text(state.customProperty));
+        return Column(
+          children: [
+            ListTile(
+              onTap: () {
+                context.read<LanguageCubit>().useBanglaLanguage();
+              },
+              title: const Text('Bangla (BN)'),
+              trailing: state is LanguageBangla ? const CheckMark() : null,
+            ),
+            ListTile(
+              title: const Text('English (EN)'),
+              onTap: () {
+                context.read<LanguageCubit>().useEnglishLanguage();
+              },
+              trailing: state is LanguageEnglish ? const CheckMark() : null,
+            ),
+          ],
+        );
       },
     );
   }
