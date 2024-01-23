@@ -52,15 +52,11 @@ class App extends StatelessWidget {
       child: ThemeProvider(
         builder: (context, theme) => MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          // theme: ExpenseTrackerTheme.standard,
-          // darkTheme: ExpenseTrackerTheme.darkTheme,
           theme: theme,
-          // themeMode: ThemeMode.light,
-          // themeMode: _getThemeModeFromState(context),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
+          // locale: Locale(AppLocalizations.of(context).localeName),
           routerConfig: routeOfTheApp,
-          // home: const SplashScreenPage(),(new)
         ),
         initTheme: _getThemeModeFromState(),
       ),

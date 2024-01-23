@@ -5,7 +5,7 @@ import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:expense_tracker/l10n/l10n.dart';
 class ExpanseTrackerBottomNavBar extends StatelessWidget {
   const ExpanseTrackerBottomNavBar({
     super.key,
@@ -27,16 +27,18 @@ class ExpanseTrackerBottomNavBar extends StatelessWidget {
     'assets/icons/user.svg',
   ];
 
-  // botom texts
-  static const texts = <String>[
-    'Home',
-    'Transactions',
-    'Budgets',
-    'Profile',
-  ];
 
   @override
   Widget build(BuildContext context) {
+      final l10n = context.l10n;
+      // l10n.localeName
+  // botom texts
+   final texts = <String>[
+    l10n.navFirst,
+    l10n.navSecond,
+    l10n.navThird,
+    l10n.navFourth,
+  ];
     final count =
         context.select((AppHomePageBloc bloc) => bloc.state.currentIndex);
     return AnimatedBottomNavigationBar.builder(
