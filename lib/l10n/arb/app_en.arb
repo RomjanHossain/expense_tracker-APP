@@ -1,7 +1,20 @@
 {
-    "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    }
+	"@@locale": "en",
+	"counterAppBarTitle": "Expense Tracker",
+	"@counterAppBarTitle": {
+		"description": "No description"
+	},
+	"navFirst": "Home",
+	"@navFirst": {
+		"description": "Nav first item"
+	},
+	"navSecond": "Transactions",
+	"@navSecond": {
+		"description": "Nav second item"
+	},
+	"navThird": "Budgets",
+	"@navThird": {
+		"description": "Nav third item"
+	},
+	"navFourth": "Profile"
 }

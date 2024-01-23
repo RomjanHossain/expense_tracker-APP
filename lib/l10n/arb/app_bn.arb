@@ -1,0 +1,20 @@
+{
+	"@@locale": "bn",
+	"counterAppBarTitle": "Contador",
+	"@counterAppBarTitle": {
+		"description": "Texto mostrado en la AppBar de la página del contador"
+	},
+	"navFirst": "হোম",
+	"@navFirst": {
+		"description": "ন্যাভ প্রথম আইটেম"
+	},
+	"navSecond": "লেনদেন",
+	"@navSecond": {
+		"description": "ন্যাভ দ্বিতীয় আইটেম"
+	},
+	"navThird": "বাজেট",
+	"@navThird": {
+		"description": "ন্যাভ তৃতীয় আইটেম"
+	},
+	"navFourth": "প্রোফাইল"
+}

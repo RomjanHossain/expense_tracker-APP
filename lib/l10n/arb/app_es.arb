@@ -1,7 +1,20 @@
 {
-    "@@locale": "es",
-    "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página del contador"
-    }
+	"@@locale": "es",
+	"counterAppBarTitle": "Contador",
+	"@counterAppBarTitle": {
+		"description": "Texto mostrado en la AppBar de la página del contador"
+	},
+	"navFirst": "Inicio",
+	"@navFirst": {
+		"description": "Elemento de navegación principal"
+	},
+	"navSecond": "Transacciones",
+	"@navSecond": {
+		"description": "Elemento de navegación secundario"
+	},
+	"navThird": "Presupuestos",
+	"@navThird": {
+		"description": "Elemento de navegación terciario"
+	},
+	"navFourth": "Perfil"
 }
