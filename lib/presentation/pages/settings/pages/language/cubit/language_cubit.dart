@@ -17,13 +17,13 @@ class LanguageCubit extends Cubit<LanguageState> {
     final language = await _settingsLocalDataSourcePref.getLanguage();
     switch (language) {
       case 'Bangla':
-        await AppLocalizations.delegate.load(const Locale('bn'));
+        // await AppLocalizations.delegate.load(const Locale('bn'));
         emit(const LanguageBangla());
       case 'English':
-        await AppLocalizations.delegate.load(const Locale('en'));
+        // await AppLocalizations.delegate.load(const Locale('en'));
         emit(const LanguageEnglish());
       default:
-        await AppLocalizations.delegate.load(const Locale('en'));
+        // await AppLocalizations.delegate.load(const Locale('en'));
         emit(const LanguageEnglish());
     }
   }
