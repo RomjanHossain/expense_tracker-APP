@@ -16,5 +16,34 @@
 	"@navThird": {
 		"description": "Nav third item"
 	},
-	"navFourth": "Profile"
+	"navFourth": "Profile",
+
+	"onboardingTitle1": "Gain total control of your money",
+	"@onboardingTitle1": {
+		"description": "No description"
+	},
+	"onboardingTitle2": "Know where your money goes",
+	"@onboardingTitle2": {
+		"description": "No description"
+	},
+	"onboardingTitle3": "Planning ahead",
+	"@onboardingTitle3": {
+		"description": "No description"
+	},
+	"onboardingSubtitle1": "Become your own money manager and make every cent count",
+	"@onboardingSubtitle1": {
+		"description": "No description"
+	},
+	"onboardingSubtitle2": "Track your transaction easily, with categories and financial report",
+	"@onboardingSubtitle2": {
+		"description": "No description"
+	},
+	"onboardingSubtitle3": "Setup your budget for each category so you in control",
+	"@onboardingSubtitle3": {
+		"description": "No description"
+	},
+	"onboardingButton": "Set up your account",
+	"@onboardingButton": {
+		"description": "Set up account button"
+	}
 }

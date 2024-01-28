@@ -16,5 +16,34 @@
 	"@navThird": {
 		"description": "Elemento de navegación terciario"
 	},
-	"navFourth": "Perfil"
+	"navFourth": "Perfil",
+
+	"onboardingTitle1": "Obtén control total de tu dinero",
+	"@onboardingTitle1": {
+		"description": "Sin descripción"
+	},
+	"onboardingTitle2": "Sabe dónde va tu dinero",
+	"@onboardingTitle2": {
+		"description": "Sin descripción"
+	},
+	"onboardingTitle3": "Planificación a futuro",
+	"@onboardingTitle3": {
+		"description": "Sin descripción"
+	},
+	"onboardingSubtitle1": "Conviértete en tu propio administrador de dinero y haz que cada centavo cuente",
+	"@onboardingSubtitle1": {
+		"description": "Sin descripción"
+	},
+	"onboardingSubtitle2": "Realiza un seguimiento de tus transacciones fácilmente, con categorías e informes financieros",
+	"@onboardingSubtitle2": {
+		"description": "Sin descripción"
+	},
+	"onboardingSubtitle3": "Configura tu presupuesto para cada categoría y mantén el control",
+	"@onboardingSubtitle3": {
+		"description": "Sin descripción"
+	},
+	"onboardingButton": "Configurar tu cuenta",
+	"@onboardingButton": {
+		"description": "Botón de configuración de cuenta"
+	}
 }

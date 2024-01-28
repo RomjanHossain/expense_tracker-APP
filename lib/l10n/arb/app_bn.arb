@@ -16,5 +16,34 @@
 	"@navThird": {
 		"description": "ন্যাভ তৃতীয় আইটেম"
 	},
-	"navFourth": "প্রোফাইল"
+	"navFourth": "প্রোফাইল",
+
+	"onboardingTitle1": "আপনার টাকা পরিস্থিতি নিন",
+	"@onboardingTitle1": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingTitle2": "আপনার টাকা কোথায় যাচ্ছে তা জানুন",
+	"@onboardingTitle2": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingTitle3": "পূর্ববর্তী পরিকল্পনা",
+	"@onboardingTitle3": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingSubtitle1": "আপনির নিজের মানি ম্যানেজার হোন এবং প্রতি সেন্টটি গণনা করুন",
+	"@onboardingSubtitle1": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingSubtitle2": "আপনার লেনদেনগুলি সহ ক্যাটাগরি এবং আর্থিক রিপোর্ট সহ সহজে ট্র্যাক করুন",
+	"@onboardingSubtitle2": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingSubtitle3": "প্রতিটি ক্যাটাগরির জন্য আপনার বাজেট সেটআপ করুন যাতে আপনি নিয়ন্ত্রণে থাকেন",
+	"@onboardingSubtitle3": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingButton": "আপনার অ্যাকাউন্ট সেটআপ করুন",
+	"@onboardingButton": {
+		"description": "অ্যাকাউন্ট সেটআপ করুন বোতাম"
+	}
 }
