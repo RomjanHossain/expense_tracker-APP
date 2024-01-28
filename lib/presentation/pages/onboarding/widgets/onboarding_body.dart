@@ -1,6 +1,7 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/cubit/cubit.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
@@ -36,17 +37,6 @@ class _OnboardingBodyState extends State<OnboardingBody> {
     ExpenseAssets.planningAheadIll,
   ];
 
-  final List<String> _titles = [
-    'Gain total control of your money',
-    'Know where your money goes',
-    'Planning ahead',
-  ];
-  final List<String> _subtitles = [
-    'Become your own money manager and make every cent count',
-    'Track your transaction easily, with categories and financial report ',
-    'Setup your budget for each category so you in control',
-  ];
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OnboardingCubit, int>(
@@ -62,6 +52,17 @@ class _OnboardingBodyState extends State<OnboardingBody> {
         return previous != current;
       },
       builder: (context, state) {
+        final l10n = context.l10n;
+        final List<String> _subtitles = [
+          l10n.onboardingSubtitle1,
+          l10n.onboardingSubtitle2,
+          l10n.onboardingSubtitle3,
+        ];
+        final List<String> _titles = [
+          l10n.onboardingTitle1,
+          l10n.onboardingSubtitle2,
+          l10n.onboardingSubtitle3,
+        ];
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -159,7 +160,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                   onPress: () {
                     context.pushNamed('setup-pin');
                   },
-                  text: 'Set up your account',
+                  text: l10n.onboardingButton,
                 ),
               ),
             ),
