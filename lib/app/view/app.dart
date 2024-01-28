@@ -45,18 +45,31 @@ class App extends StatelessWidget {
           create: (context) => ThemeCubit()..getTheme(),
         ),
         //LanguageCubit
-        BlocProvider(
-          create: (context) => LanguageCubit()..getLanguage(),
-        ),
+        // BlocProvider(
+        //   create: (context) => LanguageCubit()..getLanguage(),
+        // ),
       ],
       child: ThemeProvider(
-        builder: (context, theme) => MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          theme: theme,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          // locale: Locale(AppLocalizations.of(context).localeName),
-          routerConfig: routeOfTheApp,
+        builder: (context, theme) => BlocProvider(
+          create: (context) => LanguageCubit()..getLanguage(),
+          child: BlocBuilder<LanguageCubit, LanguageState>(
+            builder: (context, state) {
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                theme: theme,
+                locale: switch (state) {
+                  LanguageBangla() => const Locale('bn'),
+                  LanguageEnglish() => const Locale('en'),
+                  _ => const Locale('en'),
+                },
+
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
+                // locale: Locale(AppLocalizations.of(context).localeName),
+                routerConfig: routeOfTheApp,
+              );
+            },
+          ),
         ),
         initTheme: _getThemeModeFromState(),
       ),
