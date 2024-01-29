@@ -4,6 +4,7 @@
 	"@counterAppBarTitle": {
 		"description": "Texto mostrado en la AppBar de la página del contador"
 	},
+	"currencySign": "$",
 	"navFirst": "Inicio",
 	"@navFirst": {
 		"description": "Elemento de navegación principal"
@@ -17,7 +18,6 @@
 		"description": "Elemento de navegación terciario"
 	},
 	"navFourth": "Perfil",
-
 	"onboardingTitle1": "Obtén control total de tu dinero",
 	"@onboardingTitle1": {
 		"description": "Sin descripción"
@@ -45,5 +45,26 @@
 	"onboardingButton": "Configurar tu cuenta",
 	"@onboardingButton": {
 		"description": "Botón de configuración de cuenta"
-	}
+	},
+	"onboardingSetUpPin": "¡Vamos a configurar tu PIN!",
+	"@onboardingSetUpPin": {
+		"description": "Sin descripción"
+	},
+	"onboardingSetUpPin2": "De acuerdo. Vuelve a escribir tu PIN.",
+	"@onboardingSetUpPin2": {
+		"description": "Sin descripción"
+	},
+	"onboardingAccountSetup": "¡Vamos a configurar tu cuenta!",
+	"onboardingAccountSetup2": "La cuenta puede ser tu banco, tarjeta de crédito o tu billetera.",
+	"onboardingAccountSetupBtn": "¡Vamos!",
+	"addNewAccount": "Agregar nueva cuenta",
+
+	"accountName": "Nombre de la cuenta",
+	"accountType": "Tipo de cuenta",
+	"accountTypeBank": "Banco",
+	"accountTypeCreditCard": "Tarjeta de crédito",
+	"accountTypeWallet": "Billetera",
+	"accountTypeMobileBaning": "Banca móvil",
+	"accountTypeCash": "Efectivo",
+	"accountTypeOther": "Otro"
 }

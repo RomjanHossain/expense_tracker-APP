@@ -4,6 +4,7 @@
 	"@counterAppBarTitle": {
 		"description": "No description"
 	},
+	"currencySign": "$",
 	"navFirst": "Home",
 	"@navFirst": {
 		"description": "Nav first item"
@@ -17,7 +18,6 @@
 		"description": "Nav third item"
 	},
 	"navFourth": "Profile",
-
 	"onboardingTitle1": "Gain total control of your money",
 	"@onboardingTitle1": {
 		"description": "No description"
@@ -45,5 +45,25 @@
 	"onboardingButton": "Set up your account",
 	"@onboardingButton": {
 		"description": "Set up account button"
-	}
+	},
+	"onboardingSetUpPin": "Let's setup your PIN",
+	"@onboardingSetUpPin": {
+		"description": "No description"
+	},
+	"onboardingSetUpPin2": "Ok. Re type your PIN again.",
+	"@onboardingSetUpPin2": {
+		"description": "No description"
+	},
+	"onboardingAccountSetup": "Let's setup your account!",
+	"onboardingAccountSetup2": "Account can be your bank, credit card or your wallet.",
+	"onboardingAccountSetupBtn": "Let's go",
+	"addNewAccount": "Add new account",
+	"accountName" : "Account name",
+	"accountType" : "Account type",
+	"accountTypeBank": "Bank",
+	"accountTypeCreditCard": "Credit Card",
+	"accountTypeWallet": "Wallet",
+	"accountTypeMobileBaning": "Mobile Banking",
+	"accountTypeCash": "Cash",
+	"accountTypeOther": "Other"
 }

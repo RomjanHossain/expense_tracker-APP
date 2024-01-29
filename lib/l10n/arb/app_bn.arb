@@ -4,6 +4,7 @@
 	"@counterAppBarTitle": {
 		"description": "Texto mostrado en la AppBar de la página del contador"
 	},
+	"currencySign": "৳",	
 	"navFirst": "হোম",
 	"@navFirst": {
 		"description": "ন্যাভ প্রথম আইটেম"
@@ -17,7 +18,6 @@
 		"description": "ন্যাভ তৃতীয় আইটেম"
 	},
 	"navFourth": "প্রোফাইল",
-
 	"onboardingTitle1": "আপনার টাকা পরিস্থিতি নিন",
 	"@onboardingTitle1": {
 		"description": "কোন বর্ণনা নেই"
@@ -45,5 +45,25 @@
 	"onboardingButton": "আপনার অ্যাকাউন্ট সেটআপ করুন",
 	"@onboardingButton": {
 		"description": "অ্যাকাউন্ট সেটআপ করুন বোতাম"
-	}
+	},
+	"onboardingSetUpPin": "আপনার PIN সেটআপ করুন",
+	"@onboardingSetUpPin": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingSetUpPin2": "পুনরায় আপনার PIN টাইপ করুন...",
+	"@onboardingSetUpPin2": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingAccountSetup": "চলুন, আপনার অ্যাকাউন্ট সেটআপ করা যাক!",
+	"onboardingAccountSetup2": "অ্যাকাউন্ট আপনার ব্যাংক, ক্রেডিট কার্ড অথবা ওয়ালেট হতে পারে।",
+	"onboardingAccountSetupBtn": "চলুন",
+	"addNewAccount": "নতুন অ্যাকাউন্ট যোগ করুন",
+	"accountName": "অ্যাকাউন্টের নাম",
+	"accountType": "অ্যাকাউন্ট টাইপ",
+	"accountTypeBank": "ব্যাংক",
+	"accountTypeCreditCard": "ক্রেডিট কার্ড",
+	"accountTypeWallet": "ওয়ালেট",
+	"accountTypeMobileBaning": "মোবাইল ব্যাংকিং",
+	"accountTypeCash": "ক্যাশ",
+	"accountTypeOther": "অন্যান্য"
 }
