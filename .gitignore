@@ -110,3 +110,15 @@ app.*.map.json
 !.idea/codeStyles/
 !.idea/dictionaries/
 !.idea/runConfigurations/
+test/splash_screen
+test/app_home_page
+.idea/runConfigurations
+.idea/runConfigurations
+lib/data/models/category_model.freezed.dart
+lib/data/datasources/local/expense/expense_isardb.g.dart
+lib/domain/entities/expense_entity.freezed.dart
+lib/domain/entities/create_account_entity/create_account_entity.freezed.dart
+lib/data/models/local_db_model/category_local_db_model.freezed.dart
+lib/domain/entities/expense_form_entity/expense_form_entity.freezed.dart
+lib/domain/entities/card_of_expense/card_of_expense_entity.freezed.dart
+lib/presentation/pages/createbudget/model/create_budget_entity.freezed.dart

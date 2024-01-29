@@ -1,0 +1,69 @@
+{
+	"@@locale": "bn",
+	"counterAppBarTitle": "Contador",
+	"@counterAppBarTitle": {
+		"description": "Texto mostrado en la AppBar de la página del contador"
+	},
+	"currencySign": "৳",	
+	"navFirst": "হোম",
+	"@navFirst": {
+		"description": "ন্যাভ প্রথম আইটেম"
+	},
+	"navSecond": "লেনদেন",
+	"@navSecond": {
+		"description": "ন্যাভ দ্বিতীয় আইটেম"
+	},
+	"navThird": "বাজেট",
+	"@navThird": {
+		"description": "ন্যাভ তৃতীয় আইটেম"
+	},
+	"navFourth": "প্রোফাইল",
+	"onboardingTitle1": "আপনার টাকা পরিস্থিতি নিন",
+	"@onboardingTitle1": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingTitle2": "আপনার টাকা কোথায় যাচ্ছে তা জানুন",
+	"@onboardingTitle2": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingTitle3": "পূর্ববর্তী পরিকল্পনা",
+	"@onboardingTitle3": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingSubtitle1": "আপনির নিজের মানি ম্যানেজার হোন এবং প্রতি সেন্টটি গণনা করুন",
+	"@onboardingSubtitle1": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingSubtitle2": "আপনার লেনদেনগুলি সহ ক্যাটাগরি এবং আর্থিক রিপোর্ট সহ সহজে ট্র্যাক করুন",
+	"@onboardingSubtitle2": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingSubtitle3": "প্রতিটি ক্যাটাগরির জন্য আপনার বাজেট সেটআপ করুন যাতে আপনি নিয়ন্ত্রণে থাকেন",
+	"@onboardingSubtitle3": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingButton": "আপনার অ্যাকাউন্ট সেটআপ করুন",
+	"@onboardingButton": {
+		"description": "অ্যাকাউন্ট সেটআপ করুন বোতাম"
+	},
+	"onboardingSetUpPin": "আপনার PIN সেটআপ করুন",
+	"@onboardingSetUpPin": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingSetUpPin2": "পুনরায় আপনার PIN টাইপ করুন...",
+	"@onboardingSetUpPin2": {
+		"description": "কোন বর্ণনা নেই"
+	},
+	"onboardingAccountSetup": "চলুন, আপনার অ্যাকাউন্ট সেটআপ করা যাক!",
+	"onboardingAccountSetup2": "অ্যাকাউন্ট আপনার ব্যাংক, ক্রেডিট কার্ড অথবা ওয়ালেট হতে পারে।",
+	"onboardingAccountSetupBtn": "চলুন",
+	"addNewAccount": "নতুন অ্যাকাউন্ট যোগ করুন",
+	"accountName": "অ্যাকাউন্টের নাম",
+	"accountType": "অ্যাকাউন্ট টাইপ",
+	"accountTypeBank": "ব্যাংক",
+	"accountTypeCreditCard": "ক্রেডিট কার্ড",
+	"accountTypeWallet": "ওয়ালেট",
+	"accountTypeMobileBaning": "মোবাইল ব্যাংকিং",
+	"accountTypeCash": "ক্যাশ",
+	"accountTypeOther": "অন্যান্য"
+}

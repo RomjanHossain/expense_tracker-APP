@@ -1,7 +1,70 @@
 {
-    "@@locale": "es",
-    "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página del contador"
-    }
+	"@@locale": "es",
+	"counterAppBarTitle": "Contador",
+	"@counterAppBarTitle": {
+		"description": "Texto mostrado en la AppBar de la página del contador"
+	},
+	"currencySign": "$",
+	"navFirst": "Inicio",
+	"@navFirst": {
+		"description": "Elemento de navegación principal"
+	},
+	"navSecond": "Transacciones",
+	"@navSecond": {
+		"description": "Elemento de navegación secundario"
+	},
+	"navThird": "Presupuestos",
+	"@navThird": {
+		"description": "Elemento de navegación terciario"
+	},
+	"navFourth": "Perfil",
+	"onboardingTitle1": "Obtén control total de tu dinero",
+	"@onboardingTitle1": {
+		"description": "Sin descripción"
+	},
+	"onboardingTitle2": "Sabe dónde va tu dinero",
+	"@onboardingTitle2": {
+		"description": "Sin descripción"
+	},
+	"onboardingTitle3": "Planificación a futuro",
+	"@onboardingTitle3": {
+		"description": "Sin descripción"
+	},
+	"onboardingSubtitle1": "Conviértete en tu propio administrador de dinero y haz que cada centavo cuente",
+	"@onboardingSubtitle1": {
+		"description": "Sin descripción"
+	},
+	"onboardingSubtitle2": "Realiza un seguimiento de tus transacciones fácilmente, con categorías e informes financieros",
+	"@onboardingSubtitle2": {
+		"description": "Sin descripción"
+	},
+	"onboardingSubtitle3": "Configura tu presupuesto para cada categoría y mantén el control",
+	"@onboardingSubtitle3": {
+		"description": "Sin descripción"
+	},
+	"onboardingButton": "Configurar tu cuenta",
+	"@onboardingButton": {
+		"description": "Botón de configuración de cuenta"
+	},
+	"onboardingSetUpPin": "¡Vamos a configurar tu PIN!",
+	"@onboardingSetUpPin": {
+		"description": "Sin descripción"
+	},
+	"onboardingSetUpPin2": "De acuerdo. Vuelve a escribir tu PIN.",
+	"@onboardingSetUpPin2": {
+		"description": "Sin descripción"
+	},
+	"onboardingAccountSetup": "¡Vamos a configurar tu cuenta!",
+	"onboardingAccountSetup2": "La cuenta puede ser tu banco, tarjeta de crédito o tu billetera.",
+	"onboardingAccountSetupBtn": "¡Vamos!",
+	"addNewAccount": "Agregar nueva cuenta",
+
+	"accountName": "Nombre de la cuenta",
+	"accountType": "Tipo de cuenta",
+	"accountTypeBank": "Banco",
+	"accountTypeCreditCard": "Tarjeta de crédito",
+	"accountTypeWallet": "Billetera",
+	"accountTypeMobileBaning": "Banca móvil",
+	"accountTypeCash": "Efectivo",
+	"accountTypeOther": "Otro"
 }
