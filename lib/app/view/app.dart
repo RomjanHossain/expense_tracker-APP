@@ -44,10 +44,6 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (context) => ThemeCubit()..getTheme(),
         ),
-        //LanguageCubit
-        // BlocProvider(
-        //   create: (context) => LanguageCubit()..getLanguage(),
-        // ),
       ],
       child: ThemeProvider(
         builder: (context, theme) => BlocProvider(
@@ -62,7 +58,6 @@ class App extends StatelessWidget {
                   LanguageEnglish() => const Locale('en'),
                   _ => const Locale('en'),
                 },
-
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 supportedLocales: AppLocalizations.supportedLocales,
                 // locale: Locale(AppLocalizations.of(context).localeName),
@@ -83,26 +78,19 @@ ThemeData _getThemeModeFromState() {
   final isPlatformDark =
       WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
   theme.then((value) {
-    switch (value) {
-      case 'light':
-        return ExpenseTrackerTheme.standard;
-      case 'dark':
-        return ExpenseTrackerTheme.darkTheme;
-      default:
-        return isPlatformDark
-            ? ExpenseTrackerTheme.darkTheme
-            : ExpenseTrackerTheme.standard;
-    }
+    return switch (value) {
+      'light' => ExpenseTrackerTheme.standard,
+      'dark' => ExpenseTrackerTheme.darkTheme,
+      _ => isPlatformDark
+          ? ExpenseTrackerTheme.darkTheme
+          : ExpenseTrackerTheme.standard,
+    };
   }).catchError((e) {
-    if (isPlatformDark) {
-      return ExpenseTrackerTheme.darkTheme;
-    } else {
-      return ExpenseTrackerTheme.standard;
-    }
+    return isPlatformDark
+        ? ExpenseTrackerTheme.darkTheme
+        : ExpenseTrackerTheme.standard;
   });
-  if (isPlatformDark) {
-    return ExpenseTrackerTheme.darkTheme;
-  } else {
-    return ExpenseTrackerTheme.standard;
-  }
+  return isPlatformDark
+      ? ExpenseTrackerTheme.darkTheme
+      : ExpenseTrackerTheme.standard;
 }
