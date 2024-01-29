@@ -1,21 +1,19 @@
-
-
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 
 class AccountTypeHelper {
   static AccountType fromString(String accountType) {
     switch (accountType) {
-      case 'Bank':
+      case 'Bank' || 'ব্যাংক' || 'Banco':
         return AccountType.bank;
-      case 'Credit Card':
+      case 'Credit Card' || 'ক্রেডিট কার্ড' || 'Tarjeta de crédito':
         return AccountType.creditCard;
-      case 'Mobile Banking':
+      case 'Mobile Banking' || 'মোবাইল ব্যাংকিং' || 'Banca móvil':
         return AccountType.mobileBanking;
-      case 'Wallet':
+      case 'Wallet' || 'Billetera' || 'ওয়ালেট':
         return AccountType.wallet;
-      case 'Cash':
+      case 'Cash' || 'ক্যাশ' || 'Efectivo':
         return AccountType.cash;
-      case 'Other':
+      case 'Other' || 'অন্যান্য' || 'Otro':
         return AccountType.other;
       default:
         return AccountType.other;
