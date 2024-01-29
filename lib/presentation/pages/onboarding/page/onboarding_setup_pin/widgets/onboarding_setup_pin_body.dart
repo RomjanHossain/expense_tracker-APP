@@ -42,7 +42,7 @@ class OnboardingSetupPinBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.h),
+              padding: const EdgeInsets.symmetric(vertical: 20),
               child: Text(
                 _controller.text.isNotEmpty && _controller.text.length == 4
                     ? l10n.onboardingSetUpPin2
@@ -52,7 +52,7 @@ class OnboardingSetupPinBody extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20.h),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -70,13 +70,13 @@ class OnboardingSetupPinBody extends StatelessWidget {
                   ),
               ],
             ),
-            SizedBox(height: 50.h),
+            const SizedBox(height: 50),
             // numbers
             SizedBox(
-                // height: size.height * 0.4,
-                height: 0.4.sh,
+                 height: 0.4.sh,
                 child: Row(
                   children: [
+                    // 1, 4, 7 and $
                     ButtonRow([
                       Button(
                         text: '1',
