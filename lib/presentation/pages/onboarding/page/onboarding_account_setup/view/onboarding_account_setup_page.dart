@@ -1,4 +1,5 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/widgets/onboarding_account_setup_body.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class OnboardingAccountSetupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocProvider(
       create: (context) => OnboardingAccountSetupBloc(),
       child: Scaffold(
@@ -21,9 +23,11 @@ class OnboardingAccountSetupPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: ExpenseTrackerColors.violet,
           elevation: 0,
-          title: const Text(
-            'Add new account',
-            style: TextStyle(color: ExpenseTrackerColors.light),
+          title: Text(
+            l10n.addNewAccount,
+            style: const TextStyle(
+              color: ExpenseTrackerColors.light,
+            ),
           ),
           leading: IconButton(
             icon:

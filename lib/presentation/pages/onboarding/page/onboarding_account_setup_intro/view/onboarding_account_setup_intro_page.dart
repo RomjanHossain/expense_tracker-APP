@@ -1,4 +1,5 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup_intro/widgets/onboarding_account_setup_intro_body.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class OnboardingAccountSetupIntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       body: const OnboardingAccountSetupIntroView(),
       bottomNavigationBar: BottomAppBar(
@@ -27,7 +29,7 @@ class OnboardingAccountSetupIntroPage extends StatelessWidget {
                 'account-setup',
               );
             },
-            text: 'Let’s go',
+            text: l10n.onboardingAccountSetupBtn,
           ),
         ),
       ),

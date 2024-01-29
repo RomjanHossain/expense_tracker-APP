@@ -4,6 +4,7 @@ import 'package:expense_tracker/data/datasources/local/utils_data/account_type_h
 import 'package:expense_tracker/data/datasources/local/utils_data/local_banking.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_mobile_banking.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/mobile_banking_db.dart';
+import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
@@ -88,15 +89,17 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
             if (createACState.acType != null) ...[
               SizedBox(
                 height: 100.h,
-                child: GridView(
+                width: double.infinity,
+                child: Wrap(
+                  alignment: WrapAlignment.center,
                   // physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 1.5,
-                    mainAxisExtent: 50,
-                  ),
+                  // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  //   crossAxisCount: 4,
+                  //   crossAxisSpacing: 10,
+                  //   mainAxisSpacing: 10,
+                  //   childAspectRatio: 1.5,
+                  //   mainAxisExtent: 50,
+                  // ),
                   children: [
                     //! if mobile banking
                     if (createACState.acType == AccountType.mobileBanking)
@@ -113,7 +116,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                             child: Container(
                               margin: const EdgeInsets.all(5),
                               height: 40.h,
-                              width: 70.w,
+                              width: 60.w,
                               decoration: BoxDecoration(
                                 // color: ExpenseTrackerColors.inactiveSelectedBox,
                                 color: i == createACState.acLogo
@@ -182,7 +185,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                       onTap: () async {
                         showBottomSheet<OnboardingAccountSetupBloc>(
                           backgroundColor: ExpenseTrackerColors.light,
-                          elevation: 8,
+                          elevation: 1,
                           context: context,
                           builder: (context) => SizedBox(
                             width: double.infinity,
@@ -230,7 +233,8 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                                             OnboardingAccountSetupBloc>()
                                                         .add(
                                                           AddAccountLogoEvent(
-                                                              i),
+                                                            i,
+                                                          ),
                                                         );
                                                   },
                                                   child: Tooltip(
@@ -238,7 +242,8 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                                     child: Container(
                                                       margin:
                                                           const EdgeInsets.all(
-                                                              5),
+                                                        5,
+                                                      ),
                                                       height: 40.h,
                                                       width: 70.w,
                                                       decoration: BoxDecoration(
@@ -429,9 +434,10 @@ class AccountTypeDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return DropdownButtonFormField(
       dropdownColor: ExpenseTrackerColors.violet,
-      items: accountTypesDB
+      items: accountTypesDBwithTrans(context)
           .map(
             (e) => DropdownMenuItem(
               value: e,
@@ -445,27 +451,27 @@ class AccountTypeDropdown extends StatelessWidget {
           )
           .toList(),
       isExpanded: true,
-      decoration: const InputDecoration(
-        focusedBorder: OutlineInputBorder(
+      decoration: InputDecoration(
+        focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           borderSide: BorderSide(
             color: ExpenseTrackerColors.violet,
           ),
         ),
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
           borderSide: BorderSide(
             color: ExpenseTrackerColors.light60,
           ),
         ),
-        hintText: 'Account type',
-        enabledBorder: OutlineInputBorder(
+        hintText: l10n.accountType,
+        enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           borderSide: BorderSide(
             color: ExpenseTrackerColors.light60,
           ),
         ),
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 10,
         ),
@@ -494,6 +500,7 @@ class AccountNameTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return TextField(
       keyboardType: TextInputType.name,
       onChanged: (d) {
@@ -501,27 +508,27 @@ class AccountNameTextField extends StatelessWidget {
               AddAccountNameEvent(d),
             );
       },
-      decoration: const InputDecoration(
-        focusedBorder: OutlineInputBorder(
+      decoration: InputDecoration(
+        focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           borderSide: BorderSide(
             color: ExpenseTrackerColors.violet,
           ),
         ),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           borderSide: BorderSide(
             color: ExpenseTrackerColors.light60,
           ),
         ),
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(15)),
           borderSide: BorderSide(
             color: ExpenseTrackerColors.light60,
           ),
         ),
-        hintText: 'Account name',
-        contentPadding: EdgeInsets.symmetric(
+        hintText: l10n.accountName,
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 10,
         ),

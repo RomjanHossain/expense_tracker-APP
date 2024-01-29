@@ -1,4 +1,5 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/components/add_account_bottom_container.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class _OnboardingAccountSetupBodyState
   Widget build(BuildContext context) {
     return BlocBuilder<OnboardingAccountSetupBloc, OnboardingAccountSetupState>(
       builder: (context, state) {
+        final l10n = context.l10n;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
@@ -79,11 +81,21 @@ class _OnboardingAccountSetupBodyState
                 },
                 decoration: InputDecoration(
                   hintText: '0.00',
-                  prefixIcon: const Icon(
-                    Icons.attach_money,
-                    color: ExpenseTrackerColors.light80,
-                    size: 64,
-                  ),
+                  prefixIcon: l10n.currencySign == '৳'
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            l10n.currencySign,
+                            style: ExpenseTrackerTextStyle.titleX.copyWith(
+                              color: ExpenseTrackerColors.light80,
+                            ),
+                          ),
+                        )
+                      : const Icon(
+                          Icons.attach_money,
+                          color: ExpenseTrackerColors.light80,
+                          size: 64,
+                        ),
                   hintStyle: ExpenseTrackerTextStyle.titleX.copyWith(
                     color: ExpenseTrackerColors.light80,
                   ),

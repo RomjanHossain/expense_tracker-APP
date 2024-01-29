@@ -1,4 +1,5 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/input_btn.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/single_btn.dart';
@@ -32,6 +33,7 @@ class OnboardingSetupPinBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     // final size = MediaQuery.of(context).size;
     return BlocConsumer<OnboardingSetupPinBloc, OnboardingSetupPinState>(
       buildWhen: (previous, current) => previous.pin != current.pin,
@@ -43,8 +45,8 @@ class OnboardingSetupPinBody extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 20.h),
               child: Text(
                 _controller.text.isNotEmpty && _controller.text.length == 4
-                    ? 'Ok. Re type your PIN again.'
-                    : "Let's setup your PIN",
+                    ? l10n.onboardingSetUpPin2
+                    : l10n.onboardingSetUpPin,
                 style: ExpenseTrackerTextStyle.title3.copyWith(
                   color: ExpenseTrackerColors.light,
                 ),

@@ -1,4 +1,5 @@
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 /// {@template onboarding_account_setup_intro_body}
@@ -12,6 +13,7 @@ class OnboardingAccountSetupIntroBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -22,7 +24,7 @@ class OnboardingAccountSetupIntroBody extends StatelessWidget {
               bottom: 30,
             ),
             child: Text(
-              "Let's setup your account!",
+              l10n.onboardingAccountSetup,
               style: ExpenseTrackerTextStyle.title1.copyWith(
                 fontSize: 36,
                 fontWeight: FontWeight.w500,
@@ -30,7 +32,7 @@ class OnboardingAccountSetupIntroBody extends StatelessWidget {
             ),
           ),
           Text(
-            'Account can be your bank, credit card or your wallet.',
+            l10n.onboardingAccountSetup2,
             style: ExpenseTrackerTextStyle.body3,
           ),
         ],
