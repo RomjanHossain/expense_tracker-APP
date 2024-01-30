@@ -19,11 +19,14 @@ class SecurityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SecurityCubit(),
-      child: const Scaffold(
-        body: SecurityView(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Security'),
+        ),
+        body: const SecurityView(),
       ),
     );
-  }    
+  }
 }
 
 /// {@template security_view}

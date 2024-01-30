@@ -15,7 +15,24 @@ class SecurityBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SecurityCubit, SecurityState>(
       builder: (context, state) {
-        return Center(child: Text(state.customProperty));
+        return Column(
+          children: [
+            ListTile(
+              onTap: () {
+                // context.read<CurrencyCubit>().useDollarCurrency();
+              },
+              title: const Text('PIN'),
+              trailing: state is CurrencyDollar ? const CheckMark() : null,
+            ),
+            ListTile(
+              onTap: () {
+                // context.read<CurrencyCubit>().useDollarCurrency();
+              },
+              title: const Text('Fingerprint'),
+              // trailing: state is CurrencyDollar ? const CheckMark() : null,
+            ),
+          ],
+        );
       },
     );
   }

@@ -5,19 +5,19 @@ part of 'security_cubit.dart';
 /// {@endtemplate}
 class SecurityState extends Equatable {
   /// {@macro security}
-  const SecurityState({
-    this.customProperty = 'Default Value',
+   const SecurityState({
+    this.security = const ['Pin', 'Fingerprint',],
   });
 
-  /// A description for customProperty
-  final String customProperty;
+  /// A description for security
+  final List<String> security;
 
   @override
-  List<Object> get props => [customProperty];
+  List<Object> get props => [security];
 
   /// Creates a copy of the current SecurityState with property changes
   SecurityState copyWith({
-    String? customProperty,
+    String newSecurity
   }) {
     return SecurityState(
       customProperty: customProperty ?? this.customProperty,
