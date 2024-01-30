@@ -1,8 +1,10 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/account_page/detail_account_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/onboarding_account_setup.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
@@ -16,6 +18,7 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: isDarkMode(context)
@@ -28,12 +31,7 @@ class AccountPage extends StatelessWidget {
           Container(
             height: 200.h,
             width: double.infinity,
-            decoration: const BoxDecoration(
-                // color: ExpenseTrackerColors.violet,
-                // borderRadius: BorderRadius.all(
-                //   Radius.circular(20.r),
-                // ),
-                ),
+            decoration: const BoxDecoration(),
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +46,7 @@ class AccountPage extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '₦ 0.00',
+                  '${l10n.currencySign} 0.00',
                   style: ExpenseTrackerTextStyle.title1.copyWith(
                     // color: ExpenseTrackerColors.dark75,
                     color: isDarkMode(context)
@@ -105,7 +103,7 @@ class AccountPage extends StatelessWidget {
                     ),
                   ),
                   trailing: Text(
-                    '₦ 0.00',
+                    '${l10n.currencySign} 0.00',
                     style: ExpenseTrackerTextStyle.title3.copyWith(
                       // color: ExpenseTrackerColors.dark50,
                       color: isDarkMode(context)
