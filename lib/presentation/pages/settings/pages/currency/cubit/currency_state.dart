@@ -31,3 +31,12 @@ class CurrencyInitial extends CurrencyState {
   /// {@macro currency_initial}
   const CurrencyInitial() : super();
 }
+
+
+class CurrencyDollar extends CurrencyState {
+  const CurrencyDollar() : super();
+}
+
+class CurrencyTaka extends CurrencyState {
+  const CurrencyTaka() : super();
+}
