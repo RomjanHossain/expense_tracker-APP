@@ -6,24 +6,41 @@ part of 'notification_cubit.dart';
 class NotificationState extends Equatable {
   /// {@macro notification}
   const NotificationState({
-    this.customProperty = 'Default Value',
+    this.expenseAlert = false,
+    this.budgetAlert = false,
+    this.tipsAlert = false,
   });
 
-  /// A description for customProperty
-  final String customProperty;
+  /// expense alert
+  final bool expenseAlert;
+
+  /// budget
+  final bool budgetAlert;
+
+  /// tips & articles
+  final bool tipsAlert;
 
   @override
-  List<Object> get props => [customProperty];
+  List<Object> get props => [
+        expenseAlert,
+        budgetAlert,
+        tipsAlert,
+      ];
 
   /// Creates a copy of the current NotificationState with property changes
   NotificationState copyWith({
-    String? customProperty,
+    bool? expenseAlert,
+    bool? budgetAlert,
+    bool? tipsAlert,
   }) {
     return NotificationState(
-      customProperty: customProperty ?? this.customProperty,
+      expenseAlert: expenseAlert ?? this.expenseAlert,
+      budgetAlert: budgetAlert ?? this.budgetAlert,
+      tipsAlert: tipsAlert ?? this.tipsAlert,
     );
   }
 }
+
 /// {@template notification_initial}
 /// The initial state of NotificationState
 /// {@endtemplate}
