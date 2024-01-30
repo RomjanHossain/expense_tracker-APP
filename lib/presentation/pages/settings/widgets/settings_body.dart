@@ -43,8 +43,16 @@ class SettingsBody extends StatelessWidget {
                       GoRouter.of(context).pushNamed('theme');
                     case 'Language':
                       GoRouter.of(context).pushNamed('language');
+                    case 'Security':
+                      GoRouter.of(context).pushNamed('security');
+                    case 'Notification':
+                      GoRouter.of(context).pushNamed('notification');
+                    case 'About':
+                      context.pushNamed('about');
+                    case 'Help':
+                      context.pushNamed('help');
                     default:
-                      context.pushNamed('currency');
+                      context.pushNamed('help');
                   }
                 },
                 title: Text(x),
@@ -64,6 +72,16 @@ class SettingsBody extends StatelessWidget {
             ),
             for (final x in other)
               ListTile(
+                onTap: () {
+                  switch (x) {
+                    case 'About':
+                      context.pushNamed('about');
+                    case 'Help':
+                      context.pushNamed('help');
+                    default:
+                      context.pushNamed('help');
+                  }
+                },
                 title: Text(x),
                 trailing: const Icon(
                   Icons.navigate_next,

@@ -1,6 +1,8 @@
+import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/settings/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/currency/cubit/currency_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/currency/widgets/currency_body.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 /// {@template currency_page}
@@ -21,6 +23,9 @@ class CurrencyPage extends StatelessWidget {
       create: (context) => CurrencyCubit(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: isDarkMode(context)
+              ? ExpenseTrackerColors.dark
+              : ExpenseTrackerColors.light,
           title: const Text('Currency'),
         ),
         body: const CurrencyView(),

@@ -10,7 +10,12 @@ import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_ac
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup_intro/view/onboarding_account_setup_intro_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/view/onboarding_setup_pin_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/view/onboarding_page.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/about/about.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/currency/view/currency_page.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/help/view/help_page.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/language/language.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/notification/view/notification_page.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/security/view/security_page.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/view/theme_page.dart';
 import 'package:expense_tracker/presentation/pages/settings/view/settings_page.dart';
 import 'package:expense_tracker/presentation/pages/splash_screen/view/splash_screen_page.dart';
@@ -261,7 +266,7 @@ final routeOfTheApp = GoRouter(
               path: 'currency',
               name: 'currency',
               pageBuilder: (context, state) => CustomTransitionPage(
-                child: const ThemePage(),
+                child: const CurrencyPage(),
                 transitionDuration: 500.milliseconds,
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
@@ -281,6 +286,82 @@ final routeOfTheApp = GoRouter(
               name: 'language',
               pageBuilder: (context, state) => CustomTransitionPage(
                 child: const LanguagePage(),
+                transitionDuration: 500.milliseconds,
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return CupertinoPageTransition(
+                    primaryRouteAnimation: animation,
+                    secondaryRouteAnimation: secondaryAnimation,
+                    linearTransition: true,
+                    child: child,
+                  );
+                },
+              ),
+            ),
+
+            ///! SecurityPage
+            GoRoute(
+              path: 'security',
+              name: 'security',
+              pageBuilder: (context, state) => CustomTransitionPage(
+                child: const SecurityPage(),
+                transitionDuration: 500.milliseconds,
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return CupertinoPageTransition(
+                    primaryRouteAnimation: animation,
+                    secondaryRouteAnimation: secondaryAnimation,
+                    linearTransition: true,
+                    child: child,
+                  );
+                },
+              ),
+            ),
+
+            ///! NotificationPage
+            GoRoute(
+              path: 'notification',
+              name: 'notification',
+              pageBuilder: (context, state) => CustomTransitionPage(
+                child: const NotificationPage(),
+                transitionDuration: 500.milliseconds,
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return CupertinoPageTransition(
+                    primaryRouteAnimation: animation,
+                    secondaryRouteAnimation: secondaryAnimation,
+                    linearTransition: true,
+                    child: child,
+                  );
+                },
+              ),
+            ),
+
+            ///! About
+            GoRoute(
+              path: 'about',
+              name: 'about',
+              pageBuilder: (context, state) => CustomTransitionPage(
+                child: const AboutPage(),
+                transitionDuration: 500.milliseconds,
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return CupertinoPageTransition(
+                    primaryRouteAnimation: animation,
+                    secondaryRouteAnimation: secondaryAnimation,
+                    linearTransition: true,
+                    child: child,
+                  );
+                },
+              ),
+            ),
+
+            ///! help
+            GoRoute(
+              path: 'help',
+              name: 'help',
+              pageBuilder: (context, state) => CustomTransitionPage(
+                child: const HelpPage(),
                 transitionDuration: 500.milliseconds,
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {

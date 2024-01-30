@@ -33,6 +33,7 @@ dependencies:
   isar_flutter_libs: ^3.1.0+1
   json_annotation: ^4.8.1
   liquid_swipe: ^3.1.0
+  local_auth: ^2.1.8
   modal_bottom_sheet: ^3.0.0-pre
   path_provider: ^2.1.1
   pie_menu: ^3.1.3

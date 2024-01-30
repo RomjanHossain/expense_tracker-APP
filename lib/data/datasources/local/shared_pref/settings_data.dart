@@ -4,7 +4,7 @@ class SettingsLocalDataSourcePref {
   ///! get currency
   Future<String> getCurrency() async {
     final pref = await SharedPreferences.getInstance();
-    return pref.getString('currency') ?? 'Taka';
+    return pref.getString('currency') ?? '৳';
   }
 
   ///! set currency

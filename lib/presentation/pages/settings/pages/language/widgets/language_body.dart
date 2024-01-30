@@ -1,4 +1,3 @@
-import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/settings/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/language/cubit/language_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/components/checkmark_circle.dart';
@@ -17,7 +16,6 @@ class LanguageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageCubit, LanguageState>(
       builder: (context, state) {
-        final l10n = context.l10n;
         return Column(
           children: [
             ListTile(
@@ -33,13 +31,6 @@ class LanguageBody extends StatelessWidget {
                 context.read<LanguageCubit>().useEnglishLanguage();
               },
               trailing: state is LanguageEnglish ? const CheckMark() : null,
-            ),
-            ListTile(
-              title: const Text('Testtt'),
-              onTap: () {
-                // context.read<LanguageCubit>().useEnglishLanguage();
-                // print(AppLocalizations.);
-              },
             ),
           ],
         );
