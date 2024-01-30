@@ -1,6 +1,8 @@
+import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/settings/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/security/cubit/security_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/security/widgets/security_body.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 /// {@template security_page}
@@ -21,6 +23,9 @@ class SecurityPage extends StatelessWidget {
       create: (context) => SecurityCubit(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: isDarkMode(context)
+              ? ExpenseTrackerColors.dark
+              : ExpenseTrackerColors.light,
           title: const Text('Security'),
         ),
         body: const SecurityView(),
