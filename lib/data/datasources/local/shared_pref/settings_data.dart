@@ -1,6 +1,30 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsLocalDataSourcePref {
+  ///! is first runned
+  Future<bool> isFirstRun() async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.getBool('firstRun') ?? true;
+  }
+
+  ///! set first runned
+  Future<bool> firstRunTrue() async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.setBool('firstRun', false);
+  }
+
+  ///! setup pin
+  Future<bool> setupPin(String pin) async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.setString('userPin', pin);
+  }
+
+  ///! get pin
+  Future<String> getPin() async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.getString('userPin')??'';
+  }
+
   ///! get currency
   Future<String> getCurrency() async {
     final pref = await SharedPreferences.getInstance();
