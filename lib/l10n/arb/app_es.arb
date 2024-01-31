@@ -54,6 +54,7 @@
 	"@onboardingSetUpPin2": {
 		"description": "Sin descripción"
 	},
+	"onboardingSetUpPin3": "Ingrese su PIN",
 	"onboardingAccountSetup": "¡Vamos a configurar tu cuenta!",
 	"onboardingAccountSetup2": "La cuenta puede ser tu banco, tarjeta de crédito o tu billetera.",
 	"onboardingAccountSetupBtn": "¡Vamos!",

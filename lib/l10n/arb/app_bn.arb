@@ -54,6 +54,7 @@
 	"@onboardingSetUpPin2": {
 		"description": "কোন বর্ণনা নেই"
 	},
+	"onboardingSetUpPin3": "আপনার PIN লিখুন",
 	"onboardingAccountSetup": "চলুন, আপনার অ্যাকাউন্ট সেটআপ করা যাক!",
 	"onboardingAccountSetup2": "অ্যাকাউন্ট আপনার ব্যাংক, ক্রেডিট কার্ড অথবা ওয়ালেট হতে পারে।",
 	"onboardingAccountSetupBtn": "চলুন",
