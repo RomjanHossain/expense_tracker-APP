@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/input_btn.dart';
@@ -12,10 +15,35 @@ import 'package:go_router/go_router.dart';
 ///
 /// Add what it does
 /// {@endtemplate}
-class OnboardingSetupPinBody extends StatelessWidget {
+class OnboardingSetupPinBody extends StatefulWidget {
   /// {@macro onboarding_setup_pin_body}
-  OnboardingSetupPinBody({super.key});
+  const OnboardingSetupPinBody({super.key});
+
+  @override
+  State<OnboardingSetupPinBody> createState() => _OnboardingSetupPinBodyState();
+}
+
+class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
   final TextEditingController _controller = TextEditingController();
+  final _localPref = SettingsLocalDataSourcePref();
+  bool _isFirstTimeSetupPin = true;
+  String pin = '';
+  @override
+  void initState() {
+    _localPref.isFirstRun().then(
+          (value) => _isFirstTimeSetupPin = value,
+        );
+    _localPref.getPin().then(
+          (value) => pin = value,
+        );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   Color getColor(String pin, int index) {
     // if the pin is empty, return the default color
@@ -31,10 +59,10 @@ class OnboardingSetupPinBody extends StatelessWidget {
     return ExpenseTrackerColors.violet;
   }
 
+  int userAttempts = 0;
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    // final size = MediaQuery.of(context).size;
     return BlocConsumer<OnboardingSetupPinBloc, OnboardingSetupPinState>(
       buildWhen: (previous, current) => previous.pin != current.pin,
       builder: (context, state) {
@@ -44,9 +72,12 @@ class OnboardingSetupPinBody extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 20.h),
               child: Text(
-                _controller.text.isNotEmpty && _controller.text.length == 4
-                    ? l10n.onboardingSetUpPin2
-                    : l10n.onboardingSetUpPin,
+                _isFirstTimeSetupPin && pin.isEmpty
+                    ? _controller.text.isNotEmpty &&
+                            _controller.text.length == 4
+                        ? l10n.onboardingSetUpPin2
+                        : l10n.onboardingSetUpPin
+                    : l10n.onboardingSetUpPin3,
                 style: ExpenseTrackerTextStyle.title3.copyWith(
                   color: ExpenseTrackerColors.light,
                 ),
@@ -173,30 +204,49 @@ class OnboardingSetupPinBody extends StatelessWidget {
                       if (state.pin.length == 4)
                         ArrowButton(
                           cb: (_) {
+                            //* if user first time setup pin
+
                             if (_controller.text.isNotEmpty &&
                                 _controller.text.length == 4) {
-                              if (state.pin == _controller.text) {
-                                //TODO: goto next page
-                                context.goNamed('account-setup-intro');
-                                // Navigator.push(
-                                //   context,
-                                //   OnboardingAccountSetupIntroPage.route(),
-                                // );
-                                _controller
-                                  ..clear()
-                                  ..dispose();
+                              if (_isFirstTimeSetupPin && pin.isEmpty) {
+                                if (state.pin == _controller.text) {
+                                  context.goNamed('account-setup-intro');
+                                  _controller
+                                    ..clear()
+                                    ..dispose();
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      behavior: SnackBarBehavior.floating,
+                                      backgroundColor: ExpenseTrackerColors.red,
+                                      content: Text('Pin does not match'),
+                                    ),
+                                  );
+                                  // clear the pin
+                                  context.read<OnboardingSetupPinBloc>().add(
+                                        const ClearTextOnboardingSetupPinEvent(),
+                                      );
+                                }
                               } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    behavior: SnackBarBehavior.floating,
-                                    backgroundColor: ExpenseTrackerColors.red,
-                                    content: Text('Pin does not match'),
-                                  ),
-                                );
-                                // clear the pin
-                                context.read<OnboardingSetupPinBloc>().add(
-                                      const ClearTextOnboardingSetupPinEvent(),
-                                    );
+                                // hah! user already set up their pin
+                                //TODO: let's check it out
+                                if (_controller.text == pin) {
+                                  context.goNamed('home');
+                                } else {
+                                  _controller.text = state.pin;
+                                  // clear the pin
+                                  context.read<OnboardingSetupPinBloc>().add(
+                                        const ClearTextOnboardingSetupPinEvent(),
+                                      );
+                                  //* user pin incorrenct
+                                  userAttempts += 1;
+                                  debugPrint('user attempts $userAttempts');
+
+                                  if (userAttempts == 3) {
+                                    //! if 3 attemps then exit from the app
+                                    exit(0);
+                                  }
+                                }
                               }
                             } else {
                               _controller.text = state.pin;
