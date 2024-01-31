@@ -1,6 +1,7 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/cubit/cubit.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
@@ -157,8 +158,11 @@ class _OnboardingBodyState extends State<OnboardingBody> {
               child: Hero(
                 tag: 'intro',
                 child: PrimaryButton(
-                  onPress: () {
-                    context.pushNamed('setup-pin');
+                  onPress: () async {
+                    final prefs = SettingsLocalDataSourcePref();
+                    await prefs.firstRunTrue();
+                    if (!context.mounted) return;
+                    await context.pushNamed('setup-pin');
                   },
                   text: l10n.onboardingButton,
                 ),
