@@ -50,6 +50,7 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (context) => CurrencyCubit()..getCurrentCurrency(),
         ),
+
         /// NotificationCubit
         BlocProvider(
           create: (context) => NotificationCubit()..getNotification(),
@@ -104,3 +105,6 @@ ThemeData _getThemeModeFromState() {
       ? ExpenseTrackerTheme.darkTheme
       : ExpenseTrackerTheme.standard;
 }
+
+
+// commiting from Alif bhai

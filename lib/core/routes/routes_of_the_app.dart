@@ -5,6 +5,7 @@ import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account_page.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/view/app_home_page_page.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/view/expenseform_page.dart';
+import 'package:expense_tracker/presentation/pages/exportdata/view/exportdata_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/page/successfully_account_created.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/view/onboarding_account_setup_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup_intro/view/onboarding_account_setup_intro_page.dart';
@@ -375,6 +376,24 @@ final routeOfTheApp = GoRouter(
               ),
             ),
           ],
+        ),
+        ///! Exportdatapage
+        GoRoute(
+          path: 'export-data',
+          name: 'export-data',
+          pageBuilder: (context, state) => CustomTransitionPage(
+            child: const ExportdataPage(),
+            transitionDuration: 500.milliseconds,
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return CupertinoPageTransition(
+                primaryRouteAnimation: animation,
+                secondaryRouteAnimation: secondaryAnimation,
+                linearTransition: true,
+                child: child,
+              );
+            },
+          ),
         ),
 
         ///! AccountPage

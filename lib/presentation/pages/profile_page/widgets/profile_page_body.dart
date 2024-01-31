@@ -75,8 +75,8 @@ class ProfilePageBody extends StatelessWidget {
                         Text(
                           'Iriana Saliha',
                           style: ExpenseTrackerTextStyle.title2.copyWith(
-                            color:  isDarkMode(context)
-                                ? ExpenseTrackerColors.light60 
+                            color: isDarkMode(context)
+                                ? ExpenseTrackerColors.light60
                                 : ExpenseTrackerColors.dark75,
                             fontWeight: FontWeight.bold,
                           ),
@@ -103,7 +103,7 @@ class ProfilePageBody extends StatelessWidget {
                   vertical: 0.05.sh,
                 ),
                 decoration: BoxDecoration(
-                  color:  isDarkMode(context)
+                  color: isDarkMode(context)
                       ? ExpenseTrackerColors.dark
                       : ExpenseTrackerColors.light,
                   borderRadius: BorderRadius.circular(20.r),
@@ -127,6 +127,27 @@ class ProfilePageBody extends StatelessWidget {
                                 context.pushNamed(
                                   'settings',
                                 );
+                              case 'Export Data':
+                                context.pushNamed(
+                                  'export-data',
+                                );
+                              case 'Import Data':
+                              /*
+                              This will be a alert box for importing data
+                               */
+                              // context.pushNamed(
+                              //   'import-data',
+                              // );
+                              case 'Logout':
+                                // show a snack bar for logout
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Logout'),
+                                  ),
+                                );
+                              // context.pushNamed(
+                              //   'logout',
+                              // );
 
                               default:
                                 context.pushNamed(
