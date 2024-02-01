@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/bloc/bloc.dart';
@@ -36,6 +37,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
     _localPref.getPin().then(
           (value) => pin = value,
         );
+    debugPrint('This is pin -> $pin');
     super.initState();
   }
 
@@ -72,7 +74,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 20.h),
               child: Text(
-                _isFirstTimeSetupPin && pin.isEmpty
+                _isFirstTimeSetupPin || pin.isEmpty
                     ? _controller.text.isNotEmpty &&
                             _controller.text.length == 4
                         ? l10n.onboardingSetUpPin2
@@ -208,8 +210,17 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
 
                             if (_controller.text.isNotEmpty &&
                                 _controller.text.length == 4) {
-                              if (_isFirstTimeSetupPin && pin.isEmpty) {
+                              if (_isFirstTimeSetupPin || pin.isEmpty) {
                                 if (state.pin == _controller.text) {
+                                  // save the pin
+                                  _localPref
+                                      .setupPin(_controller.text)
+                                      .then((value) {
+                                    // show a success snackbar
+                                    if (value) {
+                                      showToast('Pin Setup Successful');
+                                    }
+                                  });
                                   context.goNamed('account-setup-intro');
                                   _controller
                                     ..clear()
@@ -260,7 +271,14 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                       else
                         Button(
                           text: '',
-                          cb: (s) {},
+                          cb: (s) {
+                            debugPrint('pin from the ldb -> $pin');
+                            if (pin.isEmpty) {
+                              debugPrint('statement');
+                            } else {
+                              debugPrint('not statement');
+                            }
+                          },
                         ),
                     ]),
                   ],
