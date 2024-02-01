@@ -55,6 +55,7 @@
 		"description": "Sin descripción"
 	},
 	"onboardingSetUpPin3": "Ingrese su PIN",
+	"onboardingSetupSuccess": "Su PIN ha sido configurado",
 	"onboardingAccountSetup": "¡Vamos a configurar tu cuenta!",
 	"onboardingAccountSetup2": "La cuenta puede ser tu banco, tarjeta de crédito o tu billetera.",
 	"onboardingAccountSetupBtn": "¡Vamos!",
