@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsLocalDataSourcePref {
@@ -22,7 +23,8 @@ class SettingsLocalDataSourcePref {
   ///! get pin
   Future<String> getPin() async {
     final pref = await SharedPreferences.getInstance();
-    return pref.getString('userPin')??'';
+    final pin = pref.getString('userPin');
+    return pin ?? '';
   }
 
   ///! get currency
