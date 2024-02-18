@@ -3,12 +3,13 @@ import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/account_type_helper.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_banking.dart';
-import 'package:expense_tracker/data/datasources/local/utils_data/local_mobile_banking.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/mobile_banking_db.dart';
-import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/onboarding_account_setup_bloc.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/components/account_name_textfield.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/components/account_type_dropdown.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -56,10 +57,12 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
               ? 300.h
               : 450.h,
       padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         // color: ExpenseTrackerColors.violet,
-        color: ExpenseTrackerColors.light,
-        borderRadius: BorderRadius.only(
+        color: isDarkMode(context)
+            ? ExpenseTrackerColors.dark
+            : ExpenseTrackerColors.light,
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
@@ -82,7 +85,9 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                 textAlign: TextAlign.left,
                 style: ExpenseTrackerTextStyle.body1.copyWith(
                   fontWeight: FontWeight.w600,
-                  // color: ExpenseTrackerColors.light80.withOpacity(0.64),
+                  color: isDarkMode(context)
+                      ? ExpenseTrackerColors.light80.withOpacity(0.64)
+                      : ExpenseTrackerColors.light80.withOpacity(0.64),
                 ),
               ),
             ),
@@ -93,14 +98,6 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                 width: double.infinity,
                 child: Wrap(
                   alignment: WrapAlignment.center,
-                  // physics: const NeverScrollableScrollPhysics(),
-                  // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  //   crossAxisCount: 4,
-                  //   crossAxisSpacing: 10,
-                  //   mainAxisSpacing: 10,
-                  //   childAspectRatio: 1.5,
-                  //   mainAxisExtent: 50,
-                  // ),
                   children: [
                     //! if mobile banking
                     if (createACState.acType == AccountType.mobileBanking)
@@ -185,7 +182,9 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                     InkWell(
                       onTap: () async {
                         showBottomSheet(
-                          backgroundColor: ExpenseTrackerColors.light,
+                          backgroundColor: isDarkMode(context)
+                              ? ExpenseTrackerColors.dark
+                              : ExpenseTrackerColors.light,
                           elevation: 1,
                           context: context,
                           builder: (context) => SizedBox(
@@ -208,7 +207,10 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                     style:
                                         ExpenseTrackerTextStyle.body1.copyWith(
                                       fontWeight: FontWeight.w600,
-                                      // color: ExpenseTrackerColors.light80.withOpacity(0.64),
+                                      color: isDarkMode(context)
+                                          ? ExpenseTrackerColors.light80
+                                          : ExpenseTrackerColors.dark
+                                              .withOpacity(0.64),
                                     ),
                                   ),
                                 ),
@@ -419,120 +421,10 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                   );
                 }
               },
-              child: Text('Continue'),
+              child: const Text('Continue'),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class AccountTypeDropdown extends StatelessWidget {
-  const AccountTypeDropdown({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    return DropdownButtonFormField(
-      dropdownColor: ExpenseTrackerColors.violet,
-      items: accountTypesDBwithTrans(context)
-          .map(
-            (e) => DropdownMenuItem(
-              value: e,
-              child: Text(
-                e,
-                style: ExpenseTrackerTextStyle.body3.copyWith(
-                  color: ExpenseTrackerColors.light20,
-                ),
-              ),
-            ),
-          )
-          .toList(),
-      isExpanded: true,
-      decoration: InputDecoration(
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.violet,
-          ),
-        ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
-        ),
-        hintText: l10n.accountType,
-        enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
-      ),
-      borderRadius: BorderRadius.circular(20),
-      icon: const Icon(
-        Icons.keyboard_arrow_down,
-        color: ExpenseTrackerColors.light20,
-      ),
-      onChanged: (d) {
-        if (d is String) {
-          context.read<OnboardingAccountSetupBloc>().add(
-                AddAccountTypeEvent(AccountTypeHelper.fromString(d)),
-              );
-          // _onAccountTypeChanged(d);
-        }
-      },
-    );
-  }
-}
-
-class AccountNameTextField extends StatelessWidget {
-  const AccountNameTextField({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    return TextField(
-      keyboardType: TextInputType.name,
-      onChanged: (d) {
-        context.read<OnboardingAccountSetupBloc>().add(
-              AddAccountNameEvent(d),
-            );
-      },
-      decoration: InputDecoration(
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.violet,
-          ),
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
-        ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
-        ),
-        hintText: l10n.accountName,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
       ),
     );
   }
