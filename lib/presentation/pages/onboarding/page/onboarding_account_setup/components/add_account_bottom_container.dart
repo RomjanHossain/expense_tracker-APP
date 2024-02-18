@@ -1,16 +1,17 @@
-import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
+import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/account_type_helper.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_banking.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_mobile_banking.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/mobile_banking_db.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
-import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/bloc.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
+import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/onboarding_account_setup_bloc.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class AddAccountBottomContainer extends StatefulWidget {
@@ -183,7 +184,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                     /// * see all
                     InkWell(
                       onTap: () async {
-                        showBottomSheet<OnboardingAccountSetupBloc>(
+                        showBottomSheet(
                           backgroundColor: ExpenseTrackerColors.light,
                           elevation: 1,
                           context: context,
@@ -383,8 +384,8 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
           ],
           Hero(
             tag: 'onboarding_account_setup_intro_button',
-            child: PrimaryButton(
-              onPress: () {
+            child: ElevatedButton(
+              onPressed: () {
                 debugPrint('Balance: ${createACState.acBalance}');
                 debugPrint('Name: ${createACState.acName}');
                 debugPrint('Type: ${createACState.acType}');
@@ -418,7 +419,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                   );
                 }
               },
-              text: 'Continue',
+              child: Text('Continue'),
             ),
           ),
         ],

@@ -71,9 +71,8 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                 showModalBottomSheet<void>(
                   context: context,
                   isDismissible: false,
-                  backgroundColor: isDarkMode(context)
-                      ? ExpenseTrackerColors.dark
-                      : null,
+                  backgroundColor:
+                      isDarkMode(context) ? ExpenseTrackerColors.dark : null,
                   builder: (context) {
                     return SizedBox(
                       height: 200.h,
@@ -101,17 +100,17 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: SecondaryButton(
-                                    onPress: () => Navigator.pop(context),
-                                    text: 'No',
+                                  child: OutlinedButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text('No'),
                                   ),
                                 ),
                                 SizedBox(
                                   width: 10.w,
                                 ),
                                 Expanded(
-                                  child: PrimaryButton(
-                                    onPress: () async {
+                                  child: ElevatedButton(
+                                    onPressed: () async {
                                       Navigator.pop(context);
                                       // show alert dialog for 2 seconds then pop
                                       await showDialog<void>(
@@ -128,7 +127,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                         },
                                       );
                                     },
-                                    text: 'Yes',
+                                    child: Text('Yes'),
                                   ),
                                 ),
                               ],

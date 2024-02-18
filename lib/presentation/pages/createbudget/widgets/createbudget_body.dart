@@ -207,8 +207,8 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
                     ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: PrimaryButton(
-                      onPress: () {
+                    child: ElevatedButton(
+                      onPressed: () {
                         // get all values
                         final amount = double.tryParse(
                           _accountBalanceController.text,
@@ -235,7 +235,7 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
                             'isReceiveAlert :${state.budget.isReceiveAlert}');
                         debugPrint('percent :${state.budget.percent}');
                       },
-                      text: 'Continue',
+                      child: Text('Continue'),
                     ),
                   ),
                 ],

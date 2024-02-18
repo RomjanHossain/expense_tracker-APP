@@ -52,21 +52,21 @@ class RemoveBudgetSheet extends StatelessWidget {
             children: [
               // cancel
               Expanded(
-                child: SecondaryButton(
-                  onPress: () {
+                child: OutlinedButton(
+                  onPressed: () {
                     Navigator.pop(context);
                   },
-                  text: 'Cancel',
+                  child: const Text('Cancel'),
                 ),
               ),
               SizedBox(width: 10.w),
               // delete
               Expanded(
-                child: PrimaryButton(
-                  onPress: () {
+                child: ElevatedButton(
+                  onPressed: () {
                     Navigator.pop(context);
                   },
-                  text: 'Delete',
+                  child:const Text ('Delete'),
                 ),
               ),
             ],

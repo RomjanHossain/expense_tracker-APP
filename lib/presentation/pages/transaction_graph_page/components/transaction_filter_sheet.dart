@@ -214,7 +214,7 @@ class _TransactionFilterSheetState extends State<TransactionFilterSheet> {
             height: 10.h,
           ),
           // apply button
-          PrimaryButton(onPress: () {}, text: 'Apply')
+          ElevatedButton(onPressed: () {}, child: Text('Apply'))
         ],
       ),
     );

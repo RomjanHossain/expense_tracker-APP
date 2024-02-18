@@ -22,14 +22,14 @@ class OnboardingAccountSetupIntroPage extends StatelessWidget {
         elevation: 0,
         child: Hero(
           tag: 'onboarding_account_setup_intro_button',
-          child: PrimaryButton(
-            onPress: () {
+          child: ElevatedButton(
+            onPressed: () {
               // Navigator.push(context, OnboardingAccountSetupPage.route());
               context.pushNamed(
                 'account-setup',
               );
             },
-            text: l10n.onboardingAccountSetupBtn,
+            child: Text(l10n.onboardingAccountSetupBtn),
           ),
         ),
       ),

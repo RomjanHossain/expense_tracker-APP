@@ -247,11 +247,11 @@ class QuickReportsView extends StatelessWidget {
           if (type == ExpenseType.transfer)
             Padding(
               padding: const EdgeInsets.all(8),
-              child: SecondaryButton(
-                onPress: () {
+              child: OutlinedButton(
+                onPressed: () {
                   Navigator.push(context, ExpensereportPage.route());
                 },
-                text: 'See full details',
+                child:Text( 'See full details'),
               ),
             ),
         ],

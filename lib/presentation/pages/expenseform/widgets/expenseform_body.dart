@@ -437,9 +437,9 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           ),
                         ),
                         Expanded(
-                          child: SecondaryButton(
-                            text: 'Edit',
-                            onPress: () => showModalBottomSheet<void>(
+                          child: OutlinedButton(
+                            child: const Text('Edit'),
+                            onPressed: () => showModalBottomSheet<void>(
                               context: context,
                               builder: (context) =>
                                   const SubscriptionBottomSheet(),
@@ -452,8 +452,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                   //! ** a submit button */
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: PrimaryButton(
-                      onPress: () {
+                    child: ElevatedButton(
+                      onPressed: () {
                         debugPrint(
                           'Money Amount: ${_accountBalanceController.text}',
                         );
@@ -505,7 +505,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           );
                         }
                       },
-                      text: 'Continue',
+                      child: const Text('Continue'),
                     ),
                   ),
                 ],

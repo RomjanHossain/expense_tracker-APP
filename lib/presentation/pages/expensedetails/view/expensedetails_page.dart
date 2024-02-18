@@ -95,7 +95,7 @@ class ExpensedetailsPage extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: isDarkMode(context)
                                 ? ExpenseTrackerColors.dark25
-                                : ExpenseTrackerColors.light40 ,
+                                : ExpenseTrackerColors.light40,
                             borderRadius: BorderRadius.circular(10.r),
                           ),
                         ),
@@ -109,7 +109,7 @@ class ExpensedetailsPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                       horizontal: 10.w,
                     ),
-                    child: PrimaryButton(onPress: () {}, text: 'Edit'),
+                    child: ElevatedButton(onPressed: () {}, child:Text ('Edit')),
                   ),
                   // const ExpensedetailsView(),
                 ],

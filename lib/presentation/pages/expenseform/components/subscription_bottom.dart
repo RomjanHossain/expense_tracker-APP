@@ -223,8 +223,8 @@ class SubscriptionBottomSheet extends StatelessWidget {
                 },
               ),
 
-              PrimaryButton(
-                onPress: () {
+              ElevatedButton(
+                onPressed: () {
                   debugPrint(
                     'sub end date : ${state.expenseFormEntity.subEnd}',
                   );
@@ -259,7 +259,7 @@ class SubscriptionBottomSheet extends StatelessWidget {
                   }
                   Navigator.of(context).pop();
                 },
-                text: 'Next',
+                child: Text('Next'),
               ),
             ],
           ),

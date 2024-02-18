@@ -123,7 +123,7 @@ class DetailBudget extends StatelessWidget {
                 ),
               ],
             ),
-            PrimaryButton(onPress: () {}, text: 'Edit'),
+            ElevatedButton(onPressed: () {}, child: Text('Edit')),
           ],
         ),
       ),

@@ -164,9 +164,9 @@ class BudgetBody extends StatelessWidget {
                       ? ExpenseTrackerColors.dark75
                       : ExpenseTrackerColors.light80,
                   closedBuilder: (context, action) {
-                    return PrimaryButton(
-                      onPress: action,
-                      text: 'Create a Budget',
+                    return ElevatedButton(
+                      onPressed: action,
+                      child: Text('Create a Budget'),
                     );
                   },
                   openBuilder: (context, action) {

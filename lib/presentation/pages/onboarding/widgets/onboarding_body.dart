@@ -157,14 +157,14 @@ class _OnboardingBodyState extends State<OnboardingBody> {
               ),
               child: Hero(
                 tag: 'intro',
-                child: PrimaryButton(
-                  onPress: () async {
+                child: ElevatedButton(
+                  onPressed: () async {
                     final prefs = SettingsLocalDataSourcePref();
                     await prefs.firstRunTrue();
                     if (!context.mounted) return;
                     await context.pushNamed('setup-pin');
                   },
-                  text: l10n.onboardingButton,
+                  child: Text(l10n.onboardingButton),
                 ),
               ),
             ),
