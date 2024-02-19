@@ -36,11 +36,10 @@ class ExpensereportBody extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: DropdownButtonFormField(
-                      // hint: Text('Frequency'),
-                      focusColor: ExpenseTrackerColors.light,
-                      decoration: dropdownInputDecoration('Frequency').copyWith(
-                        fillColor: ExpenseTrackerColors.light,
-                      ),
+                      focusColor: isDarkMode(context)
+                          ? ExpenseTrackerColors.dark75
+                          : ExpenseTrackerColors.light,
+                      decoration: dropdownInputDecoration('Frequency'),
                       isExpanded: true,
                       items: subscriptionsFrequency
                           .map(
@@ -88,7 +87,7 @@ class ExpensereportBody extends StatelessWidget {
                       style: ExpenseTrackerTextStyle.title2.copyWith(
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.2,
-                        color:  isDarkMode(context)
+                        color: isDarkMode(context)
                             ? ExpenseTrackerColors.light
                             : ExpenseTrackerColors.dark,
                       ),
@@ -120,7 +119,7 @@ class ExpensereportBody extends StatelessWidget {
                             style: ExpenseTrackerTextStyle.title2.copyWith(
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1.2,
-                              color:  isDarkMode(context)
+                              color: isDarkMode(context)
                                   ? ExpenseTrackerColors.light
                                   : ExpenseTrackerColors.dark,
                             ),
