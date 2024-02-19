@@ -27,38 +27,14 @@ class AccountTypeDropdown extends StatelessWidget {
                 style: ExpenseTrackerTextStyle.body3.copyWith(
                   color: isDarkMode(context)
                       ? ExpenseTrackerColors.light80
-                      : ExpenseTrackerColors.dark,
+                      : ExpenseTrackerColors.dark75,
                 ),
               ),
             ),
           )
           .toList(),
       isExpanded: true,
-      decoration: InputDecoration(
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.violet,
-          ),
-        ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
-        ),
-        hintText: l10n.accountType,
-        enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
-      ),
+      decoration: dropdownInputDecoration(l10n.accountType),
       borderRadius: BorderRadius.circular(20),
       icon: const Icon(
         Icons.keyboard_arrow_down,
