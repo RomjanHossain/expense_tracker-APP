@@ -35,13 +35,11 @@ class TransactionGraphPageBody extends StatelessWidget {
                     // show dropdown of subscriptionsFrequency
                     Expanded(
                       child: DropdownButtonFormField(
-                        decoration:
-                            dropdownInputDecoration('Frequency').copyWith(
-                          // fillColor: ExpenseTrackerColors.light,
-                          fillColor: !isDarkMode(context)
-                              ? ExpenseTrackerColors.light
-                              : ExpenseTrackerColors.dark,
-                        ),
+                        dropdownColor: ExpenseTrackerColors.violet,
+                        focusColor: isDarkMode(context)
+                            ? ExpenseTrackerColors.dark75
+                            : ExpenseTrackerColors.light,
+                        decoration: dropdownInputDecoration('Frequency'),
                         items: subscriptionsFrequency
                             .map(
                               (e) => DropdownMenuItem(
@@ -157,7 +155,7 @@ class TransactionGraphPageBody extends StatelessWidget {
                 style: ExpenseTrackerTextStyle.title3.copyWith(
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.5,
-                  color: ! isDarkMode(context)
+                  color: !isDarkMode(context)
                       ? ExpenseTrackerColors.dark
                       : ExpenseTrackerColors.light,
                 ),
