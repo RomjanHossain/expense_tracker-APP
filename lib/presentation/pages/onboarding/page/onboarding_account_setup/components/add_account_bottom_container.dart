@@ -143,7 +143,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                     //! all bnaking
                     if (createACState.acType == AccountType.bank ||
                         createACState.acType == AccountType.creditCard)
-                      for (final i in realBanking.getRange(0, 7))
+                      for (final i in realBanking.keys.toList().getRange(0, 7))
                         InkWell(
                           onTap: () {
                             context.read<OnboardingAccountSetupBloc>().add(
@@ -172,7 +172,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                       ),
                               ),
                               child: Image.asset(
-                                '${ExpenseAssets.bankingAsset}$i.png',
+                                realBanking[i]!,
                               ),
                             ),
                           ),
@@ -223,7 +223,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                                 AccountType.bank ||
                                             createACState.acType ==
                                                 AccountType.creditCard)
-                                          for (final i in realBanking)
+                                          for (final i in realBanking.keys)
                                             BlocConsumer<
                                                 OnboardingAccountSetupBloc,
                                                 OnboardingAccountSetupState>(
@@ -280,7 +280,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                                               ),
                                                       ),
                                                       child: Image.asset(
-                                                        '${ExpenseAssets.bankingAsset}$i.png',
+                                                        realBanking[i]!,
                                                       ),
                                                     ),
                                                   ),
