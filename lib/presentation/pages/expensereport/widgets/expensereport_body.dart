@@ -107,27 +107,28 @@ class ExpensereportBody extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                      child: Stack(
-                    children: [
-                      ExpensePieGraph(
-                        pieRadius: 5.r * 4,
-                      ),
-                      Positioned.fill(
-                        child: Center(
-                          child: Text(
-                            r'$3245',
-                            style: ExpenseTrackerTextStyle.title2.copyWith(
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.2,
-                              color: isDarkMode(context)
-                                  ? ExpenseTrackerColors.light
-                                  : ExpenseTrackerColors.dark,
+                    child: Stack(
+                      children: [
+                        ExpensePieGraph(
+                          pieRadius: 5.r * 4,
+                        ),
+                        Positioned.fill(
+                          child: Center(
+                            child: Text(
+                              r'$3245',
+                              style: ExpenseTrackerTextStyle.title2.copyWith(
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.2,
+                                color: isDarkMode(context)
+                                    ? ExpenseTrackerColors.light
+                                    : ExpenseTrackerColors.dark,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  )),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

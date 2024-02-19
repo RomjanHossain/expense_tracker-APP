@@ -32,6 +32,6 @@ class OnboardingSetupPinView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OnboardingSetupPinBody();
+    return const OnboardingSetupPinBody();
   }
 }

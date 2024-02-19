@@ -66,7 +66,7 @@ class ExpenseformPage extends StatelessWidget {
 /// {@endtemplate}
 class ExpenseformView extends StatelessWidget {
   /// {@macro expenseform_view}
-  const ExpenseformView({super.key, required this.expenseType});
+  const ExpenseformView({required this.expenseType, super.key});
   final ExpenseType expenseType;
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,6 @@ import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/cubit/cubit.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -54,12 +53,12 @@ class _OnboardingBodyState extends State<OnboardingBody> {
       },
       builder: (context, state) {
         final l10n = context.l10n;
-        final List<String> _subtitles = [
+        final subtitles = <String>[
           l10n.onboardingSubtitle1,
           l10n.onboardingSubtitle2,
           l10n.onboardingSubtitle3,
         ];
-        final List<String> _titles = [
+        final titles = <String>[
           l10n.onboardingTitle1,
           l10n.onboardingSubtitle2,
           l10n.onboardingSubtitle3,
@@ -103,14 +102,14 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                           ),
                           const SizedBox(height: 20),
                           Text(
-                            _titles[index],
-                            style: ExpenseTrackerTextStyle.title1!
+                            titles[index],
+                            style: ExpenseTrackerTextStyle.title1
                                 .copyWith(fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(height: 25.h),
                           Text(
-                            _subtitles[index],
+                            subtitles[index],
                             style: ExpenseTrackerTextStyle.body1.copyWith(
                               fontWeight: FontWeight.w400,
                               color: ExpenseTrackerColors.charcoal,

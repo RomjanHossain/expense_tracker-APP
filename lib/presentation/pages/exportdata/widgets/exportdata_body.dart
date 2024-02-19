@@ -15,7 +15,7 @@ class ExportdataBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _questionStyle = ExpenseTrackerTextStyle.body1.copyWith(
+    final questionStyle = ExpenseTrackerTextStyle.body1.copyWith(
       color: ExpenseTrackerColors.dark75,
       fontWeight: FontWeight.w400,
     );
@@ -29,7 +29,7 @@ class ExportdataBody extends StatelessWidget {
             children: [
               Text(
                 'What data do your want to export?',
-                style: _questionStyle,
+                style: questionStyle,
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -37,7 +37,7 @@ class ExportdataBody extends StatelessWidget {
                   bottom: 20.h,
                 ),
                 child: DropdownButtonFormField(
-                  items: [],
+                  items: const [],
                   onChanged: (_) {},
                   borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
                   // underline: Container(),
@@ -79,7 +79,7 @@ class ExportdataBody extends StatelessWidget {
               ),
               Text(
                 'When date range?',
-                style: _questionStyle,
+                style: questionStyle,
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -87,7 +87,7 @@ class ExportdataBody extends StatelessWidget {
                   bottom: 20.h,
                 ),
                 child: DropdownButtonFormField(
-                  items: [],
+                  items: const [],
                   onChanged: (_) {},
                   borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
                   // underline: Container(),
@@ -129,7 +129,7 @@ class ExportdataBody extends StatelessWidget {
               ),
               Text(
                 'What format do you want to export?',
-                style: _questionStyle,
+                style: questionStyle,
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -137,7 +137,7 @@ class ExportdataBody extends StatelessWidget {
                   bottom: 20.h,
                 ),
                 child: DropdownButtonFormField(
-                  items: [],
+                  items: const [],
                   onChanged: (_) {},
                   borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
                   // underline: Container(),
@@ -177,7 +177,7 @@ class ExportdataBody extends StatelessWidget {
                       ExpenseTrackerColors.violet, // Dropdown open Color
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 48),
@@ -191,11 +191,11 @@ class ExportdataBody extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(CupertinoIcons.arrow_down_to_line),
+                    const Icon(CupertinoIcons.arrow_down_to_line),
                     SizedBox(
                       width: 10.w,
                     ),
-                    Text('Export'),
+                    const Text('Export'),
                   ],
                 ),
               ),

@@ -282,7 +282,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                         ),
                     ]),
                   ],
-                )),
+                ),),
           ],
         );
       },

@@ -5,7 +5,6 @@ import 'package:expense_tracker/presentation/pages/budget/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/createbudget/view/createbudget_page.dart';
 import 'package:expense_tracker/presentation/pages/detailbudget/detail_budget.dart';
 import 'package:expense_tracker/presentation/widgets/amount_progress_indicator.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/presentation/widgets/category_with_border.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
@@ -113,7 +112,7 @@ class BudgetBody extends StatelessWidget {
                                 vertical: 10.h,
                               ),
                               child: const AmountProgressIndicator(
-                                  color: ExpenseTrackerColors.blue, value: 0.5),
+                                  color: ExpenseTrackerColors.blue, value: 0.5,),
                             ),
                             Text(
                               r'$1200 of $2000',
@@ -166,7 +165,7 @@ class BudgetBody extends StatelessWidget {
                   closedBuilder: (context, action) {
                     return ElevatedButton(
                       onPressed: action,
-                      child: Text('Create a Budget'),
+                      child: const Text('Create a Budget'),
                     );
                   },
                   openBuilder: (context, action) {

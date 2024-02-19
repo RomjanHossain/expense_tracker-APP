@@ -1,5 +1,3 @@
-import 'dart:math';
-import 'dart:ui';
 
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
@@ -7,7 +5,6 @@ import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/account_page/detail_account_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/onboarding_account_setup.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

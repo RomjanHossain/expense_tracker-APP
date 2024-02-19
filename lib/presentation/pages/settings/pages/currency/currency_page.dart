@@ -9,8 +9,8 @@ class CurrencyPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Currency'),
       ),
-      body: Column(
-        children: [],
+      body: const Column(
+        
       ),
     );
   }

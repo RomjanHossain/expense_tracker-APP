@@ -25,7 +25,7 @@ class HomeSegmentedButtonsWidget extends StatelessWidget {
                     fontWeight: states.contains(MaterialState.selected)
                         ? FontWeight.bold
                         : FontWeight.normal,
-                  )),
+                  ),),
           side: MaterialStateProperty.all(
             BorderSide.none,
           ),

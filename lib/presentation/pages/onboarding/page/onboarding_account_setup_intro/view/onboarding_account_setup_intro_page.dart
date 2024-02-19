@@ -1,7 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup_intro/widgets/onboarding_account_setup_intro_body.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

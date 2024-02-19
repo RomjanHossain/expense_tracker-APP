@@ -23,7 +23,7 @@ class DetailAccountPage extends StatelessWidget {
           // edit icon btn
           IconButton(
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.edit,
               // color: Colors.white,
             ),

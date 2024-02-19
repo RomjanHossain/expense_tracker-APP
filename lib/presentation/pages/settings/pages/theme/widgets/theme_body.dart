@@ -1,6 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:expense_tracker/app/ui/src/theme.dart';
-import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/settings/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/components/checkmark_circle.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';

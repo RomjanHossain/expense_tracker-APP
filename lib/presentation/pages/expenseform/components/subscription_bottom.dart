@@ -3,7 +3,6 @@ import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/expenseform_bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/widgets/expenseform_body.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -209,7 +208,7 @@ class SubscriptionBottomSheet extends StatelessWidget {
                     }
                     // check if the end date is before the start date
                     if (date.isBefore(
-                        state.expenseFormEntity.subStart ?? DateTime.now())) {
+                        state.expenseFormEntity.subStart ?? DateTime.now(),)) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text(
@@ -264,7 +263,7 @@ class SubscriptionBottomSheet extends StatelessWidget {
                   }
                   Navigator.of(context).pop();
                 },
-                child: Text('Next'),
+                child: const Text('Next'),
               ),
             ],
           ),

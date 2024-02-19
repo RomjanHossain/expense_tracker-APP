@@ -62,7 +62,6 @@ class TransactionGraphPageBody extends StatelessWidget {
                         ),
                       ),
                       backgroundColor: ExpenseTrackerColors.violet,
-                      isLabelVisible: true,
                       // alignment: Alignment.center,
                       largeSize: 20.r,
                       child: IconButton.filled(

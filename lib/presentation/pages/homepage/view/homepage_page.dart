@@ -59,7 +59,7 @@ class _HomepagePageState extends State<HomepagePage> {
                         ] else ...[
                           const Color(0x0ffff6e5),
                           const Color(0xffF8EDD8),
-                        ]
+                        ],
                       ],
                     ),
                   ),

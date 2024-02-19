@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
@@ -23,7 +22,6 @@ import 'package:expense_tracker/presentation/pages/splash_screen/view/splash_scr
 import 'package:expense_tracker/services/animation/page_transitions.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 

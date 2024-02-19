@@ -23,7 +23,7 @@ class OnboardingAccountSetupBloc
   ) {
     emit(state.copyWith(
       balance: event.balance,
-    ));
+    ),);
   }
 
   FutureOr<void> _onAddAccountTypeEvent(
@@ -34,7 +34,7 @@ class OnboardingAccountSetupBloc
     debugPrint('Account Type fromState: ${state.createAccount.acType}');
     emit(state.copyWith(
       accountType: event.accountType,
-    ));
+    ),);
     debugPrint('Account Type fromState: ${state.createAccount.acType}');
   }
 
@@ -44,7 +44,7 @@ class OnboardingAccountSetupBloc
   ) {
     emit(state.copyWith(
       accountName: event.accountName,
-    ));
+    ),);
   }
 
   FutureOr<void> _onAddAccountLogoEvent(
@@ -53,7 +53,7 @@ class OnboardingAccountSetupBloc
   ) {
     emit(state.copyWith(
       accountLogo: event.accountLogo,
-    ));
+    ),);
   }
 
   FutureOr<void> _onCustomOnboardingAccountSetupEvent(

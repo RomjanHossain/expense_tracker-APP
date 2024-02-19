@@ -2,10 +2,8 @@ import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/presentation/pages/createbudget/cubit/cubit.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/expense_category_tracker_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -232,10 +230,10 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
                         debugPrint('amount :${state.budget.amount}');
                         debugPrint('category :${state.budget.category}');
                         debugPrint(
-                            'isReceiveAlert :${state.budget.isReceiveAlert}');
+                            'isReceiveAlert :${state.budget.isReceiveAlert}',);
                         debugPrint('percent :${state.budget.percent}');
                       },
-                      child: Text('Continue'),
+                      child: const Text('Continue'),
                     ),
                   ),
                 ],
@@ -266,7 +264,7 @@ class CustomRoundedRectangleBorder extends SliderComponentShape {
       required TextDirection textDirection,
       required double value,
       required double textScaleFactor,
-      required Size sizeWithOverflow}) {
+      required Size sizeWithOverflow,}) {
     final canvas = context.canvas;
     final paint = Paint()
       ..color = ExpenseTrackerColors.violet

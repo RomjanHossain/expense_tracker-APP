@@ -1,7 +1,6 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/detail_center_card.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/sucess_alter.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/cupertino.dart';
@@ -96,13 +95,13 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                             textAlign: TextAlign.center,
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8),
                             child: Row(
                               children: [
                                 Expanded(
                                   child: OutlinedButton(
                                     onPressed: () => Navigator.pop(context),
-                                    child: Text('No'),
+                                    child: const Text('No'),
                                   ),
                                 ),
                                 SizedBox(
@@ -127,7 +126,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                         },
                                       );
                                     },
-                                    child: Text('Yes'),
+                                    child: const Text('Yes'),
                                   ),
                                 ),
                               ],

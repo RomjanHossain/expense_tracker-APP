@@ -1,8 +1,6 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
-import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/detailbudget/components/delete_budget_sheet.dart';
 import 'package:expense_tracker/presentation/widgets/amount_progress_indicator.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/presentation/widgets/category_with_border.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/cupertino.dart';
@@ -123,7 +121,7 @@ class DetailBudget extends StatelessWidget {
                 ),
               ],
             ),
-            ElevatedButton(onPressed: () {}, child: Text('Edit')),
+            ElevatedButton(onPressed: () {}, child: const Text('Edit')),
           ],
         ),
       ),

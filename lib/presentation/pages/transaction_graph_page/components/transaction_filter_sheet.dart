@@ -1,7 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/data/datasources/local/category/category_local_data.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -214,7 +213,7 @@ class _TransactionFilterSheetState extends State<TransactionFilterSheet> {
             height: 10.h,
           ),
           // apply button
-          ElevatedButton(onPressed: () {}, child: Text('Apply'))
+          ElevatedButton(onPressed: () {}, child: const Text('Apply')),
         ],
       ),
     );

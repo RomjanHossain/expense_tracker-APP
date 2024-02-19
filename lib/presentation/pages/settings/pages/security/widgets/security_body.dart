@@ -45,7 +45,7 @@ class SecurityBody extends StatelessWidget {
                   SnackBar(
                     content: Text(canAuthenticate
                         ? 'Fingerprint feature is not available right now'
-                        : 'Fingerprint is not available'),
+                        : 'Fingerprint is not available',),
                   ),
                 );
               },
