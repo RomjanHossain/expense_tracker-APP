@@ -91,16 +91,16 @@ class ExpenseTrackerTheme {
     );
   }
 
-  /// border radius [small]
+  /// border radius [small] 10
   static const borderRadiusSmall = BorderRadius.all(Radius.circular(10));
 
-  /// border radius [medium]
+  /// border radius [medium] 16
   static const borderRadiusMedium = BorderRadius.all(Radius.circular(16));
 
-  /// border radius [large]
+  /// border radius [large] 20
   static const borderRadiusLarge = BorderRadius.all(Radius.circular(20));
 
   // ignore: comment_references
-  /// border radius [extraLarge]
+  /// border radius [extraLarge] 30
   static const borderRadiusExtraLarge = BorderRadius.all(Radius.circular(30));
 }
