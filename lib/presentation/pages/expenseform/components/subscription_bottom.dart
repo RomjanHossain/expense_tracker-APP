@@ -4,6 +4,7 @@ import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart'
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/expenseform_bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/widgets/expenseform_body.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -76,6 +77,10 @@ class SubscriptionBottomSheet extends StatelessWidget {
                   // frequency dropdown
                   Expanded(
                     child: DropdownButtonFormField(
+                      dropdownColor: ExpenseTrackerColors.violet,
+                      focusColor: isDarkMode(context)
+                          ? ExpenseTrackerColors.dark75
+                          : ExpenseTrackerColors.light,
                       decoration: dropdownInputDecoration(
                         'Frequency',
                       ),
