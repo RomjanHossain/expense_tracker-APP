@@ -43,6 +43,7 @@ dependencies:
 dev_dependencies:
   bloc_test: ^9.1.4
   build_runner: ^2.4.6
+  flutter_gen_runner: ^5.4.0
   flutter_test:
     sdk: flutter
   freezed: ^2.4.5
@@ -50,6 +51,15 @@ dev_dependencies:
   json_serializable: ^6.7.1
   mocktail: ^1.0.0
   very_good_analysis: ^5.1.0
+
+# for generating the assets path carefully
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+  line_length: 80 # Optional (default: 80)
+
+  # Optional
+  integrations:
+    flutter_svg: true
 
 flutter:
   uses-material-design: true
