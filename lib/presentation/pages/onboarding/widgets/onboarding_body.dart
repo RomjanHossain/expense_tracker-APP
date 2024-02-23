@@ -31,6 +31,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
     super.dispose();
   }
 
+  // images for the onboarding page
   final List<String> _images = [
     ExpenseAssets.gainTotalControlOfYourMoneyIll,
     ExpenseAssets.knowWhereYourMoneyGoesIll,
@@ -39,18 +40,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OnboardingCubit, int>(
-      buildWhen: (previous, current) {
-        if (previous == current) {
-          return false;
-        }
-        _pageController.animateToPage(
-          current,
-          duration: const Duration(milliseconds: 350),
-          curve: Curves.easeIn,
-        );
-        return previous != current;
-      },
+    return BlocConsumer<OnboardingCubit, int>(
       builder: (context, state) {
         final l10n = context.l10n;
         final subtitles = <String>[
@@ -75,12 +65,8 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                 ),
                 child: PageView.builder(
                   onPageChanged: (value) {
+                    debugPrint("value from the pagechanged: $value");
                     context.read<OnboardingCubit>().changeState(value);
-                    _pageController.animateToPage(
-                      value,
-                      duration: const Duration(milliseconds: 350),
-                      curve: Curves.easeIn,
-                    );
                   },
                   controller: _pageController,
                   itemCount: 3,
@@ -100,7 +86,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                             height: 200.h,
                             width: 200.w,
                           ),
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20.h),
                           Text(
                             titles[index],
                             style: ExpenseTrackerTextStyle.title1
@@ -131,14 +117,9 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                   InkWell(
                     onTap: () {
                       context.read<OnboardingCubit>().changeState(i);
-                      _pageController.animateToPage(
-                        i,
-                        duration: const Duration(milliseconds: 350),
-                        curve: Curves.easeIn,
-                      );
                     },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      padding: EdgeInsets.symmetric(horizontal: 5.w),
                       child: CircleAvatar(
                         backgroundColor: state == i.toDouble()
                             ? ExpenseTrackerColors.violet
@@ -169,6 +150,14 @@ class _OnboardingBodyState extends State<OnboardingBody> {
             ),
             SizedBox(height: 50.h),
           ],
+        );
+      },
+      listener: (BuildContext context, int state) {
+        debugPrint('state: $state');
+        _pageController.animateToPage(
+          state,
+          duration: const Duration(milliseconds: 350),
+          curve: Curves.easeIn,
         );
       },
     );
