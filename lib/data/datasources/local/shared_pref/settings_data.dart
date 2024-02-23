@@ -13,6 +13,12 @@ class SettingsLocalDataSourcePref {
     return pref.setBool('firstRun', false);
   }
 
+  ///! reset first run
+  Future<bool> resetFirstRun() async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.setBool('firstRun', true);
+  }
+
   ///! setup pin
   Future<bool> setupPin(String pin) async {
     final pref = await SharedPreferences.getInstance();
