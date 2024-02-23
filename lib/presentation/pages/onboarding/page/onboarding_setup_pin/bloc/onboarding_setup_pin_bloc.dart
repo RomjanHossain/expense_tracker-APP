@@ -14,6 +14,17 @@ class OnboardingSetupPinBloc
     on<RemoveTextOnboardingSetupPinEvent>(_onRemoveTextOnboardingSetupPinEvent);
     on<ClearTextOnboardingSetupPinEvent>(_onClearTextOnboardingSetupPinEvent);
     on<FirstRunOnboardingSetupPinEvent>(_runAtFirst);
+    on<PinSaveOnboardingSetupPinEvent>(_pinSave);
+  }
+
+  /// save pin
+  FutureOr<void> _pinSave(
+    PinSaveOnboardingSetupPinEvent event,
+    Emitter<OnboardingSetupPinState> emit,
+  ) async {
+    final localPref = SettingsLocalDataSourcePref();
+    await localPref.setupPin(event.pin);
+    emit(const OnboardingSetupPinSuccess());
   }
 
   /// init state

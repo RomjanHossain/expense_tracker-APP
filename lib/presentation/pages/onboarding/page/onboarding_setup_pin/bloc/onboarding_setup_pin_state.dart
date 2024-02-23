@@ -13,12 +13,14 @@ class OnboardingSetupPinState extends Equatable {
 
   /// A description for customProperty
   final String pin;
+
   /// first time
   final bool isFirstTime;
+
   /// user pin
   final String userPin;
   @override
-  List<Object> get props => [pin, isFirstTime,userPin];
+  List<Object> get props => [pin, isFirstTime, userPin];
 
   /// Creates a copy of the current OnboardingSetupPinState with property changes
   OnboardingSetupPinState copyWith({
@@ -45,4 +47,9 @@ class OnboardingSetupPinInitial extends OnboardingSetupPinState {
 // error state
 class OnboardingSetupPinError extends OnboardingSetupPinState {
   const OnboardingSetupPinError() : super();
+}
+
+/// success
+class OnboardingSetupPinSuccess extends OnboardingSetupPinState {
+  const OnboardingSetupPinSuccess() : super();
 }

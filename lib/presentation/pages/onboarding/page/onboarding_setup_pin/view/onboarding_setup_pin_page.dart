@@ -10,11 +10,11 @@ class OnboardingSetupPinPage extends StatelessWidget {
   /// {@macro onboarding_setup_pin_page}
   const OnboardingSetupPinPage({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => OnboardingSetupPinBloc(),
+      create: (context) => OnboardingSetupPinBloc()
+        ..add(const FirstRunOnboardingSetupPinEvent()),
       child: const Scaffold(
         backgroundColor: ExpenseTrackerColors.violet,
         body: OnboardingSetupPinView(),

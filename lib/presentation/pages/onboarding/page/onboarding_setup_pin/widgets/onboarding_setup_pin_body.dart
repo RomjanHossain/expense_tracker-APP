@@ -26,18 +26,18 @@ class OnboardingSetupPinBody extends StatefulWidget {
 
 class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
   final TextEditingController _controller = TextEditingController();
-  final _localPref = SettingsLocalDataSourcePref();
-  bool _isFirstTimeSetupPin = true;
-  String pin = '';
+  // final _localPref = SettingsLocalDataSourcePref();
+  // bool _isFirstTimeSetupPin = true;
+  // String pin = '';
   @override
   void initState() {
-    _localPref.isFirstRun().then(
-          (value) => _isFirstTimeSetupPin = value,
-        );
-    _localPref.getPin().then(
-          (value) => pin = value,
-        );
-    debugPrint('This is pin -> $pin');
+    // _localPref.isFirstRun().then(
+    //       (value) => _isFirstTimeSetupPin = value,
+    //     );
+    // _localPref.getPin().then(
+    //       (value) => pin = value,
+    //     );
+    // debugPrint('This is pin -> $pin');
     super.initState();
   }
 
@@ -70,7 +70,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 20.h),
               child: Text(
-                _isFirstTimeSetupPin || pin.isEmpty
+                state.isFirstTime || state.userPin.isEmpty
                     ? _controller.text.isNotEmpty &&
                             _controller.text.length == 4
                         ? l10n.onboardingSetUpPin2
@@ -207,7 +207,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
 
                           if (_controller.text.isNotEmpty &&
                               _controller.text.length == 4) {
-                            if (_isFirstTimeSetupPin || pin.isEmpty) {
+                            if (state.isFirstTime || state.userPin.isEmpty) {
                               if (state.pin == _controller.text) {
                                 // save the pin
                                 _localPref
@@ -238,7 +238,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                             } else {
                               // hah! user already set up their pin
                               //TODO: let's check it out
-                              if (_controller.text == pin) {
+                              if (_controller.text == state.userPin) {
                                 context.goNamed('home');
                               } else {
                                 _controller.text = state.pin;
@@ -293,6 +293,8 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
               content: Text('Pin must be 4 digits'),
             ),
           );
+        } else if (state is OnboardingSetupPinSuccess) {
+          context.goNamed('home');
         }
       },
     );

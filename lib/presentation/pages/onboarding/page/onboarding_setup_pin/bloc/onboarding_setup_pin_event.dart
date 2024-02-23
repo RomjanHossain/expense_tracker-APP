@@ -35,3 +35,9 @@ class ClearTextOnboardingSetupPinEvent extends OnboardingSetupPinEvent {
 class FirstRunOnboardingSetupPinEvent extends OnboardingSetupPinEvent {
   const FirstRunOnboardingSetupPinEvent();
 }
+
+/// pinsave
+class PinSaveOnboardingSetupPinEvent extends OnboardingSetupPinEvent {
+  const PinSaveOnboardingSetupPinEvent({required this.pin});
+  final String pin;
+}
