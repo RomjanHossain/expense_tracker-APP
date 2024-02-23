@@ -6,14 +6,12 @@ class OnboardingCubit extends Cubit<int> {
 
   /// A description for yourCustomFunction
   FutureOr<void> changeIndex() async {
-    // change index 1..3 after 1 second preiodically
-    Timer.periodic(const Duration(seconds: 4), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 5), (timer) {
       if (state < 2) {
         emit(state + 1);
       } else {
-        emit(0);
-        // cancel the timer
         timer.cancel();
+        emit(0);
       }
     });
   }

@@ -48,10 +48,6 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
   }
 
   Color getColor(String pin, int index) {
-    // if the pin is empty, return the default color
-    if (pin.isEmpty) {
-      return ExpenseTrackerColors.violet;
-    }
     // now check if the index is less than the length of the pin
     // if it is, return the default color
     if (index < pin.length) {
@@ -106,183 +102,185 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
             SizedBox(height: 50.h),
             // numbers
             SizedBox(
-                // height: size.height * 0.4,
-                height: 0.4.sh,
-                child: Row(
-                  children: [
-                    ButtonRow([
-                      Button(
-                        text: '1',
-                        cb: (s) {
-                          context.read<OnboardingSetupPinBloc>().add(
-                                AddTextOnboardingSetupPinEvent(pin: s),
-                              );
+              // height: size.height * 0.4,
+              height: 0.4.sh,
+              child: Row(
+                children: [
+                  ButtonRow([
+                    Button(
+                      text: '1',
+                      cb: (s) {
+                        context.read<OnboardingSetupPinBloc>().add(
+                              AddTextOnboardingSetupPinEvent(pin: s),
+                            );
+                      },
+                    ),
+                    Button(
+                      text: '4',
+                      cb: (s) {
+                        context.read<OnboardingSetupPinBloc>().add(
+                              AddTextOnboardingSetupPinEvent(pin: s),
+                            );
+                      },
+                    ),
+                    Button(
+                      text: '7',
+                      cb: (s) {
+                        context.read<OnboardingSetupPinBloc>().add(
+                              AddTextOnboardingSetupPinEvent(pin: s),
+                            );
+                      },
+                    ),
+                    Button(
+                      text: '',
+                      cb: (s) async {
+                        // context.read<ExpenseTextControllerCubit>().addText(s);
+                        await SettingsLocalDataSourcePref().resetFirstRun();
+                      },
+                    ),
+                  ]),
+                  // 2, 5, 8 and 0
+                  ButtonRow([
+                    Button(
+                      text: '2',
+                      cb: (s) {
+                        context.read<OnboardingSetupPinBloc>().add(
+                              AddTextOnboardingSetupPinEvent(pin: s),
+                            );
+                      },
+                    ),
+                    Button(
+                      text: '5',
+                      cb: (s) {
+                        context.read<OnboardingSetupPinBloc>().add(
+                              AddTextOnboardingSetupPinEvent(pin: s),
+                            );
+                      },
+                    ),
+                    Button(
+                      text: '8',
+                      cb: (s) {
+                        context.read<OnboardingSetupPinBloc>().add(
+                              AddTextOnboardingSetupPinEvent(pin: s),
+                            );
+                      },
+                    ),
+                    Button(
+                      text: '0',
+                      cb: (s) {
+                        context.read<OnboardingSetupPinBloc>().add(
+                              AddTextOnboardingSetupPinEvent(pin: s),
+                            );
+                      },
+                    ),
+                  ]),
+                  // 3, 6, 9 and delete
+                  ButtonRow([
+                    Button(
+                      text: '3',
+                      cb: (s) {
+                        context.read<OnboardingSetupPinBloc>().add(
+                              AddTextOnboardingSetupPinEvent(pin: s),
+                            );
+                      },
+                    ),
+                    Button(
+                      text: '6',
+                      cb: (s) {
+                        context.read<OnboardingSetupPinBloc>().add(
+                              AddTextOnboardingSetupPinEvent(pin: s),
+                            );
+                      },
+                    ),
+                    Button(
+                      text: '9',
+                      cb: (s) {
+                        context.read<OnboardingSetupPinBloc>().add(
+                              AddTextOnboardingSetupPinEvent(pin: s),
+                            );
+                      },
+                    ),
+                    if (state.pin.length == 4)
+                      ArrowButton(
+                        cb: (_) {
+                          //* if user first time setup pin
+
+                          if (_controller.text.isNotEmpty &&
+                              _controller.text.length == 4) {
+                            if (_isFirstTimeSetupPin || pin.isEmpty) {
+                              if (state.pin == _controller.text) {
+                                // save the pin
+                                _localPref
+                                    .setupPin(_controller.text)
+                                    .then((value) {
+                                  // show a success snackbar
+                                  if (value) {
+                                    showToast('Pin Setup Successful');
+                                  }
+                                });
+                                context.goNamed('account-setup-intro');
+                                _controller
+                                  ..clear()
+                                  ..dispose();
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    behavior: SnackBarBehavior.floating,
+                                    backgroundColor: ExpenseTrackerColors.red,
+                                    content: Text('Pin does not match'),
+                                  ),
+                                );
+                                // clear the pin
+                                context.read<OnboardingSetupPinBloc>().add(
+                                      const ClearTextOnboardingSetupPinEvent(),
+                                    );
+                              }
+                            } else {
+                              // hah! user already set up their pin
+                              //TODO: let's check it out
+                              if (_controller.text == pin) {
+                                context.goNamed('home');
+                              } else {
+                                _controller.text = state.pin;
+                                // clear the pin
+                                context.read<OnboardingSetupPinBloc>().add(
+                                      const ClearTextOnboardingSetupPinEvent(),
+                                    );
+                                //* user pin incorrenct
+                                userAttempts += 1;
+                                debugPrint('user attempts $userAttempts');
+
+                                if (userAttempts == 3) {
+                                  //! if 3 attemps then exit from the app
+                                  exit(0);
+                                }
+                              }
+                            }
+                          } else {
+                            _controller.text = state.pin;
+                            // clear the pin
+                            context.read<OnboardingSetupPinBloc>().add(
+                                  const ClearTextOnboardingSetupPinEvent(),
+                                );
+                          }
                         },
-                      ),
-                      Button(
-                        text: '4',
-                        cb: (s) {
-                          context.read<OnboardingSetupPinBloc>().add(
-                                AddTextOnboardingSetupPinEvent(pin: s),
-                              );
-                        },
-                      ),
-                      Button(
-                        text: '7',
-                        cb: (s) {
-                          context.read<OnboardingSetupPinBloc>().add(
-                                AddTextOnboardingSetupPinEvent(pin: s),
-                              );
-                        },
-                      ),
+                      )
+                    else
                       Button(
                         text: '',
                         cb: (s) {
-                          // context.read<ExpenseTextControllerCubit>().addText(s);
+                          debugPrint('pin from the ldb -> $pin');
+                          if (pin.isEmpty) {
+                            debugPrint('statement');
+                          } else {
+                            debugPrint('not statement');
+                          }
                         },
                       ),
-                    ]),
-                    // 2, 5, 8 and 0
-                    ButtonRow([
-                      Button(
-                        text: '2',
-                        cb: (s) {
-                          context.read<OnboardingSetupPinBloc>().add(
-                                AddTextOnboardingSetupPinEvent(pin: s),
-                              );
-                        },
-                      ),
-                      Button(
-                        text: '5',
-                        cb: (s) {
-                          context.read<OnboardingSetupPinBloc>().add(
-                                AddTextOnboardingSetupPinEvent(pin: s),
-                              );
-                        },
-                      ),
-                      Button(
-                        text: '8',
-                        cb: (s) {
-                          context.read<OnboardingSetupPinBloc>().add(
-                                AddTextOnboardingSetupPinEvent(pin: s),
-                              );
-                        },
-                      ),
-                      Button(
-                        text: '0',
-                        cb: (s) {
-                          context.read<OnboardingSetupPinBloc>().add(
-                                AddTextOnboardingSetupPinEvent(pin: s),
-                              );
-                        },
-                      ),
-                    ]),
-                    // 3, 6, 9 and delete
-                    ButtonRow([
-                      Button(
-                        text: '3',
-                        cb: (s) {
-                          context.read<OnboardingSetupPinBloc>().add(
-                                AddTextOnboardingSetupPinEvent(pin: s),
-                              );
-                        },
-                      ),
-                      Button(
-                        text: '6',
-                        cb: (s) {
-                          context.read<OnboardingSetupPinBloc>().add(
-                                AddTextOnboardingSetupPinEvent(pin: s),
-                              );
-                        },
-                      ),
-                      Button(
-                        text: '9',
-                        cb: (s) {
-                          context.read<OnboardingSetupPinBloc>().add(
-                                AddTextOnboardingSetupPinEvent(pin: s),
-                              );
-                        },
-                      ),
-                      if (state.pin.length == 4)
-                        ArrowButton(
-                          cb: (_) {
-                            //* if user first time setup pin
-
-                            if (_controller.text.isNotEmpty &&
-                                _controller.text.length == 4) {
-                              if (_isFirstTimeSetupPin || pin.isEmpty) {
-                                if (state.pin == _controller.text) {
-                                  // save the pin
-                                  _localPref
-                                      .setupPin(_controller.text)
-                                      .then((value) {
-                                    // show a success snackbar
-                                    if (value) {
-                                      showToast('Pin Setup Successful');
-                                    }
-                                  });
-                                  context.goNamed('account-setup-intro');
-                                  _controller
-                                    ..clear()
-                                    ..dispose();
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      behavior: SnackBarBehavior.floating,
-                                      backgroundColor: ExpenseTrackerColors.red,
-                                      content: Text('Pin does not match'),
-                                    ),
-                                  );
-                                  // clear the pin
-                                  context.read<OnboardingSetupPinBloc>().add(
-                                        const ClearTextOnboardingSetupPinEvent(),
-                                      );
-                                }
-                              } else {
-                                // hah! user already set up their pin
-                                //TODO: let's check it out
-                                if (_controller.text == pin) {
-                                  context.goNamed('home');
-                                } else {
-                                  _controller.text = state.pin;
-                                  // clear the pin
-                                  context.read<OnboardingSetupPinBloc>().add(
-                                        const ClearTextOnboardingSetupPinEvent(),
-                                      );
-                                  //* user pin incorrenct
-                                  userAttempts += 1;
-                                  debugPrint('user attempts $userAttempts');
-
-                                  if (userAttempts == 3) {
-                                    //! if 3 attemps then exit from the app
-                                    exit(0);
-                                  }
-                                }
-                              }
-                            } else {
-                              _controller.text = state.pin;
-                              // clear the pin
-                              context.read<OnboardingSetupPinBloc>().add(
-                                    const ClearTextOnboardingSetupPinEvent(),
-                                  );
-                            }
-                          },
-                        )
-                      else
-                        Button(
-                          text: '',
-                          cb: (s) {
-                            debugPrint('pin from the ldb -> $pin');
-                            if (pin.isEmpty) {
-                              debugPrint('statement');
-                            } else {
-                              debugPrint('not statement');
-                            }
-                          },
-                        ),
-                    ]),
-                  ],
-                ),),
+                  ]),
+                ],
+              ),
+            ),
           ],
         );
       },

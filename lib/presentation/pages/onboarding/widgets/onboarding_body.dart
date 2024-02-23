@@ -64,10 +64,10 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                   physics: const BouncingScrollPhysics(),
                 ),
                 child: PageView.builder(
-                  onPageChanged: (value) {
-                    debugPrint("value from the pagechanged: $value");
-                    context.read<OnboardingCubit>().changeState(value);
-                  },
+                  // onPageChanged: (value) {
+                  //   // debugPrint("value from the pagechanged: $value");
+                  //   // context.read<OnboardingCubit>().changeState(value);
+                  // },
                   controller: _pageController,
                   itemCount: 3,
                   physics: const BouncingScrollPhysics(),
@@ -153,7 +153,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
         );
       },
       listener: (BuildContext context, int state) {
-        debugPrint('state: $state');
+        debugPrint('state from listner: $state');
         _pageController.animateToPage(
           state,
           duration: const Duration(milliseconds: 350),
