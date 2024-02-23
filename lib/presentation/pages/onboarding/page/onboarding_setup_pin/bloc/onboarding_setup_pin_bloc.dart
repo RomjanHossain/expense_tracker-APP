@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:flutter/material.dart';
 part 'onboarding_setup_pin_event.dart';
 part 'onboarding_setup_pin_state.dart';
@@ -12,6 +13,23 @@ class OnboardingSetupPinBloc
     on<AddTextOnboardingSetupPinEvent>(_onAddTextOnboardingSetupPinEvent);
     on<RemoveTextOnboardingSetupPinEvent>(_onRemoveTextOnboardingSetupPinEvent);
     on<ClearTextOnboardingSetupPinEvent>(_onClearTextOnboardingSetupPinEvent);
+    on<FirstRunOnboardingSetupPinEvent>(_runAtFirst);
+  }
+
+  /// init state
+  FutureOr<void> _runAtFirst(
+    FirstRunOnboardingSetupPinEvent event,
+    Emitter<OnboardingSetupPinState> emit,
+  ) async {
+    final localPref = SettingsLocalDataSourcePref();
+    final isFirstTime = await localPref.isFirstRun();
+    final userPin = await localPref.getPin();
+    emit(
+      state.copyWith(
+        isFirstTime: isFirstTime,
+        userPin: userPin,
+      ),
+    );
   }
 
   // add text
