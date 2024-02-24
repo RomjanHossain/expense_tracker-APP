@@ -15,6 +15,21 @@ class OnboardingSetupPinBloc
     on<ClearTextOnboardingSetupPinEvent>(_onClearTextOnboardingSetupPinEvent);
     on<FirstRunOnboardingSetupPinEvent>(_runAtFirst);
     on<PinSaveOnboardingSetupPinEvent>(_pinSave);
+    on<ChangeAttemptsOnboardingSetupPinEvent>(_changeAttempts);
+  }
+
+  /// change attempts
+  FutureOr<void> _changeAttempts(
+    ChangeAttemptsOnboardingSetupPinEvent event,
+    Emitter<OnboardingSetupPinState> emit,
+  ) async {
+    // attempt to change pin is 3
+    if (event.attempts == 3) {
+      emit(const OnboardingSetupPinError());
+      emit(const OnboardingSetupPinInitial());
+    } else {
+      emit(state.copyWith(attempts: event.attempts));
+    }
   }
 
   /// save pin
