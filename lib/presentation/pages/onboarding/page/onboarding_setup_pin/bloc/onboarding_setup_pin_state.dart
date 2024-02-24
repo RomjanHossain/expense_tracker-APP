@@ -9,6 +9,7 @@ class OnboardingSetupPinState extends Equatable {
     this.pin = '',
     this.isFirstTime = true,
     this.userPin = '',
+    this.attempts = 0,
   });
 
   /// A description for customProperty
@@ -19,6 +20,8 @@ class OnboardingSetupPinState extends Equatable {
 
   /// user pin
   final String userPin;
+  /// attempts
+  final int attempts;
   @override
   List<Object> get props => [pin, isFirstTime, userPin];
 
@@ -27,11 +30,13 @@ class OnboardingSetupPinState extends Equatable {
     String? pin,
     bool? isFirstTime,
     String? userPin,
+    int? attempts,
   }) {
     return OnboardingSetupPinState(
       pin: pin ?? this.pin,
       isFirstTime: isFirstTime ?? this.isFirstTime,
       userPin: userPin ?? this.userPin,
+      attempts: attempts ?? this.attempts,
     );
   }
 }
