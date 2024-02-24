@@ -41,3 +41,9 @@ class PinSaveOnboardingSetupPinEvent extends OnboardingSetupPinEvent {
   const PinSaveOnboardingSetupPinEvent({required this.pin});
   final String pin;
 }
+
+/// change attempts
+class ChangeAttemptsOnboardingSetupPinEvent extends OnboardingSetupPinEvent {
+  const ChangeAttemptsOnboardingSetupPinEvent({required this.attempts});
+  final int attempts;
+}
