@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:expense_tracker/app/ui/app_ui.dart';
-import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/bloc/bloc.dart';
@@ -64,15 +63,22 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
     return BlocConsumer<OnboardingSetupPinBloc, OnboardingSetupPinState>(
       buildWhen: (previous, current) => previous.pin != current.pin,
       builder: (context, state) {
+        // debugPrint('state -> ${state.pin}');
+        // debugPrint(
+        //   state.isFirstTime || state.userPin.isEmpty
+        //       ? _controller.text.isNotEmpty && _controller.text.length == 4
+        //           ? l10n.onboardingSetUpPin2
+        //           : l10n.onboardingSetUpPin
+        //       : l10n.onboardingSetUpPin3,
+        // );
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: 20.h),
               child: Text(
-                state.isFirstTime || state.userPin.isEmpty
-                    ? _controller.text.isNotEmpty &&
-                            _controller.text.length == 4
+                state.isFirstTime
+                    ? state.attempts == 0
                         ? l10n.onboardingSetUpPin2
                         : l10n.onboardingSetUpPin
                     : l10n.onboardingSetUpPin3,
@@ -209,15 +215,11 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                               _controller.text.length == 4) {
                             if (state.isFirstTime || state.userPin.isEmpty) {
                               if (state.pin == _controller.text) {
-                                // save the pin
-                                _localPref
-                                    .setupPin(_controller.text)
-                                    .then((value) {
-                                  // show a success snackbar
-                                  if (value) {
-                                    showToast('Pin Setup Successful');
-                                  }
-                                });
+                                context.read<OnboardingSetupPinBloc>().add(
+                                      PinSaveOnboardingSetupPinEvent(
+                                        pin: _controller.text,
+                                      ),
+                                    );
                                 context.goNamed('account-setup-intro');
                                 _controller
                                   ..clear()
@@ -250,7 +252,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                                 userAttempts += 1;
                                 debugPrint('user attempts $userAttempts');
 
-                                if (userAttempts == 3) {
+                                if (state.attempts == 3) {
                                   //! if 3 attemps then exit from the app
                                   exit(0);
                                 }
@@ -269,8 +271,8 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                       Button(
                         text: '',
                         cb: (s) {
-                          debugPrint('pin from the ldb -> $pin');
-                          if (pin.isEmpty) {
+                          debugPrint('pin from the ldb -> ${state.pin}');
+                          if (state.pin.isEmpty) {
                             debugPrint('statement');
                           } else {
                             debugPrint('not statement');
@@ -285,6 +287,12 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
         );
       },
       listener: (BuildContext context, OnboardingSetupPinState state) {
+        if (state.isFirstTime) {
+          debugPrint('Hey :${l10n.onboardingSetUpPin}');
+          debugPrint('Hello :${l10n.onboardingSetUpPin2}');
+        } else {
+          debugPrint('SHIT: ${l10n.onboardingSetUpPin3}');
+        }
         if (state is OnboardingSetupPinError) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
