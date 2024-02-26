@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/bloc/bloc.dart';
@@ -63,14 +64,6 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
     return BlocConsumer<OnboardingSetupPinBloc, OnboardingSetupPinState>(
       buildWhen: (previous, current) => previous.pin != current.pin,
       builder: (context, state) {
-        // debugPrint('state -> ${state.pin}');
-        // debugPrint(
-        //   state.isFirstTime || state.userPin.isEmpty
-        //       ? _controller.text.isNotEmpty && _controller.text.length == 4
-        //           ? l10n.onboardingSetUpPin2
-        //           : l10n.onboardingSetUpPin
-        //       : l10n.onboardingSetUpPin3,
-        // );
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -79,8 +72,8 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
               child: Text(
                 state.isFirstTime
                     ? state.attempts == 0
-                        ? l10n.onboardingSetUpPin2
-                        : l10n.onboardingSetUpPin
+                        ? l10n.onboardingSetUpPin
+                        : l10n.onboardingSetUpPin2
                     : l10n.onboardingSetUpPin3,
                 style: ExpenseTrackerTextStyle.title3.copyWith(
                   color: ExpenseTrackerColors.light,
@@ -113,6 +106,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
               child: Row(
                 children: [
                   ButtonRow([
+                    ///! 1, 4, 7 and clear
                     Button(
                       text: '1',
                       cb: (s) {
@@ -145,7 +139,8 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                       },
                     ),
                   ]),
-                  // 2, 5, 8 and 0
+
+                  ///! 2, 5, 8 and 0
                   ButtonRow([
                     Button(
                       text: '2',
@@ -180,7 +175,8 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                       },
                     ),
                   ]),
-                  // 3, 6, 9 and delete
+
+                  ///! 3, 6, 9 and delete
                   ButtonRow([
                     Button(
                       text: '3',
@@ -206,64 +202,86 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                             );
                       },
                     ),
+
+                    ///! Show nothing when pin's length <4
                     if (state.pin.length == 4)
                       ArrowButton(
                         cb: (_) {
                           //* if user first time setup pin
 
-                          if (_controller.text.isNotEmpty &&
-                              _controller.text.length == 4) {
-                            if (state.isFirstTime || state.userPin.isEmpty) {
-                              if (state.pin == _controller.text) {
-                                context.read<OnboardingSetupPinBloc>().add(
-                                      PinSaveOnboardingSetupPinEvent(
-                                        pin: _controller.text,
-                                      ),
-                                    );
-                                context.goNamed('account-setup-intro');
-                                _controller
-                                  ..clear()
-                                  ..dispose();
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    behavior: SnackBarBehavior.floating,
-                                    backgroundColor: ExpenseTrackerColors.red,
-                                    content: Text('Pin does not match'),
+                          if (state.attempts == 0 &&
+                              state
+                                  .isFirstTime) // first time ( which means setup pin )
+                          // save the first pin and attempts
+                          {
+                            /// save the first pin and attempts
+                            context.read<OnboardingSetupPinBloc>().add(
+                                  SaveFirstAttemptsPinOnboardingSetupPinEvent(
+                                    pin: _controller.text,
                                   ),
                                 );
-                                // clear the pin
-                                context.read<OnboardingSetupPinBloc>().add(
-                                      const ClearTextOnboardingSetupPinEvent(),
-                                    );
-                              }
-                            } else {
-                              // hah! user already set up their pin
-                              //TODO: let's check it out
-                              if (_controller.text == state.userPin) {
-                                context.goNamed('home');
-                              } else {
-                                _controller.text = state.pin;
-                                // clear the pin
-                                context.read<OnboardingSetupPinBloc>().add(
-                                      const ClearTextOnboardingSetupPinEvent(),
-                                    );
-                                //* user pin incorrenct
-                                userAttempts += 1;
-                                debugPrint('user attempts $userAttempts');
 
-                                if (state.attempts == 3) {
-                                  //! if 3 attemps then exit from the app
-                                  exit(0);
-                                }
-                              }
-                            }
-                          } else {
-                            _controller.text = state.pin;
+                            /// _controller to empty
+                            _controller.clear();
+
                             // clear the pin
                             context.read<OnboardingSetupPinBloc>().add(
                                   const ClearTextOnboardingSetupPinEvent(),
                                 );
+                          } else if (state.attempts == 1 && state.isFirstTime) {
+                            /// save the pin and
+                            if (state.setupPin != _controller.text) {
+                              /// NOTE: add snackbar
+                              showFailureToast(context, 'Pin does not match');
+
+                              /// _controller to empty
+                              _controller.clear();
+
+                              // clear the pin
+                              context.read<OnboardingSetupPinBloc>().add(
+                                    const ClearTextOnboardingSetupPinEvent(),
+                                  );
+                              // chagne attempts
+                              context.read<OnboardingSetupPinBloc>().add(
+                                    const ChangeAttemptsOnboardingSetupPinEvent(
+                                      attempts: 0,
+                                    ),
+                                  );
+                            } else {
+                              context.read<OnboardingSetupPinBloc>().add(
+                                    PinSaveOnboardingSetupPinEvent(
+                                      pin: _controller.text,
+                                    ),
+                                  );
+                            }
+                          }
+                          if (!state.isFirstTime || state.userPin.isNotEmpty) {
+                            if (state.userPin == _controller.text) {
+                              context.read<OnboardingSetupPinBloc>().add(
+                                    PinSaveOnboardingSetupPinEvent(
+                                      pin: _controller.text,
+                                    ),
+                                  );
+                              _controller
+                                ..clear()
+                                ..dispose();
+                            } else {
+                              if (state.attempts == 3) {
+                                //! if 3 attemps then exit from the app
+                                exit(0);
+                              }
+                              showFailureToast(context, 'Pin does not match');
+                              // chagne attempts
+                              context.read<OnboardingSetupPinBloc>().add(
+                                    ChangeAttemptsOnboardingSetupPinEvent(
+                                      attempts: state.attempts + 1,
+                                    ),
+                                  );
+                              // clear the pin
+                              context.read<OnboardingSetupPinBloc>().add(
+                                    const ClearTextOnboardingSetupPinEvent(),
+                                  );
+                            }
                           }
                         },
                       )
@@ -294,15 +312,11 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
           debugPrint('SHIT: ${l10n.onboardingSetUpPin3}');
         }
         if (state is OnboardingSetupPinError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              behavior: SnackBarBehavior.floating,
-              backgroundColor: ExpenseTrackerColors.red,
-              content: Text('Pin must be 4 digits'),
-            ),
-          );
+          showFailureToast(context, state.message);
         } else if (state is OnboardingSetupPinSuccess) {
-          context.goNamed('home');
+          state.isFirstTime
+              ? context.goNamed('account-setup-intro')
+              : context.goNamed('home');
         }
       },
     );
