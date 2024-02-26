@@ -213,16 +213,16 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
                         );
                         if (state.budget.amount == 0 || amount == null) {
                           // show error
-                          showToast('Please enter a valid amount');
+                          // showToast('Please enter a valid amount');
                           return;
                         }
                         if (state.budget.category.isEmpty) {
-                          showToast('Please select a category');
+                          // showToast('Please select a category');
                           return;
                         }
                         if (state.budget.isReceiveAlert) {
                           if (state.budget.percent == 0) {
-                            showToast('Please select a percent');
+                            // showToast('Please select a percent');
                             return;
                           }
                         }
@@ -230,7 +230,8 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
                         debugPrint('amount :${state.budget.amount}');
                         debugPrint('category :${state.budget.category}');
                         debugPrint(
-                            'isReceiveAlert :${state.budget.isReceiveAlert}',);
+                          'isReceiveAlert :${state.budget.isReceiveAlert}',
+                        );
                         debugPrint('percent :${state.budget.percent}');
                       },
                       child: const Text('Continue'),
@@ -254,17 +255,20 @@ class CustomRoundedRectangleBorder extends SliderComponentShape {
   }
 
   @override
-  void paint(PaintingContext context, Offset center,
-      {required Animation<double> activationAnimation,
-      required Animation<double> enableAnimation,
-      required bool isDiscrete,
-      required TextPainter labelPainter,
-      required RenderBox parentBox,
-      required SliderThemeData sliderTheme,
-      required TextDirection textDirection,
-      required double value,
-      required double textScaleFactor,
-      required Size sizeWithOverflow,}) {
+  void paint(
+    PaintingContext context,
+    Offset center, {
+    required Animation<double> activationAnimation,
+    required Animation<double> enableAnimation,
+    required bool isDiscrete,
+    required TextPainter labelPainter,
+    required RenderBox parentBox,
+    required SliderThemeData sliderTheme,
+    required TextDirection textDirection,
+    required double value,
+    required double textScaleFactor,
+    required Size sizeWithOverflow,
+  }) {
     final canvas = context.canvas;
     final paint = Paint()
       ..color = ExpenseTrackerColors.violet

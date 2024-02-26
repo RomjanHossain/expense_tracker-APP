@@ -27,14 +27,14 @@ class ExpenseRepoImpl extends ExpensesRepo {
   Future<bool> deleteExpenseRecord(int id) async {
     final resp = database.expenseLocalDBs.deleteSync(id);
     if (resp) {
-      showToast(
-        'Record Successfully Deleted',
-        ExpenseTrackerColors.green,
-      );
+      // showSuccessToast(
+      //   context,
+      //   'Record Successfully Deleted',
+      // );
     } else {
-      showToast(
-        '500: Something went wrong',
-      );
+      // showToast(
+      //   '500: Something went wrong',
+      // );
     }
     return resp;
   }
@@ -43,7 +43,7 @@ class ExpenseRepoImpl extends ExpensesRepo {
   Future<ExpenseEntity?> getExpenseRecord(int id) async {
     final resp = database.expenseLocalDBs.getSync(id);
     if (resp == null) {
-      showToast('Getting record failed.');
+      // showToast('Getting record failed.');
       return null;
     }
     final data = ExpenseEntity(

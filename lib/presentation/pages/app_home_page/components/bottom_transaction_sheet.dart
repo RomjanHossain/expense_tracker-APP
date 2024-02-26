@@ -261,7 +261,8 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
                             TextButton(
                               onPressed: () {
                                 debugPrint(
-                                    'Spent on: ${context.read<DropdownExpenseMethodCubit>().state}',);
+                                  'Spent on: ${context.read<DropdownExpenseMethodCubit>().state}',
+                                );
                                 Navigator.pop(context);
                               },
                               child: const Text('No'),
@@ -304,7 +305,7 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
                                 final isCreated =
                                     await iml.createExpenseRecord(data);
                                 if (isCreated) {
-                                  showToast('Transaction added', Colors.green);
+                                  // showToast('Transaction added', Colors.green);
                                   // reset all the values
                                   if (!context.mounted) return;
                                   context
@@ -319,7 +320,7 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
                                       .changeValue('');
                                   Navigator.of(context).pop();
                                 } else {
-                                  showToast('Transaction failed', Colors.red);
+                                  // showToast('Transaction failed', Colors.red);
                                 }
                               },
                               child: const Text('Yes'),
