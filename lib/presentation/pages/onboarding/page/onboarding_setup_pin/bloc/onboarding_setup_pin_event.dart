@@ -47,3 +47,10 @@ class ChangeAttemptsOnboardingSetupPinEvent extends OnboardingSetupPinEvent {
   const ChangeAttemptsOnboardingSetupPinEvent({required this.attempts});
   final int attempts;
 }
+
+/// save first attempts pin
+class SaveFirstAttemptsPinOnboardingSetupPinEvent
+    extends OnboardingSetupPinEvent {
+  const SaveFirstAttemptsPinOnboardingSetupPinEvent({required this.pin});
+  final String pin;
+}
