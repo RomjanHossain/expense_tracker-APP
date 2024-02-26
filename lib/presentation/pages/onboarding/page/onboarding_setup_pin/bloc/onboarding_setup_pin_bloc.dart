@@ -16,6 +16,20 @@ class OnboardingSetupPinBloc
     on<FirstRunOnboardingSetupPinEvent>(_runAtFirst);
     on<PinSaveOnboardingSetupPinEvent>(_pinSave);
     on<ChangeAttemptsOnboardingSetupPinEvent>(_changeAttempts);
+    on<SaveFirstAttemptsPinOnboardingSetupPinEvent>(_saveFirstAttempts);
+  }
+
+  /// save first attempts pin
+  FutureOr<void> _saveFirstAttempts(
+    SaveFirstAttemptsPinOnboardingSetupPinEvent event,
+    Emitter<OnboardingSetupPinState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        setupPin: event.pin,
+        attempts: state.attempts + 1,
+      ),
+    );
   }
 
   /// change attempts
@@ -25,7 +39,7 @@ class OnboardingSetupPinBloc
   ) async {
     // attempt to change pin is 3
     if (event.attempts == 3) {
-      emit(const OnboardingSetupPinError());
+      emit(const OnboardingSetupPinError('Too many Attempts!'));
       emit(const OnboardingSetupPinInitial());
     } else {
       emit(state.copyWith(attempts: event.attempts));
@@ -66,7 +80,7 @@ class OnboardingSetupPinBloc
     debugPrint('pin: ${state.pin}');
     if (state.pin.length > 3) {
       debugPrint('pin is more than 4');
-      emit(const OnboardingSetupPinError());
+      emit(const OnboardingSetupPinError('Pin is more than 4!'));
       emit(const OnboardingSetupPinInitial());
     } else {
       debugPrint('pin is less than 4');
