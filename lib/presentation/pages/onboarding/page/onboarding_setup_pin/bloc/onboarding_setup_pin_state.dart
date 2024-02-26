@@ -9,6 +9,7 @@ class OnboardingSetupPinState extends Equatable {
     this.pin = '',
     this.isFirstTime = true,
     this.userPin = '',
+    this.setupPin = '',
     this.attempts = 0,
   });
 
@@ -20,10 +21,20 @@ class OnboardingSetupPinState extends Equatable {
 
   /// user pin
   final String userPin;
+
   /// attempts
   final int attempts;
+
+  /// setup pin
+  final String setupPin;
   @override
-  List<Object> get props => [pin, isFirstTime, userPin];
+  List<Object> get props => [
+        pin,
+        isFirstTime,
+        userPin,
+        setupPin,
+        attempts,
+      ];
 
   /// Creates a copy of the current OnboardingSetupPinState with property changes
   OnboardingSetupPinState copyWith({
@@ -31,11 +42,13 @@ class OnboardingSetupPinState extends Equatable {
     bool? isFirstTime,
     String? userPin,
     int? attempts,
+    String? setupPin,
   }) {
     return OnboardingSetupPinState(
       pin: pin ?? this.pin,
       isFirstTime: isFirstTime ?? this.isFirstTime,
       userPin: userPin ?? this.userPin,
+      setupPin: setupPin ?? this.setupPin,
       attempts: attempts ?? this.attempts,
     );
   }
@@ -51,7 +64,8 @@ class OnboardingSetupPinInitial extends OnboardingSetupPinState {
 
 // error state
 class OnboardingSetupPinError extends OnboardingSetupPinState {
-  const OnboardingSetupPinError() : super();
+  const OnboardingSetupPinError(this.message) : super();
+  final String message;
 }
 
 /// success
