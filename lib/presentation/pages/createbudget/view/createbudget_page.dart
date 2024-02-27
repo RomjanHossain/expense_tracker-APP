@@ -32,6 +32,7 @@ class CreatebudgetPage extends StatelessWidget {
                   : ExpenseTrackerColors.dark,
             ),
           ),
+          centerTitle: true,
           elevation: 0,
           backgroundColor: ExpenseTrackerColors.violet,
           leading: IconButton(

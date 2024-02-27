@@ -68,7 +68,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.h),
+              padding: const EdgeInsets.symmetric(vertical: 20),
               child: Text(
                 state.userPin.isEmpty
                     ? state.attempts == 0
@@ -80,7 +80,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                 ),
               ),
             ),
-            SizedBox(height: 20.h),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -98,7 +98,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                   ),
               ],
             ),
-            SizedBox(height: 50.h),
+            const SizedBox(height: 50),
             // numbers
             SizedBox(
               // height: size.height * 0.4,

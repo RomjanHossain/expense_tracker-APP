@@ -1,4 +1,5 @@
-import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account_page.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
 import 'package:expense_tracker/utils/utils_.dart';

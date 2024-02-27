@@ -11,7 +11,17 @@ class SplashService {
     if (firstRun) {
       debugPrint('First run');
       Future.delayed(const Duration(seconds: 3), () {
-        context.pushNamed('onboarding');
+        Navigator.pushReplacement<void, void>(
+          context,
+          // _createRoute(),
+          PageAnimation.fromCenterToBottom(
+            const OnboardingPage(),
+            duration: const Duration(
+              seconds: 3,
+              milliseconds: 500,
+            ),
+          ),
+        );
       });
     } else {
       debugPrint('Not first run');

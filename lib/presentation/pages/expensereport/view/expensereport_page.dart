@@ -37,6 +37,7 @@ class ExpensereportPage extends StatelessWidget {
                   : ExpenseTrackerColors.dark,
             ),
           ),
+          centerTitle: true,
         ),
         body: const ExpensereportView(),
       ),
