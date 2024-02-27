@@ -62,11 +62,11 @@ class OnboardingSetupPinBloc
     Emitter<OnboardingSetupPinState> emit,
   ) async {
     final localPref = SettingsLocalDataSourcePref();
-    final isFirstTime = await localPref.isFirstRun();
+    // final isFirstTime = await localPref.isFirstRun();
     final userPin = await localPref.getPin();
     emit(
       state.copyWith(
-        isFirstTime: isFirstTime,
+        // isFirstTime: isFirstTime,
         userPin: userPin,
       ),
     );

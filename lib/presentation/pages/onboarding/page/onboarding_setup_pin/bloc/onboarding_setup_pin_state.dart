@@ -7,7 +7,6 @@ class OnboardingSetupPinState extends Equatable {
   /// {@macro onboarding_setup_pin_state}
   const OnboardingSetupPinState({
     this.pin = '',
-    this.isFirstTime = true,
     this.userPin = '',
     this.setupPin = '',
     this.attempts = 0,
@@ -17,7 +16,7 @@ class OnboardingSetupPinState extends Equatable {
   final String pin;
 
   /// first time
-  final bool isFirstTime;
+  // final bool isFirstTime;
 
   /// user pin
   final String userPin;
@@ -30,7 +29,7 @@ class OnboardingSetupPinState extends Equatable {
   @override
   List<Object> get props => [
         pin,
-        isFirstTime,
+        // isFirstTime,
         userPin,
         setupPin,
         attempts,
@@ -39,14 +38,14 @@ class OnboardingSetupPinState extends Equatable {
   /// Creates a copy of the current OnboardingSetupPinState with property changes
   OnboardingSetupPinState copyWith({
     String? pin,
-    bool? isFirstTime,
+    // bool? isFirstTime,
     String? userPin,
     int? attempts,
     String? setupPin,
   }) {
     return OnboardingSetupPinState(
       pin: pin ?? this.pin,
-      isFirstTime: isFirstTime ?? this.isFirstTime,
+      // isFirstTime: isFirstTime ?? this.isFirstTime,
       userPin: userPin ?? this.userPin,
       setupPin: setupPin ?? this.setupPin,
       attempts: attempts ?? this.attempts,
