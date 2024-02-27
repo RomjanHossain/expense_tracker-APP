@@ -6,9 +6,19 @@ class ExpenseTrackerTheme {
   /// Standard `ThemeData` for ExpenseTracker UI.
   static ThemeData get standard {
     return ThemeData(
+      progressIndicatorTheme: _pogressIndicator,
+      primaryColor: ExpenseTrackerColors.violet,
       scaffoldBackgroundColor: ExpenseTrackerColors.light,
+
       colorScheme: ColorScheme.fromSwatch(
         accentColor: ExpenseTrackerColors.violet,
+      ),
+      textSelectionTheme: _textSelectionTheme,
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: ExpenseTrackerColors.violet),
+          borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
+        ),
       ),
       // primaryColor: ExpenseTrackerColors.violet,
       // appBarTheme: _appBarTheme,
@@ -30,13 +40,28 @@ class ExpenseTrackerTheme {
         color: Color(0xfff6f6f6),
       ),
       useMaterial3: true,
+      dialogTheme: const DialogTheme(
+        backgroundColor: ExpenseTrackerColors.light,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
+        ),
+      ),
+      dialogBackgroundColor: ExpenseTrackerColors.light,
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: ExpenseTrackerColors.violet,
+        ),
+      ),
     );
   }
 
   /// DarkTheme `ThemeData` for ExpenseTracker UI.
   static ThemeData get darkTheme {
     return ThemeData(
+      progressIndicatorTheme: _pogressIndicator,
       scaffoldBackgroundColor: ExpenseTrackerColors.dark,
+      textSelectionTheme: _textSelectionTheme,
       dividerTheme: const DividerThemeData(
         color: Color(0xff222222),
       ),
@@ -58,6 +83,19 @@ class ExpenseTrackerTheme {
         ),
         trackColor: MaterialStateProperty.all<Color>(
           ExpenseTrackerColors.violet20,
+        ),
+      ),
+      dialogTheme: const DialogTheme(
+        backgroundColor: ExpenseTrackerColors.dark,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
+        ),
+      ),
+      dialogBackgroundColor: ExpenseTrackerColors.dark,
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: ExpenseTrackerColors.violet,
         ),
       ),
     );
@@ -103,4 +141,19 @@ class ExpenseTrackerTheme {
   // ignore: comment_references
   /// border radius [extraLarge] 30
   static const borderRadiusExtraLarge = BorderRadius.all(Radius.circular(30));
+
+  ///! [ProgressIndicatorThemeData]
+  static ProgressIndicatorThemeData get _pogressIndicator {
+    return const ProgressIndicatorThemeData(
+      color: ExpenseTrackerColors.violet,
+    );
+  }
+
+  ///! text selection theme
+  static const TextSelectionThemeData _textSelectionTheme =
+      TextSelectionThemeData(
+    cursorColor: ExpenseTrackerColors.violet,
+    selectionColor: ExpenseTrackerColors.violet20,
+    selectionHandleColor: ExpenseTrackerColors.violet,
+  );
 }
