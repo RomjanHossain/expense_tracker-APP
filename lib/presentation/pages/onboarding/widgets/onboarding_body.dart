@@ -134,6 +134,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 20.w,
+                vertical: 10.h,
               ),
               child: Hero(
                 tag: 'intro',
@@ -142,9 +143,37 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                     final prefs = SettingsLocalDataSourcePref();
                     await prefs.firstRunTrue();
                     if (!context.mounted) return;
-                    await context.pushNamed('setup-pin');
+                    await context.pushNamed('setup-profile');
+                    // await context.pushNamed('setup-pin');
                   },
                   child: Text(l10n.onboardingButton),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
+              ),
+              child: Hero(
+                tag: 'import',
+                child: OutlinedButton(
+                  onPressed: () async {
+                    await showDialog<void>(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Import data'),
+                        content: const Text(
+                            'This feature is not yet available. Please check back later.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  child: Text(l10n.importData),
                 ),
               ),
             ),
