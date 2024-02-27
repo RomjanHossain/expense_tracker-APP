@@ -14,9 +14,10 @@ class SettingsLocalDataSourcePref {
   }
 
   ///! reset first run
-  Future<bool> resetFirstRun() async {
+  Future<void> resetRun() async {
     final pref = await SharedPreferences.getInstance();
-    return pref.setBool('firstRun', true);
+    await pref.setBool('firstRun', true);
+    await pref.setString('userPin', '');
   }
 
   ///! setup pin
