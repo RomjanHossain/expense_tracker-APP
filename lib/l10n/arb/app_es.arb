@@ -68,5 +68,6 @@
 	"accountTypeWallet": "Billetera",
 	"accountTypeMobileBaning": "Banca móvil",
 	"accountTypeCash": "Efectivo",
-	"accountTypeOther": "Otro"
+	"accountTypeOther": "Otro",
+"importData": "Importar datos"
 }

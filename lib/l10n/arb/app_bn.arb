@@ -67,5 +67,6 @@
 	"accountTypeWallet": "ওয়ালেট",
 	"accountTypeMobileBaning": "মোবাইল ব্যাংকিং",
 	"accountTypeCash": "ক্যাশ",
-	"accountTypeOther": "অন্যান্য"
+	"accountTypeOther": "অন্যান্য",
+"importData": "ডেটা আমদানি"
 }

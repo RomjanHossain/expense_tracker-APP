@@ -67,5 +67,6 @@
 	"accountTypeWallet": "Wallet",
 	"accountTypeMobileBaning": "Mobile Banking",
 	"accountTypeCash": "Cash",
-	"accountTypeOther": "Other"
+	"accountTypeOther": "Other",
+  "importData":"Import Data"
 }
