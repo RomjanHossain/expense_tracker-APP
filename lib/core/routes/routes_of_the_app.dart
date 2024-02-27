@@ -1,4 +1,3 @@
-
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account_page.dart';
@@ -8,6 +7,7 @@ import 'package:expense_tracker/presentation/pages/exportdata/view/exportdata_pa
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/page/successfully_account_created.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/view/onboarding_account_setup_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup_intro/view/onboarding_account_setup_intro_page.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_profile_setup/view/onboarding_profile_setup_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/view/onboarding_setup_pin_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/view/onboarding_page.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/about/about.dart';
@@ -50,6 +50,30 @@ final routeOfTheApp = GoRouter(
         },
       ),
       routes: [
+        GoRoute(
+          path: 'setup-profile',
+          name: 'setup-profile',
+          pageBuilder: (context, state) => CustomTransitionPage(
+            child: const OnboardingProfileSetupPage(),
+            transitionDuration: 2.seconds,
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              // ignore: prefer_int_literals
+              const begin = Offset(0.0, 1.0);
+              const end = Offset.zero;
+              const curve = Curves.ease;
+
+              final tween =
+                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          ),
+        ),
+
         ///! OnboardingSetupPinPage
         GoRoute(
           path: 'setup-pin',
@@ -375,6 +399,7 @@ final routeOfTheApp = GoRouter(
             ),
           ],
         ),
+
         ///! Exportdatapage
         GoRoute(
           path: 'export-data',
