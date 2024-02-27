@@ -1,11 +1,12 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/gen/assets.gen.dart';
+import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:expense_tracker/l10n/l10n.dart';
 class ExpanseTrackerBottomNavBar extends StatelessWidget {
   const ExpanseTrackerBottomNavBar({
     super.key,
@@ -20,11 +21,11 @@ class ExpanseTrackerBottomNavBar extends StatelessWidget {
   ];
 
   // svg icons bototm
-  static const svgIcons = <String>[
-    'assets/icons/home.svg',
-    'assets/icons/transaction.svg',
-    'assets/icons/pie_chart.svg',
-    'assets/icons/user.svg',
+  static final svgIcons = <String>[
+    Assets.icons.home.path,
+    Assets.icons.transaction.path,
+    Assets.icons.pieChart.path,
+    Assets.icons.user.path,
   ];
 
 

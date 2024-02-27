@@ -60,7 +60,7 @@ class _HomepagePageState extends State<HomepagePage> {
                         ] else ...[
                           const Color(0x0ffff6e5),
                           const Color(0xffF8EDD8),
-                        ]
+                        ],
                       ],
                     ),
                   ),
@@ -95,18 +95,22 @@ class _HomepagePageState extends State<HomepagePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const IESmallCard(
-                              svgAsset: ExpenseAssets.incomeIcon,
-                              color: ExpenseTrackerColors.green,
-                              title: 'Income',
-                              money: '2024',
+                            Expanded(
+                              child: IESmallCard(
+                                svgAsset: ExpenseAssets.incomeIcon,
+                                color: ExpenseTrackerColors.green,
+                                title: 'Income',
+                                money: '2024',
+                              ),
                             ),
                             width10,
-                            const IESmallCard(
-                              svgAsset: ExpenseAssets.expenseIcon,
-                              color: ExpenseTrackerColors.red,
-                              title: 'Expense',
-                              money: '2023',
+                            Expanded(
+                              child: IESmallCard(
+                                svgAsset: ExpenseAssets.expenseIcon,
+                                color: ExpenseTrackerColors.red,
+                                title: 'Expense',
+                                money: '2023',
+                              ),
                             ),
                           ],
                         ),

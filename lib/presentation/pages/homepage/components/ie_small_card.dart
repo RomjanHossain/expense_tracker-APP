@@ -61,7 +61,7 @@ class IESmallCard extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

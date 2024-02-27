@@ -20,10 +20,6 @@ class _SuccessfullyAccountCreatedState
     super.initState();
     // after 1.5 seconds, navigate to the next page
     Future.delayed(1.5.seconds, () {
-      // Navigator.of(context).pushAndRemoveUntil(
-      //   AppHomePagePage.route(duration: 1.seconds),
-      //   (route) => false,
-      // );
       context.goNamed('home');
     });
   }

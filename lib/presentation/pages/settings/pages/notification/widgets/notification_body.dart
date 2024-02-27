@@ -40,7 +40,7 @@ class NotificationBody extends StatelessWidget {
                   value: state.expenseAlert,
                   onChanged: (v) {
                     context.read<NotificationCubit>().setExpenseAlert(v);
-                  }),
+                  },),
             ),
             ListTile(
               title: Text(
@@ -56,7 +56,7 @@ class NotificationBody extends StatelessWidget {
                   value: state.budgetAlert,
                   onChanged: (v) {
                     context.read<NotificationCubit>().setBudgetAlert(v);
-                  }),
+                  },),
             ),
             ListTile(
               title: Text('Tips & Articles', style: tileTitle),
@@ -69,7 +69,7 @@ class NotificationBody extends StatelessWidget {
                   value: state.tipsAlert,
                   onChanged: (v) {
                     context.read<NotificationCubit>().setTipsAlert(v);
-                  }),
+                  },),
             ),
           ],
         );

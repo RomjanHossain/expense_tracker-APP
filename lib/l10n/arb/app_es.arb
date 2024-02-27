@@ -54,6 +54,8 @@
 	"@onboardingSetUpPin2": {
 		"description": "Sin descripción"
 	},
+	"onboardingSetUpPin3": "Ingrese su PIN",
+	"onboardingSetupSuccess": "Su PIN ha sido configurado",
 	"onboardingAccountSetup": "¡Vamos a configurar tu cuenta!",
 	"onboardingAccountSetup2": "La cuenta puede ser tu banco, tarjeta de crédito o tu billetera.",
 	"onboardingAccountSetupBtn": "¡Vamos!",
@@ -66,5 +68,6 @@
 	"accountTypeWallet": "Billetera",
 	"accountTypeMobileBaning": "Banca móvil",
 	"accountTypeCash": "Efectivo",
-	"accountTypeOther": "Otro"
+	"accountTypeOther": "Otro",
+"importData": "Importar datos"
 }

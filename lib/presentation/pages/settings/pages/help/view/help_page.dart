@@ -1,7 +1,7 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/help/widgets/help_body.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
-import 'package:expense_tracker/presentation/pages/settings/pages/help/widgets/help_body.dart';
 
 /// {@template help_page}
 /// A description for HelpPage

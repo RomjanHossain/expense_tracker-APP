@@ -1,135 +1,150 @@
+import 'package:expense_tracker/gen/assets.gen.dart';
+
 abstract class ExpenseAssets {
-  static const String _icons = 'assets/icons/';
-  static const String _mobileBanking = 'assets/icons/MobileBanking/';
-  static const String bankingAsset = 'assets/icons/Bank/';
-  static const String _illustrations = 'assets/illustrations/';
+  // static final String _icons = 'assets/icons/';
+  // static final String _mobileBanking = 'assets/icons/MobileBanking/';
+  // static final String bankingAsset = 'assets/icons/Bank/';
+  // static final String _illustrations = 'assets/illustrations/';
 
   /*
     All icons are down below
   */
   // plus sign icon
-  static const String plusIcon = '${_icons}add.svg';
+  static final String plusIcon = Assets.icons.add.path;
   // arrow down
-  static const String arrowDownIcon = '${_icons}arrow_down.svg';
+  static final String arrowDownIcon = Assets.icons.arrowDown.path;
   // arrow left long
-  static const String arrowLeftLongIcon = '${_icons}arrow_left_long.svg';
+  // static final String arrowLeftLongIcon = '${_icons}arrow_left_long.svg';
+  static final String arrowLeftLongIcon = Assets.icons.arrowLeftLong.path;
   // arrow right
-  static const String arrowRightIcon = '${_icons}arrow_right.svg';
+  // static final String arrowRightIcon = '${_icons}arrow_right.svg';
+  static final String arrowRightIcon = Assets.icons.arrowRight.path;
   // attachment icon
-  static const String attachmentIcon = '${_icons}attachment.svg';
+  // static final String attachmentIcon = '${_icons}attachment.svg';
+  static final String attachmentIcon = Assets.icons.attachment.path;
   // camera
-  static const String cameraIcon = '${_icons}camera.svg';
+  // static final String cameraIcon = '${_icons}camera.svg';
+  static final String cameraIcon = Assets.icons.camera.path;
   // car
-  static const String carIcon = '${_icons}car.svg';
+  // static final String carIcon = '${_icons}car.svg';
+  static final String carIcon = Assets.icons.car.path;
   // close
-  static const String closeIcon = '${_icons}close.svg';
+  // static final String closeIcon = '${_icons}close.svg';
+  static final String closeIcon = Assets.icons.close.path;
   // create
-  static const String createIcon = '${_icons}create.svg';
+  // static final String createIcon = '${_icons}create.svg';
+  static final String createIcon = Assets.icons.create.path;
   // create_fill
-  static const String createFillIcon = '${_icons}create_fill.svg';
+  // static final String createFillIcon = '${_icons}create_fill.svg';
+  static final String createFillIcon = Assets.icons.createFill.path;
   // currency_exchange
-  static const String currencyExchangeIcon = '${_icons}currency_exchange.svg';
+  // static final String currencyExchangeIcon = '${_icons}currency_exchange.svg';
+  static final String currencyExchangeIcon = Assets.icons.currencyExchange.path;
   // download
-  static const String downloadIcon = '${_icons}download.svg';
+  // static final String downloadIcon = '${_icons}download.svg';
+  static final String downloadIcon = Assets.icons.download.path;
   // edit
-  static const String editIcon = '${_icons}edit.svg';
+  // static final String editIcon = '${_icons}edit.svg';
+  static final String editIcon = Assets.icons.edit.path;
   // expense
-  static const String expenseIcon = '${_icons}expense.svg';
+  // static final String expenseIcon = '${_icons}expense.svg';
+  static final String expenseIcon = Assets.icons.expense.path;
   // flat_color_icons_google
-  static const String flatColorIconsGoogleIcon =
-      '${_icons}flat_color_icons_google.svg';
+  static final String flatColorIconsGoogleIcon =
+      Assets.icons.flatColorIconsGoogle.path;
   // gallery
-  static const String galleryIcon = '${_icons}gallery.svg';
+  static final String galleryIcon = Assets.icons.gallery.path;
   // home
-  static const String homeIcon = '${_icons}home.svg';
+  static final String homeIcon = Assets.icons.home.path;
   // income
-  static const String incomeIcon = '${_icons}income.svg';
+  static final String incomeIcon = Assets.icons.income.path;
   // line_chart
-  static const String lineChartIcon = '${_icons}line_chart.svg';
+  static final String lineChartIcon = Assets.icons.lineChart.path;
   // logout
-  static const String logoutIcon = '${_icons}logout.svg';
+  static final String logoutIcon = Assets.icons.logout.path;
   // more_horizontal
-  static const String moreHorizontalIcon = '${_icons}more_horizontal.svg';
+  static final String moreHorizontalIcon = Assets.icons.moreHorizontal.path;
   // new
-  static const String newIcon = '${_icons}new.svg';
+  static final String newIcon = Assets.icons.newicon.path;
   // notifiaction
-  static const String notificationIcon = '${_icons}notification.svg';
+  static final String notificationIcon = Assets.icons.notification.path;
   // notification
-  static const String notificationFillIcon = '${_icons}notification_fill.svg';
+  static final String notificationFillIcon = Assets.icons.notification.path;
   // pie_chart
-  static const String pieChartIcon = '${_icons}pie_chart.svg';
+  static final String pieChartIcon = Assets.icons.pieChart.path;
   // recurring_bill
-  static const String recurringBillIcon = '${_icons}recurring_bill.svg';
+  static final String recurringBillIcon = Assets.icons.recurringBill.path;
   // restaurant
-  static const String restaurantIcon = '${_icons}restaurant.svg';
+  static final String restaurantIcon = Assets.icons.restaurant.path;
   // salary
-  static const String salaryIcon = '${_icons}salary.svg';
+  static final String salaryIcon = Assets.icons.salary.path;
   // search
-  static const String searchIcon = '${_icons}search.svg';
+  static final String searchIcon = Assets.icons.search.path;
   // settings
-  static const String settingsIcon = '${_icons}settings.svg';
+  static final String settingsIcon = Assets.icons.settings.path;
   // shopping_bag
-  static const String shoppingBagIcon = '${_icons}shopping_bag.svg';
+  static final String shoppingBagIcon = Assets.icons.shoppingBag.path;
   // show
-  static const String showIcon = '${_icons}show.svg';
+  static final String showIcon = Assets.icons.show.path;
   // sort
-  static const String sortIcon = '${_icons}sort.svg';
+  static final String sortIcon = Assets.icons.sort.path;
   // sort_highest_lowest
-  static const String sortHighestLowestIcon =
-      '${_icons}sort_highest_lowest.svg';
+  static final String sortHighestLowestIcon =
+      Assets.icons.sortHighestLowest.path;
   // success
-  static const String successIcon = '${_icons}success.svg';
+  static final String successIcon = Assets.icons.success.path;
   // transaction
-  static const String transactionIcon = '${_icons}transaction.svg';
+  static final String transactionIcon = Assets.icons.transaction.path;
   // transaction_color
-  static const String transactionColorIcon = '${_icons}transaction_color.svg';
+  static final String transactionColorIcon = Assets.icons.transactionColor.path;
   // trash
-  static const String trashIcon = '${_icons}trash.svg';
+  static final String trashIcon = Assets.icons.trash.path;
   // user
-  static const String userIcon = '${_icons}user.svg';
+  static final String userIcon = Assets.icons.user.path;
   // wallet
-  static const String walletIcon = '${_icons}wallet.svg';
+  static final String walletIcon = Assets.icons.wallet.path;
   // warning
-  static const String warningIcon = '${_icons}warning.svg';
+  static final String warningIcon = Assets.icons.warning.path;
 
   /*
     All illustrations are down below
   */
   // Export Data
-  static const String exportDataIll = '${_illustrations}export_data.svg';
+  static final String exportDataIll = Assets.illustrations.exportData.path;
   // Gain total control of your money
-  static const String gainTotalControlOfYourMoneyIll =
-      '${_illustrations}gain_total_control_of_your_money.svg';
+  static final String gainTotalControlOfYourMoneyIll =
+      Assets.illustrations.gainTotalControlOfYourMoney.path;
   // Know where your money goes
-  static const String knowWhereYourMoneyGoesIll =
-      '${_illustrations}know_where_your_money_goes.svg';
+  static final String knowWhereYourMoneyGoesIll =
+      Assets.illustrations.knowWhereYourMoneyGoes.path;
   // Planning ahead
-  static const String planningAheadIll = '${_illustrations}planning_ahead.svg';
+  static final String planningAheadIll =
+      Assets.illustrations.planningAhead.path;
   // Your email is on the way
-  static const String yourEmailIsOnTheWayIll =
-      '${_illustrations}your_email_is_on_the_way.svg';
+  static final String yourEmailIsOnTheWayIll =
+      Assets.illustrations.yourEmailIsOnTheWay.path;
 
   /*
     All mobile banking icons are down below
   */
   // Bkash
-  static const String bkashIcon = '${_mobileBanking}bkash.svg';
+  static final String bkashIcon = Assets.icons.mobileBanking.bkash.path;
   // Nagad
-  static const String nagadIcon = '${_mobileBanking}nagad.svg';
+  static final String nagadIcon = Assets.icons.mobileBanking.nagad.path;
   // Rocket
-  static const String rocketIcon = '${_mobileBanking}rocket.svg';
+  static final String rocketIcon = Assets.icons.mobileBanking.rocket.path;
   // SureCash
-  static const String sureCashIcon = '${_mobileBanking}surecash.png';
+  static final String sureCashIcon = Assets.icons.mobileBanking.surecash.path;
   // ucash
-  static const String ucashIcon = '${_mobileBanking}ucash.svg';
+  static final String ucashIcon = Assets.icons.mobileBanking.ucash.path;
   // Upay
-  static const String upayIcon = '${_mobileBanking}upay.png';
+  static final String upayIcon = Assets.icons.mobileBanking.upay.path;
   // mCash
-  static const String mCashIcon = '${_mobileBanking}mcash.png';
+  static final String mCashIcon = Assets.icons.mobileBanking.mcash.path;
   // ok
-  static const String okIcon = '${_mobileBanking}ok.png';
+  static final String okIcon = Assets.icons.mobileBanking.ok.path;
   // t-cash
-  static const String tCashIcon = '${_mobileBanking}tcash.png';
+  static final String tCashIcon = Assets.icons.mobileBanking.tcash.path;
 
   ///* get all mobile banking icons
   static List<String> get allMobileBankingIcons => [

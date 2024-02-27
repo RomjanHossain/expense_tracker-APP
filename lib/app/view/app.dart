@@ -105,6 +105,3 @@ ThemeData _getThemeModeFromState() {
       ? ExpenseTrackerTheme.darkTheme
       : ExpenseTrackerTheme.standard;
 }
-
-
-// commiting from Alif bhai

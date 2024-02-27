@@ -32,7 +32,7 @@ class OnboardingAccountSetupState extends Equatable {
       acType: accountType ?? createAccount.acType,
       acBalance: balance ?? createAccount.acBalance,
       acLogo: accountLogo ?? createAccount.acLogo,
-    ));
+    ),);
   }
 }
 

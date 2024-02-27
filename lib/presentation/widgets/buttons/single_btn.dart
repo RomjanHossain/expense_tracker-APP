@@ -74,6 +74,7 @@ class ArrowButton extends StatelessWidget implements Button {
     super.key,
   });
 
+  @override
   final void Function(String) cb;
 
   @override

@@ -54,6 +54,8 @@
 	"@onboardingSetUpPin2": {
 		"description": "No description"
 	},
+	"onboardingSetUpPin3": "Enter your PIN",
+	"onboardingSetupSuccess": "Your PIN has been setup",
 	"onboardingAccountSetup": "Let's setup your account!",
 	"onboardingAccountSetup2": "Account can be your bank, credit card or your wallet.",
 	"onboardingAccountSetupBtn": "Let's go",
@@ -65,5 +67,6 @@
 	"accountTypeWallet": "Wallet",
 	"accountTypeMobileBaning": "Mobile Banking",
 	"accountTypeCash": "Cash",
-	"accountTypeOther": "Other"
+	"accountTypeOther": "Other",
+  "importData":"Import Data"
 }

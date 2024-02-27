@@ -3,7 +3,7 @@ import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/expenseform_bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/widgets/expenseform_body.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -76,6 +76,10 @@ class SubscriptionBottomSheet extends StatelessWidget {
                   // frequency dropdown
                   Expanded(
                     child: DropdownButtonFormField(
+                      dropdownColor: ExpenseTrackerColors.violet,
+                      focusColor: isDarkMode(context)
+                          ? ExpenseTrackerColors.dark75
+                          : ExpenseTrackerColors.light,
                       decoration: dropdownInputDecoration(
                         'Frequency',
                       ),
@@ -204,7 +208,7 @@ class SubscriptionBottomSheet extends StatelessWidget {
                     }
                     // check if the end date is before the start date
                     if (date.isBefore(
-                        state.expenseFormEntity.subStart ?? DateTime.now())) {
+                        state.expenseFormEntity.subStart ?? DateTime.now(),)) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text(
@@ -223,8 +227,8 @@ class SubscriptionBottomSheet extends StatelessWidget {
                 },
               ),
 
-              PrimaryButton(
-                onPress: () {
+              ElevatedButton(
+                onPressed: () {
                   debugPrint(
                     'sub end date : ${state.expenseFormEntity.subEnd}',
                   );
@@ -259,7 +263,7 @@ class SubscriptionBottomSheet extends StatelessWidget {
                   }
                   Navigator.of(context).pop();
                 },
-                text: 'Next',
+                child: const Text('Next'),
               ),
             ],
           ),

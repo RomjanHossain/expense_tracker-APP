@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter_test/flutter_test.dart';
 import 'package:expense_tracker/presentation/pages/onboarding_setup_pin/bloc/bloc.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('OnboardingSetupPinEvent', () {  
@@ -17,7 +17,7 @@ void main() {
       test('can be instantiated', () {
         expect(
           const CustomOnboardingSetupPinEvent(),
-          isNotNull
+          isNotNull,
         );
       });
     });

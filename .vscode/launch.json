@@ -17,6 +17,18 @@
       ]
     },
     {
+      "name": "Linux Development",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "args": [
+          "--dart-define",
+          "flavor=development"
+      ],
+      "program": "lib/main_development.dart",
+  },
+  
+    {
       "name": "Launch staging",
       "request": "launch",
       "type": "dart",

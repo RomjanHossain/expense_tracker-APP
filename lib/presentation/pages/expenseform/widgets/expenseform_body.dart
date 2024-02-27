@@ -8,7 +8,6 @@ import 'package:expense_tracker/presentation/pages/app_home_page/components/drop
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/attachment_picker.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/subscription_bottom.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -355,7 +354,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                     showModalBottomSheet<void>(
                                       context: context,
                                       builder: (context) {
-                                        //! TODO: show
+                                        // !TODO: show
                                         return const SubscriptionBottomSheet();
                                       },
                                     );
@@ -379,7 +378,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                         },
                       ),
                     ),
-                  //!!! TODO: show subscription
+                  // !!! `TODO`: show subscription
                   if (state.expenseFormEntity.isExpense &&
                       state.expenseFormEntity.subStart != null) ...[
                     Row(
@@ -437,9 +436,9 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           ),
                         ),
                         Expanded(
-                          child: SecondaryButton(
-                            text: 'Edit',
-                            onPress: () => showModalBottomSheet<void>(
+                          child: OutlinedButton(
+                            child: const Text('Edit'),
+                            onPressed: () => showModalBottomSheet<void>(
                               context: context,
                               builder: (context) =>
                                   const SubscriptionBottomSheet(),
@@ -452,8 +451,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                   //! ** a submit button */
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: PrimaryButton(
-                      onPress: () {
+                    child: ElevatedButton(
+                      onPressed: () {
                         debugPrint(
                           'Money Amount: ${_accountBalanceController.text}',
                         );
@@ -505,7 +504,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           );
                         }
                       },
-                      text: 'Continue',
+                      child: const Text('Continue'),
                     ),
                   ),
                 ],
