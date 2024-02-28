@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 /// {@template onboarding_profile_setup_body}
 /// Body of the OnboardingProfileSetupPage.
@@ -36,7 +37,7 @@ class _OnboardingProfileSetupBodyState
         // return Center(child: Text(state.customProperty));
         final avatar = _nameController.text.isNotEmpty
             ? DiceBearBuilder(seed: _nameController.text).build()
-            : DiceBearBuilder.withRandomSeed().build();
+            : null;
         return Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
@@ -45,28 +46,31 @@ class _OnboardingProfileSetupBodyState
                 child: CircleAvatar(
                   radius: 80.r,
                   backgroundColor: ExpenseTrackerColors.violet80,
-                  child: FutureBuilder<Uint8List?>(
-                    future: avatar.asRawSvgBytes(),
-                    builder: (context, snapshot) {
-                      // return SvgPicture.network(
-                      //   avatar.svgUri.toString(),
-                      // );
-                      if (snapshot.connectionState != ConnectionState.done) {
-                        return const CircularProgressIndicator();
-                      }
-                      if (snapshot.hasError) {
-                        return const Icon(Icons.error);
-                      }
-                      if (snapshot.data == null) {
-                        return const Icon(Icons.error);
-                      }
-                      return SvgPicture.memory(
-                        snapshot.data!,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      );
-                    },
-                  ),
+                  child: avatar != null
+                      ? FutureBuilder<Uint8List?>(
+                          future: avatar.asRawSvgBytes(),
+                          builder: (context, snapshot) {
+                            // return SvgPicture.network(
+                            //   avatar.svgUri.toString(),
+                            // );
+                            if (snapshot.connectionState !=
+                                ConnectionState.done) {
+                              return const CircularProgressIndicator();
+                            }
+                            if (snapshot.hasError) {
+                              return const Icon(Icons.error);
+                            }
+                            if (snapshot.data == null) {
+                              return const Icon(Icons.error);
+                            }
+                            return SvgPicture.memory(
+                              snapshot.data!,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            );
+                          },
+                        )
+                      : null,
                 ),
               ),
               Padding(
@@ -108,7 +112,9 @@ class _OnboardingProfileSetupBodyState
               ElevatedButton(
                 onPressed: () async {
                   debugPrint('Name: ${_nameController.text}');
-                  debugPrint('Avater url :${avatar.svgUri}');
+                  debugPrint('Avater url :${avatar?.svgUri}');
+
+                  await context.pushNamed('setup-pin');
                 },
                 child: const Text('Create a Profile'),
               ),
