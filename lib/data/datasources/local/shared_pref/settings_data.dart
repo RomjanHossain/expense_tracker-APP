@@ -21,15 +21,15 @@ class SettingsLocalDataSourcePref {
   }
 
   ///! setup pin
-  Future<bool> setupPin(String pin) async {
+  Future<bool> setupUsername(String pin) async {
     final pref = await SharedPreferences.getInstance();
-    return pref.setString('userPin', pin);
+    return pref.setString('userName', pin);
   }
 
   ///! get pin
-  Future<String> getPin() async {
+  Future<String> getUsername() async {
     final pref = await SharedPreferences.getInstance();
-    final pin = pref.getString('userPin');
+    final pin = pref.getString('userName');
     return pin ?? '';
   }
 
