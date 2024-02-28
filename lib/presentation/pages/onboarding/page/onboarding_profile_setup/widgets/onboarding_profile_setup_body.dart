@@ -1,5 +1,6 @@
 import 'package:dice_bear/dice_bear.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_profile_setup/cubit/cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -32,13 +33,14 @@ class _OnboardingProfileSetupBodyState
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OnboardingProfileSetupCubit,
+    return BlocConsumer<OnboardingProfileSetupCubit,
         OnboardingProfileSetupState>(
-      builder: (context, state) {
+      builder: (context, statex) {
         // return Center(child: Text(state.customProperty));
         final avatar = _nameController.text.isNotEmpty
             ? DiceBearBuilder(seed: _nameController.text).build()
             : null;
+        debugPrint('Avatar: $avatar');
         return Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
@@ -80,11 +82,11 @@ class _OnboardingProfileSetupBodyState
                 ),
                 child: TextFormField(
                   controller: _nameController,
-                  // onChanged: (value) {
-                  //   context
-                  //       .read<OnboardingProfileSetupCubit>()
-                  //       .changeName(value);
-                  // },
+                  onChanged: (value) {
+                    context
+                        .read<OnboardingProfileSetupCubit>()
+                        .changeName(value);
+                  },
                   decoration: InputDecoration(
                     hintText: 'Name',
                     border: const OutlineInputBorder(),
@@ -110,21 +112,31 @@ class _OnboardingProfileSetupBodyState
                   ),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  debugPrint('Name: ${_nameController.text}');
-                  debugPrint('Avater url :${avatar?.svgUri}');
-                  context.read<OnboardingProfileSetupCubit>().saveProfile(
-                      _nameController.text,
-                      avatar?.svgUri.toString() ?? _nameController.text);
-
-                  await context.pushNamed('setup-pin');
-                },
-                child: const Text('Create a Profile'),
-              ),
+              if (statex is OnboardingProfileSetupLoading)
+                const CircularProgressIndicator()
+              else
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_nameController.text.isEmpty) {
+                      showFailureToast(context, 'Name Field is required!');
+                      return;
+                    }
+                    debugPrint('Name: ${_nameController.text}');
+                    debugPrint('Avater url :${avatar?.svgUri}');
+                    context.read<OnboardingProfileSetupCubit>().saveProfile(
+                        _nameController.text,
+                        avatar?.svgUri.toString() ?? _nameController.text);
+                  },
+                  child: const Text('Create a Profile'),
+                ),
             ],
           ),
         );
+      },
+      listener: (BuildContext context, OnboardingProfileSetupState state) {
+        if (state is OnboardingProfileSetupSuccess) {
+          context.pushNamed('setup-pin');
+        }
       },
     );
   }
