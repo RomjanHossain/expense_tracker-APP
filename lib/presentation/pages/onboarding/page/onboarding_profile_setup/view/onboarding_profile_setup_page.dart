@@ -21,7 +21,7 @@ class OnboardingProfileSetupPage extends StatelessWidget {
       create: (context) => OnboardingProfileSetupCubit(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Sign Up"),
+          title: const Text('Sign Up'),
         ),
         body: const OnboardingProfileSetupView(),
       ),
