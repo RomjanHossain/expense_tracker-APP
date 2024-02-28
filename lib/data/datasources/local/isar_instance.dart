@@ -35,39 +35,50 @@ class IsarInstance implements IIsarInstance, UserRepository {
     return Future.value(Isar.getInstance());
   }
 
-  @override
-  Future<void> deleteUser(int userID) {
-    // TODO: implement deleteUser
-    throw UnimplementedError();
-  }
+  // @override
+  // Future<void> deleteUser(int userID) async{
+  //   final ins = instance;
+  //   await ins.then((value) => value.userEntitys.where().idEqualTo(userID).delete);
+  // }
 
-  @override
+  @override // PERF: get the user
   Future<UserEntity?> getUser() async {
     final ins = await instance;
     final user = await ins.userEntitys.get(1);
     return user;
   }
 
-  @override
+  @override // PERF: save/update the user
   Future<void> saveUser(UserEntity user) async {
     final ins = await instance;
     final usr = await ins.userEntitys.where().idEqualTo(1).findFirst();
 
-    /// PERF: (for updating user)
+    // PERF: (for updating user)
     if (usr?.name == user.name ||
         usr?.pin == user.pin ||
-        usr?.imageUrl == user.imageUrl) {}
-    usr?.name = user.name;
-    usr?.pin = user.pin;
-    usr?.imageUrl = user.imageUrl;
+        usr?.imageUrl == user.imageUrl) {
+      usr?.name = user.name;
+      usr?.pin = user.pin;
+      usr?.imageUrl = user.imageUrl;
+      // update the user
+      await ins.writeTxn(() => ins.userEntitys.put(usr!));
+    } else {
+      if (user.name != null) {
+        usr?.name = user.name;
+      }
+      if (user.pin != null) {
+        usr?.pin = user.pin;
+      }
+      if (user.imageUrl != user) {
+        usr?.imageUrl = user.imageUrl;
+      }
 
-    // saving the user
-    await ins.writeTxn(() => ins.userEntitys.put(usr!));
+      // saving the user
+      await ins.writeTxn(() => ins.userEntitys.put(usr!));
+    }
   }
 
-  @override
-  Future<void> updateUser(UserEntity user) {
-    // TODO: implement updateUser
-    throw UnimplementedError();
-  }
+  // @override
+  // Future<void> updateUser(UserEntity user) {
+  // }
 }

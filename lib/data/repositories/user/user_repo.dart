@@ -8,8 +8,8 @@ abstract class UserRepository {
   Future<void> saveUser(UserEntity user);
 
   /// delete user
-  Future<void> deleteUser(int userID);
+  // Future<void> deleteUser(int userID);
 
   /// update user
-  Future<void> updateUser(UserEntity user);
+  // Future<void> updateUser(UserEntity user);
 }
