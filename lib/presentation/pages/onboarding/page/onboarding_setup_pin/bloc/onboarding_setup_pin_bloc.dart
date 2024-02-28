@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -43,6 +44,7 @@ class OnboardingSetupPinBloc
     if (event.attempts == 3) {
       emit(const OnboardingSetupPinError('Too many Attempts!'));
       emit(const OnboardingSetupPinInitial());
+      exit(0);
     } else {
       emit(state.copyWith(attempts: event.attempts));
     }
@@ -65,10 +67,12 @@ class OnboardingSetupPinBloc
     FirstRunOnboardingSetupPinEvent event,
     Emitter<OnboardingSetupPinState> emit,
   ) async {
+    debugPrint('First run event');
     final isarDB = IsarInstance();
     // final isFirstTime = await localPref.isFirstRun();
     // final userPin = await localPref.getUsername();
     final usr = await isarDB.getUser();
+    debugPrint('user pin: ${usr?.pin}');
     emit(
       state.copyWith(
         userPin: usr?.pin ?? '',
