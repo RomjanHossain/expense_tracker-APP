@@ -32,7 +32,8 @@ class _OnboardingProfileSetupBodyState
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OnboardingProfileSetupCubit, String>(
+    return BlocBuilder<OnboardingProfileSetupCubit,
+        OnboardingProfileSetupState>(
       builder: (context, state) {
         // return Center(child: Text(state.customProperty));
         final avatar = _nameController.text.isNotEmpty
@@ -79,11 +80,11 @@ class _OnboardingProfileSetupBodyState
                 ),
                 child: TextFormField(
                   controller: _nameController,
-                  onChanged: (value) {
-                    context
-                        .read<OnboardingProfileSetupCubit>()
-                        .changeName(value);
-                  },
+                  // onChanged: (value) {
+                  //   context
+                  //       .read<OnboardingProfileSetupCubit>()
+                  //       .changeName(value);
+                  // },
                   decoration: InputDecoration(
                     hintText: 'Name',
                     border: const OutlineInputBorder(),
@@ -113,6 +114,9 @@ class _OnboardingProfileSetupBodyState
                 onPressed: () async {
                   debugPrint('Name: ${_nameController.text}');
                   debugPrint('Avater url :${avatar?.svgUri}');
+                  context.read<OnboardingProfileSetupCubit>().saveProfile(
+                      _nameController.text,
+                      avatar?.svgUri.toString() ?? _nameController.text);
 
                   await context.pushNamed('setup-pin');
                 },
