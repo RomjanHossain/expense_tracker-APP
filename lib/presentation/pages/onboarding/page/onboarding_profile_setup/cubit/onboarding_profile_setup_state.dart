@@ -5,22 +5,26 @@ part of 'onboarding_profile_setup_cubit.dart';
 /// {@endtemplate}
 class OnboardingProfileSetupState extends Equatable {
   /// {@macro onboarding_profile_setup}
-  const OnboardingProfileSetupState();
+  const OnboardingProfileSetupState({
+    this.name = 'default',
+  });
 
   /// A description for customProperty
-  // final String customProperty;
+  final String name;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        name,
+      ];
 
   /// Creates a copy of the current OnboardingProfileSetupState with property changes
-  // OnboardingProfileSetupState copyWith({
-  //   // String? customProperty,
-  // }) {
-  //   return OnboardingProfileSetupState(
-  //     // customProperty: customProperty ?? this.customProperty,
-  //   );
-  // }
+  OnboardingProfileSetupState copyWith({
+    String? name,
+  }) {
+    return OnboardingProfileSetupState(
+      name: name ?? this.name,
+    );
+  }
 }
 
 /// {@template onboarding_profile_setup_initial}
