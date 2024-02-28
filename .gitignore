@@ -122,3 +122,4 @@ lib/data/models/local_db_model/category_local_db_model.freezed.dart
 lib/domain/entities/expense_form_entity/expense_form_entity.freezed.dart
 lib/domain/entities/card_of_expense/card_of_expense_entity.freezed.dart
 lib/presentation/pages/createbudget/model/create_budget_entity.freezed.dart
+lib/data/models/isar_entity/user/user_entity_isar.g.dart
