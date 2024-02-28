@@ -1,5 +1,6 @@
 import 'package:expense_tracker/data/models/isar_entity/user/user_entity_isar.dart';
 import 'package:expense_tracker/data/repositories/user/user_repo.dart';
+import 'package:flutter/rendering.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -50,29 +51,35 @@ class IsarInstance implements IIsarInstance, UserRepository {
 
   @override // PERF: save/update the user
   Future<void> saveUser(UserEntity user) async {
+    debugPrint('Saving user: ${user.name}');
     final ins = await instance;
+    final count = await ins.userEntitys.where().count();
+    if (count == 0) {
+      debugPrint('User count: $count');
+      await ins.writeTxn(() => ins.userEntitys.put(user));
+      return;
+    }
     final usr = await ins.userEntitys.where().idEqualTo(1).findFirst();
 
     // PERF: (for updating user)
     if (usr?.name == user.name ||
         usr?.pin == user.pin ||
         usr?.imageUrl == user.imageUrl) {
-      usr?.name = user.name;
-      usr?.pin = user.pin;
-      usr?.imageUrl = user.imageUrl;
-      // update the user
-      await ins.writeTxn(() => ins.userEntitys.put(usr!));
-    } else {
       if (user.name != null) {
         usr?.name = user.name;
       }
       if (user.pin != null) {
         usr?.pin = user.pin;
       }
-      if (user.imageUrl != user) {
+      if (user.imageUrl != user.imageUrl) {
         usr?.imageUrl = user.imageUrl;
       }
-
+      // update the user
+      await ins.writeTxn(() => ins.userEntitys.put(usr!));
+    } else {
+      usr?.name = user.name;
+      usr?.pin = user.pin;
+      usr?.imageUrl = user.imageUrl;
       // saving the user
       await ins.writeTxn(() => ins.userEntitys.put(usr!));
     }
