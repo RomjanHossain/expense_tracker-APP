@@ -51,9 +51,11 @@ class IsarInstance implements IIsarInstance, UserRepository {
 
   @override // PERF: save/update the user
   Future<void> saveUser(UserEntity user) async {
-    debugPrint('Saving user: ${user.name}');
+    debugPrint('Saving user nme: ${user.name}');
+    debugPrint('Saving user img: ${user.imageUrl}');
     final ins = await instance;
     final count = await ins.userEntitys.where().count();
+    // NOTE: for saving user for the first time
     if (count == 0) {
       debugPrint('User count: $count');
       await ins.writeTxn(() => ins.userEntitys.put(user));
@@ -61,26 +63,23 @@ class IsarInstance implements IIsarInstance, UserRepository {
     }
     final usr = await ins.userEntitys.where().idEqualTo(1).findFirst();
 
-    // PERF: (for updating user)
-    if (usr?.name == user.name ||
-        usr?.pin == user.pin ||
-        usr?.imageUrl == user.imageUrl) {
+    // NOTE: (for updating users's few value)
+    if (user.name != null || user.pin != null || user.imageUrl != null) {
+      debugPrint(
+          'updating user where one of the value is not null ${user.name} ${user.imageUrl} ${user.pin}');
       if (user.name != null) {
         usr?.name = user.name;
       }
       if (user.pin != null) {
         usr?.pin = user.pin;
       }
-      if (user.imageUrl != user.imageUrl) {
+      if (user.imageUrl != null) {
         usr?.imageUrl = user.imageUrl;
       }
+      debugPrint('user name: ${usr?.name}');
+      debugPrint('user pin: ${usr?.pin}');
+      debugPrint('user img: ${usr?.imageUrl}');
       // update the user
-      await ins.writeTxn(() => ins.userEntitys.put(usr!));
-    } else {
-      usr?.name = user.name;
-      usr?.pin = user.pin;
-      usr?.imageUrl = user.imageUrl;
-      // saving the user
       await ins.writeTxn(() => ins.userEntitys.put(usr!));
     }
   }
