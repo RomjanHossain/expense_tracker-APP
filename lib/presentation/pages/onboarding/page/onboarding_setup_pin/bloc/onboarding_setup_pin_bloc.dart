@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
 import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
+import 'package:expense_tracker/data/models/isar_entity/user/user_entity_isar.dart';
 import 'package:flutter/material.dart';
 part 'onboarding_setup_pin_event.dart';
 part 'onboarding_setup_pin_state.dart';
@@ -18,6 +20,7 @@ class OnboardingSetupPinBloc
     on<ChangeAttemptsOnboardingSetupPinEvent>(_changeAttempts);
     on<SaveFirstAttemptsPinOnboardingSetupPinEvent>(_saveFirstAttempts);
   }
+  IsarInstance isar = IsarInstance();
 
   /// save first attempts pin
   FutureOr<void> _saveFirstAttempts(
@@ -53,6 +56,8 @@ class OnboardingSetupPinBloc
   ) async {
     final localPref = SettingsLocalDataSourcePref();
     await localPref.setupPin(event.pin);
+    final user = UserEntity()..pin = event.pin;
+    await isar.saveUser(user);
     emit(const OnboardingSetupPinSuccess());
   }
 
