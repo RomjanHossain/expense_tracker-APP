@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
-import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/data/models/isar_entity/user/user_entity_isar.dart';
 import 'package:flutter/material.dart';
 part 'onboarding_setup_pin_event.dart';
@@ -20,7 +19,7 @@ class OnboardingSetupPinBloc
     on<ChangeAttemptsOnboardingSetupPinEvent>(_changeAttempts);
     on<SaveFirstAttemptsPinOnboardingSetupPinEvent>(_saveFirstAttempts);
   }
-  IsarInstance isar = IsarInstance();
+  final isar = IsarInstance();
 
   /// save first attempts pin
   FutureOr<void> _saveFirstAttempts(
@@ -54,9 +53,9 @@ class OnboardingSetupPinBloc
     PinSaveOnboardingSetupPinEvent event,
     Emitter<OnboardingSetupPinState> emit,
   ) async {
-    final localPref = SettingsLocalDataSourcePref();
-    await localPref.setupPin(event.pin);
+    debugPrint('event pin: ${event.pin}');
     final user = UserEntity()..pin = event.pin;
+    debugPrint('user pin: ${user.pin}');
     await isar.saveUser(user);
     emit(const OnboardingSetupPinSuccess());
   }
@@ -66,13 +65,13 @@ class OnboardingSetupPinBloc
     FirstRunOnboardingSetupPinEvent event,
     Emitter<OnboardingSetupPinState> emit,
   ) async {
-    final localPref = SettingsLocalDataSourcePref();
+    final isarDB = IsarInstance();
     // final isFirstTime = await localPref.isFirstRun();
-    final userPin = await localPref.getPin();
+    // final userPin = await localPref.getUsername();
+    final usr = await isarDB.getUser();
     emit(
       state.copyWith(
-        // isFirstTime: isFirstTime,
-        userPin: userPin,
+        userPin: usr?.pin ?? '',
       ),
     );
   }

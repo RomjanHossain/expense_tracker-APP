@@ -7,12 +7,16 @@ class SplashService {
     debugPrint('Login or go home');
     final prefs = SettingsLocalDataSourcePref();
     final firstRun = await prefs.isFirstRun();
-    final userPin = await prefs.getPin();
-
-    if (firstRun || userPin.isEmpty) {
+    final username = await prefs.getUsername();
+    if (firstRun) {
       // debugPrint('First run');
       Future.delayed(const Duration(seconds: 3), () {
         context.pushNamed('onboarding');
+      });
+    } else if (username.isEmpty) {
+      if (!context.mounted) return;
+      Future.delayed(const Duration(seconds: 3), () {
+        context.pushNamed('setup-profile');
       });
     } else {
       // debugPrint('Not first run');

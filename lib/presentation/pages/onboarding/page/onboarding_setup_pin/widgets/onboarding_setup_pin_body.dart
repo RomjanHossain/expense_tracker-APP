@@ -64,6 +64,8 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
     return BlocConsumer<OnboardingSetupPinBloc, OnboardingSetupPinState>(
       buildWhen: (previous, current) => previous.pin != current.pin,
       builder: (context, state) {
+        debugPrint(
+            "AAAAAAAAAAAAAAAAAAA: ${state.userPin.isEmpty ? state.attempts == 0 ? l10n.onboardingSetUpPin : l10n.onboardingSetUpPin2 : l10n.onboardingSetUpPin3}");
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -251,18 +253,22 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                                     ),
                                   );
                             } else {
+                              debugPrint(
+                                  'pin from the page controller -> ${state.pin}');
                               context.read<OnboardingSetupPinBloc>().add(
                                     PinSaveOnboardingSetupPinEvent(
-                                      pin: _controller.text,
+                                      pin: state.pin,
                                     ),
                                   );
                             }
                           }
                           if (state.userPin.isNotEmpty) {
                             if (state.userPin == _controller.text) {
+                              debugPrint(
+                                  'pin from the page controller -> ${state.pin}');
                               context.read<OnboardingSetupPinBloc>().add(
                                     PinSaveOnboardingSetupPinEvent(
-                                      pin: _controller.text,
+                                      pin: state.pin,
                                     ),
                                   );
                             } else {
