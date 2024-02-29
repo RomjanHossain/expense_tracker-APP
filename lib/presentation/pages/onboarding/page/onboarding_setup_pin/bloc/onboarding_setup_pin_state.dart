@@ -69,5 +69,10 @@ class OnboardingSetupPinError extends OnboardingSetupPinState {
 
 /// success
 class OnboardingSetupPinSuccess extends OnboardingSetupPinState {
-  const OnboardingSetupPinSuccess() : super();
+  const OnboardingSetupPinSuccess(
+      {required this.userPP, required this.isHomePage})
+      : super();
+
+  final String userPP;
+  final bool isHomePage;
 }
