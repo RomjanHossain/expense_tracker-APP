@@ -55,11 +55,13 @@ class OnboardingSetupPinBloc
     PinSaveOnboardingSetupPinEvent event,
     Emitter<OnboardingSetupPinState> emit,
   ) async {
-    debugPrint('event pin: ${event.pin}');
-    final user = UserEntity()..pin = event.pin;
-    debugPrint('user pin: ${user.pin}');
-    await isar.saveUser(user);
-    emit(const OnboardingSetupPinSuccess());
+    if (state.userPin.isEmpty) {
+      debugPrint('event pin: ${event.pin}');
+      final user = UserEntity()..pin = event.pin;
+      debugPrint('user pin: ${user.pin}');
+      await isar.saveUser(user);
+    }
+    emit(OnboardingSetupPinSuccess(userPP: event.pin, isHomePage: false));
   }
 
   /// init state
