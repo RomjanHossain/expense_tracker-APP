@@ -25,30 +25,20 @@ class OnboardingSetupPinBody extends StatefulWidget {
 }
 
 class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
-  final TextEditingController _controller = TextEditingController();
-  // final _localPref = SettingsLocalDataSourcePref();
-  // bool _isFirstTimeSetupPin = true;
-  // String pin = '';
+  // final TextEditingController _controller = TextEditingController();
   @override
   void initState() {
-    // _localPref.isFirstRun().then(
-    //       (value) => _isFirstTimeSetupPin = value,
-    //     );
-    // _localPref.getPin().then(
-    //       (value) => pin = value,
-    //     );
-    // debugPrint('This is pin -> $pin');
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    // _controller.dispose();
     super.dispose();
   }
 
   Color getColor(String pin, int index) {
-    // now check if the index is less than the length of the pin
+    // NOTE: now check if the index is less than the length of the pin
     // if it is, return the default color
     if (index < pin.length) {
       return ExpenseTrackerColors.violet20;
@@ -62,10 +52,10 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return BlocConsumer<OnboardingSetupPinBloc, OnboardingSetupPinState>(
-      buildWhen: (previous, current) => previous.pin != current.pin,
+      buildWhen: (previous, current) =>
+          previous.pin != current.pin || current.userPin.isNotEmpty,
       builder: (context, state) {
-        debugPrint(
-            "AAAAAAAAAAAAAAAAAAA: ${state.userPin.isEmpty ? state.attempts == 0 ? l10n.onboardingSetUpPin : l10n.onboardingSetUpPin2 : l10n.onboardingSetUpPin3}");
+        debugPrint('attepts: ${state.attempts}');
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -221,12 +211,12 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                             /// save the first pin and attempts
                             context.read<OnboardingSetupPinBloc>().add(
                                   SaveFirstAttemptsPinOnboardingSetupPinEvent(
-                                    pin: _controller.text,
+                                    pin: state.pin,
                                   ),
                                 );
 
                             /// _controller to empty
-                            _controller.clear();
+                            // _controller.clear();
 
                             // clear the pin
                             context.read<OnboardingSetupPinBloc>().add(
@@ -235,12 +225,12 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                           } else if (state.attempts == 1 &&
                               state.userPin.isEmpty) {
                             /// save the pin and
-                            if (state.setupPin != _controller.text) {
+                            if (state.setupPin != state.pin) {
                               /// NOTE: add snackbar
                               showFailureToast(context, 'Pin does not match');
 
                               /// _controller to empty
-                              _controller.clear();
+                              // _controller.clear();
 
                               // clear the pin
                               context.read<OnboardingSetupPinBloc>().add(
@@ -263,7 +253,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                             }
                           }
                           if (state.userPin.isNotEmpty) {
-                            if (state.userPin == _controller.text) {
+                            if (state.userPin == state.pin) {
                               debugPrint(
                                   'pin from the page controller -> ${state.pin}');
                               context.read<OnboardingSetupPinBloc>().add(
@@ -273,10 +263,16 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                                   );
                             } else {
                               if (state.attempts == 3) {
+                                showFailureToast(context,
+                                    'You have reached the maximum attempts.');
                                 //! if 3 attemps then exit from the app
-                                exit(0);
+                                Future.delayed(const Duration(seconds: 1), () {
+                                  exit(0);
+                                });
                               }
                               showFailureToast(context, 'Pin does not match');
+                              debugPrint(
+                                  'Pin does not match ${state.userPin} || ${state.pin}');
                               // chagne attempts
                               context.read<OnboardingSetupPinBloc>().add(
                                     ChangeAttemptsOnboardingSetupPinEvent(
@@ -311,23 +307,34 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
         );
       },
       listener: (BuildContext context, OnboardingSetupPinState state) {
-        if (state.userPin.isEmpty) {
-          debugPrint('Hey :${l10n.onboardingSetUpPin}');
-          debugPrint('Hello :${l10n.onboardingSetUpPin2}');
-        } else {
-          debugPrint('SHIT: ${l10n.onboardingSetUpPin3}');
-        }
+        // debugPrint(
+        //     "user pin from listener: ${state.userPin} x ${state.pin} x ${state.setupPin}");
+        // if (state.userPin.isEmpty) {
+        //   debugPrint('Hey :${l10n.onboardingSetUpPin}');
+        //   debugPrint('Hello :${l10n.onboardingSetUpPin2}');
+        // } else {
+        //   debugPrint('SHIT: ${l10n.onboardingSetUpPin3}');
+        // }
         if (state is OnboardingSetupPinError) {
           showFailureToast(context, state.message);
         } else if (state is OnboardingSetupPinSuccess) {
-          showSuccessToast(context, 'Successfully pin setup');
-          state.userPin.isEmpty
-              ? context.goNamed('account-setup-intro')
-              : context.goNamed('home');
+          // debugPrint(
+          //     "user pin ${state.userPP} x ${state.userPin} x ${state.pin} x ${state.setupPin}");
+          showSuccessToast(
+            context,
+            state.userPP.isEmpty
+                ? 'Successfully pin setup'
+                : state.isHomePage
+                    ? 'Welcome back'
+                    : 'Set up an account....',
+          );
+          state.isHomePage && state.userPP.isNotEmpty
+              ? context.goNamed('home')
+              : context.goNamed('account-setup-intro');
 
-          _controller
-            ..clear()
-            ..dispose();
+          // _controller
+          //   ..clear()
+          //   ..dispose();
         }
       },
     );
