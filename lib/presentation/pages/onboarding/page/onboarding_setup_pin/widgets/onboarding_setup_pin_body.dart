@@ -320,14 +320,20 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
         } else if (state is OnboardingSetupPinSuccess) {
           // debugPrint(
           //     "user pin ${state.userPP} x ${state.userPin} x ${state.pin} x ${state.setupPin}");
-          showSuccessToast(
-            context,
-            state.userPP.isEmpty
-                ? 'Successfully pin setup'
-                : state.isHomePage
-                    ? 'Welcome back'
-                    : 'Set up an account....',
-          );
+          // showSuccessToast(
+          //   context,
+          //   state.userPP.isEmpty
+          //       ? 'Successfully pin setup'
+          //       : state.isHomePage
+          //           ? 'Welcome back'
+          //           : 'Set up an account....',
+          // );
+          state.userPP.isEmpty
+              ? showSuccessToast(context, 'Successfully pin setup')
+              : state.isHomePage
+                  ? showSuccessToast(context, 'Welcome Back')
+                  : showInfoToast(context, 'Set up an account');
+
           state.isHomePage && state.userPP.isNotEmpty
               ? context.goNamed('home')
               : context.goNamed('account-setup-intro');
