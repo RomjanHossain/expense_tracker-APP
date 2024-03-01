@@ -1,3 +1,4 @@
+import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
 import 'package:expense_tracker/data/models/isar_entity/user/user_entity_isar.dart';
 import 'package:expense_tracker/data/repositories/user/user_repo.dart';
 import 'package:flutter/rendering.dart';
@@ -28,6 +29,7 @@ class IsarInstance implements IIsarInstance, UserRepository {
       final isar = await Isar.open(
         [
           UserEntitySchema,
+          AccountEntitySchema,
         ],
         directory: dir.path,
       );
