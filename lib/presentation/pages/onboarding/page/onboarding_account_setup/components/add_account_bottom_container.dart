@@ -1,6 +1,7 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/account_type_helper.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_banking.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/mobile_banking_db.dart';
@@ -70,9 +71,9 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          //! Account name
+          //!NOTE: Account name field
           const AccountNameTextField(),
-          //do account type dropdown
+          //NOTE: account type dropdown
           const AccountTypeDropdown(),
           if (!forbidenList.contains(createACState.acType)) ...[
             //* text of Ac type
@@ -393,25 +394,29 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                 debugPrint('Type: ${createACState.acType}');
                 debugPrint('Logo: ${createACState.acLogo}');
                 if (createACState.acBalance.isNaN) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please enter a valid balance'),
-                    ),
-                  );
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   const SnackBar(
+                  //     content: Text('Please enter a valid balance'),
+                  //   ),
+                  // );
+                  showFailureToast(context, 'Plase enter a valid balance');
                   return;
                 } else if (createACState.acName.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please enter a valid account name'),
-                    ),
-                  );
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   const SnackBar(
+                  //     content: Text('Please enter a valid account name'),
+                  //   ),
+                  // );
+                  showFailureToast(
+                      context, 'Please enter a valid account name');
                   return;
                 } else if (createACState.acType == null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please select an account type'),
-                    ),
-                  );
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   const SnackBar(
+                  //     content: Text('Please select an account type'),
+                  //   ),
+                  // );
+                  showFailureToast(context, 'Please select an account type');
                   return;
                 } else {
                   // show a success page
