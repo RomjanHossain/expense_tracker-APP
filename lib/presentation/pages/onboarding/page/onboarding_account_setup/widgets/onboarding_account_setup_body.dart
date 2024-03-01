@@ -47,6 +47,7 @@ class _OnboardingAccountSetupBodyState
                 ),
               ),
             ),
+            // NOTE: balance input field
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: TextField(

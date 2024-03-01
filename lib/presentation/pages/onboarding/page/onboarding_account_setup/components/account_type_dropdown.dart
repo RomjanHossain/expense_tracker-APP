@@ -18,6 +18,7 @@ class AccountTypeDropdown extends StatelessWidget {
     final l10n = context.l10n;
     return DropdownButtonFormField(
       dropdownColor: ExpenseTrackerColors.violet,
+      // focusColor: Colors.white,
       items: accountTypesDBwithTrans(context)
           .map(
             (e) => DropdownMenuItem(
@@ -25,9 +26,10 @@ class AccountTypeDropdown extends StatelessWidget {
               child: Text(
                 e,
                 style: ExpenseTrackerTextStyle.body3.copyWith(
-                  color: isDarkMode(context)
-                      ? ExpenseTrackerColors.light80
-                      : ExpenseTrackerColors.dark75,
+                  // color: isDarkMode(context)
+                  //     ? ExpenseTrackerColors.light80
+                  //     : ExpenseTrackerColors.dark75,
+                  color: ExpenseTrackerColors.light80,
                 ),
               ),
             ),
