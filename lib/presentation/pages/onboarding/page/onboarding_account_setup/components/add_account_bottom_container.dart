@@ -394,33 +394,20 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                 debugPrint('Type: ${createACState.acType}');
                 debugPrint('Logo: ${createACState.acLogo}');
                 if (createACState.acBalance.isNaN) {
-                  // ScaffoldMessenger.of(context).showSnackBar(
-                  //   const SnackBar(
-                  //     content: Text('Please enter a valid balance'),
-                  //   ),
-                  // );
                   showFailureToast(context, 'Plase enter a valid balance');
                   return;
                 } else if (createACState.acName.isEmpty) {
-                  // ScaffoldMessenger.of(context).showSnackBar(
-                  //   const SnackBar(
-                  //     content: Text('Please enter a valid account name'),
-                  //   ),
-                  // );
                   showFailureToast(
                       context, 'Please enter a valid account name');
                   return;
                 } else if (createACState.acType == null) {
-                  // ScaffoldMessenger.of(context).showSnackBar(
-                  //   const SnackBar(
-                  //     content: Text('Please select an account type'),
-                  //   ),
-                  // );
                   showFailureToast(context, 'Please select an account type');
                   return;
                 } else {
+                  context
+                      .read<OnboardingAccountSetupBloc>()
+                      .add(const SaveAccountInfoEvent());
                   // show a success page
-                  // Navigator.push(context, SuccessfullyAccountCreated.route());
                   context.pushNamed(
                     'successfully-account-created',
                   );
