@@ -1,5 +1,6 @@
 import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
 import 'package:expense_tracker/data/models/isar_entity/user/user_entity_isar.dart';
+import 'package:expense_tracker/data/repositories/account_setup/accoutn_setup_repo.dart';
 import 'package:expense_tracker/data/repositories/user/user_repo.dart';
 import 'package:flutter/rendering.dart';
 import 'package:isar/isar.dart';
@@ -10,7 +11,7 @@ part 'iisar_instance.dart';
 /// {@template isar_instance}
 /// IsarInstance description
 /// {@endtemplate}
-class IsarInstance implements IIsarInstance, UserRepository {
+class IsarInstance implements IIsarInstance, UserRepository, AccountSetupRepo {
   /// {@macro isar_instance}
   factory IsarInstance() {
     return _instance;
@@ -44,6 +45,7 @@ class IsarInstance implements IIsarInstance, UserRepository {
   //   await ins.then((value) => value.userEntitys.where().idEqualTo(userID).delete);
   // }
 
+  //WARN: this section is for the user(profile) section
   @override // PERF: get the user
   Future<UserEntity?> getUser() async {
     final ins = await instance;
@@ -86,7 +88,34 @@ class IsarInstance implements IIsarInstance, UserRepository {
     }
   }
 
+  //WARN: this section is for the account setup section
+  @override
+  Future<bool> deleteDaAccount(int id) async {
+    final ins = await instance;
+    return ins.writeTxn(() => ins.accountEntitys.delete(id));
+  }
+
   // @override
-  // Future<void> updateUser(UserEntity user) {
-  // }
+  // Future<void> editAnAccount(int id) async {}
+
+  @override
+  Future<int> openAnAccount(AccountEntity accountEntity) async {
+    final ins = await instance;
+    return ins.writeTxn(() => ins.accountEntitys.put(accountEntity));
+  }
+
+  @override
+  Future<int> updateTheAccount(int id, AccountEntity accountEntity) async {
+    final ins = await instance;
+    final currentAccount = await ins.accountEntitys.get(id);
+    if (currentAccount != null) {
+      currentAccount
+        ..accountTypeImg = accountEntity.accountTypeImg
+        ..accountType = accountEntity.accountType
+        ..accountBalance = accountEntity.accountBalance
+        ..accountName = accountEntity.accountName;
+      return ins.writeTxn(() => ins.accountEntitys.put(currentAccount));
+    }
+    return 0;
+  }
 }
