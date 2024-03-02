@@ -19,6 +19,17 @@ ToastificationItem showSuccessToast(BuildContext context, String message) =>
       pauseOnHover: false,
       showProgressBar: false,
       primaryColor: ExpenseTrackerColors.green,
+      animationBuilder: (
+        context,
+        animation,
+        alignment,
+        child,
+      ) {
+        return ScaleTransition(
+          scale: animation,
+          child: child,
+        );
+      },
     );
 
 /// show failure toast
@@ -34,6 +45,18 @@ ToastificationItem showFailureToast(BuildContext context, String message) =>
       borderRadius: BorderRadius.circular(12.r),
       boxShadow: lowModeShadow,
       showProgressBar: false,
+
+      animationBuilder: (
+        context,
+        animation,
+        alignment,
+        child,
+      ) {
+        return ScaleTransition(
+          scale: animation,
+          child: child,
+        );
+      },
       pauseOnHover: false,
       alignment: Alignment.bottomCenter,
       primaryColor: ExpenseTrackerColors.red,
