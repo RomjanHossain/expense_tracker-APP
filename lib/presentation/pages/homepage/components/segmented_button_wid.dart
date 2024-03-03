@@ -18,14 +18,15 @@ class HomeSegmentedButtonsWidget extends StatelessWidget {
         showSelectedIcon: false,
         style: ButtonStyle(
           textStyle: MaterialStateProperty.resolveWith(
-              (states) => ExpenseTrackerTextStyle.body3.copyWith(
-                    color: states.contains(MaterialState.selected)
-                        ? ExpenseTrackerColors.yellow
-                        : ExpenseTrackerColors.yellow,
-                    fontWeight: states.contains(MaterialState.selected)
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                  ),),
+            (states) => ExpenseTrackerTextStyle.body3.copyWith(
+              color: states.contains(MaterialState.selected)
+                  ? ExpenseTrackerColors.yellow
+                  : ExpenseTrackerColors.yellow,
+              fontWeight: states.contains(MaterialState.selected)
+                  ? FontWeight.bold
+                  : FontWeight.normal,
+            ),
+          ),
           side: MaterialStateProperty.all(
             BorderSide.none,
           ),
@@ -45,20 +46,36 @@ class HomeSegmentedButtonsWidget extends StatelessWidget {
               style: ExpenseTrackerTextStyle.body3.copyWith(
                 color: ExpenseTrackerColors.yellow,
                 fontWeight: FontWeight.bold,
+                fontSize: 14.sp,
               ),
             ),
             value: SegmentedButtonsData.today,
           ),
-          const ButtonSegment<SegmentedButtonsData>(
-            label: Text('Week'),
+          ButtonSegment<SegmentedButtonsData>(
+            label: Text(
+              'Week',
+              style: TextStyle(
+                fontSize: 14.sp,
+              ),
+            ),
             value: SegmentedButtonsData.week,
           ),
-          const ButtonSegment<SegmentedButtonsData>(
-            label: Text('Month'),
+          ButtonSegment<SegmentedButtonsData>(
+            label: Text(
+              'Month',
+              style: TextStyle(
+                fontSize: 14.sp,
+              ),
+            ),
             value: SegmentedButtonsData.month,
           ),
-          const ButtonSegment<SegmentedButtonsData>(
-            label: Text('Year'),
+          ButtonSegment<SegmentedButtonsData>(
+            label: Text(
+              'Year',
+              style: TextStyle(
+                fontSize: 14.sp,
+              ),
+            ),
             value: SegmentedButtonsData.year,
           ),
         ],
