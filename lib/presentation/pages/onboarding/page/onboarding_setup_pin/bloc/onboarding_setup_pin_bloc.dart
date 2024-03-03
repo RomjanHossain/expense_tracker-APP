@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
+import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
 import 'package:expense_tracker/data/models/isar_entity/user/user_entity_isar.dart';
 import 'package:flutter/material.dart';
 part 'onboarding_setup_pin_event.dart';
@@ -55,13 +56,26 @@ class OnboardingSetupPinBloc
     PinSaveOnboardingSetupPinEvent event,
     Emitter<OnboardingSetupPinState> emit,
   ) async {
+    final isarDB = IsarInstance();
     if (state.userPin.isEmpty) {
       debugPrint('event pin: ${event.pin}');
       final user = UserEntity()..pin = event.pin;
       debugPrint('user pin: ${user.pin}');
       await isar.saveUser(user);
     }
-    emit(OnboardingSetupPinSuccess(userPP: event.pin, isHomePage: false));
+    final ins = await isarDB.instance;
+    final totalAccounts = await ins.accountEntitys.count();
+
+    var isHome = false;
+    if (totalAccounts > 0) {
+      isHome = true;
+    }
+    emit(
+      OnboardingSetupPinSuccess(
+        userPP: event.pin,
+        isHomePage: isHome,
+      ),
+    );
   }
 
   /// init state
