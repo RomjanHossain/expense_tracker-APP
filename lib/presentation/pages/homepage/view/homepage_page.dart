@@ -35,19 +35,22 @@ class _HomepagePageState extends State<HomepagePage> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
     return BlocProvider(
       create: (context) => HomepageBloc(),
       child: Scaffold(
+        // backgroundColor: Colors.red,
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               expandedHeight: 250.h,
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: const Radius.circular(20).r,
+                      bottomRight: const Radius.circular(20).r,
                     ),
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
@@ -91,28 +94,55 @@ class _HomepagePageState extends State<HomepagePage> {
                         padding: EdgeInsets.symmetric(
                           horizontal: 10.w,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                              child: IESmallCard(
-                                svgAsset: ExpenseAssets.incomeIcon,
-                                color: ExpenseTrackerColors.green,
-                                title: 'Income',
-                                money: '2024',
+                        child: width > 265
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  SizedBox(
+                                    width: 0.45.sw,
+                                    child: IESmallCard(
+                                      svgAsset: ExpenseAssets.incomeIcon,
+                                      color: ExpenseTrackerColors.green,
+                                      title: 'Income',
+                                      money: '2024',
+                                    ),
+                                  ),
+                                  width10,
+                                  SizedBox(
+                                    width: 0.45.sw,
+                                    child: IESmallCard(
+                                      svgAsset: ExpenseAssets.expenseIcon,
+                                      color: ExpenseTrackerColors.red,
+                                      title: 'Expense',
+                                      money: '2023',
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  SizedBox(
+                                    width: 0.5.sw,
+                                    child: IESmallCard(
+                                      svgAsset: ExpenseAssets.incomeIcon,
+                                      color: ExpenseTrackerColors.green,
+                                      title: 'Income',
+                                      money: '2024',
+                                    ),
+                                  ),
+                                  height10,
+                                  SizedBox(
+                                    width: 0.5.sw,
+                                    child: IESmallCard(
+                                      svgAsset: ExpenseAssets.expenseIcon,
+                                      color: ExpenseTrackerColors.red,
+                                      title: 'Expense',
+                                      money: '2023',
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                            width10,
-                            Expanded(
-                              child: IESmallCard(
-                                svgAsset: ExpenseAssets.expenseIcon,
-                                color: ExpenseTrackerColors.red,
-                                title: 'Expense',
-                                money: '2023',
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                     ],
                   ),
