@@ -36,6 +36,7 @@ class _HomepagePageState extends State<HomepagePage> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
+    debugPrint('Width: ${width}');
     return BlocProvider(
       create: (context) => HomepageBloc(),
       child: Scaffold(
@@ -148,13 +149,51 @@ class _HomepagePageState extends State<HomepagePage> {
                   ),
                 ),
               ),
-              title: const DropdownMonths(),
-              leading: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50.r),
-                  color: ExpenseTrackerColors.violet,
+              title: width > 265 ? const DropdownMonths() : null,
+              // leading: Container(
+              //   alignment: Alignment.center,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(50).r,
+              //     color: ExpenseTrackerColors.violet,
+              //   ),
+              //   child: Text('x'),
+              // ),
+              leading: Center(
+                child: CircleAvatar(
+                  radius: 25.r,
+                  backgroundColor: ExpenseTrackerColors.violet80,
+                  child: CircleAvatar(
+                    radius: 22.r,
+                    backgroundColor: ExpenseTrackerColors.light,
+                  ),
+                  // child: avatar != null
+                  //     ? FutureBuilder<Uint8List?>(
+                  //         future: avatar.asRawSvgBytes(),
+                  //         builder: (context, snapshot) {
+                  //           // return SvgPicture.network(
+                  //           //   avatar.svgUri.toString(),
+                  //           // );
+                  //           if (snapshot.connectionState !=
+                  //               ConnectionState.done) {
+                  //             return const CircularProgressIndicator();
+                  //           }
+                  //           if (snapshot.hasError) {
+                  //             return const Icon(Icons.error);
+                  //           }
+                  //           if (snapshot.data == null) {
+                  //             return const Icon(Icons.error);
+                  //           }
+                  //           return SvgPicture.memory(
+                  //             snapshot.data!,
+                  //             fit: BoxFit.cover,
+                  //             width: double.infinity,
+                  //           );
+                  //         },
+                  //       )
+                  //     : null,
                 ),
               ),
+
               actions: [
                 SvgPicture.asset(
                   ExpenseAssets.notificationIcon,
@@ -209,7 +248,10 @@ class _HomepagePageState extends State<HomepagePage> {
             /// * recent transactions
             SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.all(15.h),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15.w,
+                  vertical: 15.h,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -218,6 +260,7 @@ class _HomepagePageState extends State<HomepagePage> {
                       style: ExpenseTrackerTextStyle.title3.copyWith(
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.2,
+                        fontSize: 19.sp,
                         color: isDarkMode(context)
                             ? ExpenseTrackerColors.light
                             : ExpenseTrackerColors.dark,
@@ -225,6 +268,9 @@ class _HomepagePageState extends State<HomepagePage> {
                     ),
                     FilledButton.tonal(
                       style: ButtonStyle(
+                        // minimumSize: MaterialStateProperty.all(
+                        //   Size(20.w, 40.h),
+                        // ),
                         backgroundColor: MaterialStateProperty.all(
                           ExpenseTrackerColors.violet20,
                         ),
@@ -234,9 +280,10 @@ class _HomepagePageState extends State<HomepagePage> {
                       ),
                       onPressed: () {},
                       child: Text(
-                        'see all',
+                        width > 260 ? 'see all' : '...',
                         style: ExpenseTrackerTextStyle.body3.copyWith(
                           color: ExpenseTrackerColors.violet,
+                          fontSize: 16.sp,
                         ),
                       ),
                     ),
@@ -256,13 +303,19 @@ class _HomepagePageState extends State<HomepagePage> {
                     Row(
                       children: [
                         Container(
-                          margin: EdgeInsets.all(10.h),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 10.w,
+                            vertical: 10.h,
+                          ),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.r),
+                            borderRadius: BorderRadius.circular(20).r,
                             color: ExpenseTrackerColors.violet20,
                           ),
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.h),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.w,
+                            vertical: 10.h,
+                          ),
                           child: SvgPicture.asset(
                             'assets/icons/expense.svg',
                             color: ExpenseTrackerColors.violet,
@@ -277,7 +330,7 @@ class _HomepagePageState extends State<HomepagePage> {
                               style: ExpenseTrackerTextStyle.body1.copyWith(
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.2,
-                                // color: ExpenseTrackerColors.dark25,
+                                // fontSize: 21.sp,
                                 color: isDarkMode(context)
                                     ? ExpenseTrackerColors.light
                                     : ExpenseTrackerColors.dark,
@@ -289,6 +342,8 @@ class _HomepagePageState extends State<HomepagePage> {
                               overflow: TextOverflow.ellipsis,
                               style: ExpenseTrackerTextStyle.body3.copyWith(
                                 // color: ExpenseTrackerColors.light20,
+                                // fontSize: 15.sp,
+
                                 color: isDarkMode(context)
                                     ? ExpenseTrackerColors.light20
                                     : ExpenseTrackerColors.dark25,
@@ -308,6 +363,7 @@ class _HomepagePageState extends State<HomepagePage> {
                           style: ExpenseTrackerTextStyle.title3.copyWith(
                             fontWeight: FontWeight.w600,
                             letterSpacing: 1.2,
+                            fontSize: 16.sp,
                             color: ExpenseTrackerColors.red,
                           ),
                         ),
@@ -315,6 +371,7 @@ class _HomepagePageState extends State<HomepagePage> {
                           '${now.hour}:${now.minute}' ' AM',
                           style: ExpenseTrackerTextStyle.small.copyWith(
                             color: ExpenseTrackerColors.light20,
+                            fontSize: 12.sp,
                           ),
                         ),
                       ],
