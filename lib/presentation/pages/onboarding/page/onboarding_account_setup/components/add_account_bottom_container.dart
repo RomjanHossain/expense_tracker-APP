@@ -76,7 +76,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
           //NOTE: account type dropdown
           const AccountTypeDropdown(),
           if (!forbidenList.contains(createACState.acType)) ...[
-            //* text of Ac type
+            //HACK: text of Ac type
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -92,7 +92,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                 ),
               ),
             ),
-            //* account type icons
+            //HACK: account type icons
             if (createACState.acType != null) ...[
               SizedBox(
                 height: 100.h,
@@ -144,7 +144,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                     //! all bnaking
                     if (createACState.acType == AccountType.bank ||
                         createACState.acType == AccountType.creditCard)
-                      for (final i in realBanking.keys.toList().getRange(0, 7))
+                      for (final i in realBanking.keys.toList().getRange(0, 5))
                         InkWell(
                           onTap: () {
                             context.read<OnboardingAccountSetupBloc>().add(
