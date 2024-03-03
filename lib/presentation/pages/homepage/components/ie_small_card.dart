@@ -20,12 +20,12 @@ class IESmallCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: 20.h,
+        horizontal: 20.w,
         vertical: 10.h,
       ),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(20).w,
+        borderRadius: BorderRadius.circular(20).r,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,14 +34,18 @@ class IESmallCard extends StatelessWidget {
             margin: EdgeInsets.only(
               right: 10.w,
             ),
-            padding: const EdgeInsets.all(5).r,
+            padding: EdgeInsets.symmetric(
+              horizontal: 5.w,
+              vertical: 5.h,
+            ),
             decoration: BoxDecoration(
               color: ExpenseTrackerColors.light,
-              borderRadius: BorderRadius.circular(15).w,
+              borderRadius: BorderRadius.circular(15).r,
             ),
             child: SvgPicture.asset(
               svgAsset,
               color: color,
+              fit: BoxFit.fitWidth,
             ),
           ),
           Column(
@@ -50,6 +54,7 @@ class IESmallCard extends StatelessWidget {
                 title,
                 style: ExpenseTrackerTextStyle.body3.copyWith(
                   color: ExpenseTrackerColors.light80,
+                  fontSize: 14.sp,
                   // fontWeight: FontWeight.bold,
                 ),
               ),
@@ -58,6 +63,7 @@ class IESmallCard extends StatelessWidget {
                 style: ExpenseTrackerTextStyle.title3.copyWith(
                   color: ExpenseTrackerColors.light80,
                   fontWeight: FontWeight.bold,
+                  fontSize: 18.sp,
                 ),
               ),
             ],
