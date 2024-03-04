@@ -14,7 +14,7 @@ class ExpenseTrackerTheme {
         accentColor: ExpenseTrackerColors.violet,
       ),
       textSelectionTheme: _textSelectionTheme,
-      inputDecorationTheme: InputDecorationTheme(
+      inputDecorationTheme: const InputDecorationTheme(
         border: OutlineInputBorder(
           borderSide: BorderSide(color: ExpenseTrackerColors.violet),
           borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
@@ -53,6 +53,9 @@ class ExpenseTrackerTheme {
           foregroundColor: ExpenseTrackerColors.violet,
         ),
       ),
+      // filterchip data
+
+      chipTheme: _chipTheme,
     );
   }
 
@@ -98,6 +101,7 @@ class ExpenseTrackerTheme {
           foregroundColor: ExpenseTrackerColors.violet,
         ),
       ),
+      chipTheme: _chipTheme,
     );
   }
 
@@ -155,5 +159,22 @@ class ExpenseTrackerTheme {
     cursorColor: ExpenseTrackerColors.violet,
     selectionColor: ExpenseTrackerColors.violet20,
     selectionHandleColor: ExpenseTrackerColors.violet,
+  );
+
+  ///! chip theme
+  static final ChipThemeData _chipTheme = ChipThemeData(
+    padding: const EdgeInsets.symmetric(
+      horizontal: 15,
+      vertical: 10,
+    ),
+    showCheckmark: false,
+    selectedColor: ExpenseTrackerColors.violet20,
+    side: const BorderSide(
+      color: ExpenseTrackerColors.light40,
+    ),
+    // round shape
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
   );
 }
