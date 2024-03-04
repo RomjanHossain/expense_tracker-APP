@@ -6,21 +6,30 @@ part of 'transaction_graph_page_bloc.dart';
 class TransactionGraphPageState extends Equatable {
   /// {@macro transaction_graph_page_state}
   const TransactionGraphPageState({
-    this.customProperty = 'Trans Graph Value',
+    this.expenseType = ExpenseType.income,
+    this.sortType = SortType.newest,
   });
 
-  /// A description for customProperty
-  final String customProperty;
+  /// expense type
+  final ExpenseType expenseType;
+
+  /// sorttype
+  final SortType sortType;
 
   @override
-  List<Object> get props => [customProperty];
+  List<Object> get props => [
+        expenseType,
+        sortType,
+      ];
 
   /// Creates a copy of the current TransactionGraphPageState with property changes
   TransactionGraphPageState copyWith({
-    String? customProperty,
+    ExpenseType? expenseType,
+    SortType? sortType,
   }) {
     return TransactionGraphPageState(
-      customProperty: customProperty ?? this.customProperty,
+      expenseType: expenseType ?? this.expenseType,
+      sortType: sortType ?? this.sortType,
     );
   }
 }
