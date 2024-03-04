@@ -12,6 +12,7 @@ import 'package:expense_tracker/presentation/pages/settings/pages/currency/cubit
 import 'package:expense_tracker/presentation/pages/settings/pages/language/cubit/language_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/notification/cubit/notification_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';
+import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/transaction_graph_page_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -55,6 +56,9 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (context) => NotificationCubit()..getNotification(),
         ),
+
+        //! transaction graph
+        BlocProvider(create: (c) => TransactionGraphPageBloc()),
       ],
       child: ThemeProvider(
         builder: (context, theme) => BlocProvider(
