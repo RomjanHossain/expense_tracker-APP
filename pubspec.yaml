@@ -26,7 +26,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   flutter_svg: ^2.0.9
   freezed_annotation: ^2.4.1
-  google_fonts: ^6.1.0
+  google_fonts: ^6.2.1
   image_picker: ^1.0.6
   intl: ^0.18.1
   isar: ^3.1.0+1
