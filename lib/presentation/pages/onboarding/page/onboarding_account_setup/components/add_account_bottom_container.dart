@@ -1,16 +1,19 @@
-import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
+import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/account_type_helper.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_banking.dart';
-import 'package:expense_tracker/data/datasources/local/utils_data/local_mobile_banking.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/mobile_banking_db.dart';
-import 'package:expense_tracker/l10n/l10n.dart';
-import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/bloc.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
+import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/onboarding_account_setup_bloc.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/components/account_name_textfield.dart';
+import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/components/account_type_dropdown.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class AddAccountBottomContainer extends StatefulWidget {
@@ -55,10 +58,12 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
               ? 300.h
               : 450.h,
       padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         // color: ExpenseTrackerColors.violet,
-        color: ExpenseTrackerColors.light,
-        borderRadius: BorderRadius.only(
+        color: isDarkMode(context)
+            ? ExpenseTrackerColors.dark
+            : ExpenseTrackerColors.light,
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
@@ -66,12 +71,12 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          //! Account name
+          //!NOTE: Account name field
           const AccountNameTextField(),
-          //do account type dropdown
+          //NOTE: account type dropdown
           const AccountTypeDropdown(),
           if (!forbidenList.contains(createACState.acType)) ...[
-            //* text of Ac type
+            //HACK: text of Ac type
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -81,25 +86,19 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                 textAlign: TextAlign.left,
                 style: ExpenseTrackerTextStyle.body1.copyWith(
                   fontWeight: FontWeight.w600,
-                  // color: ExpenseTrackerColors.light80.withOpacity(0.64),
+                  color: isDarkMode(context)
+                      ? ExpenseTrackerColors.light80.withOpacity(0.64)
+                      : ExpenseTrackerColors.light80.withOpacity(0.64),
                 ),
               ),
             ),
-            //* account type icons
+            //HACK: account type icons
             if (createACState.acType != null) ...[
               SizedBox(
                 height: 100.h,
                 width: double.infinity,
                 child: Wrap(
                   alignment: WrapAlignment.center,
-                  // physics: const NeverScrollableScrollPhysics(),
-                  // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  //   crossAxisCount: 4,
-                  //   crossAxisSpacing: 10,
-                  //   mainAxisSpacing: 10,
-                  //   childAspectRatio: 1.5,
-                  //   mainAxisExtent: 50,
-                  // ),
                   children: [
                     //! if mobile banking
                     if (createACState.acType == AccountType.mobileBanking)
@@ -145,7 +144,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                     //! all bnaking
                     if (createACState.acType == AccountType.bank ||
                         createACState.acType == AccountType.creditCard)
-                      for (final i in realBanking.getRange(0, 7))
+                      for (final i in realBanking.keys.toList().getRange(0, 5))
                         InkWell(
                           onTap: () {
                             context.read<OnboardingAccountSetupBloc>().add(
@@ -174,7 +173,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                       ),
                               ),
                               child: Image.asset(
-                                '${ExpenseAssets.bankingAsset}$i.png',
+                                realBanking[i]!,
                               ),
                             ),
                           ),
@@ -183,8 +182,10 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                     /// * see all
                     InkWell(
                       onTap: () async {
-                        showBottomSheet<OnboardingAccountSetupBloc>(
-                          backgroundColor: ExpenseTrackerColors.light,
+                        showBottomSheet(
+                          backgroundColor: isDarkMode(context)
+                              ? ExpenseTrackerColors.dark
+                              : ExpenseTrackerColors.light,
                           elevation: 1,
                           context: context,
                           builder: (context) => SizedBox(
@@ -207,7 +208,10 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                     style:
                                         ExpenseTrackerTextStyle.body1.copyWith(
                                       fontWeight: FontWeight.w600,
-                                      // color: ExpenseTrackerColors.light80.withOpacity(0.64),
+                                      color: isDarkMode(context)
+                                          ? ExpenseTrackerColors.light80
+                                          : ExpenseTrackerColors.dark
+                                              .withOpacity(0.64),
                                     ),
                                   ),
                                 ),
@@ -220,7 +224,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                                 AccountType.bank ||
                                             createACState.acType ==
                                                 AccountType.creditCard)
-                                          for (final i in realBanking)
+                                          for (final i in realBanking.keys)
                                             BlocConsumer<
                                                 OnboardingAccountSetupBloc,
                                                 OnboardingAccountSetupState>(
@@ -277,7 +281,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                                               ),
                                                       ),
                                                       child: Image.asset(
-                                                        '${ExpenseAssets.bankingAsset}$i.png',
+                                                        realBanking[i]!,
                                                       ),
                                                     ),
                                                   ),
@@ -383,155 +387,36 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
           ],
           Hero(
             tag: 'onboarding_account_setup_intro_button',
-            child: PrimaryButton(
-              onPress: () {
+            child: ElevatedButton(
+              onPressed: () {
                 debugPrint('Balance: ${createACState.acBalance}');
                 debugPrint('Name: ${createACState.acName}');
                 debugPrint('Type: ${createACState.acType}');
                 debugPrint('Logo: ${createACState.acLogo}');
                 if (createACState.acBalance.isNaN) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please enter a valid balance'),
-                    ),
-                  );
+                  showFailureToast(context, 'Plase enter a valid balance');
                   return;
                 } else if (createACState.acName.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please enter a valid account name'),
-                    ),
-                  );
+                  showFailureToast(
+                      context, 'Please enter a valid account name');
                   return;
                 } else if (createACState.acType == null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please select an account type'),
-                    ),
-                  );
+                  showFailureToast(context, 'Please select an account type');
                   return;
                 } else {
+                  context
+                      .read<OnboardingAccountSetupBloc>()
+                      .add(const SaveAccountInfoEvent());
                   // show a success page
-                  // Navigator.push(context, SuccessfullyAccountCreated.route());
                   context.pushNamed(
                     'successfully-account-created',
                   );
                 }
               },
-              text: 'Continue',
+              child: const Text('Continue'),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class AccountTypeDropdown extends StatelessWidget {
-  const AccountTypeDropdown({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    return DropdownButtonFormField(
-      dropdownColor: ExpenseTrackerColors.violet,
-      items: accountTypesDBwithTrans(context)
-          .map(
-            (e) => DropdownMenuItem(
-              value: e,
-              child: Text(
-                e,
-                style: ExpenseTrackerTextStyle.body3.copyWith(
-                  color: ExpenseTrackerColors.light20,
-                ),
-              ),
-            ),
-          )
-          .toList(),
-      isExpanded: true,
-      decoration: InputDecoration(
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.violet,
-          ),
-        ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
-        ),
-        hintText: l10n.accountType,
-        enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
-      ),
-      borderRadius: BorderRadius.circular(20),
-      icon: const Icon(
-        Icons.keyboard_arrow_down,
-        color: ExpenseTrackerColors.light20,
-      ),
-      onChanged: (d) {
-        if (d is String) {
-          context.read<OnboardingAccountSetupBloc>().add(
-                AddAccountTypeEvent(AccountTypeHelper.fromString(d)),
-              );
-          // _onAccountTypeChanged(d);
-        }
-      },
-    );
-  }
-}
-
-class AccountNameTextField extends StatelessWidget {
-  const AccountNameTextField({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    return TextField(
-      keyboardType: TextInputType.name,
-      onChanged: (d) {
-        context.read<OnboardingAccountSetupBloc>().add(
-              AddAccountNameEvent(d),
-            );
-      },
-      decoration: InputDecoration(
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.violet,
-          ),
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
-        ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          borderSide: BorderSide(
-            color: ExpenseTrackerColors.light60,
-          ),
-        ),
-        hintText: l10n.accountName,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
       ),
     );
   }

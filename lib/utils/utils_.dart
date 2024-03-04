@@ -1,12 +1,8 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
-
 
 InputDecoration dropdownInputDecoration(String hintText) => InputDecoration(
-      isDense: true,
       focusedBorder: const OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
         borderSide: BorderSide(
@@ -35,9 +31,16 @@ InputDecoration dropdownInputDecoration(String hintText) => InputDecoration(
       ),
     );
 
-
 // is dark mode
 bool isDarkMode(BuildContext context) {
   final theme = Theme.of(context);
   return theme.brightness == Brightness.dark;
 }
+
+// const subscriptionsFrequency = [
+//   'Daily',
+//   'Weekly',
+//   'Monthly',
+//   'Yearly',
+//   // 'Lifetime',
+// ];

@@ -47,6 +47,7 @@ class _OnboardingAccountSetupBodyState
                 ),
               ),
             ),
+            // NOTE: balance input field
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: TextField(
@@ -83,7 +84,7 @@ class _OnboardingAccountSetupBodyState
                   hintText: '0.00',
                   prefixIcon: l10n.currencySign == '৳'
                       ? Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8),
                           child: Text(
                             l10n.currencySign,
                             style: ExpenseTrackerTextStyle.titleX.copyWith(

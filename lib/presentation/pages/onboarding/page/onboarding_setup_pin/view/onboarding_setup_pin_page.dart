@@ -11,47 +11,18 @@ class OnboardingSetupPinPage extends StatelessWidget {
   /// {@macro onboarding_setup_pin_page}
   const OnboardingSetupPinPage({super.key});
 
-  /// The static route for OnboardingSetupPinPage
-  static Route<dynamic> route() {
-    // return MaterialPageRoute<dynamic>(
-    //   allowSnapshotting: false,
-    //   barrierDismissible: true,
-    //   fullscreenDialog: true,
-    //   maintainState: false,
-    //   builder: (_) => const OnboardingSetupPinPage(),
-    // );
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          const OnboardingSetupPinPage(),
-      transitionDuration: 2.seconds,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        // ignore: prefer_int_literals
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        const curve = Curves.ease;
-
-        final tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => OnboardingSetupPinBloc(),
+      create: (context) => OnboardingSetupPinBloc()
+        ..add(const FirstRunOnboardingSetupPinEvent()),
       child: const Scaffold(
         backgroundColor: ExpenseTrackerColors.violet,
         body: OnboardingSetupPinView(),
       ),
     );
   }
-}
+} 
 
 /// {@template onboarding_setup_pin_view}
 /// Displays the Body of OnboardingSetupPinView
@@ -62,6 +33,6 @@ class OnboardingSetupPinView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OnboardingSetupPinBody();
+    return const OnboardingSetupPinBody();
   }
 }

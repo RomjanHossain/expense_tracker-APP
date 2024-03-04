@@ -6,21 +6,42 @@ part of 'homepage_bloc.dart';
 class HomepageState extends Equatable {
   /// {@macro homepage_state}
   const HomepageState({
-    this.customProperty = 'Default Value',
+    this.se = SegmentedButtonsData.today,
+    this.notification = 0,
+    this.currentMonth = 0,
   });
 
   /// A description for customProperty
-  final String customProperty;
+  // final String customProperty;
+
+  /// subscription Enums
+  final SegmentedButtonsData se;
+
+  /// notification
+  final int notification;
+
+  /// current month
+  final int currentMonth;
+
+  /// currentMonth
 
   @override
-  List<Object> get props => [customProperty];
+  List<Object> get props => [
+        notification,
+        currentMonth,
+        se,
+      ];
 
   /// Creates a copy of the current HomepageState with property changes
   HomepageState copyWith({
-    String? customProperty,
+    int? notification,
+    int? currentMonth,
+    SegmentedButtonsData? se,
   }) {
     return HomepageState(
-      customProperty: customProperty ?? this.customProperty,
+      se: se ?? this.se,
+      notification: notification ?? this.notification,
+      currentMonth: currentMonth ?? this.currentMonth,
     );
   }
 }

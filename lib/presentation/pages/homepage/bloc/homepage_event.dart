@@ -1,11 +1,10 @@
 part of 'homepage_bloc.dart';
 
-abstract class HomepageEvent  extends Equatable {
+abstract class HomepageEvent extends Equatable {
   const HomepageEvent();
 
   @override
   List<Object> get props => [];
-
 }
 
 /// {@template custom_homepage_event}
@@ -14,4 +13,10 @@ abstract class HomepageEvent  extends Equatable {
 class CustomHomepageEvent extends HomepageEvent {
   /// {@macro custom_homepage_event}
   const CustomHomepageEvent();
+}
+
+//! NOTE: change the frequency [today,week,month,year]
+class ChangeTheFreq extends HomepageEvent {
+  const ChangeTheFreq(this.se);
+  final SegmentedButtonsData se;
 }

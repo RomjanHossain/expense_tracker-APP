@@ -1,6 +1,5 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,21 +51,21 @@ class RemoveBudgetSheet extends StatelessWidget {
             children: [
               // cancel
               Expanded(
-                child: SecondaryButton(
-                  onPress: () {
+                child: OutlinedButton(
+                  onPressed: () {
                     Navigator.pop(context);
                   },
-                  text: 'Cancel',
+                  child: const Text('Cancel'),
                 ),
               ),
               SizedBox(width: 10.w),
               // delete
               Expanded(
-                child: PrimaryButton(
-                  onPress: () {
+                child: ElevatedButton(
+                  onPressed: () {
                     Navigator.pop(context);
                   },
-                  text: 'Delete',
+                  child:const Text ('Delete'),
                 ),
               ),
             ],

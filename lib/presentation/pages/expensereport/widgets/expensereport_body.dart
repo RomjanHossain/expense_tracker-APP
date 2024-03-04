@@ -1,7 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
-import 'package:expense_tracker/presentation/pages/expenseform/widgets/expenseform_body.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/components/chart_below_card.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
@@ -36,17 +35,16 @@ class ExpensereportBody extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: DropdownButtonFormField(
-                      // hint: Text('Frequency'),
-                      focusColor: ExpenseTrackerColors.light,
-                      decoration: dropdownInputDecoration('Frequency').copyWith(
-                        fillColor: ExpenseTrackerColors.light,
-                      ),
+                      focusColor: isDarkMode(context)
+                          ? ExpenseTrackerColors.dark75
+                          : ExpenseTrackerColors.light,
+                      decoration: dropdownInputDecoration('Frequency'),
                       isExpanded: true,
-                      items: subscriptionsFrequency
+                      items: SubscriptionsFrequency.values
                           .map(
                             (e) => DropdownMenuItem(
                               value: e,
-                              child: Text(e),
+                              child: Text(getSucriptionFrequencyText(e)),
                             ),
                           )
                           .toList(),
@@ -88,7 +86,7 @@ class ExpensereportBody extends StatelessWidget {
                       style: ExpenseTrackerTextStyle.title2.copyWith(
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.2,
-                        color:  isDarkMode(context)
+                        color: isDarkMode(context)
                             ? ExpenseTrackerColors.light
                             : ExpenseTrackerColors.dark,
                       ),
@@ -108,27 +106,28 @@ class ExpensereportBody extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                      child: Stack(
-                    children: [
-                      ExpensePieGraph(
-                        pieRadius: 5.r * 4,
-                      ),
-                      Positioned.fill(
-                        child: Center(
-                          child: Text(
-                            r'$3245',
-                            style: ExpenseTrackerTextStyle.title2.copyWith(
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.2,
-                              color:  isDarkMode(context)
-                                  ? ExpenseTrackerColors.light
-                                  : ExpenseTrackerColors.dark,
+                    child: Stack(
+                      children: [
+                        ExpensePieGraph(
+                          pieRadius: 5.r * 4,
+                        ),
+                        Positioned.fill(
+                          child: Center(
+                            child: Text(
+                              r'$3245',
+                              style: ExpenseTrackerTextStyle.title2.copyWith(
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.2,
+                                color: isDarkMode(context)
+                                    ? ExpenseTrackerColors.light
+                                    : ExpenseTrackerColors.dark,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  )),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

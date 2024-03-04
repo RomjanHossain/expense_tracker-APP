@@ -1,4 +1,3 @@
-import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/data/datasources/local/isar_ins.dart';
 import 'package:expense_tracker/data/repositories/expense_repo_impl.dart';
@@ -60,7 +59,7 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
         ),
 
         ///* Show the type [Expense] or [Income] or [Borrowed] or [Lent]
-        Text(
+        const Text(
           'Expenses',
           // style: ExpenseTrackerTextStyle.subtitle1.copyWith(
           //   fontWeight: FontWeight.w300,
@@ -262,7 +261,8 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
                             TextButton(
                               onPressed: () {
                                 debugPrint(
-                                    'Spent on: ${context.read<DropdownExpenseMethodCubit>().state}');
+                                  'Spent on: ${context.read<DropdownExpenseMethodCubit>().state}',
+                                );
                                 Navigator.pop(context);
                               },
                               child: const Text('No'),
@@ -305,7 +305,7 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
                                 final isCreated =
                                     await iml.createExpenseRecord(data);
                                 if (isCreated) {
-                                  showToast('Transaction added', Colors.green);
+                                  // showToast('Transaction added', Colors.green);
                                   // reset all the values
                                   if (!context.mounted) return;
                                   context
@@ -320,7 +320,7 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
                                       .changeValue('');
                                   Navigator.of(context).pop();
                                 } else {
-                                  showToast('Transaction failed', Colors.red);
+                                  // showToast('Transaction failed', Colors.red);
                                 }
                               },
                               child: const Text('Yes'),
@@ -346,7 +346,7 @@ class _AddTransactionBottomSheetState extends State<AddTransactionBottomSheet> {
   DateTime currentDate = DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
+    final pickedDate = await showDatePicker(
       context: context,
       initialDate: currentDate,
       firstDate: DateTime(2015),

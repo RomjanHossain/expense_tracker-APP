@@ -38,3 +38,8 @@ class AddAccountLogoEvent extends OnboardingAccountSetupEvent {
   const AddAccountLogoEvent(this.accountLogo);
   final String accountLogo;
 }
+
+/// NOTE: save the infos in the db
+class SaveAccountInfoEvent extends OnboardingAccountSetupEvent {
+  const SaveAccountInfoEvent();
+}

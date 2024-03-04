@@ -2,10 +2,8 @@ import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/presentation/pages/createbudget/cubit/cubit.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:expense_tracker/utils/constrants/expense_category_tracker_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -207,24 +205,24 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
                     ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: PrimaryButton(
-                      onPress: () {
+                    child: ElevatedButton(
+                      onPressed: () {
                         // get all values
                         final amount = double.tryParse(
                           _accountBalanceController.text,
                         );
                         if (state.budget.amount == 0 || amount == null) {
                           // show error
-                          showToast('Please enter a valid amount');
+                          // showToast('Please enter a valid amount');
                           return;
                         }
                         if (state.budget.category.isEmpty) {
-                          showToast('Please select a category');
+                          // showToast('Please select a category');
                           return;
                         }
                         if (state.budget.isReceiveAlert) {
                           if (state.budget.percent == 0) {
-                            showToast('Please select a percent');
+                            // showToast('Please select a percent');
                             return;
                           }
                         }
@@ -232,10 +230,11 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
                         debugPrint('amount :${state.budget.amount}');
                         debugPrint('category :${state.budget.category}');
                         debugPrint(
-                            'isReceiveAlert :${state.budget.isReceiveAlert}');
+                          'isReceiveAlert :${state.budget.isReceiveAlert}',
+                        );
                         debugPrint('percent :${state.budget.percent}');
                       },
-                      text: 'Continue',
+                      child: const Text('Continue'),
                     ),
                   ),
                 ],
@@ -256,17 +255,20 @@ class CustomRoundedRectangleBorder extends SliderComponentShape {
   }
 
   @override
-  void paint(PaintingContext context, Offset center,
-      {required Animation<double> activationAnimation,
-      required Animation<double> enableAnimation,
-      required bool isDiscrete,
-      required TextPainter labelPainter,
-      required RenderBox parentBox,
-      required SliderThemeData sliderTheme,
-      required TextDirection textDirection,
-      required double value,
-      required double textScaleFactor,
-      required Size sizeWithOverflow}) {
+  void paint(
+    PaintingContext context,
+    Offset center, {
+    required Animation<double> activationAnimation,
+    required Animation<double> enableAnimation,
+    required bool isDiscrete,
+    required TextPainter labelPainter,
+    required RenderBox parentBox,
+    required SliderThemeData sliderTheme,
+    required TextDirection textDirection,
+    required double value,
+    required double textScaleFactor,
+    required Size sizeWithOverflow,
+  }) {
     final canvas = context.canvas;
     final paint = Paint()
       ..color = ExpenseTrackerColors.violet

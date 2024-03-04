@@ -1,6 +1,7 @@
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// {@template onboarding_account_setup_intro_body}
 /// Body of the OnboardingAccountSetupIntroPage.
@@ -19,9 +20,9 @@ class OnboardingAccountSetupIntroBody extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(
-              top: 100,
-              bottom: 30,
+            padding: EdgeInsets.only(
+              top: 100.h,
+              bottom: 30.h,
             ),
             child: Text(
               l10n.onboardingAccountSetup,

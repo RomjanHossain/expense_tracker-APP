@@ -3,7 +3,8 @@ import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/expenseform_bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/widgets/expenseform_body.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
+import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -65,22 +66,31 @@ class SubscriptionBottomSheet extends StatelessWidget {
               Text(
                 'Start of subscription',
                 style: ExpenseTrackerTextStyle.body3.copyWith(
-                  color: ExpenseTrackerColors.dark25,
+                  color: isDarkMode(context)
+                      ? ExpenseTrackerColors.light20
+                      : ExpenseTrackerColors.dark25,
                   fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              // row of the frequency dropdown (subscriptionsFrequency), months dropdown (calendermotns) and date dropdown according to the month selected
+              //NOTE: row of the frequency dropdown (subscriptionsFrequency), months dropdown (calendermotns) and date dropdown according to the month selected
               Row(
                 children: [
                   // frequency dropdown
                   Expanded(
                     child: DropdownButtonFormField(
+                      dropdownColor: ExpenseTrackerColors.violet,
+                      focusColor: isDarkMode(context)
+                          ? ExpenseTrackerColors.dark75
+                          : ExpenseTrackerColors.light,
                       decoration: dropdownInputDecoration(
                         'Frequency',
                       ),
-                      style: const TextStyle(
-                        color: ExpenseTrackerColors.dark50,
+                      style: TextStyle(
+                        // color: ExpenseTrackerColors.dark50,
+                        color: isDarkMode(context)
+                            ? ExpenseTrackerColors.light
+                            : ExpenseTrackerColors.dark,
                       ),
                       // value: 'Daily',
                       onChanged: (value) {
@@ -93,12 +103,12 @@ class SubscriptionBottomSheet extends StatelessWidget {
                           'value : $value ${state.expenseFormEntity.subType}',
                         );
                       },
-                      items: subscriptionsFrequency
+                      items: SubscriptionsFrequency.values
                           .map(
                             (e) => DropdownMenuItem(
                               value: e,
                               child: Text(
-                                e,
+                                getSucriptionFrequencyText(e),
                                 softWrap: true,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -107,6 +117,7 @@ class SubscriptionBottomSheet extends StatelessWidget {
                           .toList(),
                     ),
                   ),
+                  width10,
                   // a text box to pick a date
                   Expanded(
                     child: GestureDetector(
@@ -160,7 +171,10 @@ class SubscriptionBottomSheet extends StatelessWidget {
               Text(
                 'End of subscription Date',
                 style: ExpenseTrackerTextStyle.body3.copyWith(
-                  color: ExpenseTrackerColors.dark25,
+                  // color: ExpenseTrackerColors.dark25,
+                  color: isDarkMode(context)
+                      ? ExpenseTrackerColors.light20
+                      : ExpenseTrackerColors.dark25,
                   fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.w600,
                 ),
@@ -204,7 +218,8 @@ class SubscriptionBottomSheet extends StatelessWidget {
                     }
                     // check if the end date is before the start date
                     if (date.isBefore(
-                        state.expenseFormEntity.subStart ?? DateTime.now())) {
+                      state.expenseFormEntity.subStart ?? DateTime.now(),
+                    )) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text(
@@ -223,8 +238,8 @@ class SubscriptionBottomSheet extends StatelessWidget {
                 },
               ),
 
-              PrimaryButton(
-                onPress: () {
+              ElevatedButton(
+                onPressed: () {
                   debugPrint(
                     'sub end date : ${state.expenseFormEntity.subEnd}',
                   );
@@ -259,7 +274,7 @@ class SubscriptionBottomSheet extends StatelessWidget {
                   }
                   Navigator.of(context).pop();
                 },
-                text: 'Next',
+                child: const Text('Next'),
               ),
             ],
           ),

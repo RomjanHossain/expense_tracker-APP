@@ -24,7 +24,7 @@ class AboutPage extends StatelessWidget {
               : ExpenseTrackerColors.light,
         title: const Text('About'),
       ),
-      body: AboutView(),
+      body: const AboutView(),
     );
   }
 }

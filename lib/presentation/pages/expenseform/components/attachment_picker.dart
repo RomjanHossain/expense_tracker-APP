@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
-import 'package:expense_tracker/app/ui/src/theme.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -57,9 +57,12 @@ class _AttachmentPickerState extends State<AttachmentPicker> {
     return GestureDetector(
       onTap: () {
         // show a bottom sheet
-        showModalBottomSheet(
+        showModalBottomSheet<void>(
           context: context,
-          builder: (context) => Container(
+          backgroundColor: isDarkMode(context)
+              ? ExpenseTrackerColors.dark
+              : ExpenseTrackerColors.light,
+          builder: (context) => SizedBox(
             height: 200.h,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -69,7 +72,7 @@ class _AttachmentPickerState extends State<AttachmentPicker> {
                     Navigator.pop(context);
                     getImage(ImageSource.camera);
                   },
-                  child: AttachmentCard(
+                  child: const AttachmentCard(
                     icon: Icons.camera_alt_rounded,
                     text: 'Camera',
                   ),
@@ -79,12 +82,12 @@ class _AttachmentPickerState extends State<AttachmentPicker> {
                     Navigator.pop(context);
                     getImage(ImageSource.gallery);
                   },
-                  child: AttachmentCard(
+                  child: const AttachmentCard(
                     icon: Icons.image_rounded,
                     text: 'Image',
                   ),
                 ),
-                AttachmentCard(
+                const AttachmentCard(
                   icon: Icons.document_scanner_rounded,
                   text: 'Document',
                 ),
@@ -180,8 +183,8 @@ class AttachmentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      height: 100.h,
-      width: 100.w,
+      height: 75.h,
+      width: 90.w,
       decoration: BoxDecoration(
         color: ExpenseTrackerColors.violet20,
         borderRadius: BorderRadius.circular(20),

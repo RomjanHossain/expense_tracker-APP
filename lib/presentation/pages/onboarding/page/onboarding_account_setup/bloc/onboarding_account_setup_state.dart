@@ -27,12 +27,13 @@ class OnboardingAccountSetupState extends Equatable {
     String? accountLogo,
   }) {
     return OnboardingAccountSetupState(
-        createAccount: CreateAccountEntity(
-      acName: accountName ?? createAccount.acName,
-      acType: accountType ?? createAccount.acType,
-      acBalance: balance ?? createAccount.acBalance,
-      acLogo: accountLogo ?? createAccount.acLogo,
-    ));
+      createAccount: CreateAccountEntity(
+        acName: accountName ?? createAccount.acName,
+        acType: accountType ?? createAccount.acType,
+        acBalance: balance ?? createAccount.acBalance,
+        acLogo: accountLogo ?? createAccount.acLogo,
+      ),
+    );
   }
 }
 

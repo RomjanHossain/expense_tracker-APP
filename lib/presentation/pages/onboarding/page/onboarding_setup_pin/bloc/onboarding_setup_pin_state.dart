@@ -7,20 +7,48 @@ class OnboardingSetupPinState extends Equatable {
   /// {@macro onboarding_setup_pin_state}
   const OnboardingSetupPinState({
     this.pin = '',
+    this.userPin = '',
+    this.setupPin = '',
+    this.attempts = 0,
   });
 
   /// A description for customProperty
   final String pin;
 
+  /// first time
+  // final bool isFirstTime;
+
+  /// user pin
+  final String userPin;
+
+  /// attempts
+  final int attempts;
+
+  /// setup pin
+  final String setupPin;
   @override
-  List<Object> get props => [pin];
+  List<Object> get props => [
+        pin,
+        // isFirstTime,
+        userPin,
+        setupPin,
+        attempts,
+      ];
 
   /// Creates a copy of the current OnboardingSetupPinState with property changes
   OnboardingSetupPinState copyWith({
     String? pin,
+    // bool? isFirstTime,
+    String? userPin,
+    int? attempts,
+    String? setupPin,
   }) {
     return OnboardingSetupPinState(
       pin: pin ?? this.pin,
+      // isFirstTime: isFirstTime ?? this.isFirstTime,
+      userPin: userPin ?? this.userPin,
+      setupPin: setupPin ?? this.setupPin,
+      attempts: attempts ?? this.attempts,
     );
   }
 }
@@ -35,5 +63,16 @@ class OnboardingSetupPinInitial extends OnboardingSetupPinState {
 
 // error state
 class OnboardingSetupPinError extends OnboardingSetupPinState {
-  const OnboardingSetupPinError() : super();
+  const OnboardingSetupPinError(this.message) : super();
+  final String message;
+}
+
+/// success
+class OnboardingSetupPinSuccess extends OnboardingSetupPinState {
+  const OnboardingSetupPinSuccess(
+      {required this.userPP, required this.isHomePage})
+      : super();
+
+  final String userPP;
+  final bool isHomePage;
 }

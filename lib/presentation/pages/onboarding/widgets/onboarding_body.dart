@@ -1,10 +1,9 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/cubit/cubit.dart';
-import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/view/onboarding_setup_pin_page.dart';
-import 'package:expense_tracker/presentation/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -30,6 +29,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
     super.dispose();
   }
 
+  // images for the onboarding page
   final List<String> _images = [
     ExpenseAssets.gainTotalControlOfYourMoneyIll,
     ExpenseAssets.knowWhereYourMoneyGoesIll,
@@ -38,26 +38,15 @@ class _OnboardingBodyState extends State<OnboardingBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OnboardingCubit, int>(
-      buildWhen: (previous, current) {
-        if (previous == current) {
-          return false;
-        }
-        _pageController.animateToPage(
-          current,
-          duration: const Duration(milliseconds: 350),
-          curve: Curves.easeIn,
-        );
-        return previous != current;
-      },
+    return BlocConsumer<OnboardingCubit, int>(
       builder: (context, state) {
         final l10n = context.l10n;
-        final List<String> _subtitles = [
+        final subtitles = <String>[
           l10n.onboardingSubtitle1,
           l10n.onboardingSubtitle2,
           l10n.onboardingSubtitle3,
         ];
-        final List<String> _titles = [
+        final titles = <String>[
           l10n.onboardingTitle1,
           l10n.onboardingSubtitle2,
           l10n.onboardingSubtitle3,
@@ -73,14 +62,10 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                   physics: const BouncingScrollPhysics(),
                 ),
                 child: PageView.builder(
-                  onPageChanged: (value) {
-                    context.read<OnboardingCubit>().changeState(value);
-                    _pageController.animateToPage(
-                      value,
-                      duration: const Duration(milliseconds: 350),
-                      curve: Curves.easeIn,
-                    );
-                  },
+                  // onPageChanged: (value) {
+                  //   // debugPrint("value from the pagechanged: $value");
+                  //   // context.read<OnboardingCubit>().changeState(value);
+                  // },
                   controller: _pageController,
                   itemCount: 3,
                   physics: const BouncingScrollPhysics(),
@@ -99,16 +84,16 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                             height: 200,
                             width: 200,
                           ),
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20.h),
                           Text(
-                            _titles[index],
-                            style: ExpenseTrackerTextStyle.title1!
+                            titles[index],
+                            style: ExpenseTrackerTextStyle.title1
                                 .copyWith(fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 25),
                           Text(
-                            _subtitles[index],
+                            subtitles[index],
                             style: ExpenseTrackerTextStyle.body1.copyWith(
                               fontWeight: FontWeight.w400,
                               color: ExpenseTrackerColors.charcoal,
@@ -130,14 +115,9 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                   InkWell(
                     onTap: () {
                       context.read<OnboardingCubit>().changeState(i);
-                      _pageController.animateToPage(
-                        i,
-                        duration: const Duration(milliseconds: 350),
-                        curve: Curves.easeIn,
-                      );
                     },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      padding: EdgeInsets.symmetric(horizontal: 5.w),
                       child: CircleAvatar(
                         backgroundColor: state == i.toDouble()
                             ? ExpenseTrackerColors.violet
@@ -150,24 +130,61 @@ class _OnboardingBodyState extends State<OnboardingBody> {
             ),
             const SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
+                vertical: 10.h,
               ),
               child: Hero(
                 tag: 'intro',
-                child: PrimaryButton(
-                  onPress: () {
-                    Navigator.push(
-                      context,
-                      OnboardingSetupPinPage.route(),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    final prefs = SettingsLocalDataSourcePref();
+                    await prefs.firstRunTrue();
+                    if (!context.mounted) return;
+                    await context.pushNamed('setup-profile');
+                    // await context.pushNamed('setup-pin');
+                  },
+                  child: Text(l10n.onboardingButton),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
+              ),
+              child: Hero(
+                tag: 'import',
+                child: OutlinedButton(
+                  onPressed: () async {
+                    await showDialog<void>(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Import data'),
+                        content: const Text(
+                            'This feature is not yet available. Please check back later.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
                     );
                   },
-                  text: l10n.onboardingButton,
+                  child: Text(l10n.importData),
                 ),
               ),
             ),
             const SizedBox(height: 50),
           ],
+        );
+      },
+      listener: (BuildContext context, int state) {
+        debugPrint('state from listner: $state');
+        _pageController.animateToPage(
+          state,
+          duration: const Duration(milliseconds: 350),
+          curve: Curves.easeIn,
         );
       },
     );
