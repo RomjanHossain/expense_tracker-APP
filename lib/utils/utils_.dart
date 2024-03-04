@@ -44,23 +44,3 @@ bool isDarkMode(BuildContext context) {
 //   'Yearly',
 //   // 'Lifetime',
 // ];
-
-enum SubscriptionsFrequency {
-  daily,
-  weekly,
-  monthly,
-  yearly,
-}
-
-String getSucriptionFrequencyText(SubscriptionsFrequency se) {
-  switch (se) {
-    case SubscriptionsFrequency.daily:
-      return 'Daily';
-    case SubscriptionsFrequency.weekly:
-      return 'Weekly';
-    case SubscriptionsFrequency.monthly:
-      return 'Monthly';
-    case SubscriptionsFrequency.yearly:
-      return 'Yearly';
-  }
-}

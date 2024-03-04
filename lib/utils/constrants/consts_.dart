@@ -18,11 +18,24 @@ final width30 = SizedBox(width: 30.w);
 ///* home page segmented buttons enum(today, week, month, year)
 enum SegmentedButtonsData { today, week, month, year }
 
+String getSegemtedButtonText(SegmentedButtonsData se) {
+  switch (se) {
+    case SegmentedButtonsData.today:
+      return 'Today';
+    case SegmentedButtonsData.week:
+      return 'Week';
+    case SegmentedButtonsData.month:
+      return 'Month';
+    case SegmentedButtonsData.year:
+      return 'Year';
+  }
+}
+
 ///& types of expenses enum (income, expense, transfer)
 enum ExpenseType { income, expense, transfer }
+
 // only income and expense type
 enum ExpenseType2 { income, expense }
-
 
 // Enum: AccountType
 enum AccountType {
@@ -33,8 +46,29 @@ enum AccountType {
   cash,
   other,
 }
+
 // chart type
 enum ChartType {
   line,
   pie,
+}
+
+enum SubscriptionsFrequency {
+  daily,
+  weekly,
+  monthly,
+  yearly,
+}
+
+String getSucriptionFrequencyText(SubscriptionsFrequency se) {
+  switch (se) {
+    case SubscriptionsFrequency.daily:
+      return 'Daily';
+    case SubscriptionsFrequency.weekly:
+      return 'Weekly';
+    case SubscriptionsFrequency.monthly:
+      return 'Monthly';
+    case SubscriptionsFrequency.yearly:
+      return 'Yearly';
+  }
 }
