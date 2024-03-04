@@ -8,7 +8,9 @@ import 'package:expense_tracker/presentation/pages/app_home_page/components/drop
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/attachment_picker.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/subscription_bottom.dart';
+import 'package:expense_tracker/presentation/pages/expenseform/components/success_alertdialog.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -130,9 +132,12 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                       ? MediaQuery.of(context).size.height * 0.7
                       : MediaQuery.of(context).size.height * 0.6
                   : MediaQuery.of(context).size.height * 0.5,
-              decoration: const BoxDecoration(
-                color: ExpenseTrackerColors.light,
-                borderRadius: BorderRadius.vertical(
+              decoration: BoxDecoration(
+                // color: ExpenseTrackerColors.light,
+                color: isDarkMode(context)
+                    ? ExpenseTrackerColors.dark
+                    : ExpenseTrackerColors.light,
+                borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(32),
                 ),
               ),
@@ -149,7 +154,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                       children: [
                         Row(
                           children: [
-                            // from **
+                            //NOTE: from (Transfer)
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -193,7 +198,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                 ),
                               ),
                             ),
-                            //**to */
+                            //NOTE: to (Transfer)
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -239,6 +244,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                             ),
                           ],
                         ),
+                        //NOTE: icon (transfer)
                         Align(
                           child: Container(
                             height: 40.h,
@@ -265,7 +271,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                         ),
                       ],
                     ),
-                  //* description
+                  //NOTE: description textfield
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 10,
@@ -301,17 +307,20 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           vertical: 10,
                         ),
                       ),
-                      style: const TextStyle(
-                        color: ExpenseTrackerColors.dark50,
+                      style: TextStyle(
+                        // color: ExpenseTrackerColors.dark50,
+                        color: isDarkMode(context)
+                            ? ExpenseTrackerColors.light80
+                            : ExpenseTrackerColors.dark50,
                       ),
                     ),
                   ),
-                  //! wallet (place holder)
+                  //NOTE: wallet (place holder)
                   //*** [TODO: wallet from db]
                   if (widget.expenseType == ExpenseType.income ||
                       widget.expenseType == ExpenseType.expense)
                     const IncomeMehodsDropdown(),
-                  //* attachment filed with dotted border
+                  //NOTE: attachment filed with dotted border
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 10,
@@ -322,7 +331,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                   ),
                   if (widget.expenseType == ExpenseType.income ||
                       widget.expenseType == ExpenseType.expense)
-                    //* repeat */
+                    //NOTE: repeat (Subscription)
                     ListTile(
                       title: const Text(
                         'Repeat',
@@ -352,6 +361,9 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                     // show a bottom modal sheet
 
                                     showModalBottomSheet<void>(
+                                      backgroundColor: isDarkMode(context)
+                                          ? ExpenseTrackerColors.dark
+                                          : ExpenseTrackerColors.light,
                                       context: context,
                                       builder: (context) {
                                         // !TODO: show
@@ -516,49 +528,3 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
     );
   }
 }
-
-class SuccessAlertDialog extends StatelessWidget {
-  const SuccessAlertDialog({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: ExpenseTrackerColors.light,
-      insetPadding: const EdgeInsets.all(10),
-      // title: const Text('Success'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(
-            Icons.check_circle_sharp,
-            color: ExpenseTrackerColors.violet,
-            size: 48,
-          ),
-          Text(
-            'Transaction has been successfully added',
-            style: ExpenseTrackerTextStyle.small,
-          ),
-        ],
-      ),
-      // actions: [
-      //   TextButton(
-      //     onPressed: () {
-      //       // Navigator.of(context).pop();
-      //       // Navigator.of(context).pop();
-      //     },
-      //     child: const Text('Ok'),
-      //   ),
-      // ],
-    );
-  }
-}
-
-const subscriptionsFrequency = [
-  'Daily',
-  'Weekly',
-  'Monthly',
-  'Yearly',
-  // 'Lifetime',
-];

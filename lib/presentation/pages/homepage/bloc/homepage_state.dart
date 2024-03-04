@@ -7,10 +7,16 @@ class HomepageState extends Equatable {
   /// {@macro homepage_state}
   const HomepageState({
     this.customProperty = 'Default Value',
+    this.se = SubscriptionsFrequency.daily,
   });
 
   /// A description for customProperty
   final String customProperty;
+
+  /// subscription Enums
+  final SubscriptionsFrequency se;
+
+  /// currentMonth
 
   @override
   List<Object> get props => [customProperty];

@@ -36,3 +36,31 @@ bool isDarkMode(BuildContext context) {
   final theme = Theme.of(context);
   return theme.brightness == Brightness.dark;
 }
+
+// const subscriptionsFrequency = [
+//   'Daily',
+//   'Weekly',
+//   'Monthly',
+//   'Yearly',
+//   // 'Lifetime',
+// ];
+
+enum SubscriptionsFrequency {
+  daily,
+  weekly,
+  monthly,
+  yearly,
+}
+
+String getSucriptionFrequencyText(SubscriptionsFrequency se) {
+  switch (se) {
+    case SubscriptionsFrequency.daily:
+      return 'Daily';
+    case SubscriptionsFrequency.weekly:
+      return 'Weekly';
+    case SubscriptionsFrequency.monthly:
+      return 'Monthly';
+    case SubscriptionsFrequency.yearly:
+      return 'Yearly';
+  }
+}

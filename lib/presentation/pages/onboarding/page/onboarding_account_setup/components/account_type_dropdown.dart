@@ -26,10 +26,10 @@ class AccountTypeDropdown extends StatelessWidget {
               child: Text(
                 e,
                 style: ExpenseTrackerTextStyle.body3.copyWith(
-                  // color: isDarkMode(context)
-                  //     ? ExpenseTrackerColors.light80
-                  //     : ExpenseTrackerColors.dark75,
-                  color: ExpenseTrackerColors.light80,
+                  color: isDarkMode(context)
+                      ? ExpenseTrackerColors.light80
+                      : ExpenseTrackerColors.dark75,
+                  // color: ExpenseTrackerColors.light80,
                 ),
               ),
             ),

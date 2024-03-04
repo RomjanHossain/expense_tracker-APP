@@ -40,11 +40,11 @@ class TransactionGraphPageBody extends StatelessWidget {
                             ? ExpenseTrackerColors.dark75
                             : ExpenseTrackerColors.light,
                         decoration: dropdownInputDecoration('Frequency'),
-                        items: subscriptionsFrequency
+                        items: SubscriptionsFrequency.values
                             .map(
                               (e) => DropdownMenuItem(
                                 value: e,
-                                child: Text(e),
+                                child: Text(getSucriptionFrequencyText(e)),
                               ),
                             )
                             .toList(),

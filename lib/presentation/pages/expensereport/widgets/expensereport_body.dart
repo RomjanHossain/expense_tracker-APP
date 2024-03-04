@@ -1,7 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
-import 'package:expense_tracker/presentation/pages/expenseform/widgets/expenseform_body.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/components/chart_below_card.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
@@ -41,11 +40,11 @@ class ExpensereportBody extends StatelessWidget {
                           : ExpenseTrackerColors.light,
                       decoration: dropdownInputDecoration('Frequency'),
                       isExpanded: true,
-                      items: subscriptionsFrequency
+                      items: SubscriptionsFrequency.values
                           .map(
                             (e) => DropdownMenuItem(
                               value: e,
-                              child: Text(e),
+                              child: Text(getSucriptionFrequencyText(e)),
                             ),
                           )
                           .toList(),
