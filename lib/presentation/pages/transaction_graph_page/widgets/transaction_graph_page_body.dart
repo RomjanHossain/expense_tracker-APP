@@ -1,7 +1,6 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/view/expensedetails_page.dart';
-import 'package:expense_tracker/presentation/pages/expenseform/expenseform.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/transaction_filter_sheet.dart';
@@ -36,6 +35,7 @@ class TransactionGraphPageBody extends StatelessWidget {
                     // show dropdown of subscriptionsFrequency
                     Expanded(
                       child: DropdownButtonFormField(
+                        isExpanded: true,
                         dropdownColor: ExpenseTrackerColors.violet,
                         focusColor: isDarkMode(context)
                             ? ExpenseTrackerColors.dark75
@@ -70,9 +70,10 @@ class TransactionGraphPageBody extends StatelessWidget {
                           // a bottom sheet to
                           await showModalBottomSheet<void>(
                             isScrollControlled: true,
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
                             context: context,
                             builder: (context) {
-                              // return const ExpenseForm();
                               return const TransactionFilterSheet();
                             },
                           );
@@ -127,10 +128,6 @@ class TransactionGraphPageBody extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: ExpenseTrackerColors.violet20,
                     borderRadius: BorderRadius.circular(10).r,
-                    // border: Border.all(
-                    //   color: ExpenseTrackerColors.violet,
-                    //   // width: 1,
-                    // ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
