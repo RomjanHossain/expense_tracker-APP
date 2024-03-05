@@ -8,6 +8,7 @@ class TransactionGraphPageState extends Equatable {
   const TransactionGraphPageState({
     this.expenseType = ExpenseType.income,
     this.sortType = SortType.newest,
+    this.categorySelected = const [],
   });
 
   /// expense type
@@ -16,20 +17,26 @@ class TransactionGraphPageState extends Equatable {
   /// sorttype
   final SortType sortType;
 
+  /// category
+  final List<CategoryModel> categorySelected;
+
   @override
   List<Object> get props => [
         expenseType,
         sortType,
+        categorySelected,
       ];
 
   /// Creates a copy of the current TransactionGraphPageState with property changes
   TransactionGraphPageState copyWith({
     ExpenseType? expenseType,
     SortType? sortType,
+    List<CategoryModel>? categorySelected,
   }) {
     return TransactionGraphPageState(
       expenseType: expenseType ?? this.expenseType,
       sortType: sortType ?? this.sortType,
+      categorySelected: categorySelected ?? this.categorySelected,
     );
   }
 }

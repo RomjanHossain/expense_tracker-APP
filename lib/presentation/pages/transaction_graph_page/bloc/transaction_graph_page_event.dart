@@ -34,3 +34,13 @@ class ChangeSortTypeEvent extends TransactionGraphPageEvent {
   @override
   List<Object> get props => [sortType];
 }
+
+/// change category event
+class ChangeCategoryEvent extends TransactionGraphPageEvent {
+  const ChangeCategoryEvent({
+    required this.category,
+  });
+  final CategoryModel category;
+  @override
+  List<Object> get props => [category];
+}

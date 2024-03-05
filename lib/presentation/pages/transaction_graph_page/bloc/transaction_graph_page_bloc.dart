@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:expense_tracker/data/datasources/local/category/category_local_data.dart';
+import 'package:expense_tracker/data/models/category_model.dart';
 import 'package:expense_tracker/utils/constrants/enums_.dart';
 part 'transaction_graph_page_event.dart';
 part 'transaction_graph_page_state.dart';
@@ -12,6 +14,7 @@ class TransactionGraphPageBloc
     on<CustomTransactionGraphPageEvent>(_onCustomTransactionGraphPageEvent);
     on<ChangeExpenseTypeEvent>(_changeExpenseTypeE);
     on<ChangeSortTypeEvent>(_changeSortTypeE);
+    on<ChangeCategoryEvent>(_changeSelectedE);
   }
 
   FutureOr<void> _onCustomTransactionGraphPageEvent(
@@ -36,6 +39,34 @@ class TransactionGraphPageBloc
   ) {
     if (state.sortType != event.sortType) {
       emit(state.copyWith(sortType: event.sortType));
+    }
+  }
+
+  //NOTE: add/remove category selected
+  FutureOr<void> _changeSelectedE(
+    ChangeCategoryEvent event,
+    Emitter<TransactionGraphPageState> emit,
+  ) {
+    if (state.categorySelected.isNotEmpty) {
+      //!NOTE: check if the values exists in the categorySelected or not
+      if (!state.categorySelected.contains(event.category)) {
+        state.categorySelected.add(event.category);
+        emit(
+          state.copyWith(
+            categorySelected: state.categorySelected,
+          ),
+        );
+      } else {
+        state.categorySelected.remove(event.category);
+        emit(
+          state.copyWith(
+            categorySelected: state.categorySelected,
+          ),
+        );
+      }
+    } else {
+      //!NOTE: if the default (const List<catmodel>) is empty then replace it with a new modifiable list<catmodel>
+      emit(state.copyWith(categorySelected: [event.category]));
     }
   }
 }
