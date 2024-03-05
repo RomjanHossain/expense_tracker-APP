@@ -178,57 +178,62 @@ class _TransactionFilterSheetState extends State<TransactionFilterSheet> {
                     const Text('Choose Category'),
                     GestureDetector(
                       onTap: () async {
-                        // show bottom sheet of categories (categoryLocalData2)
+                        //NOTE: show bottom sheet of categories (categoryLocalData2)
                         await showModalBottomSheet<void>(
                           isScrollControlled: true,
+                          backgroundColor:
+                              Theme.of(context).scaffoldBackgroundColor,
                           context: context,
-                          builder: (context) {
-                            // return const ExpenseForm();
-                            // return const TransactionFilterSheet();
-                            return SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.8,
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Text(
-                                      'Choose Category',
-                                      style: bottomTitle.copyWith(
-                                        color: isDarkMode(context)
-                                            ? ExpenseTrackerColors.light40
-                                            : ExpenseTrackerColors.dark25,
-                                      ),
+                          builder: (context) => SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.8,
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Text(
+                                    'Choose Category',
+                                    style: bottomTitle.copyWith(
+                                      color: isDarkMode(context)
+                                          ? ExpenseTrackerColors.light40
+                                          : ExpenseTrackerColors.dark25,
                                     ),
                                   ),
-                                  Expanded(
-                                    child: ListView.builder(
-                                      itemCount: categoryLocalData2.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          leading: Text(
-                                            categoryLocalData2[index].icon,
-                                            // color: categoryLocalData2[index].color,
-                                          ),
-                                          title: Text(
-                                            categoryLocalData2[index].title,
-                                          ),
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                          },
-                                        );
-                                      },
-                                    ),
+                                ),
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemCount: categoryLocalData2.length,
+                                    itemBuilder: (context, index) {
+                                      return ListTile(
+                                        leading: Text(
+                                          categoryLocalData2[index].icon,
+                                        ),
+                                        title: Text(
+                                          categoryLocalData2[index].title,
+                                        ),
+                                        onTap: () {
+                                          context
+                                              .read<TransactionGraphPageBloc>()
+                                              .add(
+                                                ChangeCategoryEvent(
+                                                  category:
+                                                      categoryLocalData2[index],
+                                                ),
+                                              );
+                                          Navigator.pop(context);
+                                        },
+                                      );
+                                    },
                                   ),
-                                ],
-                              ),
-                            );
-                          },
+                                ),
+                              ],
+                            ),
+                          ),
                         );
                       },
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Text('0 Selected'),
-                          Icon(
+                          Text('${state.categorySelected.length} Selected'),
+                          const Icon(
                             Icons.navigate_next,
                             color: ExpenseTrackerColors.violet,
                           ),
