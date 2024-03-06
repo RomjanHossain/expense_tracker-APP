@@ -47,6 +47,10 @@ class ExpenseTrackerTheme {
           borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
         ),
       ),
+
+      listTileTheme: const ListTileThemeData(
+        selectedColor: ExpenseTrackerColors.violet,
+      ),
       dialogBackgroundColor: ExpenseTrackerColors.light,
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
