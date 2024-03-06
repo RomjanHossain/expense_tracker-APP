@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:expense_tracker/data/datasources/local/category/category_local_data.dart';
 import 'package:expense_tracker/data/models/category_model.dart';
 import 'package:expense_tracker/utils/constrants/enums_.dart';
+import 'package:flutter/material.dart';
 part 'transaction_graph_page_event.dart';
 part 'transaction_graph_page_state.dart';
 
@@ -47,10 +47,13 @@ class TransactionGraphPageBloc
     ChangeCategoryEvent event,
     Emitter<TransactionGraphPageState> emit,
   ) {
+    debugPrint(
+        'categorySelected event called: ${state.categorySelected.length}');
     if (state.categorySelected.isNotEmpty) {
       //!NOTE: check if the values exists in the categorySelected or not
       if (!state.categorySelected.contains(event.category)) {
         state.categorySelected.add(event.category);
+        debugPrint("emit called: ");
         emit(
           state.copyWith(
             categorySelected: state.categorySelected,
@@ -58,6 +61,7 @@ class TransactionGraphPageBloc
         );
       } else {
         state.categorySelected.remove(event.category);
+        debugPrint("emit called: ");
         emit(
           state.copyWith(
             categorySelected: state.categorySelected,
@@ -65,6 +69,7 @@ class TransactionGraphPageBloc
         );
       }
     } else {
+      debugPrint("emit called: ");
       //!NOTE: if the default (const List<catmodel>) is empty then replace it with a new modifiable list<catmodel>
       emit(state.copyWith(categorySelected: [event.category]));
     }
