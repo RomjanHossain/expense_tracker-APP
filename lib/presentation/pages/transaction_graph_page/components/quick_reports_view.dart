@@ -3,6 +3,7 @@ import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/data/datasources/local/category/category_local_data.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/view/expensereport_page.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,12 +13,14 @@ class QuickReportsView extends StatelessWidget {
     required this.type,
     required this.color,
     required this.amount,
+    required this.page,
     super.key,
   });
   final String title;
   final ExpenseType type;
   final Color color;
   final int amount;
+  final int page;
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
@@ -25,6 +28,40 @@ class QuickReportsView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          const SizedBox(),
+          Row(
+            children: [
+              for (final x in List.generate(3, (index) => index))
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      // liquidController.animateToPage(
+                      //   page: x,
+                      //   // duration: const Duration(milliseconds: 500),
+                      // );
+                      // setState(() {});
+                    },
+                    child: Container(
+                      height: 5.h,
+                      decoration: BoxDecoration(
+                        color: x == page
+                            ? isDarkMode(context)
+                                ? ExpenseTrackerColors.dark
+                                : ExpenseTrackerColors.light
+                            : ExpenseTrackerColors.light.withOpacity(
+                                0.3,
+                              ),
+                        borderRadius: BorderRadius.circular(10).r,
+                      ),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 5,
+                        vertical: 10,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
           Text(
             title,
             style: ExpenseTrackerTextStyle.title3.copyWith(
