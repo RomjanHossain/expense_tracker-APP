@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/data/datasources/local/category/category_local_data.dart';
@@ -177,14 +178,33 @@ class QuickReportsView extends StatelessWidget {
             ),
           ),
           if (type == ExpenseType.transfer)
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: OutlinedButton(
-                onPressed: () {
-                  Navigator.push(context, ExpensereportPage.route());
-                },
-                child: const Text('See full details'),
-              ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8),
+            //   child: OutlinedButton(
+            //     onPressed: () {
+            //       Navigator.push(context, ExpensereportPage.route());
+            //     },
+            //     child: const Text('See full details'),
+            //   ),
+            // ),
+
+            OpenContainer(
+              closedBuilder: (context, action) {
+                return Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: OutlinedButton(
+                    onPressed: action,
+                    child: const Text('See full details'),
+                  ),
+                );
+              },
+              openElevation: 0,
+              closedColor: Colors.transparent,
+              openColor: Colors.transparent,
+              closedElevation: 0,
+              openBuilder: (context, action) {
+                return const ExpensereportPage();
+              },
             ),
         ],
       ),
