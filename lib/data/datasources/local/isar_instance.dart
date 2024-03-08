@@ -118,4 +118,10 @@ class IsarInstance implements IIsarInstance, UserRepository, AccountSetupRepo {
     }
     return 0;
   }
+
+  @override
+  Future<List<AccountEntity>> getListOfAccount() async {
+    final ins = await instance;
+    return ins.accountEntitys.where().findAll();
+  }
 }
