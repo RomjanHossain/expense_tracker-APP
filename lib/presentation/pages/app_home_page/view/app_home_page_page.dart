@@ -49,7 +49,6 @@ class AppHomePageScaffold extends StatelessWidget {
         body: const AppHomePageView(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: PieMenu(
-
           actions: [
             PieAction(
               tooltip: const Text(
