@@ -3,6 +3,7 @@ import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
+import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_account.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_expense_method.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_income_methods.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
@@ -148,6 +149,9 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                 children: [
                   if (widget.expenseType == ExpenseType.expense)
                     const ExpenseMethodsDropdown(),
+
+                  if (widget.expenseType == ExpenseType.income)
+                    const IncomeMehodsDropdown(),
                   if (widget.expenseType == ExpenseType.transfer)
                     Stack(
                       children: [
@@ -314,11 +318,10 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                       ),
                     ),
                   ),
-                  //NOTE: wallet (place holder)
-                  //*** [TODO: wallet from db]
+                  //NOTE: wallet (from DB)
                   if (widget.expenseType == ExpenseType.income ||
                       widget.expenseType == ExpenseType.expense)
-                    const IncomeMehodsDropdown(),
+                    const AccountListDropdown(),
                   //NOTE: attachment filed with dotted border
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -338,12 +341,6 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           color: ExpenseTrackerColors.dark25,
                         ),
                       ),
-                      // subtitle:  Text(
-                      //   'Repeat transaction',
-                      //   style: TextStyle(
-                      //     color: ExpenseTrackerColors.light20,
-                      //   ),
-                      // ),
                       subtitle: RichText(
                         text: TextSpan(
                           text: 'Repeat transaction',
@@ -398,11 +395,11 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           child: Column(
                             children: [
                               const Text('Freqency'),
-                              // Text('${state.expenseFormEntity.subType} - ${state.expenseFormEntity.subStart?getFormateDate(state.expenseFormEntity.subStart):""}'),
                               RichText(
                                 textAlign: TextAlign.center,
                                 text: TextSpan(
-                                  text: '${state.expenseFormEntity.subType} - ',
+                                  text:
+                                      '${state.expenseFormEntity.subType?.split(".").last} - ',
                                   style: ExpenseTrackerTextStyle.tiny.copyWith(
                                     color: ExpenseTrackerColors.light20,
                                   ),
@@ -477,20 +474,34 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                             'Attachment: ${imageFieldController.text}',
                           );
                         } else {
-                          debugPrint(
-                            'Expense: ${context.read<DropdownExpenseMethodCubit>().state}',
-                          );
+                          if (widget.expenseType == ExpenseType.income) {
+                            debugPrint(
+                              'Income Source: ${context.read<DropdownIncomeMethodCubit>().state}',
+                            );
+                          } else {
+                            debugPrint(
+                              'Expense: ${context.read<DropdownExpenseMethodCubit>().state}',
+                            );
+                          }
                           debugPrint(
                             'Description: ${_descriptionController.text}',
-                          );
-                          debugPrint(
-                            'Income Source: ${context.read<DropdownIncomeMethodCubit>().state}',
                           );
                           debugPrint(
                             'attachment: ${imageFieldController.text}',
                           );
                           debugPrint(
                             'Repeat: ${state.expenseFormEntity.isExpense}',
+                          );
+
+                          debugPrint(
+                            'Repeat subStart: ${state.expenseFormEntity.subStart}',
+                          );
+
+                          debugPrint(
+                            'Repeat type: ${state.expenseFormEntity.subType}',
+                          );
+                          debugPrint(
+                            'Repeat subEnd: ${state.expenseFormEntity.subEnd}',
                           );
                           showDialog<void>(
                             context: context,
