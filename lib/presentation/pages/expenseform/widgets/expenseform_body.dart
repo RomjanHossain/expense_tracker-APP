@@ -61,12 +61,11 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
     return BlocConsumer<ExpenseformBloc, ExpenseformState>(
       listener: (context, state) {},
       builder: (context, state) {
-        // 29 Dec, 2025 (datetime format)
-
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            //!NOTE: how much?
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 22),
               child: Text(
@@ -76,6 +75,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                 ),
               ),
             ),
+            //! NOTE: Ammount
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: TextField(
@@ -122,7 +122,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                 ),
               ),
             ),
-            // the form
+            //PERF: the form
 
             AnimatedContainer(
               padding: const EdgeInsets.all(15),
@@ -146,8 +146,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  if (widget.expenseType == ExpenseType.income ||
-                      widget.expenseType == ExpenseType.expense)
+                  if (widget.expenseType == ExpenseType.expense)
                     const ExpenseMethodsDropdown(),
                   if (widget.expenseType == ExpenseType.transfer)
                     Stack(

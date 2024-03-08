@@ -15,7 +15,6 @@ class ExpenseformPage extends StatelessWidget {
 
   /// The static route for ExpenseformPage
   static Route<dynamic> route(ExpenseType expenseType) {
-    // return MaterialPageRoute<dynamic>(builder: (_) => const ExpenseformPage());
     return PageAnimation.sharedAxisTransitionPageWrapper(
       ExpenseformPage(expenseType: expenseType),
     );

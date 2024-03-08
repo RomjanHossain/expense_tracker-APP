@@ -6,7 +6,6 @@ import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/b
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/transaction_filter_sheet.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/widgets/financial_reports_quick.dart';
-import 'package:expense_tracker/services/animation/page_animation.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
