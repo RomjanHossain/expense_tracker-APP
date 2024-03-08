@@ -3,6 +3,7 @@ import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/routes/routes_of_the_app.dart';
 import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
+import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/expense_text_controller_cubit.dart';
@@ -33,6 +34,11 @@ class App extends StatelessWidget {
         /// dropdown values [expense methods]
         BlocProvider(
           create: (context) => DropdownExpenseMethodCubit(),
+        ),
+
+        /// dropdown values [Accounts]
+        BlocProvider(
+          create: (context) => DropdownAccountCubit()..runOnFirst(),
         ),
 
         /// dropdown values [expended Category methods]
