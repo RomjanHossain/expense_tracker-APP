@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
 import 'package:expense_tracker/domain/entities/expense_form_entity/expense_form_entity.dart';
 part 'expenseform_event.dart';
 part 'expenseform_state.dart';
@@ -17,6 +18,7 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
     // on<ChangeSubStartMonth>(_onChangeSubStartMonth);
     on<ChangeSubType>(_onChangeSubType);
     on<ResetExpenseForm>(_onResetExpenseForm);
+    on<ChangeAccountEntity>(_onAccountEntityChange);
   }
 
   FutureOr<void> _onCustomExpenseformEvent(
@@ -33,6 +35,16 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
   //   emit(state.copyWith(expenseId: event.expenseId));
   // }
 
+  //NOTE: change the acount
+  FutureOr<void> _onAccountEntityChange(
+    ChangeAccountEntity event,
+    Emitter<ExpenseformState> emit,
+  ) {
+    if (event.accountEntity != state.accountEntity) {
+      emit(state.copyWith(accountEntity: event.accountEntity));
+    }
+  }
+
   // // change income source id
   // FutureOr<void> _onChangeIncomeSourceId(
   //   ChangeIncomeSourceId event,
@@ -41,7 +53,7 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
   //   emit(state.copyWith(incomeSourceId: event.incomeSourceId));
   // }
 
-  // change subscription start date
+  //NOTE: change subscription start date
   FutureOr<void> _onChangeSubStart(
     ChangeSubStart event,
     Emitter<ExpenseformState> emit,
@@ -57,7 +69,7 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
   //   emit(state.copyWith(subStartMonth: event.subStartMonth));
   // }
 
-  // change subscription end date
+  //NOTE: change subscription end date
   FutureOr<void> _onChangeSubEnd(
     ChangeSubEnd event,
     Emitter<ExpenseformState> emit,
@@ -65,7 +77,7 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
     emit(state.copyWith(subEnd: event.subEnd));
   }
 
-  // change subscription type
+  //NOTE: change subscription type
   FutureOr<void> _onChangeSubType(
     ChangeSubType event,
     Emitter<ExpenseformState> emit,
@@ -73,14 +85,15 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
     emit(state.copyWith(subType: event.subType));
   }
 
-  // change repeat
+  //NOTE: change repeat
   FutureOr<void> _onChangeRepeat(
     ChangeRepeat event,
     Emitter<ExpenseformState> emit,
   ) {
     emit(state.copyWith(isExpense: event.isExpense));
   }
-  // reset
+
+  //NOTE: reset
   FutureOr<void> _onResetExpenseForm(
     ResetExpenseForm event,
     Emitter<ExpenseformState> emit,
