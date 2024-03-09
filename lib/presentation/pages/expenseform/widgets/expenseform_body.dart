@@ -1,11 +1,15 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/data/models/isar_entity/income_entity/income_entity.dart';
+import 'package:expense_tracker/data/models/isar_entity/transfer_entity/transfer_entity.dart';
+import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_account.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_expense_method.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_income_methods.dart';
+import 'package:expense_tracker/presentation/pages/app_home_page/components/from_dropdown.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/attachment_picker.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/subscription_bottom.dart';
@@ -19,6 +23,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 
 /// {@template expenseform_body}
 /// Body of the ExpenseformPage.
@@ -40,7 +45,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
   final _transformController = TextEditingController();
   final _transtoController = TextEditingController();
   final imageFieldController = TextEditingController();
-  final _fromFieldController = TextEditingController();
+  // final _fromFieldController = TextEditingController();
   final _toFieldController = TextEditingController();
   @override
   void dispose() {
@@ -49,7 +54,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
     imageFieldController.dispose();
     _transformController.dispose();
     _transtoController.dispose();
-    _fromFieldController.dispose();
+    // _fromFieldController.dispose();
     _toFieldController.dispose();
     super.dispose();
   }
@@ -158,48 +163,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                         Row(
                           children: [
                             //NOTE: from (Transfer)
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10,
-                                ).h,
-                                child: TextField(
-                                  controller: _fromFieldController,
-                                  keyboardType: TextInputType.name,
-                                  decoration: InputDecoration(
-                                    focusedBorder: const OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                      borderSide: BorderSide(
-                                        color: ExpenseTrackerColors.violet,
-                                      ),
-                                    ),
-                                    enabledBorder: const OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                      borderSide: BorderSide(
-                                        color: ExpenseTrackerColors.light60,
-                                      ),
-                                    ),
-                                    border: const OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(15)),
-                                      borderSide: BorderSide(
-                                        color: ExpenseTrackerColors.light60,
-                                      ),
-                                    ),
-                                    hintText: 'From',
-                                    hintStyle:
-                                        ExpenseTrackerTextStyle.body2.copyWith(
-                                      color: ExpenseTrackerColors.light20,
-                                    ),
-                                    contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                      vertical: 10,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            const Expanded(
+                              child: FormDropdown(),
                             ),
                             //NOTE: to (Transfer)
                             Expanded(
@@ -460,28 +425,56 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: ElevatedButton(
-                      onPressed: () {
-                        debugPrint(
-                          'Money Amount: ${_accountBalanceController.text}',
-                        );
+                      onPressed: () async {
                         if (widget.expenseType == ExpenseType.transfer) {
-                          debugPrint('From: ${_fromFieldController.text}');
-                          debugPrint('To: ${_toFieldController.text}');
-                          debugPrint(
-                            'Description: ${_descriptionController.text}',
-                          );
-                          debugPrint(
-                            'Attachment: ${imageFieldController.text}',
-                          );
+                          TransferEntity transferEntity = TransferEntity()
+                            ..to = _toFieldController.text
+                            ..fromID = context
+                                .read<DropdownAccountCubit>()
+                                .state
+                                .$2
+                                ?.id
+                            ..attachment = imageFieldController.text
+                            ..description = _descriptionController.text
+                            ..createdDate = DateTime.now()
+                            ..ammount =
+                                double.parse(_accountBalanceController.text);
                         } else {
+                          // NOTE: add the income
                           if (widget.expenseType == ExpenseType.income) {
-                            debugPrint(
-                              'Income Source: ${context.read<DropdownIncomeMethodCubit>().state}',
-                            );
-                          } else {
-                            debugPrint(
-                              'Expense: ${context.read<DropdownExpenseMethodCubit>().state}',
-                            );
+                            final incomeEntity = IncomeIsarEntity()
+                              ..attachment = imageFieldController.text
+                              ..description = _descriptionController.text
+                              ..createdDate = DateTime.now()
+                              ..ammount =
+                                  double.parse(_accountBalanceController.text)
+                              ..isRepeat = state.expenseFormEntity.isExpense
+                              ..endDate = state.expenseFormEntity.subEnd
+                              ..startDate = state.expenseFormEntity.subStart
+                              ..repeatType = state.expenseFormEntity.subType
+                              ..walletId = context
+                                  .read<DropdownAccountCubit>()
+                                  .state
+                                  .$2
+                                  ?.id;
+                          }
+                          // NOTE: add the expense
+                          else {
+                            final expenseEntity = IncomeIsarEntity()
+                              ..attachment = imageFieldController.text
+                              ..description = _descriptionController.text
+                              ..createdDate = DateTime.now()
+                              ..ammount =
+                                  double.parse(_accountBalanceController.text)
+                              ..isRepeat = state.expenseFormEntity.isExpense
+                              ..endDate = state.expenseFormEntity.subEnd
+                              ..startDate = state.expenseFormEntity.subStart
+                              ..repeatType = state.expenseFormEntity.subType
+                              ..walletId = context
+                                  .read<DropdownAccountCubit>()
+                                  .state
+                                  .$2
+                                  ?.id;
                           }
                           debugPrint(
                             'Description: ${_descriptionController.text}',
@@ -489,6 +482,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           debugPrint(
                             'attachment: ${imageFieldController.text}',
                           );
+                          debugPrint(
+                              'Wallet: ${context.read<DropdownAccountCubit>().state.$2?.accountName}');
                           debugPrint(
                             'Repeat: ${state.expenseFormEntity.isExpense}',
                           );
@@ -503,7 +498,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           debugPrint(
                             'Repeat subEnd: ${state.expenseFormEntity.subEnd}',
                           );
-                          showDialog<void>(
+                          await showDialog<void>(
                             context: context,
                             builder: (context) => const SuccessAlertDialog(),
                           );
@@ -518,7 +513,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                               _accountBalanceController.clear();
                               _descriptionController.clear();
                               imageFieldController.clear();
-                              _fromFieldController.clear();
+                              // _fromFieldController.clear();
                               _toFieldController.clear();
                               // pop the dialog
                               Navigator.of(context).pop();
