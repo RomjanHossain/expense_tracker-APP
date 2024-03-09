@@ -94,7 +94,7 @@ class AccountListDropdown extends StatelessWidget {
               )
               .toList(),
           onChanged: (s) {
-            // context.read<DropdownIncomeMethodCubit>().changeValue(s!.id);
+            context.read<DropdownAccountCubit>().changeSelectedAccount(s);
           },
         );
       },
