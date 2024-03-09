@@ -79,4 +79,13 @@ class ChangeRepeat extends ExpenseformEvent {
   List<Object> get props => [isExpense];
 }
 
+//NOTE: change the account entity
+class ChangeAccountEntity extends ExpenseformEvent {
+  const ChangeAccountEntity(this.accountEntity);
+  final AccountEntity accountEntity;
+  @override
+  List<Object> get props => [accountEntity];
+}
+
 class ResetExpenseForm extends ExpenseformEvent {}
+
