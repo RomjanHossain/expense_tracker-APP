@@ -6,29 +6,18 @@ part of 'expenseform_bloc.dart';
 class ExpenseformState extends Equatable {
   /// {@macro expenseform_state}
   const ExpenseformState({
+    this.accountEntity,
     this.expenseFormEntity = const ExpenseFormEntity(
-      // expenseId: '',
-      // incomeSourceId: '',
       isExpense: false,
-      // subStart: DateTime.now(),
-      // subEnd: DateTime.now(),
-      // subStartDay: '1',
-      // subStartMonth: 'January',
     ),
   });
 
   final ExpenseFormEntity expenseFormEntity;
+  final AccountEntity? accountEntity;
 
   @override
   List<Object> get props => [
-        // expenseId,
-        // incomeSourceId,
-        // isExpense,
         expenseFormEntity,
-        // subStartDay!,
-        // subStartMonth!,
-        // subEnd!,
-        // subType!,
       ];
 
   /// Creates a copy of the current ExpenseformState with property changes
@@ -39,6 +28,7 @@ class ExpenseformState extends Equatable {
     DateTime? subStart,
     DateTime? subEnd,
     String? subType,
+    AccountEntity? accountEntity,
     // String? subStartDa,
     // String? subStartMonth,
   }) {
@@ -59,6 +49,7 @@ class ExpenseformState extends Equatable {
         // subStartDay: subStartDay ?? expenseFormEntity.subStartDay,
         // subStartMonth: subStartMonth ?? expenseFormEntity.subStartMonth,
       ),
+      accountEntity: accountEntity ?? this.accountEntity,
     );
   }
 }
