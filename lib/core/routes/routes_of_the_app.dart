@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/presentation/pages/account_page/account/view/account_page.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account_page.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/view/app_home_page_page.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/view/expenseform_page.dart';

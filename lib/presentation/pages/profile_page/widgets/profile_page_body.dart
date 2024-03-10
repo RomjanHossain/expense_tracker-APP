@@ -1,9 +1,11 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/presentation/pages/account_page/account/view/account_page.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account_page.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -118,9 +120,7 @@ class ProfilePageBody extends StatelessWidget {
                               case 'Account':
                                 Navigator.push(
                                   context,
-                                  CupertinoPageRoute<AccountPage>(
-                                    builder: (_) => const AccountPage(),
-                                  ),
+                                  AccountPage.route(),
                                 );
                               case 'Settings':
                                 context.pushNamed(
