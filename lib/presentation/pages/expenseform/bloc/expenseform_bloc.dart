@@ -2,7 +2,11 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
 import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
+import 'package:expense_tracker/data/models/isar_entity/expense_entity/expense_entity.dart';
+import 'package:expense_tracker/data/models/isar_entity/income_entity/income_entity.dart';
+import 'package:expense_tracker/data/models/isar_entity/transfer_entity/transfer_entity.dart';
 import 'package:expense_tracker/domain/entities/expense_form_entity/expense_form_entity.dart';
 part 'expenseform_event.dart';
 part 'expenseform_state.dart';
@@ -19,6 +23,10 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
     on<ChangeSubType>(_onChangeSubType);
     on<ResetExpenseForm>(_onResetExpenseForm);
     on<ChangeAccountEntity>(_onAccountEntityChange);
+    //! WARNING: for database
+    on<TransferToDatbase>(_onTransferToDatbase);
+    on<IncomeToDatabase>(_onIncomeToDatbase);
+    on<ExpenseToDatabase>(_onExpenseToDatbase);
   }
 
   FutureOr<void> _onCustomExpenseformEvent(
@@ -99,5 +107,33 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
     Emitter<ExpenseformState> emit,
   ) {
     emit(const ExpenseformInitial());
+  }
+
+  //! WARNING: for database implentation
+  FutureOr<void> _onTransferToDatbase(
+    TransferToDatbase event,
+    Emitter<ExpenseformState> emit,
+  ) async {
+    final isar = IsarInstance();
+    await isar.createAnTransfer(event.transferAmount);
+    emit(const SuccessfullyAddedToDatabase());
+  }
+
+  FutureOr<void> _onIncomeToDatbase(
+    IncomeToDatabase event,
+    Emitter<ExpenseformState> emit,
+  ) async {
+    final isar = IsarInstance();
+    await isar.createAnIncome(event.incomeAmount);
+    emit(const SuccessfullyAddedToDatabase());
+  }
+
+  FutureOr<void> _onExpenseToDatbase(
+    ExpenseToDatabase event,
+    Emitter<ExpenseformState> emit,
+  ) async {
+    final isar = IsarInstance();
+    await isar.createAnExpense(event.expenseAmount);
+    emit(const SuccessfullyAddedToDatabase());
   }
 }
