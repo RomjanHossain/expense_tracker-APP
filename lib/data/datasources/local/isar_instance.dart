@@ -61,6 +61,16 @@ class IsarInstance
   //   final ins = instance;
   //   await ins.then((value) => value.userEntitys.where().idEqualTo(userID).delete);
   // }
+  //WARN: this section is for the user(account) section
+  //NOTE: total account balance
+  Future<double> getTotalBalance() async {
+    final ins = await instance;
+    final accounts = await ins.accountEntitys.where().findAll();
+    return accounts.fold<double>(
+      0,
+      (previousValue, element) => previousValue + element.accountBalance!,
+    );
+  }
 
   //WARN: this section is for the user(profile) section
   @override // PERF: get the user
@@ -87,7 +97,8 @@ class IsarInstance
     // NOTE: (for updating users's few value)
     if (user.name != null || user.pin != null || user.imageUrl != null) {
       debugPrint(
-          'updating user where one of the value is not null ${user.name} ${user.imageUrl} ${user.pin}',);
+        'updating user where one of the value is not null ${user.name} ${user.imageUrl} ${user.pin}',
+      );
       if (user.name != null) {
         usr?.name = user.name;
       }
