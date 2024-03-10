@@ -72,6 +72,55 @@ class IsarInstance
     );
   }
 
+  //NOTE: total income balance(monthly)
+  Future<double> getTotalIncome(int month) async {
+    final ins = await instance;
+    final incomes = await ins.incomeIsarEntitys.where().findAll();
+    // return incomes.fold<double>(
+    //   0,
+    //   (previousValue, element) => previousValue + element.ammount!,
+    // );
+    return incomes.fold<double>(
+      0,
+      (previousValue, element) {
+        final date = element.createdDate!;
+        if (date.month == month) {
+          return previousValue + element.ammount!;
+        }
+        return previousValue;
+      },
+    );
+  }
+
+  //NOTE: total expense balance(monthly)
+  Future<double> getTotalExpense(int month) async {
+    final ins = await instance;
+    final expenses = await ins.expenseIsarEntitys.where().findAll();
+    return expenses.fold<double>(
+      0,
+      (previousValue, element) {
+        final date = element.createdDate!;
+        if (date.month == month) {
+          return previousValue + element.ammount!;
+        }
+        return previousValue;
+      },
+    );
+  }
+
+  //NOTE: total account balance(monthly)
+  Future<double> getTotalBalanceMonthly(int month) async {
+    final ins = await instance;
+    final expense = await getTotalExpense(month);
+    final income = await getTotalIncome(month);
+    final accounts = await ins.accountEntitys.where().findAll();
+    final totalBalance = accounts.fold<double>(
+      0,
+      (previousValue, element) => previousValue + element.accountBalance!,
+    );
+    return totalBalance + income - expense;
+  }
+
   //WARN: this section is for the user(profile) section
   @override // PERF: get the user
   Future<UserEntity?> getUser() async {
@@ -157,6 +206,10 @@ class IsarInstance
   @override
   Future<int> createAnExpense(ExpenseIsarEntity expenseEntity) async {
     final ins = await instance;
+    //! PERF: update the wallet balance
+    final wallet = await ins.accountEntitys.get(expenseEntity.walletId!);
+    wallet?.accountBalance = wallet.accountBalance! - expenseEntity.ammount!;
+    await ins.writeTxn(() => ins.accountEntitys.put(wallet!));
     return ins.writeTxn(() => ins.expenseIsarEntitys.put(expenseEntity));
   }
 
@@ -171,6 +224,14 @@ class IsarInstance
     final ins = await instance;
     final currentExpense = await ins.expenseIsarEntitys.get(id);
     if (currentExpense != null) {
+      //! PERF: update the wallet balance
+      final wallet = await ins.accountEntitys.get(expenseEntity.walletId!);
+      wallet?.accountBalance = wallet.accountBalance! +
+          currentExpense.ammount! -
+          expenseEntity.ammount!;
+
+      await ins.writeTxn(() => ins.accountEntitys.put(wallet!));
+
       currentExpense
         ..ammount = expenseEntity.ammount
         ..createdDate = expenseEntity.createdDate
@@ -190,6 +251,12 @@ class IsarInstance
   @override
   Future<bool> deleteAnExpense(int id) async {
     final ins = await instance;
+    //! PERF: update the wallet balance
+    final currentExpense = await ins.expenseIsarEntitys.get(id);
+    final wallet = await ins.accountEntitys.get(currentExpense!.walletId!);
+    wallet?.accountBalance = wallet.accountBalance! + currentExpense.ammount!;
+    await ins.writeTxn(() => ins.accountEntitys.put(wallet!));
+
     return ins.writeTxn(() => ins.expenseIsarEntitys.delete(id));
   }
 
@@ -200,6 +267,12 @@ class IsarInstance
     final currentIncome = await ins.incomeIsarEntitys.get(id);
 
     if (currentIncome != null) {
+      //! PERF: update the wallet balance
+      final wallet = await ins.accountEntitys.get(incomeEntity.walletId!);
+      wallet?.accountBalance = wallet.accountBalance! +
+          currentIncome.ammount! -
+          incomeEntity.ammount!;
+      await ins.writeTxn(() => ins.accountEntitys.put(wallet!));
       currentIncome
         ..ammount = incomeEntity.ammount
         ..createdDate = incomeEntity.createdDate
@@ -219,6 +292,11 @@ class IsarInstance
   @override
   Future<int> createAnIncome(IncomeIsarEntity incomeEntity) async {
     final ins = await instance;
+
+    //! PERF: update the wallet balance
+    final wallet = await ins.accountEntitys.get(incomeEntity.walletId!);
+    wallet?.accountBalance = wallet.accountBalance! + incomeEntity.ammount!;
+    await ins.writeTxn(() => ins.accountEntitys.put(wallet!));
     return ins.writeTxn(() => ins.incomeIsarEntitys.put(incomeEntity));
   }
 
@@ -231,6 +309,12 @@ class IsarInstance
   @override
   Future<bool> deleteAnIncome(int id) async {
     final ins = await instance;
+
+    final incomeEntity = await ins.incomeIsarEntitys.get(id);
+    //! PERF: update the wallet balance
+    final wallet = await ins.accountEntitys.get(incomeEntity!.walletId!);
+    wallet?.accountBalance = wallet.accountBalance! + incomeEntity.ammount!;
+    await ins.writeTxn(() => ins.accountEntitys.put(wallet!));
     return ins.writeTxn(() => ins.incomeIsarEntitys.delete(id));
   }
 
@@ -238,12 +322,23 @@ class IsarInstance
   @override
   Future<int> createAnTransfer(TransferEntity transferEntity) async {
     final ins = await instance;
+
+    //! PERF: update the wallet balance
+    final wallet = await ins.accountEntitys.get(transferEntity.fromID!);
+    wallet?.accountBalance = wallet.accountBalance! - transferEntity.ammount!;
+    await ins.writeTxn(() => ins.accountEntitys.put(wallet!));
     return ins.writeTxn(() => ins.transferEntitys.put(transferEntity));
   }
 
   @override
   Future<bool> deleteAnTransfer(int id) async {
     final ins = await instance;
+
+    final transferEntity = await ins.transferEntitys.get(id);
+    //! PERF: update the wallet balance
+    final wallet = await ins.accountEntitys.get(transferEntity!.fromID!);
+    wallet?.accountBalance = wallet.accountBalance! + transferEntity.ammount!;
+    await ins.writeTxn(() => ins.accountEntitys.put(wallet!));
     return ins.writeTxn(() => ins.transferEntitys.delete(id));
   }
 
@@ -258,6 +353,11 @@ class IsarInstance
     final ins = await instance;
     final currentTransfer = await ins.transferEntitys.get(id);
     if (currentTransfer != null) {
+      //! PERF: update the wallet balance
+      final wallet = await ins.accountEntitys.get(transferEntity.fromID!);
+      wallet?.accountBalance = wallet.accountBalance! +
+          currentTransfer.ammount! -
+          transferEntity.ammount!;
       currentTransfer
         ..ammount = transferEntity.ammount
         ..createdDate = transferEntity.createdDate
@@ -265,6 +365,8 @@ class IsarInstance
         ..description = transferEntity.description
         ..fromID = transferEntity.fromID
         ..to = transferEntity.to;
+
+      await ins.writeTxn(() => ins.accountEntitys.put(wallet!));
       return ins.writeTxn(() => ins.transferEntitys.put(currentTransfer));
     } else {
       return 0;

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
 import 'package:expense_tracker/utils/constrants/enums_.dart';
 part 'homepage_event.dart';
 part 'homepage_state.dart';
@@ -10,14 +11,14 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
   HomepageBloc() : super(const HomepageInitial()) {
     on<CustomHomepageEvent>(_onCustomHomepageEvent);
     on<ChangeTheFreq>(_changetheFreq);
+    on<ChangeTheMonth>(_changeTheMonth);
   }
+  final isar = IsarInstance();
 
   FutureOr<void> _onCustomHomepageEvent(
     CustomHomepageEvent event,
     Emitter<HomepageState> emit,
-  ) {
-    // TODO: Add Logic
-  }
+  ) {}
   //NOTE: change the freq
   FutureOr<void> _changetheFreq(
     ChangeTheFreq event,
@@ -25,6 +26,16 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
   ) {
     if (event.se != state.se) {
       emit(state.copyWith(se: event.se));
+    }
+  }
+
+  //! change the month
+  FutureOr<void> _changeTheMonth(
+    ChangeTheMonth event,
+    Emitter<HomepageState> emit,
+  ) async {
+    if (event.month != state.currentMonth) {
+      emit(state.copyWith(currentMonth: event.month));
     }
   }
 }
