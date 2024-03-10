@@ -61,3 +61,13 @@ class ExpenseformInitial extends ExpenseformState {
   /// {@macro expenseform_initial}
   const ExpenseformInitial() : super();
 }
+
+//! Successfully added state
+class SuccessfullyAddedToDatabase extends ExpenseformState {
+  const SuccessfullyAddedToDatabase();
+}
+
+//! Failed to add state
+class FailedToAddToDatabase extends ExpenseformState {
+  const FailedToAddToDatabase();
+}
