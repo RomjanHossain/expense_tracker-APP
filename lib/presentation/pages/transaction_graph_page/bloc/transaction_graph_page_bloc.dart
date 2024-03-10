@@ -48,12 +48,12 @@ class TransactionGraphPageBloc
     Emitter<TransactionGraphPageState> emit,
   ) {
     debugPrint(
-        'categorySelected event called: ${state.categorySelected.length}');
+        'categorySelected event called: ${state.categorySelected.length}',);
     if (state.categorySelected.isNotEmpty) {
       //!NOTE: check if the values exists in the categorySelected or not
       if (!state.categorySelected.contains(event.category)) {
         state.categorySelected.add(event.category);
-        debugPrint("emit called: ");
+        debugPrint('emit called: ');
         emit(
           state.copyWith(
             categorySelected: state.categorySelected,
@@ -61,7 +61,7 @@ class TransactionGraphPageBloc
         );
       } else {
         state.categorySelected.remove(event.category);
-        debugPrint("emit called: ");
+        debugPrint('emit called: ');
         emit(
           state.copyWith(
             categorySelected: state.categorySelected,
@@ -69,7 +69,7 @@ class TransactionGraphPageBloc
         );
       }
     } else {
-      debugPrint("emit called: ");
+      debugPrint('emit called: ');
       //!NOTE: if the default (const List<catmodel>) is empty then replace it with a new modifiable list<catmodel>
       emit(state.copyWith(categorySelected: [event.category]));
     }

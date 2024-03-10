@@ -32,7 +32,7 @@ class _HowManySelectedState extends State<HowManySelected> {
     return BlocConsumer<TransactionGraphPageBloc, TransactionGraphPageState>(
       listener: (BuildContext context, TransactionGraphPageState state) {
         debugPrint(
-          "current stae lenght form selectedText : ${state.categorySelected.length}",
+          'current stae lenght form selectedText : ${state.categorySelected.length}',
         );
         if (state.categorySelected.length != selected) {
           selected = state.categorySelected.length;

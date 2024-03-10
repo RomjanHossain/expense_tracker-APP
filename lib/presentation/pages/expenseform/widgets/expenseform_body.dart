@@ -1,11 +1,11 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/core/helper/helper_.dart';
+import 'package:expense_tracker/data/models/isar_entity/expense_entity/expense_entity.dart';
 import 'package:expense_tracker/data/models/isar_entity/income_entity/income_entity.dart';
 import 'package:expense_tracker/data/models/isar_entity/transfer_entity/transfer_entity.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
-import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
-import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_account.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_expense_method.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_income_methods.dart';
@@ -14,7 +14,7 @@ import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/attachment_picker.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/subscription_bottom.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/success_alertdialog.dart';
-import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 
 /// {@template expenseform_body}
 /// Body of the ExpenseformPage.
@@ -65,7 +64,23 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ExpenseformBloc, ExpenseformState>(
-      listener: (context, state) {},
+      listener: (context, state) async {
+        if (state is SuccessfullyAddedToDatabase) {
+          await showDialog<void>(
+            context: context,
+            builder: (context) => const SuccessAlertDialog(
+              status: ExpenseformStatus.success,
+            ),
+          );
+        } else if (state is FailedToAddToDatabase) {
+          await showDialog<void>(
+            context: context,
+            builder: (context) => const SuccessAlertDialog(
+              status: ExpenseformStatus.fail,
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -426,8 +441,12 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                     padding: const EdgeInsets.all(8),
                     child: ElevatedButton(
                       onPressed: () async {
+                        if (_accountBalanceController.text.isEmpty) {
+                          showFailureToast(context, 'Ammount cannot be 0.00');
+                          return;
+                        }
                         if (widget.expenseType == ExpenseType.transfer) {
-                          TransferEntity transferEntity = TransferEntity()
+                          final transferEntity = TransferEntity()
                             ..to = _toFieldController.text
                             ..fromID = context
                                 .read<DropdownAccountCubit>()
@@ -439,6 +458,9 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                             ..createdDate = DateTime.now()
                             ..ammount =
                                 double.parse(_accountBalanceController.text);
+                          context
+                              .read<ExpenseformBloc>()
+                              .add(TransferToDatbase(transferEntity));
                         } else {
                           // NOTE: add the income
                           if (widget.expenseType == ExpenseType.income) {
@@ -450,17 +472,24 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                   double.parse(_accountBalanceController.text)
                               ..isRepeat = state.expenseFormEntity.isExpense
                               ..endDate = state.expenseFormEntity.subEnd
-                              ..startDate = state.expenseFormEntity.subStart
+                              // ..startDate = state.expenseFormEntity.subStart
+                              ..startDate =
+                                  state.expenseFormEntity.subStart != null
+                                      ? state.expenseFormEntity.subStart!
+                                      : DateTime.now()
                               ..repeatType = state.expenseFormEntity.subType
                               ..walletId = context
                                   .read<DropdownAccountCubit>()
                                   .state
                                   .$2
                                   ?.id;
+                            context
+                                .read<ExpenseformBloc>()
+                                .add(IncomeToDatabase(incomeEntity));
                           }
                           // NOTE: add the expense
                           else {
-                            final expenseEntity = IncomeIsarEntity()
+                            final expenseEntity = ExpenseIsarEntity()
                               ..attachment = imageFieldController.text
                               ..description = _descriptionController.text
                               ..createdDate = DateTime.now()
@@ -468,13 +497,19 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                   double.parse(_accountBalanceController.text)
                               ..isRepeat = state.expenseFormEntity.isExpense
                               ..endDate = state.expenseFormEntity.subEnd
-                              ..startDate = state.expenseFormEntity.subStart
+                              ..startDate =
+                                  state.expenseFormEntity.subStart != null
+                                      ? state.expenseFormEntity.subStart!
+                                      : DateTime.now()
                               ..repeatType = state.expenseFormEntity.subType
                               ..walletId = context
                                   .read<DropdownAccountCubit>()
                                   .state
                                   .$2
                                   ?.id;
+                            context
+                                .read<ExpenseformBloc>()
+                                .add(ExpenseToDatabase(expenseEntity));
                           }
                           debugPrint(
                             'Description: ${_descriptionController.text}',
@@ -483,7 +518,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                             'attachment: ${imageFieldController.text}',
                           );
                           debugPrint(
-                              'Wallet: ${context.read<DropdownAccountCubit>().state.$2?.accountName}');
+                            'Wallet: ${context.read<DropdownAccountCubit>().state.$2?.accountName}',
+                          );
                           debugPrint(
                             'Repeat: ${state.expenseFormEntity.isExpense}',
                           );
@@ -498,12 +534,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           debugPrint(
                             'Repeat subEnd: ${state.expenseFormEntity.subEnd}',
                           );
-                          await showDialog<void>(
-                            context: context,
-                            builder: (context) => const SuccessAlertDialog(),
-                          );
                           Future.delayed(
-                            const Duration(seconds: 3),
+                            const Duration(seconds: 1),
                             () {
                               // reset the form
                               context.read<ExpenseformBloc>().add(

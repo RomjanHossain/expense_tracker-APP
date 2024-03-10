@@ -1,3 +1,6 @@
+//NOTE: success or fail
+enum ExpenseformStatus { success, fail }
+
 ///* home page segmented buttons enum(today, week, month, year)
 enum SegmentedButtonsData { today, week, month, year }
 

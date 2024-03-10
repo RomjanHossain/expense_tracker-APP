@@ -244,7 +244,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                                   );
                             } else {
                               debugPrint(
-                                  'pin from the page controller -> ${state.pin}');
+                                  'pin from the page controller -> ${state.pin}',);
                               context.read<OnboardingSetupPinBloc>().add(
                                     PinSaveOnboardingSetupPinEvent(
                                       pin: state.pin,
@@ -255,7 +255,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                           if (state.userPin.isNotEmpty) {
                             if (state.userPin == state.pin) {
                               debugPrint(
-                                  'pin from the page controller -> ${state.pin}');
+                                  'pin from the page controller -> ${state.pin}',);
                               context.read<OnboardingSetupPinBloc>().add(
                                     PinSaveOnboardingSetupPinEvent(
                                       pin: state.pin,
@@ -264,7 +264,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                             } else {
                               if (state.attempts == 3) {
                                 showFailureToast(context,
-                                    'You have reached the maximum attempts.');
+                                    'You have reached the maximum attempts.',);
                                 //! if 3 attemps then exit from the app
                                 Future.delayed(const Duration(seconds: 1), () {
                                   exit(0);
@@ -272,7 +272,7 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                               }
                               showFailureToast(context, 'Pin does not match');
                               debugPrint(
-                                  'Pin does not match ${state.userPin} || ${state.pin}');
+                                  'Pin does not match ${state.userPin} || ${state.pin}',);
                               // chagne attempts
                               context.read<OnboardingSetupPinBloc>().add(
                                     ChangeAttemptsOnboardingSetupPinEvent(

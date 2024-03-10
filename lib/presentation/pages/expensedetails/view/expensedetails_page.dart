@@ -1,7 +1,7 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/custom_app_bar.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/cubit/cubit.dart';
-import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -108,7 +108,8 @@ class ExpensedetailsPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                       horizontal: 10.w,
                     ),
-                    child: ElevatedButton(onPressed: () {}, child:const Text ('Edit')),
+                    child: ElevatedButton(
+                        onPressed: () {}, child: const Text('Edit'),),
                   ),
                   // const ExpensedetailsView(),
                 ],

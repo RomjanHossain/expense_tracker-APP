@@ -20,7 +20,7 @@ import 'package:expense_tracker/presentation/pages/settings/pages/theme/view/the
 import 'package:expense_tracker/presentation/pages/settings/view/settings_page.dart';
 import 'package:expense_tracker/presentation/pages/splash_screen/view/splash_screen_page.dart';
 import 'package:expense_tracker/services/animation/page_transitions.dart';
-import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';

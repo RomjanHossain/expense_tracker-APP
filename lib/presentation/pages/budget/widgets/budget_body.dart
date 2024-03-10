@@ -98,10 +98,10 @@ class BudgetBody extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
+                            const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const CategoryWithBorder(
+                                CategoryWithBorder(
                                   color: ExpenseTrackerColors.violet,
                                   title: 'Food',
                                 ),
@@ -110,7 +110,7 @@ class BudgetBody extends StatelessWidget {
                                   // color: Colors.red,
                                   disabledColor: Colors.red,
                                   onPressed: null,
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.error_sharp,
                                   ),
                                 ),

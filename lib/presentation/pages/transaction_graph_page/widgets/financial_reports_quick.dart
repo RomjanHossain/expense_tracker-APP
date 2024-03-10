@@ -1,7 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/quick_reports_view.dart';
-import 'package:expense_tracker/utils/constrants/consts_.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';

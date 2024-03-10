@@ -87,7 +87,7 @@ class IsarInstance
     // NOTE: (for updating users's few value)
     if (user.name != null || user.pin != null || user.imageUrl != null) {
       debugPrint(
-          'updating user where one of the value is not null ${user.name} ${user.imageUrl} ${user.pin}');
+          'updating user where one of the value is not null ${user.name} ${user.imageUrl} ${user.pin}',);
       if (user.name != null) {
         usr?.name = user.name;
       }

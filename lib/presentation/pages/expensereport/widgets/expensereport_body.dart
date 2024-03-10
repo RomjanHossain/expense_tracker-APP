@@ -7,6 +7,7 @@ import 'package:expense_tracker/presentation/pages/transaction_graph_page/compon
 import 'package:expense_tracker/presentation/widgets/charts/line_charts.dart';
 import 'package:expense_tracker/presentation/widgets/charts/pie_carts.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -159,7 +160,7 @@ class ExpensereportBody extends StatelessWidget {
                     ),
                   ),
                 ),
-                segments: <ButtonSegment<ExpenseType2>>[
+                segments: const <ButtonSegment<ExpenseType2>>[
                   ButtonSegment<ExpenseType2>(
                     label: Text('Expense'),
                     value: ExpenseType2.expense,
@@ -171,7 +172,7 @@ class ExpensereportBody extends StatelessWidget {
                 ],
                 selected: <ExpenseType2>{
                   // ExpenseType2.income,
-                  state.etype
+                  state.etype,
                 },
                 onSelectionChanged: (p0) {
                   context

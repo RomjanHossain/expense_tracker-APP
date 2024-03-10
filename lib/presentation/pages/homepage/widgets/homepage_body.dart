@@ -27,7 +27,7 @@ class HomepageBody extends StatelessWidget {
     return BlocBuilder<HomepageBloc, HomepageState>(
       builder: (context, state) {
         final width = MediaQuery.sizeOf(context).width;
-        debugPrint('Width: ${width}');
+        debugPrint('Width: $width');
         return CustomScrollView(
           slivers: [
             SliverAppBar(
