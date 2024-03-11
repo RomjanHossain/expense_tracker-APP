@@ -121,6 +121,96 @@ class IsarInstance
     return totalBalance + income - expense;
   }
 
+  //!PERF: get all income today
+  Future<List<IncomeIsarEntity>> getTodaysIncome() async {
+    final ins = await instance;
+    final incomes = await ins.incomeIsarEntitys.where().findAll();
+    final today = DateTime.now();
+    return incomes.where((element) {
+      final date = element.createdDate!;
+      return date.day == today.day && date.month == today.month;
+    }).toList();
+  }
+
+  //!PERF: get all expense today
+  Future<List<ExpenseIsarEntity>> getTodaysExpense() async {
+    final ins = await instance;
+    final expenses = await ins.expenseIsarEntitys.where().findAll();
+    final today = DateTime.now();
+    return expenses.where((element) {
+      final date = element.createdDate!;
+      return date.day == today.day && date.month == today.month;
+    }).toList();
+  }
+
+  //!PERF: get all income week
+  Future<List<IncomeIsarEntity>> getWeeksIncome() async {
+    final ins = await instance;
+    final incomes = await ins.incomeIsarEntitys.where().findAll();
+    final today = DateTime.now();
+    final week = today.subtract(const Duration(days: 7));
+    return incomes.where((element) {
+      final date = element.createdDate!;
+      return date.isAfter(week) && date.isBefore(today);
+    }).toList();
+  }
+
+  //!PERF: get all expense week
+  Future<List<ExpenseIsarEntity>> getWeeksExpense() async {
+    final ins = await instance;
+    final expenses = await ins.expenseIsarEntitys.where().findAll();
+    final today = DateTime.now();
+    final week = today.subtract(const Duration(days: 7));
+    return expenses.where((element) {
+      final date = element.createdDate!;
+      return date.isAfter(week) && date.isBefore(today);
+    }).toList();
+  }
+
+  //! PERF: get all income month
+  Future<List<IncomeIsarEntity>> getMonthsIncome() async {
+    final ins = await instance;
+    final incomes = await ins.incomeIsarEntitys.where().findAll();
+    final today = DateTime.now();
+    return incomes.where((element) {
+      final date = element.createdDate!;
+      return date.month == today.month;
+    }).toList();
+  }
+
+  //! PERF: get all expense month
+  Future<List<ExpenseIsarEntity>> getMonthsExpense() async {
+    final ins = await instance;
+    final expenses = await ins.expenseIsarEntitys.where().findAll();
+    final today = DateTime.now();
+    return expenses.where((element) {
+      final date = element.createdDate!;
+      return date.month == today.month;
+    }).toList();
+  }
+
+  //!PERF: get all income year
+  Future<List<IncomeIsarEntity>> getYearsIncome() async {
+    final ins = await instance;
+    final incomes = await ins.incomeIsarEntitys.where().findAll();
+    final today = DateTime.now();
+    return incomes.where((element) {
+      final date = element.createdDate!;
+      return date.year == today.year;
+    }).toList();
+  }
+
+  //! get all expense year
+  Future<List<ExpenseIsarEntity>> getYearsExpense() async {
+    final ins = await instance;
+    final expenses = await ins.expenseIsarEntitys.where().findAll();
+    final today = DateTime.now();
+    return expenses.where((element) {
+      final date = element.createdDate!;
+      return date.year == today.year;
+    }).toList();
+  }
+
   //WARN: this section is for the user(profile) section
   @override // PERF: get the user
   Future<UserEntity?> getUser() async {
