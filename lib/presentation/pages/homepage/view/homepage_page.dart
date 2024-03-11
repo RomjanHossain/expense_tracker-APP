@@ -25,7 +25,7 @@ class _HomepagePageState extends State<HomepagePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomepageBloc(),
+      create: (context) => HomepageBloc()..add(const InitCalander()),
       child: const Scaffold(
         // backgroundColor: Colors.red,
         body: HomepageView(),
