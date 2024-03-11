@@ -35,7 +35,17 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     Emitter<HomepageState> emit,
   ) async {
     if (event.month != state.currentMonth) {
-      emit(state.copyWith(currentMonth: event.month));
+      final total_balanceMonth = await isar.getTotalBalanceMonthly(event.month);
+      final totalExpense = await isar.getTotalExpense(event.month);
+      final totalIncome = await isar.getTotalIncome(event.month);
+      emit(
+        state.copyWith(
+          currentMonth: event.month,
+          income: totalIncome,
+          expense: totalExpense,
+          accountBalance: total_balanceMonth,
+        ),
+      );
     }
   }
 }
