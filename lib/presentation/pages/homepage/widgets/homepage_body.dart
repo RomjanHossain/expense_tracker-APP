@@ -27,7 +27,6 @@ class HomepageBody extends StatelessWidget {
     return BlocBuilder<HomepageBloc, HomepageState>(
       builder: (context, state) {
         final width = MediaQuery.sizeOf(context).width;
-        debugPrint('Width: $width');
         return CustomScrollView(
           slivers: [
             SliverAppBar(
@@ -70,7 +69,7 @@ class HomepageBody extends StatelessWidget {
                           vertical: 10.h,
                         ),
                         child: Text(
-                          r'$1000',
+                          '\$${state.accountBalance}',
                           style: ExpenseTrackerTextStyle.title1.copyWith(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
@@ -93,7 +92,7 @@ class HomepageBody extends StatelessWidget {
                                       svgAsset: ExpenseAssets.incomeIcon,
                                       color: ExpenseTrackerColors.green,
                                       title: 'Income',
-                                      money: '2024',
+                                      money: '${state.income}',
                                     ),
                                   ),
                                   width10,
@@ -103,7 +102,7 @@ class HomepageBody extends StatelessWidget {
                                       svgAsset: ExpenseAssets.expenseIcon,
                                       color: ExpenseTrackerColors.red,
                                       title: 'Expense',
-                                      money: '2023',
+                                      money: '${state.expense}',
                                     ),
                                   ),
                                 ],
@@ -116,7 +115,7 @@ class HomepageBody extends StatelessWidget {
                                       svgAsset: ExpenseAssets.incomeIcon,
                                       color: ExpenseTrackerColors.green,
                                       title: 'Income',
-                                      money: '2024',
+                                      money: '${state.income}',
                                     ),
                                   ),
                                   height10,
@@ -126,7 +125,7 @@ class HomepageBody extends StatelessWidget {
                                       svgAsset: ExpenseAssets.expenseIcon,
                                       color: ExpenseTrackerColors.red,
                                       title: 'Expense',
-                                      money: '2023',
+                                      money: '${state.expense}',
                                     ),
                                   ),
                                 ],
