@@ -14,6 +14,8 @@ class DropdownMonths extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomepageBloc, HomepageState>(
+      buildWhen: (previous, current) =>
+          previous.currentMonth != current.currentMonth,
       builder: (context, state) {
         return DropdownButtonHideUnderline(
           child: DropdownButton<String>(
@@ -31,10 +33,7 @@ class DropdownMonths extends StatelessWidget {
               color: ExpenseTrackerColors.violet,
               height: 20.h,
             ),
-
             value: calanderMonths.elementAt(state.currentMonth),
-            // value: dpValue,
-            // hint: const Text('Select Month'),
             items: calanderMonths
                 .map(
                   (e) => DropdownMenuItem(
@@ -44,19 +43,26 @@ class DropdownMonths extends StatelessWidget {
                 )
                 .toList(),
             onChanged: (String? value) {
-              // setState(() {
-              //   dpValue = value.toString();
-              // });
+              final currentMonth = DateTime.now().month;
               if (value != null) {
-                context
-                    .read<HomepageBloc>()
-                    .add(ChangeTheMonth(calanderMonths.indexOf(value)));
+                if (currentMonth > calanderMonths.indexOf(value)) {
+                  context
+                      .read<HomepageBloc>()
+                      .add(ChangeTheMonth(calanderMonths.indexOf(value)));
+                }
               }
             },
           ),
         );
       },
-      listener: (context, state) {},
+      listener: (context, state) {
+        debugPrint(
+          'Current month ${state.currentMonth} : ${calanderMonths.elementAt(state.currentMonth)}',
+        );
+        debugPrint(
+          'total balance :${state.accountBalance}, income: ${state.income}, expense: ${state.expense}',
+        );
+      },
     );
   }
 }
