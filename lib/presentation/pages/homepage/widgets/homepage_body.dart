@@ -136,14 +136,6 @@ class HomepageBody extends StatelessWidget {
                 ),
               ),
               title: width > 265 ? const DropdownMonths() : null,
-              // leading: Container(
-              //   alignment: Alignment.center,
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(50).r,
-              //     color: ExpenseTrackerColors.violet,
-              //   ),
-              //   child: Text('x'),
-              // ),
               leading: Center(
                 child: CircleAvatar(
                   radius: 25.r,
@@ -152,34 +144,8 @@ class HomepageBody extends StatelessWidget {
                     radius: 22.r,
                     backgroundColor: ExpenseTrackerColors.light,
                   ),
-                  // child: avatar != null
-                  //     ? FutureBuilder<Uint8List?>(
-                  //         future: avatar.asRawSvgBytes(),
-                  //         builder: (context, snapshot) {
-                  //           // return SvgPicture.network(
-                  //           //   avatar.svgUri.toString(),
-                  //           // );
-                  //           if (snapshot.connectionState !=
-                  //               ConnectionState.done) {
-                  //             return const CircularProgressIndicator();
-                  //           }
-                  //           if (snapshot.hasError) {
-                  //             return const Icon(Icons.error);
-                  //           }
-                  //           if (snapshot.data == null) {
-                  //             return const Icon(Icons.error);
-                  //           }
-                  //           return SvgPicture.memory(
-                  //             snapshot.data!,
-                  //             fit: BoxFit.cover,
-                  //             width: double.infinity,
-                  //           );
-                  //         },
-                  //       )
-                  //     : null,
                 ),
               ),
-
               actions: [
                 SvgPicture.asset(
                   ExpenseAssets.notificationIcon,
