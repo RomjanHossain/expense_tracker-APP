@@ -3,22 +3,22 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
+import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
 import 'package:expense_tracker/utils/constrants/enums_.dart';
+import 'package:flutter/foundation.dart';
+
 part 'homepage_event.dart';
 part 'homepage_state.dart';
 
 class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
   HomepageBloc() : super(const HomepageInitial()) {
-    on<CustomHomepageEvent>(_onCustomHomepageEvent);
+    // on<CustomHomepageEvent>(_onCustomHomepageEvent);
     on<ChangeTheFreq>(_changetheFreq);
     on<ChangeTheMonth>(_changeTheMonth);
+    on<InitCalander>(_onInitCalander);
   }
   final isar = IsarInstance();
 
-  FutureOr<void> _onCustomHomepageEvent(
-    CustomHomepageEvent event,
-    Emitter<HomepageState> emit,
-  ) {}
   //NOTE: change the freq
   FutureOr<void> _changetheFreq(
     ChangeTheFreq event,
@@ -34,18 +34,145 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     ChangeTheMonth event,
     Emitter<HomepageState> emit,
   ) async {
+    debugPrint('month changed to ${event.month}');
     if (event.month != state.currentMonth) {
-      final total_balanceMonth = await isar.getTotalBalanceMonthly(event.month);
-      final totalExpense = await isar.getTotalExpense(event.month);
-      final totalIncome = await isar.getTotalIncome(event.month);
+      debugPrint('month changed to ${event.month}');
+      final month = event.month + 1;
+      final totalBalancemonth = await isar.getTotalBalanceMonthly(month);
+      final totalExpense = await isar.getTotalExpense(month);
+      final totalIncome = await isar.getTotalIncome(month);
       emit(
         state.copyWith(
           currentMonth: event.month,
           income: totalIncome,
           expense: totalExpense,
-          accountBalance: total_balanceMonth,
+          accountBalance: totalBalancemonth,
         ),
       );
     }
+  }
+
+  //! NOTE: _onInitCalander
+  FutureOr<void> _onInitCalander(
+    InitCalander event,
+    Emitter<HomepageState> emit,
+  ) async {
+    debugPrint('init calander');
+    final currentMonth = DateTime.now().month;
+    // final currentDay = DateTime.now().day;
+
+    //!NOTE: top part
+    final totalBalancemonth = await isar.getTotalBalanceMonthly(currentMonth);
+    final totalExpense = await isar.getTotalExpense(currentMonth);
+    final totalIncome = await isar.getTotalIncome(currentMonth);
+    //! NOTE: segment btn part
+    final todaysIncome = await isar.getTodaysIncome();
+    final todaysExpense = await isar.getTodaysExpense();
+    final weeklyIncome = await isar.getWeeksIncome();
+    final weeklyExpense = await isar.getWeeksExpense();
+    final monthlyIncome = await isar.getMonthsIncome();
+    final monthlyExpense = await isar.getMonthsExpense();
+    final yearlyIncome = await isar.getYearsIncome();
+    final yearlyExpense = await isar.getYearsExpense();
+    //! HACK: todaysIEmodel
+    final todaysIEmodel = <IEmodel>[
+      ...todaysExpense.map(
+        (e) => IEmodel(
+          createdAt: e.createdDate!,
+          isIncome: ExpenseType.expense,
+          income: null,
+          expense: e,
+          transfer: null,
+        ),
+      ),
+      ...todaysIncome.map(
+        (e) => IEmodel(
+          createdAt: e.createdDate!,
+          isIncome: ExpenseType.income,
+          income: e,
+          expense: null,
+          transfer: null,
+        ),
+      ),
+    ];
+
+    //! HACK: weeklyIEmodel
+    final weeklyIEmodel = <IEmodel>[
+      ...weeklyExpense.map(
+        (e) => IEmodel(
+          createdAt: e.createdDate!,
+          isIncome: ExpenseType.expense,
+          income: null,
+          expense: e,
+          transfer: null,
+        ),
+      ),
+      ...weeklyIncome.map(
+        (e) => IEmodel(
+          createdAt: e.createdDate!,
+          isIncome: ExpenseType.income,
+          income: e,
+          expense: null,
+          transfer: null,
+        ),
+      ),
+    ];
+
+    //! HACK: monthlyIEmodel
+    final monthlyIEmodel = <IEmodel>[
+      ...monthlyExpense.map(
+        (e) => IEmodel(
+          createdAt: e.createdDate!,
+          isIncome: ExpenseType.expense,
+          income: null,
+          expense: e,
+          transfer: null,
+        ),
+      ),
+      ...monthlyIncome.map(
+        (e) => IEmodel(
+          createdAt: e.createdDate!,
+          isIncome: ExpenseType.income,
+          income: e,
+          expense: null,
+          transfer: null,
+        ),
+      ),
+    ];
+
+    //! HACK: yearlyIEmodel
+    final yearlyIEmodel = <IEmodel>[
+      ...yearlyExpense.map(
+        (e) => IEmodel(
+          createdAt: e.createdDate!,
+          isIncome: ExpenseType.expense,
+          income: null,
+          expense: e,
+          transfer: null,
+        ),
+      ),
+      ...yearlyIncome.map(
+        (e) => IEmodel(
+          createdAt: e.createdDate!,
+          isIncome: ExpenseType.income,
+          income: e,
+          expense: null,
+          transfer: null,
+        ),
+      ),
+    ];
+
+    emit(
+      state.copyWith(
+        currentMonth: currentMonth,
+        income: totalIncome,
+        expense: totalExpense,
+        accountBalance: totalBalancemonth,
+        todaysIEmodel: todaysIEmodel,
+        weeklyIEmodel: weeklyIEmodel,
+        yearlyIEmodel: yearlyIEmodel,
+        monthlyIEmodel: monthlyIEmodel,
+      ),
+    );
   }
 }
