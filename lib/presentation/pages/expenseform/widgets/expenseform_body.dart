@@ -6,6 +6,8 @@ import 'package:expense_tracker/data/models/isar_entity/expense_entity/expense_e
 import 'package:expense_tracker/data/models/isar_entity/income_entity/income_entity.dart';
 import 'package:expense_tracker/data/models/isar_entity/transfer_entity/transfer_entity.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
+import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
+import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_account.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_expense_method.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_income_methods.dart';
@@ -446,13 +448,17 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           return;
                         }
                         if (widget.expenseType == ExpenseType.transfer) {
+                          final acE =
+                              context.read<DropdownAccountCubit>().state.$2;
+
+                          if (acE!.accountBalance! <
+                              double.parse(_accountBalanceController.text)) {
+                            showFailureToast(context, 'Insufficient balance');
+                            return;
+                          }
                           final transferEntity = TransferEntity()
                             ..to = _toFieldController.text
-                            ..fromID = context
-                                .read<DropdownAccountCubit>()
-                                .state
-                                .$2
-                                ?.id
+                            ..fromID = acE.id
                             ..attachment = imageFieldController.text
                             ..description = _descriptionController.text
                             ..createdDate = DateTime.now()
@@ -464,6 +470,13 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                         } else {
                           // NOTE: add the income
                           if (widget.expenseType == ExpenseType.income) {
+                            final acE =
+                                context.read<DropdownAccountCubit>().state.$2;
+                            if (acE!.accountBalance! <
+                                double.parse(_accountBalanceController.text)) {
+                              showFailureToast(context, 'Insufficient balance');
+                              return;
+                            }
                             final incomeEntity = IncomeIsarEntity()
                               ..attachment = imageFieldController.text
                               ..description = _descriptionController.text
@@ -473,26 +486,36 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                               ..isRepeat = state.expenseFormEntity.isExpense
                               ..endDate = state.expenseFormEntity.subEnd
                               // ..startDate = state.expenseFormEntity.subStart
+
+                              ..categoryID = context
+                                  .read<DropdownIncomeMethodCubit>()
+                                  .state
                               ..startDate =
                                   state.expenseFormEntity.subStart != null
                                       ? state.expenseFormEntity.subStart!
                                       : DateTime.now()
                               ..repeatType = state.expenseFormEntity.subType
-                              ..walletId = context
-                                  .read<DropdownAccountCubit>()
-                                  .state
-                                  .$2
-                                  ?.id;
+                              ..walletId = acE?.id;
                             context
                                 .read<ExpenseformBloc>()
                                 .add(IncomeToDatabase(incomeEntity));
                           }
                           // NOTE: add the expense
                           else {
+                            final acE =
+                                context.read<DropdownAccountCubit>().state.$2;
+                            if (acE!.accountBalance! <
+                                double.parse(_accountBalanceController.text)) {
+                              showFailureToast(context, 'Insufficient balance');
+                              return;
+                            }
                             final expenseEntity = ExpenseIsarEntity()
                               ..attachment = imageFieldController.text
                               ..description = _descriptionController.text
                               ..createdDate = DateTime.now()
+                              ..categoryID = context
+                                  .read<DropdownExpenseMethodCubit>()
+                                  .state
                               ..ammount =
                                   double.parse(_accountBalanceController.text)
                               ..isRepeat = state.expenseFormEntity.isExpense
@@ -502,15 +525,13 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                       ? state.expenseFormEntity.subStart!
                                       : DateTime.now()
                               ..repeatType = state.expenseFormEntity.subType
-                              ..walletId = context
-                                  .read<DropdownAccountCubit>()
-                                  .state
-                                  .$2
-                                  ?.id;
+                              ..walletId = acE.id;
                             context
                                 .read<ExpenseformBloc>()
                                 .add(ExpenseToDatabase(expenseEntity));
                           }
+                          debugPrint(
+                              'CategoryID : ${context.read<DropdownExpenseMethodCubit>().state}');
                           debugPrint(
                             'Description: ${_descriptionController.text}',
                           );
