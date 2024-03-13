@@ -15,17 +15,18 @@ class CardOfExpense extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color:  !isDarkMode(context)
+      color: !isDarkMode(context)
           ? ExpenseTrackerColors.light
           : ExpenseTrackerColors.dark,
       elevation: 0,
       child: ListTile(
         leading: Container(
-          height: 40.h,
-          width: 40.w,
+          // height: 40.h,
+          width: 50.w,
+
           decoration: BoxDecoration(
             color: ExpenseTrackerColors.violet20,
-            borderRadius: BorderRadius.circular(10).r,
+            borderRadius: BorderRadius.circular(15).r,
           ),
           alignment: Alignment.center,
           child: Text(
@@ -48,7 +49,7 @@ class CardOfExpense extends StatelessWidget {
                 (element) => element.id == cardOfExpense.title,
               )
               .title,
-          style: ExpenseTrackerTextStyle.body2.copyWith(
+          style: ExpenseTrackerTextStyle.body3.copyWith(
             fontWeight: FontWeight.w600,
             // color: ExpenseTrackerColors.dark25,
             color: !isDarkMode(context)
