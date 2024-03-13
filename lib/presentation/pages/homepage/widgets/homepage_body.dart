@@ -7,6 +7,7 @@ import 'package:expense_tracker/presentation/pages/homepage/components/dropdown_
 import 'package:expense_tracker/presentation/pages/homepage/components/ie_small_card.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/segmented_button_wid.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
+import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expenses.dart';
 import 'package:expense_tracker/presentation/widgets/charts/line_charts.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:expense_tracker/utils/constrants/enums_.dart';
@@ -257,6 +258,8 @@ class HomepageBody extends StatelessWidget {
                           ? state.yearlyIEmodel.length
                           : state.monthlyIEmodel.length,
               itemBuilder: (context, index) {
+                debugPrint(
+                    'Lenght: ${state.se == SegmentedButtonsData.today ? state.todaysIEmodel.length : state.se == SegmentedButtonsData.week ? state.weeklyIEmodel.length : state.se == SegmentedButtonsData.year ? state.yearlyIEmodel.length : state.monthlyIEmodel.length}');
                 final currentItem = state.se == SegmentedButtonsData.today
                     ? state.todaysIEmodel.elementAt(index)
                     : state.se == SegmentedButtonsData.week
@@ -265,124 +268,133 @@ class HomepageBody extends StatelessWidget {
                             ? state.yearlyIEmodel.elementAt(index)
                             : state.monthlyIEmodel.elementAt(index);
                 final now = DateTime.now();
-                switch (currentItem.isIncome) {
-                  case ExpenseType.income:
-                    final c = CardOfExpenseEntity(
-                      color: generatingRandomColor(),
-                      title: currentItem.income?.categoryID ?? '',
-                      subtitle: currentItem.income?.description ?? '',
-                      amount: currentItem.income?.ammount ?? 0.0,
-                      date: getHumanReadableDate(
-                          currentItem.income!.createdDate!),
-                    );
-                    return CardOfExpense(
-                      cardOfExpense: CardOfExpenseEntity(
-                        color: ExpenseTrackerColors.violet,
-                        title: 'householdRepairs',
-                        subtitle: '250jWalmart',
-                        amount: 23,
-                        date: 'Today',
-                      ),
-                    );
-                  case ExpenseType.expense:
-                    return CardOfExpense(
-                      cardOfExpense: CardOfExpenseEntity(
-                        color: ExpenseTrackerColors.violet,
-                        title: '2householdRepairs',
-                        subtitle: '9i9Walmart',
-                        amount: 23,
-                        date: 'Today',
-                      ),
-                    );
-                  case ExpenseType.transfer:
-                    return CardOfExpense(
-                      cardOfExpense: CardOfExpenseEntity(
-                        color: ExpenseTrackerColors.violet,
-                        title: '3householdRepairs',
-                        subtitle: '9999Walmart',
-                        amount: 23,
-                        date: 'Today',
-                      ),
-                    );
-                }
-                // return Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   children: [
-                //     Row(
-                //       children: [
-                //         Container(
-                //           margin: EdgeInsets.symmetric(
-                //             horizontal: 10.w,
-                //             vertical: 10.h,
-                //           ),
-                //           decoration: BoxDecoration(
-                //             borderRadius: BorderRadius.circular(20).r,
-                //             color: ExpenseTrackerColors.violet20,
-                //           ),
-                //           alignment: Alignment.center,
-                //           padding: EdgeInsets.symmetric(
-                //             horizontal: 10.w,
-                //             vertical: 10.h,
-                //           ),
-                //           child: SvgPicture.asset(
-                //             'assets/icons/expense.svg',
-                //             color: ExpenseTrackerColors.violet,
-                //           ),
-                //         ),
-                //         Column(
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //           children: [
-                //             Text(
-                //               'Shopping',
-                //               style: ExpenseTrackerTextStyle.body1.copyWith(
-                //                 fontWeight: FontWeight.bold,
-                //                 letterSpacing: 1.2,
-                //                 // fontSize: 21.sp,
-                //                 color: isDarkMode(context)
-                //                     ? ExpenseTrackerColors.light
-                //                     : ExpenseTrackerColors.dark,
-                //               ),
-                //             ),
-                //             Text(
-                //               '${'Buy some groceries from the storxxxxxxxxxxxxxxxxxxxxe'.substring(0, 18)}...',
-                //               softWrap: true,
-                //               overflow: TextOverflow.ellipsis,
-                //               style: ExpenseTrackerTextStyle.body3.copyWith(
-                //                 color: isDarkMode(context)
-                //                     ? ExpenseTrackerColors.light20
-                //                     : ExpenseTrackerColors.dark25,
-                //               ),
-                //               maxLines: 1,
-                //             ),
-                //           ],
-                //         ),
-                //       ],
-                //     ),
-                //     Column(
-                //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //       crossAxisAlignment: CrossAxisAlignment.end,
-                //       children: [
-                //         Text(
-                //           '-123',
-                //           style: ExpenseTrackerTextStyle.title3.copyWith(
-                //             fontWeight: FontWeight.w600,
-                //             letterSpacing: 1.2,
-                //             fontSize: 16.sp,
-                //             color: ExpenseTrackerColors.red,
-                //           ),
-                //         ),
-                //         Text(
-                //           '${now.hour}:${now.minute}' ' AM',
-                //           style: ExpenseTrackerTextStyle.small.copyWith(
-                //             color: ExpenseTrackerColors.light20,
-                //             fontSize: 12.sp,
-                //           ),
-                //         ),
-                //       ],
-                //     ),
-                //   ],
-                // );
+                return CardOfExpense2(
+                  cardOfExpense: currentItem,
+                );
+
+                // switch (currentItem.isIncome) {
+                //   case ExpenseType.income:
+                //     debugPrint('is income');
+                //     final c = CardOfExpenseEntity(
+                //       color: generatingRandomColor(),
+                //       title: currentItem.income?.categoryID ?? '',
+                //       subtitle: currentItem.income?.description ?? '',
+                //       amount: currentItem.income?.ammount ?? 0.0,
+                //       date: getHumanReadableDate(
+                //         currentItem.income!.createdDate!,
+                //       ),
+                //     );
+                //     return CardOfExpense(
+                //       cardOfExpense: c,
+                //     );
+                //   case ExpenseType.expense:
+                //     debugPrint('is expense');
+                //     final c = CardOfExpenseEntity(
+                //       color: generatingRandomColor(),
+                //       title: currentItem.expense?.categoryID ?? '',
+                //       subtitle: currentItem.expense?.description ?? '',
+                //       amount: currentItem.expense?.ammount ?? 0.0,
+                //       date: getHumanReadableDate(
+                //         currentItem.expense!.createdDate!,
+                //       ),
+                //     );
+                //     return CardOfExpense(
+                //       cardOfExpense: c,
+                //     );
+                //   case ExpenseType.transfer:
+                //     debugPrint('is transfer');
+                //     final c = CardOfExpenseEntity(
+                //       color: generatingRandomColor(),
+                //       title: currentItem.expense?.categoryID ?? '',
+                //       subtitle: currentItem.transfer?.description ?? '',
+                //       amount: currentItem.transfer?.ammount ?? 0.0,
+                //       date: getHumanReadableDate(
+                //         currentItem.transfer!.createdDate!,
+                //       ),
+                //     );
+                //     return CardOfExpense(
+                //       cardOfExpense: c,
+                //     );
+                // }
+
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 10.w,
+                            vertical: 10.h,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20).r,
+                            color: ExpenseTrackerColors.violet20,
+                          ),
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.w,
+                            vertical: 10.h,
+                          ),
+                          child: SvgPicture.asset(
+                            'assets/icons/expense.svg',
+                            color: ExpenseTrackerColors.violet,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Shopping',
+                              style: ExpenseTrackerTextStyle.body1.copyWith(
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.2,
+                                // fontSize: 21.sp,
+                                color: isDarkMode(context)
+                                    ? ExpenseTrackerColors.light
+                                    : ExpenseTrackerColors.dark,
+                              ),
+                            ),
+                            Text(
+                              '${'Buy some groceries from the storxxxxxxxxxxxxxxxxxxxxe'.substring(0, 18)}...',
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              style: ExpenseTrackerTextStyle.body3.copyWith(
+                                color: isDarkMode(context)
+                                    ? ExpenseTrackerColors.light20
+                                    : ExpenseTrackerColors.dark25,
+                              ),
+                              maxLines: 1,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          '-123',
+                          style: ExpenseTrackerTextStyle.title3.copyWith(
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.2,
+                            fontSize: 16.sp,
+                            color: ExpenseTrackerColors.red,
+                          ),
+                        ),
+                        Text(
+                          '${now.hour}:${now.minute}' ' AM',
+                          style: ExpenseTrackerTextStyle.small.copyWith(
+                            color: ExpenseTrackerColors.light20,
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
               },
             ),
           ],
