@@ -164,7 +164,7 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
 
     emit(
       state.copyWith(
-        currentMonth: currentMonth,
+        currentMonth: currentMonth - 1,
         income: totalIncome,
         expense: totalExpense,
         accountBalance: totalBalancemonth,
