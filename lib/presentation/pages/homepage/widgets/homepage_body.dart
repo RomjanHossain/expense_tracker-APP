@@ -1,12 +1,15 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
 import 'package:expense_tracker/presentation/pages/homepage/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/dropdown_months.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/ie_small_card.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/segmented_button_wid.dart';
+import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
 import 'package:expense_tracker/presentation/widgets/charts/line_charts.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -246,87 +249,118 @@ class HomepageBody extends StatelessWidget {
 
             //NOTE: list of transactions
             SliverList.builder(
-              itemCount: 100,
+              itemCount: state.se == SegmentedButtonsData.today
+                  ? state.todaysIEmodel.length
+                  : state.se == SegmentedButtonsData.week
+                      ? state.weeklyIEmodel.length
+                      : state.se == SegmentedButtonsData.year
+                          ? state.yearlyIEmodel.length
+                          : state.monthlyIEmodel.length,
               itemBuilder: (context, index) {
+                final currentItem = state.se == SegmentedButtonsData.today
+                    ? state.todaysIEmodel.elementAt(index)
+                    : state.se == SegmentedButtonsData.week
+                        ? state.weeklyIEmodel.elementAt(index)
+                        : state.se == SegmentedButtonsData.year
+                            ? state.yearlyIEmodel.elementAt(index)
+                            : state.monthlyIEmodel.elementAt(index);
                 final now = DateTime.now();
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 10.h,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20).r,
-                            color: ExpenseTrackerColors.violet20,
-                          ),
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 10.h,
-                          ),
-                          child: SvgPicture.asset(
-                            'assets/icons/expense.svg',
-                            color: ExpenseTrackerColors.violet,
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'Shopping',
-                              style: ExpenseTrackerTextStyle.body1.copyWith(
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.2,
-                                // fontSize: 21.sp,
-                                color: isDarkMode(context)
-                                    ? ExpenseTrackerColors.light
-                                    : ExpenseTrackerColors.dark,
-                              ),
-                            ),
-                            Text(
-                              '${'Buy some groceries from the storxxxxxxxxxxxxxxxxxxxxe'.substring(0, 18)}...',
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis,
-                              style: ExpenseTrackerTextStyle.body3.copyWith(
-                                color: isDarkMode(context)
-                                    ? ExpenseTrackerColors.light20
-                                    : ExpenseTrackerColors.dark25,
-                              ),
-                              maxLines: 1,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          '-123',
-                          style: ExpenseTrackerTextStyle.title3.copyWith(
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 1.2,
-                            fontSize: 16.sp,
-                            color: ExpenseTrackerColors.red,
-                          ),
-                        ),
-                        Text(
-                          '${now.hour}:${now.minute}' ' AM',
-                          style: ExpenseTrackerTextStyle.small.copyWith(
-                            color: ExpenseTrackerColors.light20,
-                            fontSize: 12.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                // final c = CardOfExpenseEntity(
+                //   color: color,
+                //   title: currentItem.expense.jsify,
+                //   subtitle: subtitle,
+                //   amount: amount,
+                //   date: date,
+                // );
+                return CardOfExpense(
+                  // cardOfExpense: c,
+
+                  cardOfExpense: CardOfExpenseEntity(
+                    color: ExpenseTrackerColors.violet,
+                    title: 'householdRepairs',
+                    subtitle: 'Walmart',
+                    amount: 23,
+                    date: 'Today',
+                  ),
                 );
+                // return Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                //     Row(
+                //       children: [
+                //         Container(
+                //           margin: EdgeInsets.symmetric(
+                //             horizontal: 10.w,
+                //             vertical: 10.h,
+                //           ),
+                //           decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(20).r,
+                //             color: ExpenseTrackerColors.violet20,
+                //           ),
+                //           alignment: Alignment.center,
+                //           padding: EdgeInsets.symmetric(
+                //             horizontal: 10.w,
+                //             vertical: 10.h,
+                //           ),
+                //           child: SvgPicture.asset(
+                //             'assets/icons/expense.svg',
+                //             color: ExpenseTrackerColors.violet,
+                //           ),
+                //         ),
+                //         Column(
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //           children: [
+                //             Text(
+                //               'Shopping',
+                //               style: ExpenseTrackerTextStyle.body1.copyWith(
+                //                 fontWeight: FontWeight.bold,
+                //                 letterSpacing: 1.2,
+                //                 // fontSize: 21.sp,
+                //                 color: isDarkMode(context)
+                //                     ? ExpenseTrackerColors.light
+                //                     : ExpenseTrackerColors.dark,
+                //               ),
+                //             ),
+                //             Text(
+                //               '${'Buy some groceries from the storxxxxxxxxxxxxxxxxxxxxe'.substring(0, 18)}...',
+                //               softWrap: true,
+                //               overflow: TextOverflow.ellipsis,
+                //               style: ExpenseTrackerTextStyle.body3.copyWith(
+                //                 color: isDarkMode(context)
+                //                     ? ExpenseTrackerColors.light20
+                //                     : ExpenseTrackerColors.dark25,
+                //               ),
+                //               maxLines: 1,
+                //             ),
+                //           ],
+                //         ),
+                //       ],
+                //     ),
+                //     Column(
+                //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //       crossAxisAlignment: CrossAxisAlignment.end,
+                //       children: [
+                //         Text(
+                //           '-123',
+                //           style: ExpenseTrackerTextStyle.title3.copyWith(
+                //             fontWeight: FontWeight.w600,
+                //             letterSpacing: 1.2,
+                //             fontSize: 16.sp,
+                //             color: ExpenseTrackerColors.red,
+                //           ),
+                //         ),
+                //         Text(
+                //           '${now.hour}:${now.minute}' ' AM',
+                //           style: ExpenseTrackerTextStyle.small.copyWith(
+                //             color: ExpenseTrackerColors.light20,
+                //             fontSize: 12.sp,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ],
+                // );
               },
             ),
           ],
