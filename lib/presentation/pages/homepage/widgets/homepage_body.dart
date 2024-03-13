@@ -265,24 +265,46 @@ class HomepageBody extends StatelessWidget {
                             ? state.yearlyIEmodel.elementAt(index)
                             : state.monthlyIEmodel.elementAt(index);
                 final now = DateTime.now();
-                // final c = CardOfExpenseEntity(
-                //   color: color,
-                //   title: currentItem.expense.jsify,
-                //   subtitle: subtitle,
-                //   amount: amount,
-                //   date: date,
-                // );
-                return CardOfExpense(
-                  // cardOfExpense: c,
-
-                  cardOfExpense: CardOfExpenseEntity(
-                    color: ExpenseTrackerColors.violet,
-                    title: 'householdRepairs',
-                    subtitle: 'Walmart',
-                    amount: 23,
-                    date: 'Today',
-                  ),
-                );
+                switch (currentItem.isIncome) {
+                  case ExpenseType.income:
+                    final c = CardOfExpenseEntity(
+                      color: generatingRandomColor(),
+                      title: currentItem.income?.categoryID ?? '',
+                      subtitle: currentItem.income?.description ?? '',
+                      amount: currentItem.income?.ammount ?? 0.0,
+                      date: getHumanReadableDate(
+                          currentItem.income!.createdDate!),
+                    );
+                    return CardOfExpense(
+                      cardOfExpense: CardOfExpenseEntity(
+                        color: ExpenseTrackerColors.violet,
+                        title: 'householdRepairs',
+                        subtitle: '250jWalmart',
+                        amount: 23,
+                        date: 'Today',
+                      ),
+                    );
+                  case ExpenseType.expense:
+                    return CardOfExpense(
+                      cardOfExpense: CardOfExpenseEntity(
+                        color: ExpenseTrackerColors.violet,
+                        title: '2householdRepairs',
+                        subtitle: '9i9Walmart',
+                        amount: 23,
+                        date: 'Today',
+                      ),
+                    );
+                  case ExpenseType.transfer:
+                    return CardOfExpense(
+                      cardOfExpense: CardOfExpenseEntity(
+                        color: ExpenseTrackerColors.violet,
+                        title: '3householdRepairs',
+                        subtitle: '9999Walmart',
+                        amount: 23,
+                        date: 'Today',
+                      ),
+                    );
+                }
                 // return Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 //   children: [
