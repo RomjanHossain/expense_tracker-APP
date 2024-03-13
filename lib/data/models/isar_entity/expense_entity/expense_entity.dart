@@ -8,6 +8,7 @@ class ExpenseIsarEntity {
   double? ammount;
   String? description;
   int? walletId;
+  String? categoryID;
   String? attachment;
   bool? isRepeat;
   String? repeatType;
