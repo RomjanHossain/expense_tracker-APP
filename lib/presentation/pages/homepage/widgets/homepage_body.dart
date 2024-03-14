@@ -1,22 +1,14 @@
-import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/presentation/pages/homepage/bloc/bloc.dart';
-import 'package:expense_tracker/presentation/pages/homepage/components/account_balance_card.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/app_bar_sliver.dart';
-import 'package:expense_tracker/presentation/pages/homepage/components/dropdown_months.dart';
-import 'package:expense_tracker/presentation/pages/homepage/components/ie_small_card.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/segmented_button_wid.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/spend_frequency_graph.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expenses.dart';
-import 'package:expense_tracker/presentation/widgets/charts/line_charts.dart';
-import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 /// {@template homepage_body}
 /// Body of the HomepagePage.

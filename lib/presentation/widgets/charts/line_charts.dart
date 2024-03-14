@@ -17,7 +17,6 @@ class ExpenseLineGraph extends StatelessWidget {
         borderRadius: BorderRadius.all(
           Radius.circular(18),
         ),
-        // color: Color(0xff232d37),
       ),
       child: LineChart(
         LineChartData(
@@ -30,6 +29,7 @@ class ExpenseLineGraph extends StatelessWidget {
           titlesData: const FlTitlesData(
             show: false,
           ),
+          maxX: 31,
           lineBarsData: [
             LineChartBarData(
               spots: spots,
