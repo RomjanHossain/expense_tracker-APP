@@ -1,12 +1,13 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
-import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
 import 'package:expense_tracker/presentation/pages/homepage/bloc/bloc.dart';
+import 'package:expense_tracker/presentation/pages/homepage/components/account_balance_card.dart';
+import 'package:expense_tracker/presentation/pages/homepage/components/app_bar_sliver.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/dropdown_months.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/ie_small_card.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/segmented_button_wid.dart';
-import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
+import 'package:expense_tracker/presentation/pages/homepage/components/spend_frequency_graph.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expenses.dart';
 import 'package:expense_tracker/presentation/widgets/charts/line_charts.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
@@ -33,168 +34,10 @@ class HomepageBody extends StatelessWidget {
         final width = MediaQuery.sizeOf(context).width;
         return CustomScrollView(
           slivers: [
-            SliverAppBar(
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              expandedHeight: 250.h,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: const Radius.circular(20).r,
-                      bottomRight: const Radius.circular(20).r,
-                    ),
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        if (isDarkMode(context)) ...[
-                          ExpenseTrackerColors.violet60,
-                          ExpenseTrackerColors.violet40,
-                        ] else ...[
-                          const Color(0x0ffff6e5),
-                          const Color(0xffF8EDD8),
-                        ],
-                      ],
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Account Balance',
-                        style: ExpenseTrackerTextStyle.body3.copyWith(
-                          color: isDarkMode(context)
-                              ? ExpenseTrackerColors.dark25
-                              : ExpenseTrackerColors.light20,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 10.h,
-                        ),
-                        child: Text(
-                          '\$${state.accountBalance}',
-                          style: ExpenseTrackerTextStyle.title1.copyWith(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      height10,
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10.w,
-                        ),
-                        child: width > 265
-                            ? Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  SizedBox(
-                                    width: 0.45.sw,
-                                    child: IESmallCard(
-                                      svgAsset: ExpenseAssets.incomeIcon,
-                                      color: ExpenseTrackerColors.green,
-                                      title: 'Income',
-                                      money: '${state.income}',
-                                    ),
-                                  ),
-                                  width10,
-                                  SizedBox(
-                                    width: 0.45.sw,
-                                    child: IESmallCard(
-                                      svgAsset: ExpenseAssets.expenseIcon,
-                                      color: ExpenseTrackerColors.red,
-                                      title: 'Expense',
-                                      money: '${state.expense}',
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Column(
-                                children: [
-                                  SizedBox(
-                                    width: 0.5.sw,
-                                    child: IESmallCard(
-                                      svgAsset: ExpenseAssets.incomeIcon,
-                                      color: ExpenseTrackerColors.green,
-                                      title: 'Income',
-                                      money: '${state.income}',
-                                    ),
-                                  ),
-                                  height10,
-                                  SizedBox(
-                                    width: 0.5.sw,
-                                    child: IESmallCard(
-                                      svgAsset: ExpenseAssets.expenseIcon,
-                                      color: ExpenseTrackerColors.red,
-                                      title: 'Expense',
-                                      money: '${state.expense}',
-                                    ),
-                                  ),
-                                ],
-                              ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              title: width > 265 ? const DropdownMonths() : null,
-              leading: Center(
-                child: CircleAvatar(
-                  radius: 25.r,
-                  backgroundColor: ExpenseTrackerColors.violet80,
-                  child: CircleAvatar(
-                    radius: 22.r,
-                    backgroundColor: ExpenseTrackerColors.light,
-                  ),
-                ),
-              ),
-              actions: [
-                SvgPicture.asset(
-                  ExpenseAssets.notificationIcon,
-                  color: ExpenseTrackerColors.violet,
-                  height: 24.h,
-                ),
-              ],
-            ),
+            //!INFO: app bar
+            const AccountBalanceSliverAppBar(),
             //NOTE: a graph for showing todays expense
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 240.h,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(15).h,
-                      child: Text(
-                        'Spend Frequency',
-                        style: ExpenseTrackerTextStyle.title3.copyWith(
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.2,
-                          color: isDarkMode(context)
-                              ? ExpenseTrackerColors.light
-                              : ExpenseTrackerColors.dark,
-                        ),
-                      ),
-                    ),
-                    const Expanded(
-                      child: ExpenseLineGraph(
-                        spots: [
-                          FlSpot(0, 3),
-                          FlSpot(2.6, 2),
-                          FlSpot(4.9, 5),
-                          FlSpot(6.8, 3.1),
-                          FlSpot(8, 4),
-                          FlSpot(9.5, 3),
-                          FlSpot(11, 4),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            const SendFrequencyGraph(),
 
             ///* segmented buttons
             const SliverToBoxAdapter(
@@ -259,7 +102,8 @@ class HomepageBody extends StatelessWidget {
                           : state.monthlyIEmodel.length,
               itemBuilder: (context, index) {
                 debugPrint(
-                    'Lenght: ${state.se == SegmentedButtonsData.today ? state.todaysIEmodel.length : state.se == SegmentedButtonsData.week ? state.weeklyIEmodel.length : state.se == SegmentedButtonsData.year ? state.yearlyIEmodel.length : state.monthlyIEmodel.length}');
+                  'Lenght: ${state.se == SegmentedButtonsData.today ? state.todaysIEmodel.length : state.se == SegmentedButtonsData.week ? state.weeklyIEmodel.length : state.se == SegmentedButtonsData.year ? state.yearlyIEmodel.length : state.monthlyIEmodel.length}',
+                );
                 final currentItem = state.se == SegmentedButtonsData.today
                     ? state.todaysIEmodel.elementAt(index)
                     : state.se == SegmentedButtonsData.week
@@ -267,133 +111,8 @@ class HomepageBody extends StatelessWidget {
                         : state.se == SegmentedButtonsData.year
                             ? state.yearlyIEmodel.elementAt(index)
                             : state.monthlyIEmodel.elementAt(index);
-                final now = DateTime.now();
                 return CardOfExpense2(
                   cardOfExpense: currentItem,
-                );
-
-                // switch (currentItem.isIncome) {
-                //   case ExpenseType.income:
-                //     debugPrint('is income');
-                //     final c = CardOfExpenseEntity(
-                //       color: generatingRandomColor(),
-                //       title: currentItem.income?.categoryID ?? '',
-                //       subtitle: currentItem.income?.description ?? '',
-                //       amount: currentItem.income?.ammount ?? 0.0,
-                //       date: getHumanReadableDate(
-                //         currentItem.income!.createdDate!,
-                //       ),
-                //     );
-                //     return CardOfExpense(
-                //       cardOfExpense: c,
-                //     );
-                //   case ExpenseType.expense:
-                //     debugPrint('is expense');
-                //     final c = CardOfExpenseEntity(
-                //       color: generatingRandomColor(),
-                //       title: currentItem.expense?.categoryID ?? '',
-                //       subtitle: currentItem.expense?.description ?? '',
-                //       amount: currentItem.expense?.ammount ?? 0.0,
-                //       date: getHumanReadableDate(
-                //         currentItem.expense!.createdDate!,
-                //       ),
-                //     );
-                //     return CardOfExpense(
-                //       cardOfExpense: c,
-                //     );
-                //   case ExpenseType.transfer:
-                //     debugPrint('is transfer');
-                //     final c = CardOfExpenseEntity(
-                //       color: generatingRandomColor(),
-                //       title: currentItem.expense?.categoryID ?? '',
-                //       subtitle: currentItem.transfer?.description ?? '',
-                //       amount: currentItem.transfer?.ammount ?? 0.0,
-                //       date: getHumanReadableDate(
-                //         currentItem.transfer!.createdDate!,
-                //       ),
-                //     );
-                //     return CardOfExpense(
-                //       cardOfExpense: c,
-                //     );
-                // }
-
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 10.h,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20).r,
-                            color: ExpenseTrackerColors.violet20,
-                          ),
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 10.h,
-                          ),
-                          child: SvgPicture.asset(
-                            'assets/icons/expense.svg',
-                            color: ExpenseTrackerColors.violet,
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'Shopping',
-                              style: ExpenseTrackerTextStyle.body1.copyWith(
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.2,
-                                // fontSize: 21.sp,
-                                color: isDarkMode(context)
-                                    ? ExpenseTrackerColors.light
-                                    : ExpenseTrackerColors.dark,
-                              ),
-                            ),
-                            Text(
-                              '${'Buy some groceries from the storxxxxxxxxxxxxxxxxxxxxe'.substring(0, 18)}...',
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis,
-                              style: ExpenseTrackerTextStyle.body3.copyWith(
-                                color: isDarkMode(context)
-                                    ? ExpenseTrackerColors.light20
-                                    : ExpenseTrackerColors.dark25,
-                              ),
-                              maxLines: 1,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          '-123',
-                          style: ExpenseTrackerTextStyle.title3.copyWith(
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 1.2,
-                            fontSize: 16.sp,
-                            color: ExpenseTrackerColors.red,
-                          ),
-                        ),
-                        Text(
-                          '${now.hour}:${now.minute}' ' AM',
-                          style: ExpenseTrackerTextStyle.small.copyWith(
-                            color: ExpenseTrackerColors.light20,
-                            fontSize: 12.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
                 );
               },
             ),
