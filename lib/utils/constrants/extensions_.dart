@@ -1,5 +1,6 @@
 //! Exention on segmentedbuttonsdata
 import 'package:expense_tracker/utils/constrants/enums_.dart';
+import 'package:flutter/material.dart';
 
 /// Extension
 extension SegmentedButtonsDataX on SegmentedButtonsData {
@@ -60,5 +61,54 @@ extension SortTypeX on SortType {
       case SortType.oldest:
         return 'Oldest';
     }
+  }
+}
+
+//! INFO: on datetime to convert datetime to double
+extension DateTimeX on DateTime {
+  double get toDouble {
+    debugPrint('${year}');
+    debugPrint(
+      "DateTime: ${(year + month + day) / 1000 + (hour + minute + second) / 100}",
+    );
+    // return millisecondsSinceEpoch.toDouble();
+    // return hour + minute + second.toDouble();
+    return (year + month + day) / 1000 + (hour + minute + second) / 100;
+  }
+
+//INFO: for week
+  double get toDoubleW {
+    debugPrint(
+      "DateTime: ${(hour + minute + second) / 60}",
+    );
+    return (hour + minute + second) / 60;
+  }
+
+//INFO: for today
+  double get toDoubleT {
+    debugPrint(
+      "DateTime: ${(hour + minute + second) / 60}",
+    );
+    return (hour + minute + second) / 60;
+  }
+
+//INFO: is this week
+  bool get isThisWeek {
+    final now = DateTime.now();
+    final start = now.subtract(Duration(days: now.weekday));
+    final end = start.add(Duration(days: 7));
+    return isAfter(start) && isBefore(end);
+  }
+
+//INFO: is this month
+  bool get isThisMonth {
+    final now = DateTime.now();
+    return month == now.month;
+  }
+
+// INFO: is this year
+  bool get isThisYear {
+    final now = DateTime.now();
+    return year == now.year;
   }
 }
