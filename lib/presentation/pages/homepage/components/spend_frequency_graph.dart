@@ -2,6 +2,7 @@ import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
 import 'package:expense_tracker/presentation/pages/homepage/bloc/homepage_bloc.dart';
+import 'package:expense_tracker/presentation/pages/homepage/components/get_flspot_from_iemodel.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/widgets/charts/line_charts.dart';
 import 'package:expense_tracker/utils/constrants/enums_.dart';
@@ -43,41 +44,57 @@ class SendFrequencyGraph extends StatelessWidget {
                   return ExpenseLineGraph(
                     spots: [
                       if (state.se == SegmentedButtonsData.today)
-                        for (IEmodel i in state.todaysIEmodel)
-                          if (i.isIncome == ExpenseType.expense)
-                            FlSpot(
-                              i.expense!.createdDate!.toDouble,
-                              i.expense?.ammount ?? 0,
-                            ),
+                        for (final i
+                            in getFlSpotFromIEmodel(state.todaysIEmodel))
+                          if (i != null) i,
                       if (state.se == SegmentedButtonsData.week)
-                        for (IEmodel i in state.weeklyIEmodel)
-                          if (i.isIncome == ExpenseType.expense)
-                            FlSpot(
-                              i.expense!.createdDate!.toDouble,
-                              i.expense?.ammount ?? 0,
-                            ),
-
-                      if (state.se == SegmentedButtonsData.year)
-                        for (IEmodel i in state.yearlyIEmodel)
-                          if (i.isIncome == ExpenseType.expense)
-                            FlSpot(
-                              i.expense!.createdDate!.toDouble,
-                              i.expense?.ammount ?? 0,
-                            ),
+                        for (final i
+                            in getFlSpotFromIEmodel(state.weeklyIEmodel))
+                          if (i != null) i,
                       if (state.se == SegmentedButtonsData.month)
-                        for (IEmodel i in state.monthlyIEmodel)
-                          if (i.isIncome == ExpenseType.expense)
-                            FlSpot(
-                              i.expense!.createdDate!.toDouble,
-                              i.expense?.ammount ?? 0,
-                            ),
-                      // FlSpot(0, 3),
-                      // FlSpot(2.6, 2),
-                      // FlSpot(4.9, 5),
-                      // FlSpot(6.8, 3.1),
-                      // FlSpot(8, 4),
-                      // FlSpot(9.5, 3),
-                      // FlSpot(11, 4),
+                        for (final i
+                            in getFlSpotFromIEmodel(state.monthlyIEmodel))
+                          if (i != null) i,
+                      if (state.se == SegmentedButtonsData.year)
+                        for (final i
+                            in getFlSpotFromIEmodel(state.yearlyIEmodel))
+                          if (i != null) i,
+                      // if (state.se == SegmentedButtonsData.today)
+                      //   for (IEmodel i in state.todaysIEmodel)
+                      //     if (i.isIncome == ExpenseType.expense)
+                      //       FlSpot(
+                      //         i.expense!.createdDate!.toDouble,
+                      //         i.expense?.ammount ?? 0,
+                      //       ),
+                      // if (state.se == SegmentedButtonsData.week)
+                      //   for (IEmodel i in state.weeklyIEmodel)
+                      //     if (i.isIncome == ExpenseType.expense)
+                      //       FlSpot(
+                      //         i.expense!.createdDate!.toDouble,
+                      //         i.expense?.ammount ?? 0,
+                      //       ),
+
+                      // if (state.se == SegmentedButtonsData.year)
+                      //   for (IEmodel i in state.yearlyIEmodel)
+                      //     if (i.isIncome == ExpenseType.expense)
+                      //       FlSpot(
+                      //         i.expense!.createdDate!.toDouble,
+                      //         i.expense?.ammount ?? 0,
+                      //       ),
+                      // if (state.se == SegmentedButtonsData.month)
+                      //   for (IEmodel i in state.monthlyIEmodel)
+                      //     if (i.isIncome == ExpenseType.expense)
+                      //       FlSpot(
+                      //         i.expense!.createdDate!.toDouble,
+                      //         i.expense?.ammount ?? 0,
+                      //       ),
+                      FlSpot(0, 3),
+                      FlSpot(2.6, 2),
+                      FlSpot(4.9, 5),
+                      FlSpot(6.8, 3.1),
+                      FlSpot(8, 4),
+                      FlSpot(9.5, 3),
+                      FlSpot(11, 4),
                     ],
                   );
                 },
