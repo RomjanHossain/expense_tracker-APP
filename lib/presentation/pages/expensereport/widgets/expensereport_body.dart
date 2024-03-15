@@ -104,6 +104,10 @@ class ExpensereportBody extends StatelessWidget {
                   if (state.chartType == ChartType.line)
                     const Expanded(
                       child: ExpenseLineGraph(
+                        minX: 0,
+                        maxX: 11,
+                        minY: 0,
+                        maxY: 6,
                         spots: [
                           FlSpot(0, 3),
                           FlSpot(2.6, 2),
