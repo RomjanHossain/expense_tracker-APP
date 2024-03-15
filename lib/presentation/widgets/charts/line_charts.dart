@@ -6,10 +6,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ExpenseLineGraph extends StatelessWidget {
   const ExpenseLineGraph({
     required this.spots,
+    required this.minX,
+    required this.maxX,
+    required this.minY,
+    required this.maxY,
     super.key,
   });
 
   final List<FlSpot> spots;
+  final double minX;
+  final double maxX;
+  final double minY;
+  final double maxY;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +37,10 @@ class ExpenseLineGraph extends StatelessWidget {
           titlesData: const FlTitlesData(
             show: false,
           ),
-          maxX: 31,
+          minY: minY,
+          maxY: maxY,
+          minX: minX,
+          maxX: maxX,
           lineBarsData: [
             LineChartBarData(
               spots: spots,
