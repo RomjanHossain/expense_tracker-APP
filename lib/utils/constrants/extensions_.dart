@@ -1,6 +1,7 @@
 //! Exention on segmentedbuttonsdata
 import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 /// Extension
 extension SegmentedButtonsDataX on SegmentedButtonsData {
@@ -69,7 +70,7 @@ extension DateTimeX on DateTime {
   double get toDouble {
     debugPrint('${year}');
     debugPrint(
-      "DateTime: ${(year + month + day) / 1000 + (hour + minute + second) / 100}",
+      'DateTime: ${(year + month + day) / 1000 + (hour + minute + second) / 100}',
     );
     // return millisecondsSinceEpoch.toDouble();
     // return hour + minute + second.toDouble();
@@ -78,18 +79,15 @@ extension DateTimeX on DateTime {
 
 //INFO: for week
   double get toDoubleW {
-    debugPrint(
-      "DateTime: ${(hour + minute + second) / 60}",
-    );
-    return (hour + minute + second) / 60;
+    return day.toDouble();
   }
 
 //INFO: for today
   double get toDoubleT {
     debugPrint(
-      "DateTime: ${(hour + minute + second) / 60}",
+      '${hour * 3600 + minute * 60 + second / 10}',
     );
-    return (hour + minute + second) / 60;
+    return (hour * 3600 + minute * 60 + second) / 10;
   }
 
 //INFO: is this week
