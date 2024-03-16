@@ -38,41 +38,29 @@ class SendFrequencyGraph extends StatelessWidget {
             Expanded(
               child: BlocConsumer<HomepageBloc, HomepageState>(
                 builder: (context, state) {
-                  final x = state.todaysIEmodel;
-                  switch (state.se) {
-                    case SegmentedButtonsData.today:
-                      return ExpenseLineGraph(
-                        spots: getFlSpotFromIEmodelToday(x),
-                        minX: getMinCreatedDateValueFromIEmodel(x),
-                        maxX: getMaxCreatedDateValueFromIEmodel(x),
-                        minY: getMinAmountValueFromIEmodel(x),
-                        maxY: getMaxAmountValueFromIEmodel(x),
-                      );
-                    case SegmentedButtonsData.week:
-                      return ExpenseLineGraph(
-                        spots: getFlSpotFromIEmodelToday(x),
-                        minX: getMinCreatedDateValueFromIEmodel(x),
-                        maxX: getMaxCreatedDateValueFromIEmodel(x),
-                        minY: getMinAmountValueFromIEmodel(x),
-                        maxY: getMaxAmountValueFromIEmodel(x),
-                      );
-                    case SegmentedButtonsData.month:
-                      return ExpenseLineGraph(
-                        spots: getFlSpotFromIEmodelToday(x),
-                        minX: getMinCreatedDateValueFromIEmodel(x),
-                        maxX: getMaxCreatedDateValueFromIEmodel(x),
-                        minY: getMinAmountValueFromIEmodel(x),
-                        maxY: getMaxAmountValueFromIEmodel(x),
-                      );
-                    case SegmentedButtonsData.year:
-                      return ExpenseLineGraph(
-                        spots: getFlSpotFromIEmodelToday(x),
-                        minX: getMinCreatedDateValueFromIEmodel(x),
-                        maxX: getMaxCreatedDateValueFromIEmodel(x),
-                        minY: getMinAmountValueFromIEmodel(x),
-                        maxY: getMaxAmountValueFromIEmodel(x),
-                      );
-                  }
+                  debugPrint('state: ${state.se}');
+                  final x = state.se == SegmentedButtonsData.today
+                      ? state.todaysIEmodel
+                      : state.se == SegmentedButtonsData.week
+                          ? state.weeklyIEmodel
+                          : state.se == SegmentedButtonsData.month
+                              ? state.monthlyIEmodel
+                              : state.yearlyIEmodel;
+                  final minX = getMinCreatedDateValueFromIEmodel(x);
+                  final maxX = getMaxCreatedDateValueFromIEmodel(x);
+                  final minY = getMinAmountValueFromIEmodel(x);
+                  final maxY = getMaxAmountValueFromIEmodel(x);
+                  final spots = getFlSpotFromIEmodelToday(x);
+                  // debugPrint('minX: $minX , maxX: $maxX');
+                  // debugPrint('minY: $minY , maxY: $maxY');
+                  // debugPrint('spots: ${spots.length}');
+                  return ExpenseLineGraph(
+                    spots: spots,
+                    minX: minX,
+                    maxX: maxX,
+                    minY: minY,
+                    maxY: maxY,
+                  );
                 },
                 listener: (context, state) {},
               ),
