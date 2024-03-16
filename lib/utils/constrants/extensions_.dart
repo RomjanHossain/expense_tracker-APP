@@ -79,7 +79,7 @@ extension DateTimeX on DateTime {
 
 //INFO: for week
   double get toDoubleW {
-    return day.toDouble();
+    return (day * 24 * 3600 + hour * 3600 + minute * 60 + second) / 10;
   }
 
 //INFO: for today
@@ -94,7 +94,7 @@ extension DateTimeX on DateTime {
   bool get isThisWeek {
     final now = DateTime.now();
     final start = now.subtract(Duration(days: now.weekday));
-    final end = start.add(Duration(days: 7));
+    final end = start.add(const Duration(days: 7));
     return isAfter(start) && isBefore(end);
   }
 
