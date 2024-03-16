@@ -44,3 +44,8 @@ class ChangeCategoryEvent extends TransactionGraphPageEvent {
   @override
   List<Object> get props => [category];
 }
+
+//INFO: init event
+class InitTransactionGraphPageEvent extends TransactionGraphPageEvent {
+  const InitTransactionGraphPageEvent();
+}

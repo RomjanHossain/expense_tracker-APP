@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
 import 'package:expense_tracker/data/models/isar_entity/expense_entity/expense_entity.dart';
 import 'package:expense_tracker/data/models/isar_entity/income_entity/income_entity.dart';
@@ -121,6 +123,17 @@ class IsarInstance
     return totalBalance + income - expense;
   }
 
+  //!PERF: get all transfer today
+  Future<List<TransferEntity>> getTodaysTransfer() async {
+    final ins = await instance;
+    final transfers = await ins.transferEntitys.where().findAll();
+    final today = DateTime.now();
+    return transfers.where((element) {
+      final date = element.createdDate!;
+      return date.day == today.day && date.month == today.month;
+    }).toList();
+  }
+
   //!PERF: get all income today
   Future<List<IncomeIsarEntity>> getTodaysIncome() async {
     final ins = await instance;
@@ -140,6 +153,51 @@ class IsarInstance
     return expenses.where((element) {
       final date = element.createdDate!;
       return date.day == today.day && date.month == today.month;
+    }).toList();
+  }
+
+  //!PERF: get all income yesterday
+  Future<List<IncomeIsarEntity>> getYestIncome() async {
+    final ins = await instance;
+    final incomes = await ins.incomeIsarEntitys.where().findAll();
+    final yesterday = DateTime.now().subtract(const Duration(days: 1));
+    return incomes.where((element) {
+      final date = element.createdDate!;
+      return date.day == yesterday.day && date.month == yesterday.month;
+    }).toList();
+  }
+
+  //!PERF: get all expense yesterday
+  Future<List<ExpenseIsarEntity>> getYestExpense() async {
+    final ins = await instance;
+    final expenses = await ins.expenseIsarEntitys.where().findAll();
+    final yesterday = DateTime.now().subtract(const Duration(days: 1));
+    return expenses.where((element) {
+      final date = element.createdDate!;
+      return date.day == yesterday.day && date.month == yesterday.month;
+    }).toList();
+  }
+
+  //!PERF: get all transfer yesterday
+  Future<List<TransferEntity>> getYestTransfer() async {
+    final ins = await instance;
+    final transfers = await ins.transferEntitys.where().findAll();
+    final yesterday = DateTime.now().subtract(const Duration(days: 1));
+    return transfers.where((element) {
+      final date = element.createdDate!;
+      return date.day == yesterday.day && date.month == yesterday.month;
+    }).toList();
+  }
+
+  //!PERF: get all transfer week
+  Future<List<TransferEntity>> getWeeksTransfer() async {
+    final ins = await instance;
+    final transfers = await ins.transferEntitys.where().findAll();
+    final today = DateTime.now();
+    final week = today.subtract(const Duration(days: 7));
+    return transfers.where((element) {
+      final date = element.createdDate!;
+      return date.isAfter(week) && date.isBefore(today);
     }).toList();
   }
 
@@ -167,6 +225,17 @@ class IsarInstance
     }).toList();
   }
 
+  //! PERF: get all transfer month
+  Future<List<TransferEntity>> getMonthsTransfer() async {
+    final ins = await instance;
+    final transfers = await ins.transferEntitys.where().findAll();
+    final today = DateTime.now();
+    return transfers.where((element) {
+      final date = element.createdDate!;
+      return date.month == today.month;
+    }).toList();
+  }
+
   //! PERF: get all income month
   Future<List<IncomeIsarEntity>> getMonthsIncome() async {
     final ins = await instance;
@@ -186,6 +255,17 @@ class IsarInstance
     return expenses.where((element) {
       final date = element.createdDate!;
       return date.month == today.month;
+    }).toList();
+  }
+
+  //!PERF: get all transfer year
+  Future<List<TransferEntity>> getYearsTransfer() async {
+    final ins = await instance;
+    final transfers = await ins.transferEntitys.where().findAll();
+    final today = DateTime.now();
+    return transfers.where((element) {
+      final date = element.createdDate!;
+      return date.year == today.year;
     }).toList();
   }
 

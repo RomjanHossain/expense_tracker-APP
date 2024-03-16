@@ -15,7 +15,7 @@ double getMinAmountValueFromIEmodel(List<IEmodel> models) {
   final min =
       amounts.reduce((value, element) => value < element ? value : element);
   // .reduce((value, element) => value < element ? value : element);
-  debugPrint('min amount: $min');
+  // debugPrint('min amount: $min');
   return min;
 }
 
@@ -30,15 +30,18 @@ double getMaxAmountValueFromIEmodel(List<IEmodel> models) {
   }
   final max =
       amounts.reduce((value, element) => value > element ? value : element);
-  debugPrint('max amount: $max');
+  // debugPrint('max amount: $max');
   return max;
 }
 
 //!INFO: get min createdDate value from IEmodel
-double getMinCreatedDateValueFromIEmodel(List<IEmodel> models) {
+double getMinCreatedDateValueFromIEmodel(
+    List<IEmodel> models, SegmentedButtonsData se) {
   final totalEx =
       models.where((element) => element.isIncome == ExpenseType.expense);
-  final createdDates = totalEx.map((e) => e.expense!.createdDate!.toDoubleT);
+  final createdDates = se == SegmentedButtonsData.today
+      ? totalEx.map((e) => e.expense!.createdDate!.toDoubleT)
+      : totalEx.map((e) => e.expense!.createdDate!.toDoubleW);
   if (createdDates.isEmpty) {
     return 0;
   }
@@ -48,22 +51,25 @@ double getMinCreatedDateValueFromIEmodel(List<IEmodel> models) {
     },
   );
 
-  debugPrint('min createdDate: $min');
+  // debugPrint('min createdDate: $min');
   return min;
 }
 
 //!INFO: get max createdDate value from IEmodel
-double getMaxCreatedDateValueFromIEmodel(List<IEmodel> models) {
+double getMaxCreatedDateValueFromIEmodel(
+    List<IEmodel> models, SegmentedButtonsData se) {
   final totalEx =
       models.where((element) => element.isIncome == ExpenseType.expense);
-  final createdDates = totalEx.map((e) => e.expense!.createdDate!.toDoubleT);
+  final createdDates = se == SegmentedButtonsData.today
+      ? totalEx.map((e) => e.expense!.createdDate!.toDoubleT)
+      : totalEx.map((e) => e.expense!.createdDate!.toDoubleW);
   if (createdDates.isEmpty) {
     return 0;
   }
   final max = createdDates
       .reduce((value, element) => value > element ? value : element);
   // .reduce((value, element) => value > element ? value : element);
-  debugPrint('max createdDate: $max');
+  // debugPrint('max createdDate: $max');
   return max;
 }
 
@@ -71,16 +77,22 @@ double getMaxCreatedDateValueFromIEmodel(List<IEmodel> models) {
 
 List<FlSpot> getFlSpotFromIEmodelToday(
   List<IEmodel> models,
+  SegmentedButtonsData se,
 ) {
   final totalEx =
       models.where((element) => element.isIncome == ExpenseType.expense);
 
   final spots = <FlSpot>[];
-  final c_s = totalEx.map((e) => e.expense!.createdDate!);
-  final x_s = totalEx.map((e) => e.expense!.createdDate!.toDoubleT);
+  // final c_s = totalEx.map((e) => e.expense!.createdDate!);
+  final x_s = se == SegmentedButtonsData.today
+      ? totalEx.map((e) => e.expense!.createdDate!.toDoubleT)
+      : totalEx.map((e) => e.expense!.createdDate!.toDoubleW);
   final y_s = totalEx.map((e) => e.expense?.ammount ?? 0);
-  debugPrint('c_s: $c_s');
-  debugPrint('x_s: $x_s');
+  // debugPrint('c_s: $c_s');
+  // debugPrint('x_s: $x_s');
+  for (int i = 0; i < x_s.length; i++) {
+    debugPrint('x: ${x_s.elementAt(i)} | y: ${y_s.elementAt(i)}');
+  }
   return List.generate(
     x_s.length,
     (index) => FlSpot(
@@ -88,22 +100,6 @@ List<FlSpot> getFlSpotFromIEmodelToday(
       y_s.elementAt(index),
     ),
   );
-  // debugPrint('Total Len: ${totalEx.length}');
-  // for (final i in totalEx) {
-  //   final x = i.expense!.createdDate!.toDoubleT;
-  //   final y = i.expense?.ammount ?? 0;
-  //   debugPrint(
-  //     'x: $x, y = $y',
-  //   );
-  //   spots.add(
-  //     FlSpot(
-  //       x,
-  //       y,
-  //     ),
-  //   );
-  // }
-  debugPrint('Len of sports: ${spots.length}');
-  return spots;
 }
 
 // INFO: This function is used to convert the IEmodel to FlSpot

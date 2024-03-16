@@ -46,14 +46,14 @@ class SendFrequencyGraph extends StatelessWidget {
                           : state.se == SegmentedButtonsData.month
                               ? state.monthlyIEmodel
                               : state.yearlyIEmodel;
-                  final minX = getMinCreatedDateValueFromIEmodel(x);
-                  final maxX = getMaxCreatedDateValueFromIEmodel(x);
+                  final minX = getMinCreatedDateValueFromIEmodel(x, state.se);
+                  final maxX = getMaxCreatedDateValueFromIEmodel(x, state.se);
                   final minY = getMinAmountValueFromIEmodel(x);
                   final maxY = getMaxAmountValueFromIEmodel(x);
-                  final spots = getFlSpotFromIEmodelToday(x);
-                  // debugPrint('minX: $minX , maxX: $maxX');
-                  // debugPrint('minY: $minY , maxY: $maxY');
-                  // debugPrint('spots: ${spots.length}');
+                  final spots = getFlSpotFromIEmodelToday(x, state.se);
+                  debugPrint('minX: $minX , maxX: $maxX');
+                  debugPrint('minY: $minY , maxY: $maxY');
+                  debugPrint('spots: ${spots.length}');
                   return ExpenseLineGraph(
                     spots: spots,
                     minX: minX,

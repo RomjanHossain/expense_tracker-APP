@@ -4,9 +4,9 @@ import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_
 import 'package:expense_tracker/presentation/pages/expensedetails/view/expensedetails_page.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
+import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expenses.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/transaction_filter_sheet.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/widgets/financial_reports_quick.dart';
-import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
@@ -33,25 +33,25 @@ class TransactionGraphPageBody extends StatelessWidget {
               child: Row(
                 children: [
                   //NOTE: show dropdown of subscriptionsFrequency
-                  Expanded(
-                    child: DropdownButtonFormField(
-                      isExpanded: true,
-                      dropdownColor: ExpenseTrackerColors.violet,
-                      focusColor: isDarkMode(context)
-                          ? ExpenseTrackerColors.dark75
-                          : ExpenseTrackerColors.light,
-                      decoration: dropdownInputDecoration('Frequency'),
-                      items: SubscriptionsFrequency.values
-                          .map(
-                            (e) => DropdownMenuItem(
-                              value: e,
-                              child: Text(getSucriptionFrequencyText(e)),
-                            ),
-                          )
-                          .toList(),
-                      onChanged: (value) {},
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: DropdownButtonFormField(
+                  //     isExpanded: true,
+                  //     dropdownColor: ExpenseTrackerColors.violet,
+                  //     focusColor: isDarkMode(context)
+                  //         ? ExpenseTrackerColors.dark75
+                  //         : ExpenseTrackerColors.light,
+                  //     decoration: dropdownInputDecoration('Frequency'),
+                  //     items: SubscriptionsFrequency.values
+                  //         .map(
+                  //           (e) => DropdownMenuItem(
+                  //             value: e,
+                  //             child: Text(getSucriptionFrequencyText(e)),
+                  //           ),
+                  //         )
+                  //         .toList(),
+                  //     onChanged: (value) {},
+                  //   ),
+                  // ),
                   // spacer
                   const Spacer(),
                   //NOTE: a popup menu button to show the list of subscriptions
@@ -135,47 +135,7 @@ class TransactionGraphPageBody extends StatelessWidget {
                 return const FinancialReportsQuick();
               },
             ),
-            // GestureDetector(
-            //   onTap: () {
-            //     //! financial reports
-            //     Navigator.push(
-            //       context,
-            //       PageAnimation.fadeThroughTransitionPageWrapper(
-            //         const FinancialReportsQuick(),
-            //       ),
-            //     );
-            //   },
-            //   child: Container(
-            //     padding: const EdgeInsets.symmetric(
-            //       horizontal: 10,
-            //       vertical: 10,
-            //     ),
-            //     margin: const EdgeInsets.symmetric(
-            //       // horizontal: 10,
-            //       vertical: 20,
-            //     ),
-            //     decoration: BoxDecoration(
-            //       color: ExpenseTrackerColors.violet20,
-            //       borderRadius: BorderRadius.circular(10).r,
-            //     ),
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //       children: [
-            //         Text(
-            //           'See your financial reports',
-            //           style: ExpenseTrackerTextStyle.small.copyWith(
-            //             color: ExpenseTrackerColors.violet,
-            //           ),
-            //         ),
-            //         const Icon(
-            //           Icons.navigate_next,
-            //           color: ExpenseTrackerColors.violet,
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-            // today
+            //INFO: today
             Text(
               'Today',
               style: ExpenseTrackerTextStyle.title3.copyWith(
@@ -188,24 +148,22 @@ class TransactionGraphPageBody extends StatelessWidget {
             ),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: 5,
+              itemCount: state.todaysIEmodel.length,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
+                final currentItem = state.todaysIEmodel.elementAt(index);
+                // return CardOfExpense2(
+                //   cardOfExpense: currentItem,
+                // );
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
-                      ExpensedetailsPage.route(ExpenseTrackerColors.red),
+                      ExpensedetailsPage.route(currentItem),
                     );
                   },
-                  child: const CardOfExpense(
-                    cardOfExpense: CardOfExpenseEntity(
-                      color: ExpenseTrackerColors.violet,
-                      title: 'householdRepairs',
-                      subtitle: 'Walmart',
-                      amount: 23,
-                      date: 'Today',
-                    ),
+                  child: CardOfExpense2(
+                    cardOfExpense: currentItem,
                   ),
                 );
               },

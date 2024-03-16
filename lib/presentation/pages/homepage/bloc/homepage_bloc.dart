@@ -67,12 +67,16 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     final totalIncome = await isar.getTotalIncome(currentMonth);
     //! NOTE: segment btn part
     final todaysIncome = await isar.getTodaysIncome();
+    final todaysTransfer = await isar.getTodaysTransfer();
     final todaysExpense = await isar.getTodaysExpense();
     final weeklyIncome = await isar.getWeeksIncome();
+    final weeklyTransfer = await isar.getWeeksTransfer();
     final weeklyExpense = await isar.getWeeksExpense();
     final monthlyIncome = await isar.getMonthsIncome();
+    final monthlyTransfer = await isar.getMonthsTransfer();
     final monthlyExpense = await isar.getMonthsExpense();
     final yearlyIncome = await isar.getYearsIncome();
+    final yearlyTransfer = await isar.getYearsTransfer();
     final yearlyExpense = await isar.getYearsExpense();
     //! HACK: todaysIEmodel
     final todaysIEmodel = <IEmodel>[
@@ -92,6 +96,15 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
           income: e,
           expense: null,
           transfer: null,
+        ),
+      ),
+      ...todaysTransfer.map(
+        (e) => IEmodel(
+          createdAt: e.createdDate!,
+          isIncome: ExpenseType.transfer,
+          income: null,
+          expense: null,
+          transfer: e,
         ),
       ),
     ];
@@ -116,6 +129,15 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
           transfer: null,
         ),
       ),
+      ...weeklyTransfer.map(
+        (e) => IEmodel(
+          createdAt: e.createdDate!,
+          isIncome: ExpenseType.transfer,
+          income: null,
+          expense: null,
+          transfer: e,
+        ),
+      ),
     ];
 
     //! HACK: monthlyIEmodel
@@ -138,6 +160,15 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
           transfer: null,
         ),
       ),
+      ...monthlyTransfer.map(
+        (e) => IEmodel(
+          createdAt: e.createdDate!,
+          isIncome: ExpenseType.transfer,
+          income: null,
+          expense: null,
+          transfer: e,
+        ),
+      ),
     ];
 
     //! HACK: yearlyIEmodel
@@ -158,6 +189,15 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
           income: e,
           expense: null,
           transfer: null,
+        ),
+      ),
+      ...yearlyTransfer.map(
+        (e) => IEmodel(
+          createdAt: e.createdDate!,
+          isIncome: ExpenseType.transfer,
+          income: null,
+          expense: null,
+          transfer: e,
         ),
       ),
     ];

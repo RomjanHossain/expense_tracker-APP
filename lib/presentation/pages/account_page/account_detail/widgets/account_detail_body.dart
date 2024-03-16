@@ -4,6 +4,7 @@ import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/view/expensedetails_page.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
+import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account_detail/cubit/cubit.dart';
@@ -86,10 +87,10 @@ class AccountDetailBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      ExpensedetailsPage.route(ExpenseTrackerColors.red),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   ExpensedetailsPage.route(ExpenseType.income),
+                    // );
                   },
                   child: const CardOfExpense(
                     cardOfExpense: CardOfExpenseEntity(

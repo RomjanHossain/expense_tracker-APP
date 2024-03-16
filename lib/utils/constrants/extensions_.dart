@@ -1,7 +1,6 @@
 //! Exention on segmentedbuttonsdata
 import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 /// Extension
 extension SegmentedButtonsDataX on SegmentedButtonsData {
@@ -79,7 +78,12 @@ extension DateTimeX on DateTime {
 
 //INFO: for week
   double get toDoubleW {
-    return (day * 24 * 3600 + hour * 3600 + minute * 60 + second) / 10;
+    return (month * 30 * 24 * 3600 +
+            day * 24 * 3600 +
+            hour * 3600 +
+            minute * 60 +
+            second) /
+        10;
   }
 
 //INFO: for today
