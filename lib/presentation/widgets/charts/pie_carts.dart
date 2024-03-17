@@ -9,7 +9,7 @@ class ExpensePieGraph extends StatelessWidget {
     super.key,
   });
 
-  final double pieRadius;
+    final double pieRadius;
   // final List<FlSpot> spots;
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class ExpensePieGraph extends StatelessWidget {
           borderData: FlBorderData(
             show: false,
           ),
-          centerSpaceRadius: 90.r,
+          centerSpaceRadius: 50.r,
           sectionsSpace: 0,
         ),
       ),

@@ -1,7 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
-import 'package:expense_tracker/data/datasources/local/utils_data/all_months.dart';
 import 'package:expense_tracker/presentation/pages/budget/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/createbudget/view/createbudget_page.dart';
 import 'package:expense_tracker/presentation/pages/detailbudget/detail_budget.dart';
@@ -22,7 +21,7 @@ class BudgetBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<BudgetBloc, BudgetState>(
+    return BlocBuilder<BudgetBloc, BudgetState>(
       builder: (context, state) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,43 +31,29 @@ class BudgetBody extends StatelessWidget {
               child: Container(
                 alignment: Alignment.bottomCenter,
                 // margin: EdgeInsets.only(top: 0.1.sh),
-                decoration: BoxDecoration(
-                  color: ExpenseTrackerColors.violet,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20.r),
-                    bottomRight: Radius.circular(20.r),
-                  ),
-                ),
                 padding: EdgeInsets.symmetric(
                   vertical: 20.h,
                 ),
                 height: 0.2.sh,
+                color: ExpenseTrackerColors.violet,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      onPressed: () {
-                        context
-                            .read<BudgetBloc>()
-                            .add(const ChangePrevMonthBudgetEvent());
-                      },
+                      onPressed: () {},
                       icon: const Icon(
                         Icons.navigate_before,
                         color: ExpenseTrackerColors.light,
                       ),
                     ),
                     Text(
-                      calanderMonths[state.currentMon],
+                      'January',
                       style: ExpenseTrackerTextStyle.body1.copyWith(
                         color: ExpenseTrackerColors.light,
                       ),
                     ),
                     IconButton(
-                      onPressed: () {
-                        context
-                            .read<BudgetBloc>()
-                            .add(const ChangeNextMonthBudgetEvent());
-                      },
+                      onPressed: () {},
                       icon: const Icon(
                         Icons.navigate_next,
                         color: ExpenseTrackerColors.light,
@@ -79,7 +64,7 @@ class BudgetBody extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 7,
+              flex: 6,
               child: ListView.builder(
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
@@ -98,21 +83,17 @@ class BudgetBody extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                CategoryWithBorder(
+                                const CategoryWithBorder(
                                   color: ExpenseTrackerColors.violet,
                                   title: 'Food',
                                 ),
-                                IconButton(
-                                  // radius: 10.r,
-                                  // color: Colors.red,
-                                  disabledColor: Colors.red,
-                                  onPressed: null,
-                                  icon: Icon(
-                                    Icons.error_sharp,
-                                  ),
+                                CircleAvatar(
+                                  radius: 10.r,
+                                  child:
+                                      const Icon(Icons.error_outline_rounded),
                                 ),
                               ],
                             ),
@@ -131,9 +112,7 @@ class BudgetBody extends StatelessWidget {
                                 vertical: 10.h,
                               ),
                               child: const AmountProgressIndicator(
-                                color: ExpenseTrackerColors.blue,
-                                value: 0.5,
-                              ),
+                                  color: ExpenseTrackerColors.blue, value: 0.5,),
                             ),
                             Text(
                               r'$1200 of $2000',
@@ -198,7 +177,6 @@ class BudgetBody extends StatelessWidget {
           ],
         );
       },
-      listener: (BuildContext context, BudgetState state) {},
     );
   }
 }

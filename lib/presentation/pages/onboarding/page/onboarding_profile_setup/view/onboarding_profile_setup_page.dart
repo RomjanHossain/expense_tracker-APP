@@ -12,7 +12,7 @@ class OnboardingProfileSetupPage extends StatelessWidget {
   /// The static route for OnboardingProfileSetupPage
   static Route<dynamic> route() {
     return MaterialPageRoute<dynamic>(
-        builder: (_) => const OnboardingProfileSetupPage(),);
+        builder: (_) => const OnboardingProfileSetupPage());
   }
 
   @override

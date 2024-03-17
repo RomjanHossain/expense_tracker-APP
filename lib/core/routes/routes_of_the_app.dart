@@ -1,6 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
-import 'package:expense_tracker/presentation/pages/account_page/account/view/account_page.dart';
+import 'package:expense_tracker/presentation/pages/account_page/account_page.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/view/app_home_page_page.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/view/expenseform_page.dart';
 import 'package:expense_tracker/presentation/pages/exportdata/view/exportdata_page.dart';
@@ -20,7 +20,7 @@ import 'package:expense_tracker/presentation/pages/settings/pages/theme/view/the
 import 'package:expense_tracker/presentation/pages/settings/view/settings_page.dart';
 import 'package:expense_tracker/presentation/pages/splash_screen/view/splash_screen_page.dart';
 import 'package:expense_tracker/services/animation/page_transitions.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
+import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';

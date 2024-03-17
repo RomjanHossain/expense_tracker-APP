@@ -6,21 +6,21 @@ part of 'budget_bloc.dart';
 class BudgetState extends Equatable {
   /// {@macro budget_state}
   const BudgetState({
-    this.currentMon = 0,
+    this.customProperty = 'Default Value',
   });
 
   /// A description for customProperty
-  final int currentMon;
+  final String customProperty;
 
   @override
-  List<Object> get props => [currentMon];
+  List<Object> get props => [customProperty];
 
   /// Creates a copy of the current BudgetState with property changes
   BudgetState copyWith({
-    int? currentMon,
+    String? customProperty,
   }) {
     return BudgetState(
-      currentMon: currentMon ?? this.currentMon,
+      customProperty: customProperty ?? this.customProperty,
     );
   }
 }

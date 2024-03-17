@@ -125,7 +125,7 @@ class _OnboardingProfileSetupBodyState
                     debugPrint('Avater url :${avatar?.svgUri}');
                     context.read<OnboardingProfileSetupCubit>().saveProfile(
                         _nameController.text,
-                        avatar?.svgUri.toString() ?? _nameController.text,);
+                        avatar?.svgUri.toString() ?? _nameController.text);
                   },
                   child: const Text('Create a Profile'),
                 ),

@@ -1,4 +1,3 @@
-import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,6 +15,9 @@ final width20 = SizedBox(width: 20.w);
 // 30w Width
 final width30 = SizedBox(width: 30.w);
 
+///* home page segmented buttons enum(today, week, month, year)
+enum SegmentedButtonsData { today, week, month, year }
+
 String getSegemtedButtonText(SegmentedButtonsData se) {
   switch (se) {
     case SegmentedButtonsData.today:
@@ -30,6 +32,33 @@ String getSegemtedButtonText(SegmentedButtonsData se) {
 }
 
 ///& types of expenses enum (income, expense, transfer)
+enum ExpenseType { income, expense, transfer }
+
+// only income and expense type
+enum ExpenseType2 { income, expense }
+
+// Enum: AccountType
+enum AccountType {
+  bank,
+  creditCard,
+  mobileBanking,
+  wallet,
+  cash,
+  other,
+}
+
+// chart type
+enum ChartType {
+  line,
+  pie,
+}
+
+enum SubscriptionsFrequency {
+  daily,
+  weekly,
+  monthly,
+  yearly,
+}
 
 String getSucriptionFrequencyText(SubscriptionsFrequency se) {
   switch (se) {

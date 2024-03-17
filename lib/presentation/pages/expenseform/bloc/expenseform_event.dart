@@ -79,36 +79,4 @@ class ChangeRepeat extends ExpenseformEvent {
   List<Object> get props => [isExpense];
 }
 
-//NOTE: change the account entity
-class ChangeAccountEntity extends ExpenseformEvent {
-  const ChangeAccountEntity(this.accountEntity);
-  final AccountEntity accountEntity;
-  @override
-  List<Object> get props => [accountEntity];
-}
-
 class ResetExpenseForm extends ExpenseformEvent {}
-
-//! NOTE: transfer event
-class TransferToDatbase extends ExpenseformEvent {
-  const TransferToDatbase(this.transferAmount);
-  final TransferEntity transferAmount;
-  @override
-  List<Object> get props => [transferAmount];
-}
-
-//! NOTE: expense event
-class ExpenseToDatabase extends ExpenseformEvent {
-  const ExpenseToDatabase(this.expenseAmount);
-  final ExpenseIsarEntity expenseAmount;
-  @override
-  List<Object> get props => [expenseAmount];
-}
-
-/// income event
-class IncomeToDatabase extends ExpenseformEvent {
-  const IncomeToDatabase(this.incomeAmount);
-  final IncomeIsarEntity incomeAmount;
-  @override
-  List<Object> get props => [incomeAmount];
-}
