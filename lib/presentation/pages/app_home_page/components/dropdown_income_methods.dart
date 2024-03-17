@@ -17,7 +17,6 @@ class IncomeMehodsDropdown extends StatelessWidget {
       builder: (context, state) {
         return DropdownButtonFormField<CategoryModel>(
           borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
-          // underline: Container(),
           decoration: const InputDecoration(
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -55,16 +54,8 @@ class IncomeMehodsDropdown extends StatelessWidget {
             style: TextStyle(
               color: ExpenseTrackerColors.light20,
             ),
-            // style: ExpenseTrackerTextStyle.body2,
-            // textAlign: TextAlign.start,
           ),
-          // padding: const EdgeInsets.all(0),
-          // value: ExpenseTrackerCategories.singleIncomeMethods(state),
-
           alignment: Alignment.centerLeft,
-          // padding: const EdgeInsets.symmetric(
-          //   horizontal: 10,
-          // ),
           items: ExpenseTrackerCategories.incomeMethods
               .map(
                 (e) => DropdownMenuItem<CategoryModel>(

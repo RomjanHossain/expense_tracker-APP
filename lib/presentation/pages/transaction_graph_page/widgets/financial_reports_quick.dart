@@ -1,7 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/quick_reports_view.dart';
-import 'package:expense_tracker/utils/constrants/consts_.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
@@ -26,15 +25,18 @@ class _FinancialReportsQuickState extends State<FinancialReportsQuick> {
       title: 'This Month',
       amount: 233,
       color: ExpenseTrackerColors.red,
+      page: 0,
       type: ExpenseType.expense,
     ),
     QuickReportsView(
       title: 'This Month',
       amount: 233,
       color: ExpenseTrackerColors.green,
+      page: 1,
       type: ExpenseType.income,
     ),
     QuickReportsView(
+      page: 2,
       title: 'This Month',
       amount: 233,
       color: ExpenseTrackerColors.violet,
@@ -51,57 +53,36 @@ class _FinancialReportsQuickState extends State<FinancialReportsQuick> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: pages[page].color,
-      appBar: AppBar(
-        backgroundColor: pages[page].color,
-      ),
-      body: Column(
+      // appBar: AppBar(
+      //   backgroundColor: pages[page].color,
+      //   elevation: 0,
+      // ),
+      body: Stack(
         children: [
-          Row(
-            children: [
-              for (final x in List.generate(3, (index) => index))
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      liquidController.animateToPage(
-                        page: x,
-                        // duration: const Duration(milliseconds: 500),
-                      );
-                      // setState(() {});
-                    },
-                    child: Container(
-                      height: 5.h,
-                      decoration: BoxDecoration(
-                        color: x == page
-                            ? isDarkMode(context)
-                                ? ExpenseTrackerColors.dark
-                                : ExpenseTrackerColors.light
-                            : ExpenseTrackerColors.light.withOpacity(
-                                0.3,
-                              ),
-                        borderRadius: BorderRadius.circular(10).r,
-                      ),
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 5,
-                        vertical: 10,
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
           Expanded(
             child: LiquidSwipe(
               enableSideReveal: true,
               onPageChangeCallback: (page) {
-                debugPrint('page chaged');
                 // liquidController.animateToPage(page: page);
                 setState(() {
                   this.page = page;
                 });
               },
-              waveType: WaveType.circularReveal,
+              // waveType: WaveType.liquidReveal,
               liquidController: liquidController,
               pages: pages,
+              enableLoop: false,
+              fullTransitionValue: 500,
+            ),
+          ),
+          Positioned(
+            top: 10.h,
+            left: 10.w,
+            child: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.navigate_before),
             ),
           ),
         ],

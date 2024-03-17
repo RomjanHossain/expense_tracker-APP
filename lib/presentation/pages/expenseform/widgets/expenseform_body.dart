@@ -1,15 +1,22 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/core/helper/helper_.dart';
+import 'package:expense_tracker/data/models/isar_entity/expense_entity/expense_entity.dart';
+import 'package:expense_tracker/data/models/isar_entity/income_entity/income_entity.dart';
+import 'package:expense_tracker/data/models/isar_entity/transfer_entity/transfer_entity.dart';
+import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
+import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_account.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_expense_method.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/dropdown_income_methods.dart';
+import 'package:expense_tracker/presentation/pages/app_home_page/components/from_dropdown.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/attachment_picker.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/subscription_bottom.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/success_alertdialog.dart';
-import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +46,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
   final _transformController = TextEditingController();
   final _transtoController = TextEditingController();
   final imageFieldController = TextEditingController();
-  final _fromFieldController = TextEditingController();
+  // final _fromFieldController = TextEditingController();
   final _toFieldController = TextEditingController();
   @override
   void dispose() {
@@ -48,7 +55,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
     imageFieldController.dispose();
     _transformController.dispose();
     _transtoController.dispose();
-    _fromFieldController.dispose();
+    // _fromFieldController.dispose();
     _toFieldController.dispose();
     super.dispose();
   }
@@ -59,14 +66,29 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ExpenseformBloc, ExpenseformState>(
-      listener: (context, state) {},
+      listener: (context, state) async {
+        if (state is SuccessfullyAddedToDatabase) {
+          await showDialog<void>(
+            context: context,
+            builder: (context) => const SuccessAlertDialog(
+              status: ExpenseformStatus.success,
+            ),
+          );
+        } else if (state is FailedToAddToDatabase) {
+          await showDialog<void>(
+            context: context,
+            builder: (context) => const SuccessAlertDialog(
+              status: ExpenseformStatus.fail,
+            ),
+          );
+        }
+      },
       builder: (context, state) {
-        // 29 Dec, 2025 (datetime format)
-
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            //!NOTE: how much?
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 22),
               child: Text(
@@ -76,6 +98,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                 ),
               ),
             ),
+            //! NOTE: Ammount
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: TextField(
@@ -122,7 +145,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                 ),
               ),
             ),
-            // the form
+            //PERF: the form
 
             AnimatedContainer(
               padding: const EdgeInsets.all(15),
@@ -146,57 +169,19 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  if (widget.expenseType == ExpenseType.income ||
-                      widget.expenseType == ExpenseType.expense)
+                  if (widget.expenseType == ExpenseType.expense)
                     const ExpenseMethodsDropdown(),
+
+                  if (widget.expenseType == ExpenseType.income)
+                    const IncomeMehodsDropdown(),
                   if (widget.expenseType == ExpenseType.transfer)
                     Stack(
                       children: [
                         Row(
                           children: [
                             //NOTE: from (Transfer)
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 10,
-                                ).h,
-                                child: TextField(
-                                  controller: _fromFieldController,
-                                  keyboardType: TextInputType.name,
-                                  decoration: InputDecoration(
-                                    focusedBorder: const OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                      borderSide: BorderSide(
-                                        color: ExpenseTrackerColors.violet,
-                                      ),
-                                    ),
-                                    enabledBorder: const OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                      borderSide: BorderSide(
-                                        color: ExpenseTrackerColors.light60,
-                                      ),
-                                    ),
-                                    border: const OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(15)),
-                                      borderSide: BorderSide(
-                                        color: ExpenseTrackerColors.light60,
-                                      ),
-                                    ),
-                                    hintText: 'From',
-                                    hintStyle:
-                                        ExpenseTrackerTextStyle.body2.copyWith(
-                                      color: ExpenseTrackerColors.light20,
-                                    ),
-                                    contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                      vertical: 10,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            const Expanded(
+                              child: FormDropdown(),
                             ),
                             //NOTE: to (Transfer)
                             Expanded(
@@ -315,11 +300,10 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                       ),
                     ),
                   ),
-                  //NOTE: wallet (place holder)
-                  //*** [TODO: wallet from db]
+                  //NOTE: wallet (from DB)
                   if (widget.expenseType == ExpenseType.income ||
                       widget.expenseType == ExpenseType.expense)
-                    const IncomeMehodsDropdown(),
+                    const AccountListDropdown(),
                   //NOTE: attachment filed with dotted border
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -339,12 +323,6 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           color: ExpenseTrackerColors.dark25,
                         ),
                       ),
-                      // subtitle:  Text(
-                      //   'Repeat transaction',
-                      //   style: TextStyle(
-                      //     color: ExpenseTrackerColors.light20,
-                      //   ),
-                      // ),
                       subtitle: RichText(
                         text: TextSpan(
                           text: 'Repeat transaction',
@@ -399,11 +377,11 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           child: Column(
                             children: [
                               const Text('Freqency'),
-                              // Text('${state.expenseFormEntity.subType} - ${state.expenseFormEntity.subStart?getFormateDate(state.expenseFormEntity.subStart):""}'),
                               RichText(
                                 textAlign: TextAlign.center,
                                 text: TextSpan(
-                                  text: '${state.expenseFormEntity.subType} - ',
+                                  text:
+                                      '${state.expenseFormEntity.subType?.split(".").last} - ',
                                   style: ExpenseTrackerTextStyle.tiny.copyWith(
                                     color: ExpenseTrackerColors.light20,
                                   ),
@@ -464,41 +442,121 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: ElevatedButton(
-                      onPressed: () {
-                        debugPrint(
-                          'Money Amount: ${_accountBalanceController.text}',
-                        );
+                      onPressed: () async {
+                        if (_accountBalanceController.text.isEmpty) {
+                          showFailureToast(context, 'Ammount cannot be 0.00');
+                          return;
+                        }
                         if (widget.expenseType == ExpenseType.transfer) {
-                          debugPrint('From: ${_fromFieldController.text}');
-                          debugPrint('To: ${_toFieldController.text}');
-                          debugPrint(
-                            'Description: ${_descriptionController.text}',
-                          );
-                          debugPrint(
-                            'Attachment: ${imageFieldController.text}',
-                          );
+                          final acE =
+                              context.read<DropdownAccountCubit>().state.$2;
+
+                          if (acE!.accountBalance! <
+                              double.parse(_accountBalanceController.text)) {
+                            showFailureToast(context, 'Insufficient balance');
+                            return;
+                          }
+                          final transferEntity = TransferEntity()
+                            ..to = _toFieldController.text
+                            ..fromID = acE.id
+                            ..attachment = imageFieldController.text
+                            ..description = _descriptionController.text
+                            ..createdDate = DateTime.now()
+                            ..ammount =
+                                double.parse(_accountBalanceController.text);
+                          context
+                              .read<ExpenseformBloc>()
+                              .add(TransferToDatbase(transferEntity));
                         } else {
+                          // NOTE: add the income
+                          if (widget.expenseType == ExpenseType.income) {
+                            final acE =
+                                context.read<DropdownAccountCubit>().state.$2;
+                            if (acE!.accountBalance! <
+                                double.parse(_accountBalanceController.text)) {
+                              showFailureToast(context, 'Insufficient balance');
+                              return;
+                            }
+                            final incomeEntity = IncomeIsarEntity()
+                              ..attachment = imageFieldController.text
+                              ..description = _descriptionController.text
+                              ..createdDate = DateTime.now()
+                              ..ammount =
+                                  double.parse(_accountBalanceController.text)
+                              ..isRepeat = state.expenseFormEntity.isExpense
+                              ..endDate = state.expenseFormEntity.subEnd
+                              // ..startDate = state.expenseFormEntity.subStart
+
+                              ..categoryID = context
+                                  .read<DropdownIncomeMethodCubit>()
+                                  .state
+                              ..startDate =
+                                  state.expenseFormEntity.subStart != null
+                                      ? state.expenseFormEntity.subStart!
+                                      : DateTime.now()
+                              ..repeatType = state.expenseFormEntity.subType
+                              ..walletId = acE?.id;
+                            context
+                                .read<ExpenseformBloc>()
+                                .add(IncomeToDatabase(incomeEntity));
+                          }
+                          // NOTE: add the expense
+                          else {
+                            final acE =
+                                context.read<DropdownAccountCubit>().state.$2;
+                            if (acE!.accountBalance! <
+                                double.parse(_accountBalanceController.text)) {
+                              showFailureToast(context, 'Insufficient balance');
+                              return;
+                            }
+                            final expenseEntity = ExpenseIsarEntity()
+                              ..attachment = imageFieldController.text
+                              ..description = _descriptionController.text
+                              ..createdDate = DateTime.now()
+                              ..categoryID = context
+                                  .read<DropdownExpenseMethodCubit>()
+                                  .state
+                              ..ammount =
+                                  double.parse(_accountBalanceController.text)
+                              ..isRepeat = state.expenseFormEntity.isExpense
+                              ..endDate = state.expenseFormEntity.subEnd
+                              ..startDate =
+                                  state.expenseFormEntity.subStart != null
+                                      ? state.expenseFormEntity.subStart!
+                                      : DateTime.now()
+                              ..repeatType = state.expenseFormEntity.subType
+                              ..walletId = acE.id;
+                            context
+                                .read<ExpenseformBloc>()
+                                .add(ExpenseToDatabase(expenseEntity));
+                          }
                           debugPrint(
-                            'Expense: ${context.read<DropdownExpenseMethodCubit>().state}',
-                          );
+                              'CategoryID : ${context.read<DropdownExpenseMethodCubit>().state}');
                           debugPrint(
                             'Description: ${_descriptionController.text}',
-                          );
-                          debugPrint(
-                            'Income Source: ${context.read<DropdownIncomeMethodCubit>().state}',
                           );
                           debugPrint(
                             'attachment: ${imageFieldController.text}',
                           );
                           debugPrint(
+                            'Wallet: ${context.read<DropdownAccountCubit>().state.$2?.accountName}',
+                          );
+                          debugPrint(
                             'Repeat: ${state.expenseFormEntity.isExpense}',
                           );
-                          showDialog<void>(
-                            context: context,
-                            builder: (context) => const SuccessAlertDialog(),
+
+                          debugPrint(
+                            'Repeat subStart: ${state.expenseFormEntity.subStart}',
+                          );
+
+                          debugPrint(
+                            'Repeat type: ${state.expenseFormEntity.subType}',
+                          );
+                          debugPrint(
+                            'Repeat subEnd: ${state.expenseFormEntity.subEnd}',
                           );
                           Future.delayed(
-                            const Duration(seconds: 3),
+                            const Duration(seconds: 1),
                             () {
                               // reset the form
                               context.read<ExpenseformBloc>().add(
@@ -508,7 +566,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                               _accountBalanceController.clear();
                               _descriptionController.clear();
                               imageFieldController.clear();
-                              _fromFieldController.clear();
+                              // _fromFieldController.clear();
                               _toFieldController.clear();
                               // pop the dialog
                               Navigator.of(context).pop();

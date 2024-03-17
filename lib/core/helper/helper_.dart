@@ -85,6 +85,6 @@ ToastificationItem showInfoToast(BuildContext context, String message) =>
           child: child,
         );
       },
-      borderRadius: BorderRadius.circular(12.0),
+      borderRadius: BorderRadius.circular(12),
       boxShadow: lowModeShadow,
     );

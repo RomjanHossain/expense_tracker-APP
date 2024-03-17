@@ -18,7 +18,8 @@ class TransactionGraphPagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TransactionGraphPageBloc(),
+      create: (context) => TransactionGraphPageBloc()
+        ..add(const InitTransactionGraphPageEvent()),
       child: const Scaffold(
         body: TransactionGraphPageView(),
       ),

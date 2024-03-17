@@ -1,7 +1,8 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/custom_app_bar.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/cubit/cubit.dart';
-import 'package:expense_tracker/utils/constrants/consts_.dart';
+import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,15 +10,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 /// A description for ExpensedetailsPage
 class ExpensedetailsPage extends StatelessWidget {
   /// {@macro expensedetails_page}
-  const ExpensedetailsPage({required this.color, super.key});
+  const ExpensedetailsPage({required this.ieModel, super.key});
 
-  final Color color;
+  final IEmodel ieModel;
 
   /// The static route for ExpensedetailsPage
-  static Route<dynamic> route(Color col) {
+  static Route<dynamic> route(IEmodel et) {
     return MaterialPageRoute<dynamic>(
       builder: (_) => ExpensedetailsPage(
-        color: col,
+        ieModel: et,
       ),
     );
   }
@@ -32,7 +33,7 @@ class ExpensedetailsPage extends StatelessWidget {
             SliverPersistentHeader(
               delegate: MySliverAppBar(
                 expandedHeight: 200.h,
-                et: ExpenseType.expense,
+                et: ieModel.isIncome,
               ),
               pinned: true,
             ),
@@ -108,7 +109,10 @@ class ExpensedetailsPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                       horizontal: 10.w,
                     ),
-                    child: ElevatedButton(onPressed: () {}, child:const Text ('Edit')),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Edit'),
+                    ),
                   ),
                   // const ExpensedetailsView(),
                 ],

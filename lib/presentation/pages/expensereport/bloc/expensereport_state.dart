@@ -6,21 +6,27 @@ part of 'expensereport_bloc.dart';
 class ExpensereportState extends Equatable {
   /// {@macro expensereport_state}
   const ExpensereportState({
-    this.customProperty = 'Default Value',
+    this.chartType = ChartType.line,
+    this.etype = ExpenseType2.expense,
   });
 
-  /// A description for customProperty
-  final String customProperty;
+  /// Expense type
+  final ExpenseType2 etype;
+
+  /// chart
+  final ChartType chartType;
 
   @override
-  List<Object> get props => [customProperty];
+  List<Object> get props => [etype, chartType];
 
   /// Creates a copy of the current ExpensereportState with property changes
   ExpensereportState copyWith({
-    String? customProperty,
+    ChartType? chartType,
+    ExpenseType2? etype,
   }) {
     return ExpensereportState(
-      customProperty: customProperty ?? this.customProperty,
+      etype: etype ?? this.etype,
+      chartType: chartType ?? this.chartType,
     );
   }
 }
