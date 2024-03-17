@@ -24,9 +24,6 @@ class ExpenseTrackerTheme {
       // appBarTheme: _appBarTheme,
       elevatedButtonTheme: _elevatedButtonTheme,
       outlinedButtonTheme: _outlinedButtonTheme,
-      appBarTheme: const AppBarTheme(
-        centerTitle: true,
-      ),
       // switch button theme
       switchTheme: SwitchThemeData(
         thumbColor: MaterialStateProperty.all<Color>(

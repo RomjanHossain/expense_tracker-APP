@@ -34,6 +34,7 @@ class ExpenseformPage extends StatelessWidget {
             : expenseType == ExpenseType.expense
                 ? ExpenseTrackerColors.red
                 : ExpenseTrackerColors.blue,
+        centerTitle: true,
         title: Text(
           expenseType == ExpenseType.income
               ? 'Income'

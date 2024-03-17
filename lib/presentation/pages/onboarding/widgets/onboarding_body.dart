@@ -5,9 +5,7 @@ import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/cubit/cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 
 /// {@template onboarding_body}
 /// Body of the OnboardingPage.
@@ -75,16 +73,16 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                   //     overscroll: true, physics: const BouncingScrollPhysics()),
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20.w,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
                             _images[index],
-                            height: 200.h,
-                            width: 200.w,
+                            height: 200,
+                            width: 200,
                           ),
                           SizedBox(height: 20.h),
                           Text(
@@ -93,7 +91,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                                 .copyWith(fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: 25.h),
+                          const SizedBox(height: 25),
                           Text(
                             subtitles[index],
                             style: ExpenseTrackerTextStyle.body1.copyWith(
@@ -102,7 +100,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                             ),
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: 20.h),
+                          const SizedBox(height: 20),
                         ],
                       ),
                     );
@@ -130,7 +128,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                   ),
               ],
             ),
-            SizedBox(height: 20.h),
+            const SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 20.w,
@@ -177,7 +175,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                 ),
               ),
             ),
-            SizedBox(height: 50.h),
+            const SizedBox(height: 50),
           ],
         );
       },

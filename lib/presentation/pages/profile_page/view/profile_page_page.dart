@@ -30,7 +30,7 @@ class ProfilePagePage extends StatelessWidget {
         body: const ProfilePageView(),
       ),
     );
-  }
+  }    
 }
 
 /// {@template profile_page_view}

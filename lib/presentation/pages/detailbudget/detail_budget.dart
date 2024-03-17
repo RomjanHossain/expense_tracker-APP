@@ -18,6 +18,7 @@ class DetailBudget extends StatelessWidget {
             ? ExpenseTrackerColors.dark
             : ExpenseTrackerColors.light,
         title: const Text('Detail Budget'),
+        centerTitle: true,
         actions: [
           // delete
           IconButton(
