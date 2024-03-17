@@ -7,11 +7,9 @@ import 'package:expense_tracker/presentation/pages/transaction_graph_page/compon
 import 'package:expense_tracker/presentation/widgets/charts/line_charts.dart';
 import 'package:expense_tracker/presentation/widgets/charts/pie_carts.dart';
 import 'package:expense_tracker/utils/constrants/consts_.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// {@template expensereport_body}
@@ -37,7 +35,6 @@ class ExpensereportBody extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: DropdownButtonFormField(
-                      dropdownColor: ExpenseTrackerColors.violet,
                       focusColor: isDarkMode(context)
                           ? ExpenseTrackerColors.dark75
                           : ExpenseTrackerColors.light,
@@ -69,13 +66,8 @@ class ExpensereportBody extends StatelessWidget {
                         value: ChartType.pie,
                       ),
                     ],
-                    onSelectionChanged: (p0) {
-                      context
-                          .read<ExpensereportBloc>()
-                          .add(ChangeChartType(p0.first));
-                    },
-                    selected: <ChartType>{
-                      state.chartType,
+                    selected: const <ChartType>{
+                      ChartType.line,
                     },
                   ),
                 ],
@@ -87,64 +79,55 @@ class ExpensereportBody extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (state.chartType == ChartType.line)
-                    Padding(
-                      padding: const EdgeInsets.all(15).h,
-                      child: Text(
-                        r'$ 256.09',
-                        style: ExpenseTrackerTextStyle.title2.copyWith(
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.2,
-                          color: isDarkMode(context)
-                              ? ExpenseTrackerColors.light
-                              : ExpenseTrackerColors.dark,
+                  Padding(
+                    padding: const EdgeInsets.all(15).h,
+                    child: Text(
+                      r'$ 256.09',
+                      style: ExpenseTrackerTextStyle.title2.copyWith(
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.2,
+                        color: isDarkMode(context)
+                            ? ExpenseTrackerColors.light
+                            : ExpenseTrackerColors.dark,
+                      ),
+                    ),
+                  ),
+                  const Expanded(
+                    child: ExpenseLineGraph(
+                      spots: [
+                        FlSpot(0, 3),
+                        FlSpot(2.6, 2),
+                        FlSpot(4.9, 5),
+                        FlSpot(6.8, 3.1),
+                        FlSpot(8, 4),
+                        FlSpot(9.5, 3),
+                        FlSpot(11, 4),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        ExpensePieGraph(
+                          pieRadius: 5.r * 4,
                         ),
-                      ),
-                    ).animate().fadeIn(),
-                  if (state.chartType == ChartType.line)
-                    const Expanded(
-                      child: ExpenseLineGraph(
-                        minX: 0,
-                        maxX: 11,
-                        minY: 0,
-                        maxY: 6,
-                        spots: [
-                          FlSpot(0, 3),
-                          FlSpot(2.6, 2),
-                          FlSpot(4.9, 5),
-                          FlSpot(6.8, 3.1),
-                          FlSpot(8, 4),
-                          FlSpot(9.5, 3),
-                          FlSpot(11, 4),
-                        ],
-                      ),
-                    ).animate().fadeIn().shimmer(
-                          duration: const Duration(milliseconds: 1500),
-                        )
-                  else
-                    Expanded(
-                      child: Stack(
-                        children: [
-                          ExpensePieGraph(
-                            pieRadius: 5.r * 4,
-                          ),
-                          Positioned.fill(
-                            child: Center(
-                              child: Text(
-                                r'$3245',
-                                style: ExpenseTrackerTextStyle.title2.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1.2,
-                                  color: isDarkMode(context)
-                                      ? ExpenseTrackerColors.light
-                                      : ExpenseTrackerColors.dark,
-                                ),
+                        Positioned.fill(
+                          child: Center(
+                            child: Text(
+                              r'$3245',
+                              style: ExpenseTrackerTextStyle.title2.copyWith(
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.2,
+                                color: isDarkMode(context)
+                                    ? ExpenseTrackerColors.light
+                                    : ExpenseTrackerColors.dark,
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
+                  ),
                 ],
               ),
             ),
@@ -174,14 +157,8 @@ class ExpensereportBody extends StatelessWidget {
                     value: ExpenseType2.income,
                   ),
                 ],
-                selected: <ExpenseType2>{
-                  // ExpenseType2.income,
-                  state.etype,
-                },
-                onSelectionChanged: (p0) {
-                  context
-                      .read<ExpensereportBloc>()
-                      .add(ChangeExpenseType(p0.first));
+                selected: const <ExpenseType2>{
+                  ExpenseType2.income,
                 },
               ),
             ),

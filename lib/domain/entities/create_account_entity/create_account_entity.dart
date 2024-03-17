@@ -1,8 +1,7 @@
-import 'package:expense_tracker/utils/constrants/enums_.dart';
+import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'create_account_entity.freezed.dart';
-
 @freezed
 class CreateAccountEntity with _$CreateAccountEntity {
   const factory CreateAccountEntity({

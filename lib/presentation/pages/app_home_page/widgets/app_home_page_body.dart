@@ -21,21 +21,25 @@ class AppHomePageBody extends StatelessWidget {
     ProfilePagePage(),
   ];
   @override
-  Widget build(BuildContext context) =>
-      BlocBuilder<AppHomePageBloc, AppHomePageState>(
-        builder: (context, state) => PageTransitionSwitcher(
+  Widget build(BuildContext context) {
+    return BlocBuilder<AppHomePageBloc, AppHomePageState>(
+      builder: (context, state) {
+        return PageTransitionSwitcher(
           transitionBuilder: (
             Widget child,
             Animation<double> animation,
             Animation<double> secondaryAnimation,
-          ) =>
-              SharedAxisTransition(
-            animation: animation,
-            secondaryAnimation: secondaryAnimation,
-            transitionType: SharedAxisTransitionType.horizontal,
-            child: child,
-          ),
+          ) {
+            return SharedAxisTransition(
+              animation: animation,
+              secondaryAnimation: secondaryAnimation,
+              transitionType: SharedAxisTransitionType.horizontal,
+              child: child,
+            );
+          },
           child: pages[state.currentIndex],
-        ),
-      );
+        );
+      },
+    );
+  }
 }

@@ -1,7 +1,7 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/detail_center_card.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/sucess_alter.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
+import 'package:expense_tracker/utils/constrants/consts_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,6 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
       clipBehavior: Clip.none,
       fit: StackFit.expand,
       children: [
-        //INFO: nav back
         Container(
           alignment: Alignment.topLeft,
           padding: const EdgeInsets.only(
@@ -58,7 +57,6 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
             ),
           ),
         ),
-        //INFO: delete button
         Align(
           alignment: Alignment.topRight,
           child: Padding(
@@ -147,8 +145,6 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
             ),
           ),
         ),
-
-        //INFO: title
         Align(
           alignment: Alignment.topCenter,
           child: Padding(
@@ -156,7 +152,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
               top: 20,
             ),
             child: Text(
-              'Detail Transaction',
+              'My Profile',
               textAlign: TextAlign.center,
               style: ExpenseTrackerTextStyle.title3.copyWith(
                 color: ExpenseTrackerColors.light,
@@ -164,7 +160,6 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
             ),
           ),
         ),
-        //INFO: main content (amount, description and date)
         Align(
           child: AnimatedOpacity(
             duration: 600.milliseconds,
@@ -205,7 +200,6 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
             ),
           ),
         ),
-        //INFO: details (card)
         AnimatedPositioned(
           top: expandedHeight / 1.3 - shrinkOffset,
           left: MediaQuery.of(context).size.width / 7 - 50.r,
@@ -227,15 +221,11 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                 child: SizedBox(
                   height: 100.h,
                   width: MediaQuery.of(context).size.width,
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       DetailCenterCard(
-                        subtitle: et == ExpenseType.income
-                            ? 'Income'
-                            : et == ExpenseType.expense
-                                ? 'Expense'
-                                : 'Transfer',
+                        subtitle: 'Income',
                         title: 'Type',
                       ),
                       DetailCenterCard(

@@ -101,12 +101,11 @@ class OnboardingSetupPinBloc
     AddTextOnboardingSetupPinEvent event,
     Emitter<OnboardingSetupPinState> emit,
   ) {
-    final prevPin = state.userPin;
     debugPrint('pin: ${state.pin}');
     if (state.pin.length > 3) {
       debugPrint('pin is more than 4');
       emit(const OnboardingSetupPinError('Pin is more than 4!'));
-      emit(state.copyWith(userPin: prevPin));
+      emit(const OnboardingSetupPinInitial());
     } else {
       debugPrint('pin is less than 4');
       emit(state.copyWith(pin: state.pin + event.pin));

@@ -20,14 +20,3 @@ class ChangeTheFreq extends HomepageEvent {
   const ChangeTheFreq(this.se);
   final SegmentedButtonsData se;
 }
-
-//NOTE: chagne the calander month
-class ChangeTheMonth extends HomepageEvent {
-  const ChangeTheMonth(this.month);
-  final int month;
-}
-
-//NOTE: init the calander
-class InitCalander extends HomepageEvent {
-  const InitCalander();
-}

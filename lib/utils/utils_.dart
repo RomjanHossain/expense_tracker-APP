@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -46,23 +44,3 @@ bool isDarkMode(BuildContext context) {
 //   'Yearly',
 //   // 'Lifetime',
 // ];
-
-/// Generate a random color
-Color generatingRandomColor() =>
-    Color(0xFFFFFFFF & Random().nextInt(0xFFFFFFFF));
-
-//! FIX: get date from Date
-String getHumanReadableDate(DateTime date) {
-  if (date == null) return '';
-  // if today then return today
-  if (date.day == DateTime.now().day &&
-      date.month == DateTime.now().month &&
-      date.year == DateTime.now().year) {
-    return 'Today';
-  } else if (date.day == DateTime.now().day - 1 &&
-      date.month == DateTime.now().month &&
-      date.year == DateTime.now().year) {
-    return 'Yesterday';
-  }
-  return '${date.day}/${date.month}/${date.year}';
-}

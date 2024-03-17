@@ -95,8 +95,6 @@ class $AssetsIconsGen {
   SvgGenImage get notification =>
       const SvgGenImage('assets/icons/notification.svg');
 
-  $AssetsIconsOtherGen get other => const $AssetsIconsOtherGen();
-
   /// File path: assets/icons/pie_chart.svg
   SvgGenImage get pieChart => const SvgGenImage('assets/icons/pie_chart.svg');
 
@@ -548,19 +546,6 @@ class $AssetsIconsMobileBankingGen {
   /// List of all assets
   List<dynamic> get values =>
       [bkash, mcash, nagad, ok, rocket, surecash, tcash, ucash, upay];
-}
-
-class $AssetsIconsOtherGen {
-  const $AssetsIconsOtherGen();
-
-  /// File path: assets/icons/other/cash.svg
-  SvgGenImage get cash => const SvgGenImage('assets/icons/other/cash.svg');
-
-  /// File path: assets/icons/other/other.svg
-  SvgGenImage get other => const SvgGenImage('assets/icons/other/other.svg');
-
-  /// List of all assets
-  List<SvgGenImage> get values => [cash, other];
 }
 
 class Assets {
