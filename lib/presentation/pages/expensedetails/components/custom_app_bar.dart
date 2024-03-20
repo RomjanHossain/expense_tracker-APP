@@ -1,25 +1,101 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/data/models/category_model.dart';
+import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/detail_center_card.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/sucess_alter.dart';
 import 'package:expense_tracker/utils/constrants/enums_.dart';
+import 'package:expense_tracker/utils/constrants/expense_category_tracker_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class MySliverAppBar extends SliverPersistentHeaderDelegate {
-  MySliverAppBar({required this.expandedHeight, required this.et});
+  MySliverAppBar({required this.expandedHeight, required this.ieModel});
   final double expandedHeight;
-  final ExpenseType et;
+  final IEmodel ieModel;
+
+  // get datetime
+  String getDateTime() {
+    switch (ieModel.isIncome) {
+      case ExpenseType.income:
+        return DateFormat("EEEE, d'th' MMMM yyyy, hh:mm a")
+            .format(ieModel.income!.createdDate ?? DateTime.now());
+      case ExpenseType.expense:
+        return DateFormat("EEEE, d'th' MMMM yyyy, hh:mm a")
+            .format(ieModel.expense!.createdDate ?? DateTime.now());
+      case ExpenseType.transfer:
+        return DateFormat("EEEE, d'th' MMMM yyyy, hh:mm a")
+            .format(ieModel.transfer!.createdDate ?? DateTime.now());
+    }
+  }
+
+  // payment
+  // String? getCat() {
+  //   if (ieModel.isIncome case ExpenseType.income) {
+
+  //     return ieModel.income.walletId;
+  //   } else if (ieModel.isIncome case ExpenseType.expense) {
+  //     // return ieModel.expense?.categoryID ?? 'No Description';
+  //     final s = ExpenseTrackerCategories.singleexpensesCategory(
+  //       ieModel.expense?.categoryID ?? 'groceries',
+  //     );
+  //     return s;
+  //   }
+  //   return null;
+  // }
+// get cat
+  CategoryModel? getCat() {
+    if (ieModel.isIncome case ExpenseType.income) {
+      final s = ExpenseTrackerCategories.singleIncomeMethods(
+        ieModel.income?.categoryID ?? 'sideGig',
+      );
+      return s;
+    } else if (ieModel.isIncome case ExpenseType.expense) {
+      // return ieModel.expense?.categoryID ?? 'No Description';
+      final s = ExpenseTrackerCategories.singleexpensesCategory(
+        ieModel.expense?.categoryID ?? 'groceries',
+      );
+      return s;
+    }
+    return null;
+  }
+
+  // get color
   Color getColor() {
-    switch (et) {
+    switch (ieModel.isIncome) {
       case ExpenseType.expense:
         return ExpenseTrackerColors.red;
       case ExpenseType.income:
         return ExpenseTrackerColors.green;
       case ExpenseType.transfer:
         return ExpenseTrackerColors.blue;
+    }
+  }
+
+  // get amount
+  double getAmount() {
+    switch (ieModel.isIncome) {
+      case ExpenseType.income:
+        return ieModel.income?.ammount ?? 0.0;
+      case ExpenseType.expense:
+        return ieModel.expense?.ammount ?? 0.0;
+      case ExpenseType.transfer:
+        return ieModel.transfer?.ammount ?? 0.0;
+    }
+  }
+
+  // detail
+  String getDetailCardSubtitle() {
+    switch (ieModel.isIncome) {
+      case ExpenseType.income:
+        return 'Income';
+      case ExpenseType.expense:
+        return 'Expense';
+      case ExpenseType.transfer:
+        return 'Transfer';
     }
   }
 
@@ -174,7 +250,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  r'$234',
+                  '\$${getAmount()}',
                   // textAlign: TextAlign.center,
                   style: ExpenseTrackerTextStyle.title1.copyWith(
                     color: ExpenseTrackerColors.light80,
@@ -188,14 +264,14 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                       vertical: 5.h,
                     ),
                     child: Text(
-                      'Buy some groceries',
+                      getCat()?.title ?? '',
                       style: ExpenseTrackerTextStyle.body3.copyWith(
                         color: ExpenseTrackerColors.light80,
                       ),
                     ),
                   ),
                   Text(
-                    'Saturday, 20th March 2021, 10:00 AM',
+                    getDateTime(),
                     style: ExpenseTrackerTextStyle.body3.copyWith(
                       color: ExpenseTrackerColors.light80,
                     ),
@@ -231,11 +307,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       DetailCenterCard(
-                        subtitle: et == ExpenseType.income
-                            ? 'Income'
-                            : et == ExpenseType.expense
-                                ? 'Expense'
-                                : 'Transfer',
+                        subtitle: getDetailCardSubtitle(),
                         title: 'Type',
                       ),
                       DetailCenterCard(
