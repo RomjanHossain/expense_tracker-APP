@@ -1,13 +1,10 @@
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
-import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/view/expensedetails_page.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/bloc.dart';
-import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expenses.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/transaction_filter_sheet.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/widgets/financial_reports_quick.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -155,6 +152,131 @@ class TransactionGraphPageBody extends StatelessWidget {
                 // return CardOfExpense2(
                 //   cardOfExpense: currentItem,
                 // );
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      ExpensedetailsPage.route(currentItem),
+                    );
+                  },
+                  child: CardOfExpense2(
+                    cardOfExpense: currentItem,
+                  ),
+                );
+              },
+            ),
+
+            Text(
+              'Yesterday',
+              style: ExpenseTrackerTextStyle.title3.copyWith(
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+                color: !isDarkMode(context)
+                    ? ExpenseTrackerColors.dark
+                    : ExpenseTrackerColors.light,
+              ),
+            ),
+
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.yesterdaysIEmodel.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                final currentItem = state.yesterdaysIEmodel.elementAt(index);
+                // return CardOfExpense2(
+                //   cardOfExpense: currentItem,
+                // );
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      ExpensedetailsPage.route(currentItem),
+                    );
+                  },
+                  child: CardOfExpense2(
+                    cardOfExpense: currentItem,
+                  ),
+                );
+              },
+            ),
+
+            Text(
+              'This Week',
+              style: ExpenseTrackerTextStyle.title3.copyWith(
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+                color: !isDarkMode(context)
+                    ? ExpenseTrackerColors.dark
+                    : ExpenseTrackerColors.light,
+              ),
+            ),
+
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.weeklyIEmodel.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                final currentItem = state.weeklyIEmodel.elementAt(index);
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      ExpensedetailsPage.route(currentItem),
+                    );
+                  },
+                  child: CardOfExpense2(
+                    cardOfExpense: currentItem,
+                  ),
+                );
+              },
+            ),
+            Text(
+              'This Month',
+              style: ExpenseTrackerTextStyle.title3.copyWith(
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+                color: !isDarkMode(context)
+                    ? ExpenseTrackerColors.dark
+                    : ExpenseTrackerColors.light,
+              ),
+            ),
+
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.monthlyIEmodel.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                final currentItem = state.monthlyIEmodel.elementAt(index);
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      ExpensedetailsPage.route(currentItem),
+                    );
+                  },
+                  child: CardOfExpense2(
+                    cardOfExpense: currentItem,
+                  ),
+                );
+              },
+            ),
+            Text(
+              'This Year',
+              style: ExpenseTrackerTextStyle.title3.copyWith(
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.5,
+                color: !isDarkMode(context)
+                    ? ExpenseTrackerColors.dark
+                    : ExpenseTrackerColors.light,
+              ),
+            ),
+
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.yesterdaysIEmodel.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                final currentItem = state.yearlyIEmodel.elementAt(index);
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
