@@ -1,8 +1,10 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/data/models/category_model.dart';
 import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/custom_app_bar.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/cubit/cubit.dart';
 import 'package:expense_tracker/utils/constrants/enums_.dart';
+import 'package:expense_tracker/utils/constrants/expense_category_tracker_.dart';
 import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +15,18 @@ class ExpensedetailsPage extends StatelessWidget {
   const ExpensedetailsPage({required this.ieModel, super.key});
 
   final IEmodel ieModel;
+
+  // get description
+  String getDescription() {
+    switch (ieModel.isIncome) {
+      case ExpenseType.income:
+        return ieModel.income?.description ?? 'No Description';
+      case ExpenseType.expense:
+        return ieModel.expense?.description ?? 'No Description';
+      case ExpenseType.transfer:
+        return ieModel.transfer?.description ?? 'No Description';
+    }
+  }
 
   /// The static route for ExpensedetailsPage
   static Route<dynamic> route(IEmodel et) {
@@ -33,7 +47,7 @@ class ExpensedetailsPage extends StatelessWidget {
             SliverPersistentHeader(
               delegate: MySliverAppBar(
                 expandedHeight: 200.h,
-                et: ieModel.isIncome,
+                ieModel: ieModel,
               ),
               pinned: true,
             ),
@@ -60,7 +74,7 @@ class ExpensedetailsPage extends StatelessWidget {
                           height: 10.h,
                         ),
                         Text(
-                          '''Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. ''',
+                          getDescription(),
                           style: ExpenseTrackerTextStyle.body1.copyWith(
                             color: isDarkMode(context)
                                 ? ExpenseTrackerColors.light
