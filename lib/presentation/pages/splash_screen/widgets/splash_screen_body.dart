@@ -54,7 +54,6 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
         : _animationController.forward();
     _animationController.forward();
     super.initState();
-    
   }
 
   @override
@@ -79,7 +78,6 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
                 height: Tween(begin: screenSize.height, end: 120.0)
                     .animate(_shrinkController)
                     .value,
-                // height: screenSize.height,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(

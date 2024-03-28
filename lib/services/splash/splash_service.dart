@@ -9,7 +9,6 @@ class SplashService {
     final firstRun = await prefs.isFirstRun();
     final username = await prefs.getUsername();
     if (firstRun) {
-      // debugPrint('First run');
       Future.delayed(const Duration(seconds: 3), () {
         context.pushNamed('onboarding');
       });
@@ -19,7 +18,6 @@ class SplashService {
         context.pushNamed('setup-profile');
       });
     } else {
-      // debugPrint('Not first run');
       //Whether login failed or succeded, go to home page
       if (!context.mounted) return;
       Future.delayed(const Duration(seconds: 3), () {
