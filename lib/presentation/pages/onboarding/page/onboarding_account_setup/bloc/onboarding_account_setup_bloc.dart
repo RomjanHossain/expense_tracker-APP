@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
 import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
 import 'package:expense_tracker/domain/entities/create_account_entity/create_account_entity.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
+
 import 'package:flutter/material.dart';
 part 'onboarding_account_setup_event.dart';
 part 'onboarding_account_setup_state.dart';

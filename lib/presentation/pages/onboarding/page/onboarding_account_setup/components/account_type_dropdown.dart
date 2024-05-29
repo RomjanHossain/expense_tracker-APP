@@ -5,7 +5,7 @@ import 'package:expense_tracker/data/datasources/local/utils_data/local_mobile_b
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/onboarding_account_setup_bloc.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class AccountTypeDropdown extends StatelessWidget {

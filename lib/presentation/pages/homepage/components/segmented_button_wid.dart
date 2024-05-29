@@ -2,9 +2,9 @@ import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/presentation/pages/homepage/bloc/homepage_bloc.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
-import 'package:expense_tracker/utils/constrants/consts_.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
+
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,10 +25,10 @@ class HomeSegmentedButtonsWidget extends StatelessWidget {
           child: SegmentedButton<SegmentedButtonsData>(
             showSelectedIcon: false,
             style: ButtonStyle(
-              textStyle: MaterialStateProperty.resolveWith(
+              textStyle: WidgetStateProperty.resolveWith(
                 (states) => ExpenseTrackerTextStyle.body3.copyWith(
                   color: ExpenseTrackerColors.yellow,
-                  fontWeight: states.contains(MaterialState.selected)
+                  fontWeight: states.contains(WidgetState.selected)
                       ? FontWeight.bold
                       : FontWeight.normal,
                 ),
@@ -36,8 +36,8 @@ class HomeSegmentedButtonsWidget extends StatelessWidget {
               // side: MaterialStateProperty.all(
               //   BorderSide.none,
               // ),
-              backgroundColor: MaterialStateProperty.resolveWith(
-                (states) => states.contains(MaterialState.selected)
+              backgroundColor: WidgetStateProperty.resolveWith(
+                (states) => states.contains(WidgetState.selected)
                     ? ExpenseTrackerColors.yellow20
                     : theme.scaffoldBackgroundColor,
               ),

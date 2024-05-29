@@ -2,9 +2,10 @@ import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/data/datasources/local/category/category_local_data.dart';
 import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
-import 'package:expense_tracker/utils/constrants/expense_category_tracker_.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
+
+import 'package:expense_tracker/core/utils/utils.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -72,7 +73,7 @@ class CardOfExpense2 extends StatelessWidget {
           children: [
             // amount
             Text(
-              '${cardOfExpense.isIncome == ExpenseType.income ? "+" : "-"}\$${amount}',
+              '${cardOfExpense.isIncome == ExpenseType.income ? "+" : "-"}\$$amount',
               style: ExpenseTrackerTextStyle.body3.copyWith(
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.5,
@@ -111,13 +112,16 @@ class CardOfExpense2 extends StatelessWidget {
     switch (type) {
       case ExpenseType.income:
         return getHumanReadableDate(
-            cardOfExpense.income?.createdDate ?? DateTime.now());
+          cardOfExpense.income?.createdDate ?? DateTime.now(),
+        );
       case ExpenseType.expense:
         return getHumanReadableDate(
-            cardOfExpense.expense?.createdDate ?? DateTime.now());
+          cardOfExpense.expense?.createdDate ?? DateTime.now(),
+        );
       case ExpenseType.transfer:
         return getHumanReadableDate(
-            cardOfExpense.transfer?.createdDate ?? DateTime.now());
+          cardOfExpense.transfer?.createdDate ?? DateTime.now(),
+        );
     }
   }
 

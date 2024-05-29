@@ -3,7 +3,7 @@ import 'package:expense_tracker/app/ui/src/theme.dart';
 import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class FormDropdown extends StatelessWidget {

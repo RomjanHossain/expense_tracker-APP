@@ -4,7 +4,7 @@ import 'package:expense_tracker/presentation/pages/homepage/bloc/homepage_bloc.d
 import 'package:expense_tracker/presentation/pages/homepage/components/account_balance_card.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/dropdown_months.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';

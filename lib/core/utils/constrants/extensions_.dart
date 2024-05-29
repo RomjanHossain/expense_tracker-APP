@@ -1,5 +1,5 @@
 //! Exention on segmentedbuttonsdata
-import 'package:expense_tracker/utils/constrants/enums_.dart';
+import 'package:expense_tracker/core/utils/constrants/enums_.dart';
 import 'package:flutter/material.dart';
 
 /// Extension
@@ -67,7 +67,7 @@ extension SortTypeX on SortType {
 //! INFO: on datetime to convert datetime to double
 extension DateTimeX on DateTime {
   double get toDouble {
-    debugPrint('${year}');
+    debugPrint('$year');
     debugPrint(
       'DateTime: ${(year + month + day) / 1000 + (hour + minute + second) / 100}',
     );

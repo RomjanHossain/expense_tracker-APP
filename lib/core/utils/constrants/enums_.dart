@@ -1,3 +1,12 @@
+// NOTE: All enums are here
+
+// Enum: SplashScreenStatus
+enum SplashScreenStatusEnum {
+  onboarding,
+  setupProfile,
+  setupPin,
+}
+
 //NOTE: success or fail
 enum ExpenseformStatus { success, fail }
 

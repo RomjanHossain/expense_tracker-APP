@@ -5,6 +5,7 @@ import 'package:expense_tracker/presentation/pages/splash_screen/bloc/bloc.dart'
 import 'package:expense_tracker/services/splash/splash_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:go_router/go_router.dart';
 
 /// {@template splash_screen_body}
 /// Body of the SplashScreenPage.
@@ -54,7 +55,6 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
         : _animationController.forward();
     _animationController.forward();
     super.initState();
-    
   }
 
   @override
@@ -68,6 +68,21 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
     final screenSize = MediaQuery.sizeOf(context);
     return BlocBuilder<SplashScreenBloc, SplashScreenState>(
       builder: (context, state) {
+        if (state is SplashScreenOnboarding) {
+          print('from splash screen');
+          // return SplashScreenOnboarding();
+          context.pushNamed('onboarding');
+        }
+        if (state is SplashScreenSetupProfile) {
+          print('from splash screen');
+          // return SplashScreenSetupProfile();
+          context.pushNamed('setup-profile');
+        }
+        if (state is SplashScreenSetupPin) {
+          print('from splash screen');
+          context.pushNamed('setup-pin');
+        }
+
         return AnimatedBuilder(
           animation: _animationController,
           builder: (context, c) {

@@ -1,16 +1,14 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/core/utils/constrants/enums_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_banking.dart';
 import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
 import 'package:expense_tracker/gen/assets.gen.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
-import 'package:expense_tracker/presentation/pages/account_page/account_detail/view/account_detail_page.dart';
-import 'package:expense_tracker/presentation/pages/account_page/detail_account_page.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
-import 'package:expense_tracker/utils/utils_.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account/cubit/cubit.dart';
+import 'package:expense_tracker/presentation/pages/account_page/account_detail/view/account_detail_page.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 

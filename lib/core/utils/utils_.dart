@@ -53,8 +53,6 @@ Color generatingRandomColor() =>
 
 //! FIX: get date from Date
 String getHumanReadableDate(DateTime date) {
-  if (date == null) return '';
-  // if today then return today
   if (date.day == DateTime.now().day &&
       date.month == DateTime.now().month &&
       date.year == DateTime.now().year) {

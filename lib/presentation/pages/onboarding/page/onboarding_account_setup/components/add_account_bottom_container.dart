@@ -9,8 +9,8 @@ import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.d
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/onboarding_account_setup_bloc.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/components/account_name_textfield.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/components/account_type_dropdown.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -81,7 +81,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
               alignment: Alignment.centerLeft,
               child: Text(
                 createACState.acType != null
-                    ? AccountTypeHelper.toString2(createACState.acType!)
+                    ? AccountTypeHelper.toString2(createACState.acType)
                     : '',
                 textAlign: TextAlign.left,
                 style: ExpenseTrackerTextStyle.body1.copyWith(
@@ -201,7 +201,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                   child: Text(
                                     createACState.acType != null
                                         ? AccountTypeHelper.toString2(
-                                            createACState.acType!,
+                                            createACState.acType,
                                           )
                                         : '',
                                     textAlign: TextAlign.left,
@@ -398,7 +398,9 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                   return;
                 } else if (createACState.acName.isEmpty) {
                   showFailureToast(
-                      context, 'Please enter a valid account name',);
+                    context,
+                    'Please enter a valid account name',
+                  );
                   return;
                 } else if (createACState.acType == null) {
                   showFailureToast(context, 'Please select an account type');

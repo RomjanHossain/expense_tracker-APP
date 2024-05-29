@@ -1,6 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -65,7 +65,7 @@ class RemoveBudgetSheet extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child:const Text ('Delete'),
+                  child: const Text('Delete'),
                 ),
               ),
             ],

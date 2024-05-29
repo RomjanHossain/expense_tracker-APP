@@ -16,8 +16,9 @@ import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/attachment_picker.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/subscription_bottom.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/success_alertdialog.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
+
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -495,7 +496,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                       ? state.expenseFormEntity.subStart!
                                       : DateTime.now()
                               ..repeatType = state.expenseFormEntity.subType
-                              ..walletId = acE?.id;
+                              ..walletId = acE.id;
                             context
                                 .read<ExpenseformBloc>()
                                 .add(IncomeToDatabase(incomeEntity));
@@ -531,7 +532,8 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                 .add(ExpenseToDatabase(expenseEntity));
                           }
                           debugPrint(
-                              'CategoryID : ${context.read<DropdownExpenseMethodCubit>().state}');
+                            'CategoryID : ${context.read<DropdownExpenseMethodCubit>().state}',
+                          );
                           debugPrint(
                             'Description: ${_descriptionController.text}',
                           );

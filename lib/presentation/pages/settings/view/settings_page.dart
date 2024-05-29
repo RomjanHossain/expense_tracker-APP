@@ -1,7 +1,7 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/settings/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/settings/widgets/settings_body.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 /// {@template settings_page}

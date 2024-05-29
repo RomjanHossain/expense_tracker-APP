@@ -1,4 +1,5 @@
-import 'package:expense_tracker/utils/constrants/enums_.dart';
+
+import 'package:expense_tracker/core/utils/constrants/enums_.dart';
 
 class AccountTypeHelper {
   static AccountType fromString(String accountType) {

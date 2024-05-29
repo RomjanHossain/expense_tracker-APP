@@ -1,6 +1,6 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/notification/cubit/cubit.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 /// {@template notification_body}
@@ -37,10 +37,11 @@ class NotificationBody extends StatelessWidget {
               ),
               isThreeLine: true,
               trailing: Switch(
-                  value: state.expenseAlert,
-                  onChanged: (v) {
-                    context.read<NotificationCubit>().setExpenseAlert(v);
-                  },),
+                value: state.expenseAlert,
+                onChanged: (v) {
+                  context.read<NotificationCubit>().setExpenseAlert(v);
+                },
+              ),
             ),
             ListTile(
               title: Text(
@@ -53,10 +54,11 @@ class NotificationBody extends StatelessWidget {
               ),
               isThreeLine: true,
               trailing: Switch(
-                  value: state.budgetAlert,
-                  onChanged: (v) {
-                    context.read<NotificationCubit>().setBudgetAlert(v);
-                  },),
+                value: state.budgetAlert,
+                onChanged: (v) {
+                  context.read<NotificationCubit>().setBudgetAlert(v);
+                },
+              ),
             ),
             ListTile(
               title: Text('Tips & Articles', style: tileTitle),
@@ -66,10 +68,11 @@ class NotificationBody extends StatelessWidget {
               ),
               isThreeLine: true,
               trailing: Switch(
-                  value: state.tipsAlert,
-                  onChanged: (v) {
-                    context.read<NotificationCubit>().setTipsAlert(v);
-                  },),
+                value: state.tipsAlert,
+                onChanged: (v) {
+                  context.read<NotificationCubit>().setTipsAlert(v);
+                },
+              ),
             ),
           ],
         );

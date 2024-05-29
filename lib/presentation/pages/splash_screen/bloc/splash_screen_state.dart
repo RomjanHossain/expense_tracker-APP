@@ -32,3 +32,18 @@ class SplashScreenInitial extends SplashScreenState {
   /// {@macro splash_screen_initial}
   const SplashScreenInitial() : super();
 }
+
+// SplashScreenOnboarding
+class SplashScreenOnboarding extends SplashScreenState {
+  const SplashScreenOnboarding() : super();
+}
+
+// SplashScreenSetupProfile
+class SplashScreenSetupProfile extends SplashScreenState {
+  const SplashScreenSetupProfile() : super();
+}
+
+// SplashScreenSetupPin
+class SplashScreenSetupPin extends SplashScreenState {
+  const SplashScreenSetupPin() : super();
+}
