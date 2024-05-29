@@ -240,7 +240,7 @@ final routeOfTheApp = GoRouter(
               },
             ),
           ],
-          onExit: (context) async {
+          onExit: (context, state) async {
             return false;
           },
         ),
