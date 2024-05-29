@@ -3,8 +3,7 @@
 // Enum: SplashScreenStatus
 enum SplashScreenStatusEnum {
   onboarding,
-  setupProfile,
-  setupPin,
+  enterPin,
 }
 
 //NOTE: success or fail

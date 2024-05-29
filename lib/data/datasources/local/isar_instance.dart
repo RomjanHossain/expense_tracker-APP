@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
+import 'package:expense_tracker/core/error/exceptions.dart';
+import 'package:expense_tracker/core/helper/custom_types.dart';
 import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
 import 'package:expense_tracker/data/models/isar_entity/expense_entity/expense_entity.dart';
 import 'package:expense_tracker/data/models/isar_entity/income_entity/income_entity.dart';
@@ -292,15 +295,20 @@ class IsarInstance
   }
 
   //WARN: this section is for the user(profile) section
-  @override // PERF: get the user
-  Future<UserEntity?> getUser() async {
+  // NOTE: get the user [UserRepository]
+  @override
+  ResultFutureOrException<UserEntity> getUser() async {
     final ins = await instance;
     final user = await ins.userEntitys.get(1);
-    return user;
+    if (user != null) {
+      return Left(user);
+    }
+    return Right(UserNotExistsException());
   }
 
-  @override // PERF: save/update the user
-  Future<void> saveUser(UserEntity user) async {
+  // NOTE: save/update the user [UserRepository]
+  @override
+  ResultFuture<void> saveUser(UserEntity user) async {
     debugPrint('Saving user nme: ${user.name}');
     debugPrint('Saving user img: ${user.imageUrl}');
     final ins = await instance;

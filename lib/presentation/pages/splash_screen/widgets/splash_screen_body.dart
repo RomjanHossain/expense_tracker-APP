@@ -2,7 +2,6 @@
 
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/splash_screen/bloc/bloc.dart';
-import 'package:expense_tracker/services/splash/splash_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
@@ -29,7 +28,6 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
 
   @override
   void initState() {
-    SplashService().loginOrGoHome(context);
     _animationController = AnimationController(
       duration: 3.5.seconds,
       vsync: this,
@@ -63,26 +61,14 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
     _animationController.dispose();
   }
 
+  /*
+
+  */
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.sizeOf(context);
-    return BlocBuilder<SplashScreenBloc, SplashScreenState>(
+    return BlocConsumer<SplashScreenBloc, SplashScreenState>(
       builder: (context, state) {
-        if (state is SplashScreenOnboarding) {
-          print('from splash screen');
-          // return SplashScreenOnboarding();
-          context.pushNamed('onboarding');
-        }
-        if (state is SplashScreenSetupProfile) {
-          print('from splash screen');
-          // return SplashScreenSetupProfile();
-          context.pushNamed('setup-profile');
-        }
-        if (state is SplashScreenSetupPin) {
-          print('from splash screen');
-          context.pushNamed('setup-pin');
-        }
-
         return AnimatedBuilder(
           animation: _animationController,
           builder: (context, c) {
@@ -152,6 +138,22 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
             );
           },
         );
+      },
+      listener: (BuildContext context, SplashScreenState state) {
+        if (state is SplashScreenOnboarding) {
+          print('from splash screen: onboardin');
+          // return SplashScreenOnboarding();
+          context.pushNamed('onboarding');
+        }
+        if (state is SplashScreenSetupProfile) {
+          print('from splash screen: setup profile)');
+          // return SplashScreenSetupProfile();
+          context.pushNamed('setup-profile');
+        }
+        if (state is SplashScreenEnterPin) {
+          print('from splash screen setup pin');
+          context.pushNamed('setup-pin');
+        }
       },
     );
   }

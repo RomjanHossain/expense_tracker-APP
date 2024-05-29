@@ -88,10 +88,22 @@ class OnboardingSetupPinBloc
     // final isFirstTime = await localPref.isFirstRun();
     // final userPin = await localPref.getUsername();
     final usr = await isarDB.getUser();
-    debugPrint('user pin: ${usr?.pin}');
-    emit(
-      state.copyWith(
-        userPin: usr?.pin ?? '',
+    // debugPrint('user pin: ${usr?.pin}');
+    // emit(
+    //   state.copyWith(
+    //     userPin: usr?.pin ?? '',
+    //   ),
+    // );
+    usr.fold(
+      (l) => emit(
+        state.copyWith(
+          userPin: l.pin ?? '',
+        ),
+      ),
+      (r) => emit(
+        state.copyWith(
+          userPin: '',
+        ),
       ),
     );
   }

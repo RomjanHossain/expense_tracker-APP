@@ -123,9 +123,12 @@ class _OnboardingProfileSetupBodyState
                     }
                     debugPrint('Name: ${_nameController.text}');
                     debugPrint('Avater url :${avatar?.svgUri}');
-                    context.read<OnboardingProfileSetupCubit>().saveProfile(
-                        _nameController.text,
-                        avatar?.svgUri.toString() ?? _nameController.text,);
+                    await context
+                        .read<OnboardingProfileSetupCubit>()
+                        .saveProfile(
+                          _nameController.text,
+                          avatar?.svgUri.toString() ?? _nameController.text,
+                        );
                   },
                   child: const Text('Create a Profile'),
                 ),

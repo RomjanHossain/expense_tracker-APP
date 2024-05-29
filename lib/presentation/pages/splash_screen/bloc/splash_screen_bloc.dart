@@ -1,9 +1,9 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:expense_tracker/core/utils/constrants/enums_.dart';
 import 'package:expense_tracker/services/splash/splash_services.dart';
+import 'package:flutter/foundation.dart';
 part 'splash_screen_event.dart';
 part 'splash_screen_state.dart';
 
@@ -16,17 +16,15 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
     CustomSplashScreenEvent event,
     Emitter<SplashScreenState> emit,
   ) async {
-    print("BLock cloe");
+    debugPrint("BLock cloe");
     final result = await splashServices.loginOrGoHome();
     // wait for 3 second
     await Future<void>.delayed(const Duration(seconds: 3)).then((_) {
       switch (result) {
         case SplashScreenStatusEnum.onboarding:
           emit(const SplashScreenOnboarding());
-        case SplashScreenStatusEnum.setupProfile:
-          emit(const SplashScreenSetupProfile());
-        case SplashScreenStatusEnum.setupPin:
-          emit(const SplashScreenSetupPin());
+        case SplashScreenStatusEnum.enterPin:
+          emit(const SplashScreenEnterPin());
       }
     });
   }

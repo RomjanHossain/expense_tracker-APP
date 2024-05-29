@@ -44,6 +44,6 @@ class SplashScreenSetupProfile extends SplashScreenState {
 }
 
 // SplashScreenSetupPin
-class SplashScreenSetupPin extends SplashScreenState {
-  const SplashScreenSetupPin() : super();
+class SplashScreenEnterPin extends SplashScreenState {
+  const SplashScreenEnterPin() : super();
 }

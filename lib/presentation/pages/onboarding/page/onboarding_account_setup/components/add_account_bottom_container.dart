@@ -2,6 +2,7 @@ import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.da
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/core/helper/helper_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/account_type_helper.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_banking.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/mobile_banking_db.dart';
@@ -9,8 +10,6 @@ import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.d
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/onboarding_account_setup_bloc.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/components/account_name_textfield.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/components/account_type_dropdown.dart';
-import 'package:expense_tracker/core/utils/utils.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -81,7 +80,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
               alignment: Alignment.centerLeft,
               child: Text(
                 createACState.acType != null
-                    ? AccountTypeHelper.toString2(createACState.acType)
+                    ? AccountTypeHelper.toString2(createACState.acType!)
                     : '',
                 textAlign: TextAlign.left,
                 style: ExpenseTrackerTextStyle.body1.copyWith(
@@ -201,7 +200,7 @@ class _AddAccountBottomContainerState extends State<AddAccountBottomContainer> {
                                   child: Text(
                                     createACState.acType != null
                                         ? AccountTypeHelper.toString2(
-                                            createACState.acType,
+                                            createACState.acType!,
                                           )
                                         : '',
                                     textAlign: TextAlign.left,
