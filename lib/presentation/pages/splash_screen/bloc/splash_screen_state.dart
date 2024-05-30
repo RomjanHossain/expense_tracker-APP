@@ -38,10 +38,10 @@ class SplashScreenOnboarding extends SplashScreenState {
   const SplashScreenOnboarding() : super();
 }
 
-// SplashScreenSetupProfile
-class SplashScreenSetupProfile extends SplashScreenState {
-  const SplashScreenSetupProfile() : super();
-}
+// // SplashScreenSetupProfile
+// class SplashScreenSetupProfile extends SplashScreenState {
+//   const SplashScreenSetupProfile() : super();
+// }
 
 // SplashScreenSetupPin
 class SplashScreenEnterPin extends SplashScreenState {

@@ -244,7 +244,8 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                                   );
                             } else {
                               debugPrint(
-                                  'pin from the page controller -> ${state.pin}',);
+                                'pin from the page controller -> ${state.pin}',
+                              );
                               context.read<OnboardingSetupPinBloc>().add(
                                     PinSaveOnboardingSetupPinEvent(
                                       pin: state.pin,
@@ -255,7 +256,8 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                           if (state.userPin.isNotEmpty) {
                             if (state.userPin == state.pin) {
                               debugPrint(
-                                  'pin from the page controller -> ${state.pin}',);
+                                'pin from the page controller -> ${state.pin}',
+                              );
                               context.read<OnboardingSetupPinBloc>().add(
                                     PinSaveOnboardingSetupPinEvent(
                                       pin: state.pin,
@@ -263,8 +265,10 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                                   );
                             } else {
                               if (state.attempts == 3) {
-                                showFailureToast(context,
-                                    'You have reached the maximum attempts.',);
+                                showFailureToast(
+                                  context,
+                                  'You have reached the maximum attempts.',
+                                );
                                 //! if 3 attemps then exit from the app
                                 Future.delayed(const Duration(seconds: 1), () {
                                   exit(0);
@@ -272,7 +276,8 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
                               }
                               showFailureToast(context, 'Pin does not match');
                               debugPrint(
-                                  'Pin does not match ${state.userPin} || ${state.pin}',);
+                                'Pin does not match ${state.userPin} || ${state.pin}',
+                              );
                               // chagne attempts
                               context.read<OnboardingSetupPinBloc>().add(
                                     ChangeAttemptsOnboardingSetupPinEvent(
@@ -307,27 +312,9 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
         );
       },
       listener: (BuildContext context, OnboardingSetupPinState state) {
-        // debugPrint(
-        //     "user pin from listener: ${state.userPin} x ${state.pin} x ${state.setupPin}");
-        // if (state.userPin.isEmpty) {
-        //   debugPrint('Hey :${l10n.onboardingSetUpPin}');
-        //   debugPrint('Hello :${l10n.onboardingSetUpPin2}');
-        // } else {
-        //   debugPrint('SHIT: ${l10n.onboardingSetUpPin3}');
-        // }
         if (state is OnboardingSetupPinError) {
           showFailureToast(context, state.message);
         } else if (state is OnboardingSetupPinSuccess) {
-          // debugPrint(
-          //     "user pin ${state.userPP} x ${state.userPin} x ${state.pin} x ${state.setupPin}");
-          // showSuccessToast(
-          //   context,
-          //   state.userPP.isEmpty
-          //       ? 'Successfully pin setup'
-          //       : state.isHomePage
-          //           ? 'Welcome back'
-          //           : 'Set up an account....',
-          // );
           state.userPP.isEmpty
               ? showSuccessToast(context, 'Successfully pin setup')
               : state.isHomePage
@@ -337,10 +324,6 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
           state.isHomePage && state.userPP.isNotEmpty
               ? context.goNamed('home')
               : context.goNamed('account-setup-intro');
-
-          // _controller
-          //   ..clear()
-          //   ..dispose();
         }
       },
     );

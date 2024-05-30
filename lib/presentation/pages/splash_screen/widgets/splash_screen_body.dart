@@ -141,17 +141,9 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
       },
       listener: (BuildContext context, SplashScreenState state) {
         if (state is SplashScreenOnboarding) {
-          print('from splash screen: onboardin');
-          // return SplashScreenOnboarding();
           context.pushNamed('onboarding');
         }
-        if (state is SplashScreenSetupProfile) {
-          print('from splash screen: setup profile)');
-          // return SplashScreenSetupProfile();
-          context.pushNamed('setup-profile');
-        }
         if (state is SplashScreenEnterPin) {
-          print('from splash screen setup pin');
           context.pushNamed('setup-pin');
         }
       },

@@ -66,6 +66,12 @@ class _OnboardingProfileSetupBodyState
                             if (snapshot.data == null) {
                               return const Icon(Icons.error);
                             }
+
+                            if (snapshot.data != null) {
+                              context
+                                  .read<OnboardingProfileSetupCubit>()
+                                  .changeImage(snapshot.data!);
+                            }
                             return SvgPicture.memory(
                               snapshot.data!,
                               fit: BoxFit.cover,
@@ -123,12 +129,12 @@ class _OnboardingProfileSetupBodyState
                     }
                     debugPrint('Name: ${_nameController.text}');
                     debugPrint('Avater url :${avatar?.svgUri}');
-                    await context
-                        .read<OnboardingProfileSetupCubit>()
-                        .saveProfile(
-                          _nameController.text,
-                          avatar?.svgUri.toString() ?? _nameController.text,
-                        );
+                    final image = await avatar?.asRawSvgBytes();
+                    if (context.mounted) {
+                      await context
+                          .read<OnboardingProfileSetupCubit>()
+                          .saveProfile(_nameController.text, image);
+                    }
                   },
                   child: const Text('Create a Profile'),
                 ),

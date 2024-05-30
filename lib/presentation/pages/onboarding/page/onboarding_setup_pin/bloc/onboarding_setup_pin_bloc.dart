@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
@@ -21,7 +20,7 @@ class OnboardingSetupPinBloc
     on<ChangeAttemptsOnboardingSetupPinEvent>(_changeAttempts);
     on<SaveFirstAttemptsPinOnboardingSetupPinEvent>(_saveFirstAttempts);
   }
-  final isar = IsarInstance();
+  final _isar = IsarInstance();
 
   /// save first attempts pin
   FutureOr<void> _saveFirstAttempts(
@@ -61,7 +60,7 @@ class OnboardingSetupPinBloc
       debugPrint('event pin: ${event.pin}');
       final user = UserEntity()..pin = event.pin;
       debugPrint('user pin: ${user.pin}');
-      await isar.saveUser(user);
+      await _isar.saveUser(user);
     }
     final ins = await isarDB.instance;
     final totalAccounts = await ins.accountEntitys.count();
@@ -88,12 +87,6 @@ class OnboardingSetupPinBloc
     // final isFirstTime = await localPref.isFirstRun();
     // final userPin = await localPref.getUsername();
     final usr = await isarDB.getUser();
-    // debugPrint('user pin: ${usr?.pin}');
-    // emit(
-    //   state.copyWith(
-    //     userPin: usr?.pin ?? '',
-    //   ),
-    // );
     usr.fold(
       (l) => emit(
         state.copyWith(

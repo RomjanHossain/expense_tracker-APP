@@ -16,14 +16,15 @@ class SplashScreenBloc extends Bloc<SplashScreenEvent, SplashScreenState> {
     CustomSplashScreenEvent event,
     Emitter<SplashScreenState> emit,
   ) async {
-    debugPrint("BLock cloe");
     final result = await splashServices.loginOrGoHome();
     // wait for 3 second
     await Future<void>.delayed(const Duration(seconds: 3)).then((_) {
       switch (result) {
         case SplashScreenStatusEnum.onboarding:
+          print("go to onboarding : ${result}");
           emit(const SplashScreenOnboarding());
         case SplashScreenStatusEnum.enterPin:
+          print("go to enter pin : ${result}");
           emit(const SplashScreenEnterPin());
       }
     });

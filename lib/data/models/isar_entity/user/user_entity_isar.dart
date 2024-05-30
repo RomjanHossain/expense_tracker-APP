@@ -6,5 +6,5 @@ class UserEntity {
   Id id = Isar.autoIncrement;
   String? name;
   String? pin;
-  String? imageUrl;
+  List<byte>? imageUrl;
 }

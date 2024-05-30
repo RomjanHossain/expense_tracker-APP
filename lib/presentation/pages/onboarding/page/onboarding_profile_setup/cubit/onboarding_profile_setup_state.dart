@@ -7,10 +7,13 @@ class OnboardingProfileSetupState extends Equatable {
   /// {@macro onboarding_profile_setup}
   const OnboardingProfileSetupState({
     this.name = 'default',
+    this.image,
   });
 
   /// A description for customProperty
   final String name;
+  // final image
+  final Uint8List? image;
 
   @override
   List<Object> get props => [
@@ -20,9 +23,11 @@ class OnboardingProfileSetupState extends Equatable {
   /// Creates a copy of the current OnboardingProfileSetupState with property changes
   OnboardingProfileSetupState copyWith({
     String? name,
+    Uint8List? image,
   }) {
     return OnboardingProfileSetupState(
       name: name ?? this.name,
+      image: image ?? this.image,
     );
   }
 }
