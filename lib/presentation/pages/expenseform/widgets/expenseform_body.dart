@@ -2,6 +2,7 @@ import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.da
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/core/helper/helper_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/models/isar_entity/expense_entity/expense_entity.dart';
 import 'package:expense_tracker/data/models/isar_entity/income_entity/income_entity.dart';
 import 'package:expense_tracker/data/models/isar_entity/transfer_entity/transfer_entity.dart';
@@ -16,9 +17,6 @@ import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/attachment_picker.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/subscription_bottom.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/components/success_alertdialog.dart';
-import 'package:expense_tracker/core/utils/utils.dart';
-
-import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -448,11 +446,17 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           showFailureToast(context, 'Ammount cannot be 0.00');
                           return;
                         }
+                        //NOTE: transfer
                         if (widget.expenseType == ExpenseType.transfer) {
                           final acE =
                               context.read<DropdownAccountCubit>().state.$2;
 
-                          if (acE!.accountBalance! <
+                          // must have a wallet
+                          if (acE == null) {
+                            showFailureToast(context, 'Select a wallet');
+                            return;
+                          }
+                          if (acE.accountBalance! <
                               double.parse(_accountBalanceController.text)) {
                             showFailureToast(context, 'Insufficient balance');
                             return;
@@ -473,9 +477,15 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           if (widget.expenseType == ExpenseType.income) {
                             final acE =
                                 context.read<DropdownAccountCubit>().state.$2;
-                            if (acE!.accountBalance! <
-                                double.parse(_accountBalanceController.text)) {
-                              showFailureToast(context, 'Insufficient balance');
+                            // if (acE!.accountBalance! <
+                            //     double.parse(_accountBalanceController.text)) {
+                            //   showFailureToast(context, 'Insufficient balance');
+                            //   return;
+                            // }
+
+                            // must have a wallet
+                            if (acE == null) {
+                              showFailureToast(context, 'Select a wallet');
                               return;
                             }
                             final incomeEntity = IncomeIsarEntity()
@@ -487,7 +497,6 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                               ..isRepeat = state.expenseFormEntity.isExpense
                               ..endDate = state.expenseFormEntity.subEnd
                               // ..startDate = state.expenseFormEntity.subStart
-
                               ..categoryID = context
                                   .read<DropdownIncomeMethodCubit>()
                                   .state
@@ -496,7 +505,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                       ? state.expenseFormEntity.subStart!
                                       : DateTime.now()
                               ..repeatType = state.expenseFormEntity.subType
-                              ..walletId = acE.id;
+                              ..walletId = acE?.id;
                             context
                                 .read<ExpenseformBloc>()
                                 .add(IncomeToDatabase(incomeEntity));
@@ -505,7 +514,12 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           else {
                             final acE =
                                 context.read<DropdownAccountCubit>().state.$2;
-                            if (acE!.accountBalance! <
+                            // must have a wallet
+                            if (acE == null) {
+                              showFailureToast(context, 'Select a wallet');
+                              return;
+                            }
+                            if (acE.accountBalance! <
                                 double.parse(_accountBalanceController.text)) {
                               showFailureToast(context, 'Insufficient balance');
                               return;

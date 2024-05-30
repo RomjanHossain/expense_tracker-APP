@@ -81,10 +81,6 @@ class IsarInstance
   Future<double> getTotalIncome(int month) async {
     final ins = await instance;
     final incomes = await ins.incomeIsarEntitys.where().findAll();
-    // return incomes.fold<double>(
-    //   0,
-    //   (previousValue, element) => previousValue + element.ammount!,
-    // );
     return incomes.fold<double>(
       0,
       (previousValue, element) {
@@ -115,15 +111,20 @@ class IsarInstance
 
   //NOTE: total account balance(monthly)
   Future<double> getTotalBalanceMonthly(int month) async {
+    //WARNING: what's goin on here? I don't understand
     final ins = await instance;
-    final expense = await getTotalExpense(month);
-    final income = await getTotalIncome(month);
+    // final expense = await getTotalExpense(month);
+    // final income = await getTotalIncome(month);
+    // print("Total income: $income");
+    // print("Total expense: $expense");
+    // print('Total balance: ${income - expense}');
     final accounts = await ins.accountEntitys.where().findAll();
     final totalBalance = accounts.fold<double>(
       0,
       (previousValue, element) => previousValue + element.accountBalance!,
     );
-    return totalBalance + income - expense;
+    // print('returing total balance: ${totalBalance + income - expense}');
+    return totalBalance;
   }
 
   //!PERF: get all transfer today
@@ -384,10 +385,13 @@ class IsarInstance
   @override
   Future<int> createAnExpense(ExpenseIsarEntity expenseEntity) async {
     final ins = await instance;
-    //! PERF: update the wallet balance
+    //! NOTE: update the wallet balance
     final wallet = await ins.accountEntitys.get(expenseEntity.walletId!);
+    print('Wallet balance before removing: ${wallet?.accountBalance}');
     wallet?.accountBalance = wallet.accountBalance! - expenseEntity.ammount!;
+    print('Wallet balance after removing: ${wallet?.accountBalance}');
     await ins.writeTxn(() => ins.accountEntitys.put(wallet!));
+    print('Wallet balance after writting: ${wallet?.accountBalance}');
     return ins.writeTxn(() => ins.expenseIsarEntitys.put(expenseEntity));
   }
 

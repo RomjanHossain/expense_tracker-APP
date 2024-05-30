@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:expense_tracker/core/utils/constrants/enums_.dart';
@@ -12,7 +11,6 @@ part 'homepage_state.dart';
 
 class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
   HomepageBloc() : super(const HomepageInitial()) {
-    // on<CustomHomepageEvent>(_onCustomHomepageEvent);
     on<ChangeTheFreq>(_changetheFreq);
     on<ChangeTheMonth>(_changeTheMonth);
     on<InitCalander>(_onInitCalander);

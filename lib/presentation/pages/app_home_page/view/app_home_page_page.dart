@@ -1,14 +1,14 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
+import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/bottom_navigationbar.dart';
 // import 'package:expense_tracker/presentation/pages/app_home_page/components/add_transaction_sheet.dart';
 // import 'package:expense_tracker/presentation/pages/app_home_page/components/app_bottom_navigationbar.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/widgets/app_home_page_body.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';
-import 'package:expense_tracker/core/utils/utils.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -50,12 +50,18 @@ class AppHomePageScaffold extends StatelessWidget {
         body: const AppHomePageView(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: PieMenu(
+          // onPressed: () {
+          //   //! NOTE: running this for checking if theres a new wallet
+          //   context.read<DropdownAccountCubit>().runOnFirst();
+          // },
           actions: [
             PieAction(
               tooltip: const Text(
                 '',
               ),
               onSelect: () {
+                //! NOTE: running this for checking if theres a new wallet
+                context.read<DropdownAccountCubit>().runOnFirst();
                 context.pushNamed(
                   'income',
                   extra: ExpenseType.income,
@@ -75,6 +81,8 @@ class AppHomePageScaffold extends StatelessWidget {
             PieAction(
               tooltip: const Text(''),
               onSelect: () {
+                //! NOTE: running this for checking if theres a new wallet
+                context.read<DropdownAccountCubit>().runOnFirst();
                 // Navigator.push(
                 //     context, ExpenseformPage.route(ExpenseType.transfer));
                 context.pushNamed(
@@ -96,6 +104,8 @@ class AppHomePageScaffold extends StatelessWidget {
             PieAction(
               tooltip: const Text(''),
               onSelect: () {
+                //! NOTE: running this for checking if theres a new wallet
+                context.read<DropdownAccountCubit>().runOnFirst();
                 // Navigator.push(
                 //     context, ExpenseformPage.route(ExpenseType.expense));
                 context.pushNamed(

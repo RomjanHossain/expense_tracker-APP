@@ -1,9 +1,9 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/theme.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
-import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class AccountListDropdown extends StatelessWidget {
@@ -15,6 +15,17 @@ class AccountListDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DropdownAccountCubit,
         (List<AccountEntity>, AccountEntity?)>(
+      buildWhen: (
+        (List<AccountEntity>, AccountEntity?) previousState,
+        (List<AccountEntity>, AccountEntity?) currentState,
+      ) {
+        print('previousState: ${previousState.$1.length}');
+        print('currentState: ${currentState.$1.length}');
+        if (previousState.$1.length != currentState.$1.length) {
+          return true;
+        }
+        return false;
+      },
       builder: (context, state) {
         return DropdownButtonFormField<AccountEntity>(
           borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
