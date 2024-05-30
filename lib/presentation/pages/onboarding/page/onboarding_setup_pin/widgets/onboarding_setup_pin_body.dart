@@ -4,6 +4,7 @@ import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
+import 'package:expense_tracker/presentation/blocs/user_profile_bloc.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_setup_pin/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/input_btn.dart';
 import 'package:expense_tracker/presentation/widgets/buttons/single_btn.dart';
@@ -315,12 +316,18 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
         if (state is OnboardingSetupPinError) {
           showFailureToast(context, state.message);
         } else if (state is OnboardingSetupPinSuccess) {
+          //! NOTE: Calling the user profile for data
+          if (context.mounted) {
+            context.read<UserProfileBloc>().add(const GetUserProfile());
+          }
+          //! NOTE: show the toast
           state.userPP.isEmpty
               ? showSuccessToast(context, 'Successfully pin setup')
               : state.isHomePage
                   ? showSuccessToast(context, 'Welcome Back')
                   : showInfoToast(context, 'Set up an account');
 
+          //! NOTE: if user has profile picture and is home page
           state.isHomePage && state.userPP.isNotEmpty
               ? context.goNamed('home')
               : context.goNamed('account-setup-intro');

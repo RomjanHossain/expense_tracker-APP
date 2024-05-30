@@ -1,10 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
+import 'package:expense_tracker/presentation/blocs/user_profile_bloc.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account/view/account_page.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
-import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 /// {@template profile_page_body}
@@ -34,62 +38,78 @@ class ProfilePageBody extends StatelessWidget {
           ),
           child: ListView(
             children: [
-              /* Profile top section (photo/name/edit) */
-              Row(
-                children: [
-                  ///! profile photo
-                  CircleAvatar(
-                    backgroundColor: ExpenseTrackerColors.violet,
-                    radius: 33.r,
-                    child: CircleAvatar(
-                      radius: 31.r,
-                      backgroundColor: ExpenseTrackerColors.light,
-                      child: CircleAvatar(
-                        radius: 27.r,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(100.r),
-                          child: Image.network(
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvJaoIeJQU_V9rL_ZII61whWyqSFbmMgTgwQ&usqp=CAU',
+              /*NOTE: Profile top section (photo/name/edit) */
+              BlocBuilder<UserProfileBloc, UserProfileState>(
+                builder: (BuildContext context, UserProfileState state) {
+                  final name = state.user?.name;
+                  return Row(
+                    children: [
+                      ///! profile photo
+                      CircleAvatar(
+                        backgroundColor: ExpenseTrackerColors.violet,
+                        radius: 33.r,
+                        child: CircleAvatar(
+                          radius: 31.r,
+                          backgroundColor: ExpenseTrackerColors.light,
+                          child: CircleAvatar(
+                            radius: 27.r,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100.r),
+                              child: state.user != null
+                                  ? state.user!.imageUrl != null
+                                      ? SvgPicture.memory(
+                                          Uint8List.fromList(
+                                            state.user!.imageUrl!,
+                                          ),
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Container()
+                                  : Container(),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
 
-                  ///! username
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 0.05.sw,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Username',
-                          style: ExpenseTrackerTextStyle.small.copyWith(
-                            color: ExpenseTrackerColors.light20,
+                      ///! username
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 0.05.sw,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Username',
+                                style: ExpenseTrackerTextStyle.small.copyWith(
+                                  color: ExpenseTrackerColors.light20,
+                                ),
+                              ),
+                              Text(
+                                '$name',
+                                maxLines: 2,
+                                style: ExpenseTrackerTextStyle.title2.copyWith(
+                                  color: isDarkMode(context)
+                                      ? ExpenseTrackerColors.light60
+                                      : ExpenseTrackerColors.dark75,
+                                  fontWeight: FontWeight.bold,
+                                  overflow: TextOverflow.fade,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Text(
-                          'Iriana Saliha',
-                          style: ExpenseTrackerTextStyle.title2.copyWith(
-                            color: isDarkMode(context)
-                                ? ExpenseTrackerColors.light60
-                                : ExpenseTrackerColors.dark75,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          CupertinoIcons.pencil,
                         ),
-                      ],
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      CupertinoIcons.pencil,
-                    ),
-                  ),
-                ],
+                      ),
+                    ],
+                  );
+                },
               ),
               /*profile bottom section (account/settings/export/import/logout)*/
               Container(

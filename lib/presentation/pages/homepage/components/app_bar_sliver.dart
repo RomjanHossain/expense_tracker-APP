@@ -1,10 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
+import 'package:expense_tracker/presentation/blocs/user_profile_bloc.dart';
 import 'package:expense_tracker/presentation/pages/homepage/bloc/homepage_bloc.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/account_balance_card.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/dropdown_months.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
-import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -58,16 +61,44 @@ class AccountBalanceSliverAppBar extends StatelessWidget {
         ),
       ),
       title: width > 265 ? const DropdownMonths() : null,
-      leading: Center(
-        child: CircleAvatar(
-          radius: 25.r,
-          backgroundColor: ExpenseTrackerColors.violet80,
-          child: CircleAvatar(
-            radius: 22.r,
-            backgroundColor: ExpenseTrackerColors.light,
-          ),
-        ),
+      leading: BlocBuilder<UserProfileBloc, UserProfileState>(
+        builder: (BuildContext context, UserProfileState state) {
+          return Center(
+            child: CircleAvatar(
+              radius: 25.r,
+              backgroundColor: ExpenseTrackerColors.violet80,
+              child: CircleAvatar(
+                radius: 22.r,
+                backgroundColor: ExpenseTrackerColors.light,
+                child: state.user != null
+                    ? state.user!.imageUrl != null
+                        ? Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(22.r),
+                              child: SvgPicture.memory(
+                                Uint8List.fromList(state.user!.imageUrl!),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )
+                        : Container()
+                    : Container(),
+              ),
+            ),
+          );
+        },
       ),
+      // leading: Center(
+      //   child: CircleAvatar(
+      //     radius: 25.r,
+      //     backgroundColor: ExpenseTrackerColors.violet80,
+      //     child: CircleAvatar(
+      //       radius: 22.r,
+      //       backgroundColor: ExpenseTrackerColors.light,
+      //     ),
+      //   ),
+      // ),
       actions: [
         SvgPicture.asset(
           ExpenseAssets.notificationIcon,

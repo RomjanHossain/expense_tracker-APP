@@ -1,13 +1,11 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/pages/homepage/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/app_bar_sliver.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/segmented_button_wid.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/spend_frequency_graph.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expenses.dart';
-import 'package:expense_tracker/core/utils/utils.dart';
-
-import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

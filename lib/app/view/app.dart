@@ -3,6 +3,7 @@ import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/routes/routes_of_the_app.dart';
 import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
+import 'package:expense_tracker/presentation/blocs/user_profile_bloc.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
@@ -65,6 +66,8 @@ class App extends StatelessWidget {
 
         //! transaction graph
         BlocProvider(create: (c) => TransactionGraphPageBloc()),
+        //! NOTE: user profiel bloc
+        BlocProvider(create: (c) => UserProfileBloc()),
       ],
       child: ThemeProvider(
         builder: (context, theme) => BlocProvider(
