@@ -16,7 +16,7 @@ dependencies:
   dice_bear: ^0.1.7
   dotted_border: ^2.1.0
   equatable: ^2.0.5
-  fl_chart: ^0.68.0
+  fl_chart: ^0.69.0
   flutter:
     sdk: flutter
   flutter_animate: ^4.2.0+1
