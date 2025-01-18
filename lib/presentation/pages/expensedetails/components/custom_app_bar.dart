@@ -1,9 +1,7 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/detail_center_card.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/sucess_alter.dart';
-import 'package:expense_tracker/core/utils/utils.dart';
-
-import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';

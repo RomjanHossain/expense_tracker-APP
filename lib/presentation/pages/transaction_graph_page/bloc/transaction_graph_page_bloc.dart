@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
 import 'package:expense_tracker/data/models/category_model.dart';
 import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
-import 'package:expense_tracker/core/utils/utils.dart';
-
 import 'package:flutter/material.dart';
+
 part 'transaction_graph_page_event.dart';
 part 'transaction_graph_page_state.dart';
 

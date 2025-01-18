@@ -1,7 +1,7 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account_detail/cubit/cubit.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account_detail/widgets/account_detail_body.dart';
-import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -27,7 +27,6 @@ class _HomepagePageState extends State<HomepagePage> {
     return BlocProvider(
       create: (context) => HomepageBloc()..add(const InitCalander()),
       child: const Scaffold(
-        // backgroundColor: Colors.red,
         body: HomepageView(),
       ),
     );

@@ -20,7 +20,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // SizeConfig().init(context);
     ScreenUtil.init(context);
     return MultiBlocProvider(
       providers: [

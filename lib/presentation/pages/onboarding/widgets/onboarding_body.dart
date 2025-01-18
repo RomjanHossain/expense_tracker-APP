@@ -163,7 +163,8 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                       builder: (context) => AlertDialog(
                         title: const Text('Import data'),
                         content: const Text(
-                            'This feature is not yet available. Please check back later.',),
+                          'This feature is not yet available. Please check back later.',
+                        ),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(),

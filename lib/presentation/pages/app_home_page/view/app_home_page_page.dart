@@ -1,27 +1,16 @@
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/components/bottom_navigationbar.dart';
-// import 'package:expense_tracker/presentation/pages/app_home_page/components/add_transaction_sheet.dart';
-// import 'package:expense_tracker/presentation/pages/app_home_page/components/app_bottom_navigationbar.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/widgets/app_home_page_body.dart';
-import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pie_menu/pie_menu.dart';
-// import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
-// import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-/// {@template app_home_page_page}
-/// 67149812
-/// A description for AppHomePagePage
-/// {@endtemplate}
 class AppHomePagePage extends StatelessWidget {
-  /// {@macro app_home_page_page}
   const AppHomePagePage({super.key});
 
   @override
@@ -41,19 +30,16 @@ class AppHomePageScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PieCanvas(
-      theme: const PieTheme(
-        overlayColor: ExpenseTrackerColors.violet20,
-        pointerColor: ExpenseTrackerColors.blue,
-        pointerSize: 0.01,
-      ),
       child: Scaffold(
         body: const AppHomePageView(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: PieMenu(
-          // onPressed: () {
-          //   //! NOTE: running this for checking if theres a new wallet
-          //   context.read<DropdownAccountCubit>().runOnFirst();
-          // },
+          theme: PieTheme(
+            overlayColor: ExpenseTrackerColors.violet20.withValues(alpha: 0.8),
+            pointerColor: ExpenseTrackerColors.blue,
+            pointerSize: 0.01,
+            delayDuration: Duration.zero,
+          ),
           actions: [
             PieAction(
               tooltip: const Text(
@@ -71,7 +57,6 @@ class AppHomePageScaffold extends StatelessWidget {
                 onPressed: () {},
                 backgroundColor: ExpenseTrackerColors.green,
                 shape: const CircleBorder(),
-                // backgroundColor: ExpenseTrackerColors.primary,
                 child: SvgPicture.asset(
                   ExpenseAssets.incomeIcon,
                   color: ExpenseTrackerColors.light,
@@ -83,8 +68,6 @@ class AppHomePageScaffold extends StatelessWidget {
               onSelect: () {
                 //! NOTE: running this for checking if theres a new wallet
                 context.read<DropdownAccountCubit>().runOnFirst();
-                // Navigator.push(
-                //     context, ExpenseformPage.route(ExpenseType.transfer));
                 context.pushNamed(
                   'transfer',
                   extra: ExpenseType.transfer,
@@ -106,8 +89,6 @@ class AppHomePageScaffold extends StatelessWidget {
               onSelect: () {
                 //! NOTE: running this for checking if theres a new wallet
                 context.read<DropdownAccountCubit>().runOnFirst();
-                // Navigator.push(
-                //     context, ExpenseformPage.route(ExpenseType.expense));
                 context.pushNamed(
                   'expense',
                   extra: ExpenseType.expense,
@@ -125,32 +106,13 @@ class AppHomePageScaffold extends StatelessWidget {
               ),
             ),
           ],
-          child: ThemeSwitcher.switcher(
-            builder: (context, switcher) {
-              return FloatingActionButton(
-                onPressed: () {
-                  final themeState = context.read<ThemeCubit>().state;
-                  debugPrint('Theme state -> $themeState');
-                  switcher.changeTheme(
-                    theme: themeState is ThemeLight
-                        ? ExpenseTrackerTheme.darkTheme.copyWith(
-                            brightness: Brightness.dark,
-                          )
-                        : ExpenseTrackerTheme.standard.copyWith(
-                            brightness: Brightness.light,
-                          ),
-                  );
-                  // change the state
-                  context.read<ThemeCubit>().toggleTheme();
-                },
-                backgroundColor: ExpenseTrackerColors.violet,
-                shape: const CircleBorder(),
-                // backgroundColor: ExpenseTrackerColors.primary,
-                child: const Icon(
-                  Icons.add,
-                ),
-              );
-            },
+          child: FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: ExpenseTrackerColors.violet,
+            shape: const CircleBorder(),
+            child: const Icon(
+              Icons.add,
+            ),
           ),
         ),
         bottomNavigationBar: const ExpanseTrackerBottomNavBar(),

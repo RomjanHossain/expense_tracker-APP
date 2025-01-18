@@ -1,6 +1,5 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
-import 'package:expense_tracker/core/utils/constrants/enums_.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_banking.dart';
 import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';

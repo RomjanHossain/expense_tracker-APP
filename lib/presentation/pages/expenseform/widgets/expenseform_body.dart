@@ -64,6 +64,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return BlocConsumer<ExpenseformBloc, ExpenseformState>(
       listener: (context, state) async {
         if (state is SuccessfullyAddedToDatabase) {
@@ -83,10 +84,11 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
         }
       },
       builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.end,
+        return ListView(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            SizedBox(height: size.height * 0.27),
             //!NOTE: how much?
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 22),
@@ -193,22 +195,25 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                   keyboardType: TextInputType.name,
                                   decoration: InputDecoration(
                                     focusedBorder: const OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(20),
+                                      ),
                                       borderSide: BorderSide(
                                         color: ExpenseTrackerColors.violet,
                                       ),
                                     ),
                                     enabledBorder: const OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(20),
+                                      ),
                                       borderSide: BorderSide(
                                         color: ExpenseTrackerColors.light60,
                                       ),
                                     ),
                                     border: const OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(15)),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(15),
+                                      ),
                                       borderSide: BorderSide(
                                         color: ExpenseTrackerColors.light60,
                                       ),
@@ -338,7 +343,9 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                     // show a bottom modal sheet
 
                                     showModalBottomSheet<void>(
-                                      backgroundColor: isDarkMode(context)
+                                      backgroundColor: isDarkMode(
+                                        context,
+                                      )
                                           ? ExpenseTrackerColors.dark
                                           : ExpenseTrackerColors.light,
                                       context: context,
@@ -443,7 +450,10 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_accountBalanceController.text.isEmpty) {
-                          showFailureToast(context, 'Ammount cannot be 0.00');
+                          showFailureToast(
+                            context,
+                            'Ammount cannot be 0.00',
+                          );
                           return;
                         }
                         //NOTE: transfer
@@ -453,12 +463,20 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
 
                           // must have a wallet
                           if (acE == null) {
-                            showFailureToast(context, 'Select a wallet');
+                            showFailureToast(
+                              context,
+                              'Select a wallet',
+                            );
                             return;
                           }
                           if (acE.accountBalance! <
-                              double.parse(_accountBalanceController.text)) {
-                            showFailureToast(context, 'Insufficient balance');
+                              double.parse(
+                                _accountBalanceController.text,
+                              )) {
+                            showFailureToast(
+                              context,
+                              'Insufficient balance',
+                            );
                             return;
                           }
                           final transferEntity = TransferEntity()
@@ -467,8 +485,9 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                             ..attachment = imageFieldController.text
                             ..description = _descriptionController.text
                             ..createdDate = DateTime.now()
-                            ..ammount =
-                                double.parse(_accountBalanceController.text);
+                            ..ammount = double.parse(
+                              _accountBalanceController.text,
+                            );
                           context
                               .read<ExpenseformBloc>()
                               .add(TransferToDatbase(transferEntity));
@@ -485,15 +504,19 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
 
                             // must have a wallet
                             if (acE == null) {
-                              showFailureToast(context, 'Select a wallet');
+                              showFailureToast(
+                                context,
+                                'Select a wallet',
+                              );
                               return;
                             }
                             final incomeEntity = IncomeIsarEntity()
                               ..attachment = imageFieldController.text
                               ..description = _descriptionController.text
                               ..createdDate = DateTime.now()
-                              ..ammount =
-                                  double.parse(_accountBalanceController.text)
+                              ..ammount = double.parse(
+                                _accountBalanceController.text,
+                              )
                               ..isRepeat = state.expenseFormEntity.isExpense
                               ..endDate = state.expenseFormEntity.subEnd
                               // ..startDate = state.expenseFormEntity.subStart
@@ -505,7 +528,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                       ? state.expenseFormEntity.subStart!
                                       : DateTime.now()
                               ..repeatType = state.expenseFormEntity.subType
-                              ..walletId = acE?.id;
+                              ..walletId = acE.id;
                             context
                                 .read<ExpenseformBloc>()
                                 .add(IncomeToDatabase(incomeEntity));
@@ -516,12 +539,20 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                 context.read<DropdownAccountCubit>().state.$2;
                             // must have a wallet
                             if (acE == null) {
-                              showFailureToast(context, 'Select a wallet');
+                              showFailureToast(
+                                context,
+                                'Select a wallet',
+                              );
                               return;
                             }
                             if (acE.accountBalance! <
-                                double.parse(_accountBalanceController.text)) {
-                              showFailureToast(context, 'Insufficient balance');
+                                double.parse(
+                                  _accountBalanceController.text,
+                                )) {
+                              showFailureToast(
+                                context,
+                                'Insufficient balance',
+                              );
                               return;
                             }
                             final expenseEntity = ExpenseIsarEntity()
@@ -531,8 +562,9 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                               ..categoryID = context
                                   .read<DropdownExpenseMethodCubit>()
                                   .state
-                              ..ammount =
-                                  double.parse(_accountBalanceController.text)
+                              ..ammount = double.parse(
+                                _accountBalanceController.text,
+                              )
                               ..isRepeat = state.expenseFormEntity.isExpense
                               ..endDate = state.expenseFormEntity.subEnd
                               ..startDate =
@@ -574,6 +606,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           Future.delayed(
                             const Duration(seconds: 1),
                             () {
+                              if (!context.mounted) return;
                               // reset the form
                               context.read<ExpenseformBloc>().add(
                                     ResetExpenseForm(),

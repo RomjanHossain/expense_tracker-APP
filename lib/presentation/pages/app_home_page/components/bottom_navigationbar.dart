@@ -1,62 +1,40 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
-import 'package:expense_tracker/gen/assets.gen.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
+import 'package:expense_tracker/presentation/pages/app_home_page/components/bottom_icon_svgs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ExpanseTrackerBottomNavBar extends StatelessWidget {
-  const ExpanseTrackerBottomNavBar({
-    super.key,
-  });
-
-  /// icons for the page
-  static const icons = <IconData>[
-    Icons.home_rounded,
-    Icons.pie_chart_rounded,
-    Icons.bar_chart_rounded,
-    Icons.settings_rounded,
-  ];
-
-  // svg icons bototm
-  static final svgIcons = <String>[
-    Assets.icons.home.path,
-    Assets.icons.transaction.path,
-    Assets.icons.pieChart.path,
-    Assets.icons.user.path,
-  ];
+  const ExpanseTrackerBottomNavBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final svgIcons = BottomIconSvgs.instance.svgIcons;
     final l10n = context.l10n;
-    // l10n.localeName
-    // botom texts
+    final isDark = isDarkMode(context);
     final texts = <String>[
       l10n.navFirst,
       l10n.navSecond,
       l10n.navThird,
       l10n.navFourth,
     ];
-    final count =
+    final currentIndex =
         context.select((AppHomePageBloc bloc) => bloc.state.currentIndex);
+
     return AnimatedBottomNavigationBar.builder(
-      onTap: (p0) {
-        context.read<AppHomePageBloc>().add(ChangeAppHomePageEvent(p0));
+      onTap: (index) {
+        context.read<AppHomePageBloc>().add(ChangeAppHomePageEvent(index));
       },
-      backgroundColor: isDarkMode(context)
-          ? ExpenseTrackerColors.dark75
-          : ExpenseTrackerColors.light80,
-      // borderColor: theme.brightness == Brightness.light
-      //     ? ExpenseTrackerColors.light80
-      //     : ExpenseTrackerColors.dark75,
-      activeIndex: count,
+      backgroundColor:
+          isDark ? ExpenseTrackerColors.dark75 : ExpenseTrackerColors.light80,
+      activeIndex: currentIndex,
       height: 60.h,
-      itemCount: 4,
+      itemCount: svgIcons.length, // Dynamically handle itemCount
       gapLocation: GapLocation.center,
-      // splashColor: ExpenseTrackerColors.violet,
       elevation: 0,
       notchSmoothness: NotchSmoothness.defaultEdge,
       tabBuilder: (index, isActive) {
@@ -68,12 +46,10 @@ class ExpanseTrackerBottomNavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 5,
-              ),
+              padding: const EdgeInsets.symmetric(vertical: 5),
               child: SvgPicture.asset(
                 svgIcons[index],
-                color: color,
+                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
                 height: 24.h,
               ),
             ),

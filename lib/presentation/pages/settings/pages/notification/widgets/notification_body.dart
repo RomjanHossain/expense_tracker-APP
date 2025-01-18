@@ -1,6 +1,6 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
-import 'package:expense_tracker/presentation/pages/settings/pages/notification/cubit/cubit.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/notification/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 
 /// {@template notification_body}
