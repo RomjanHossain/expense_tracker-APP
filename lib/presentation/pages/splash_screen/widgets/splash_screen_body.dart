@@ -3,7 +3,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/presentation/pages/splash_screen/bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 
 /// {@template splash_screen_body}
@@ -12,7 +11,6 @@ import 'package:go_router/go_router.dart';
 /// Add what it does
 /// {@endtemplate}
 class SplashScreenBody extends StatefulWidget {
-  /// {@macro splash_screen_body}
   const SplashScreenBody({super.key});
 
   @override
@@ -22,114 +20,88 @@ class SplashScreenBody extends StatefulWidget {
 class _SplashScreenBodyState extends State<SplashScreenBody>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
-  late Animation<double> _movementController;
-  late Animation<double> _shrinkController;
-  // late Animation<double> _movementController;
+  late Animation<double> _animation;
 
   @override
   void initState() {
+    super.initState();
     _animationController = AnimationController(
-      duration: 3.5.seconds,
+      duration: const Duration(milliseconds: 3500), // Use const Duration
       vsync: this,
     );
-    _shrinkController = CurvedAnimation(
+
+    _animation = CurvedAnimation(
       parent: _animationController,
-      curve: const Interval(
-        0,
-        0.4,
-        curve: Curves.easeInCubic,
-      ),
+      curve: Curves.easeOutCubic, // Combined curve for smoother animation
     );
-    _movementController = CurvedAnimation(
-      parent: _animationController,
-      curve: const Interval(
-        0,
-        0.4,
-        // curve: Curves.easeOutCirc,
-      ),
-    );
-    _shrinkController.isCompleted
-        ? _animationController.reverse()
-        : _animationController.forward();
+
     _animationController.forward();
-    super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
     _animationController.dispose();
+    super.dispose();
   }
 
-  /*
-
-  */
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.sizeOf(context);
+    final screenSize = MediaQuery.sizeOf(context); // Use MediaQuery.of
+    final textStyle = Theme.of(context).textTheme.bodyLarge!.copyWith(
+          fontWeight: FontWeight.bold,
+        ); // Store text style outside AnimatedBuilder
+
     return BlocConsumer<SplashScreenBloc, SplashScreenState>(
       builder: (context, state) {
         return AnimatedBuilder(
-          animation: _animationController,
-          builder: (context, c) {
+          animation: _animation,
+          builder: (context, _) {
+            final animationValue = _animation.value;
+            final containerSize =
+                Tween<double>(begin: screenSize.width, end: 120.0)
+                    .transform(animationValue);
+            final borderRadius =
+                Tween<double>(begin: 0.0, end: 32.0).transform(animationValue);
+            final opacity = (1 - animationValue).clamp(0.0, 1.0);
+            final alignment = AlignmentTween(
+              begin: Alignment.centerLeft,
+              end: Alignment.center,
+            ).transform(animationValue);
+
             return Center(
               child: Container(
-                width: Tween(begin: screenSize.width, end: 120.0)
-                    .animate(_shrinkController)
-                    .value,
-                height: Tween(begin: screenSize.height, end: 120.0)
-                    .animate(_shrinkController)
-                    .value,
-                // height: screenSize.height,
-                alignment: Alignment.center,
+                width: containerSize,
+                height: containerSize,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    Tween(begin: 0.0, end: 32.0)
-                        .animate(_shrinkController)
-                        .value,
-                  ),
+                  borderRadius: BorderRadius.circular(borderRadius),
                   color: ExpenseTrackerColors.violet,
                 ),
+                alignment: Alignment.center, // Center the Stack
                 child: Stack(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  alignment: Tween(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.center,
-                  ).animate(_movementController).value,
-
+                  alignment: alignment,
                   children: [
                     Hero(
                       tag: 'intro',
-                      child: Container(
+                      child: SizedBox(
+                        // Use SizedBox for fixed size
                         height: 200,
                         width: 200,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            Tween(begin: 0.0, end: 32.0)
-                                .animate(_shrinkController)
-                                .value,
+                        child: DecoratedBox(
+                          // Use DecoratedBox instead of Container if you only need decoration
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(borderRadius),
+                            color: ExpenseTrackerColors.violet,
                           ),
-                          color: ExpenseTrackerColors.violet,
                         ),
                       ),
                     ),
-                    SlideTransition(
-                      position: Tween(
-                        begin: const Offset(-1, 0),
-                        // ignore: use_named_constants
-                        end: const Offset(0.0, 0.0),
-                      ).animate(_movementController),
-                      child: AnimatedOpacity(
-                        opacity:
-                            (1 - _movementController.value).clamp(0.0, 1.0),
-                        duration: const Duration(milliseconds: 600),
-                        child: Text(
-                          'Expense\nTracker',
-                          style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
+                    Opacity(
+                      opacity: opacity,
+                      child: Text(
+                        'Expense\nTracker',
+                        style: textStyle.copyWith(color: Colors.white),
+                        textAlign: TextAlign
+                            .center, // Center the text within the Opacity widget
                       ),
                     ),
                   ],
@@ -144,7 +116,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
           context.pushNamed('onboarding');
         }
         if (state is SplashScreenEnterPin) {
-          context.pushNamed('setup-pin');
+          context.pushReplacementNamed('setup-pin');
         }
       },
     );

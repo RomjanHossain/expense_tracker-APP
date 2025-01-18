@@ -12,45 +12,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-/// {@template onboarding_setup_pin_body}
-/// Body of the OnboardingSetupPinPage.
-///
-/// Add what it does
-/// {@endtemplate}
-class OnboardingSetupPinBody extends StatefulWidget {
-  /// {@macro onboarding_setup_pin_body}
+class OnboardingSetupPinBody extends StatelessWidget {
   const OnboardingSetupPinBody({super.key});
 
   @override
-  State<OnboardingSetupPinBody> createState() => _OnboardingSetupPinBodyState();
-}
-
-class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
-  // final TextEditingController _controller = TextEditingController();
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // _controller.dispose();
-    super.dispose();
-  }
-
-  Color getColor(String pin, int index) {
-    // NOTE: now check if the index is less than the length of the pin
-    // if it is, return the default color
-    if (index < pin.length) {
-      return ExpenseTrackerColors.violet20;
-    }
-    // if it is not, return the default color
-    return ExpenseTrackerColors.violet;
-  }
-
-  int userAttempts = 0;
-  @override
   Widget build(BuildContext context) {
+    // const userAttempts = 0;
+    Color getColor(String pin, int index) {
+      // NOTE: now check if the index is less than the length of the pin
+      // if it is, return the default color
+      if (index < pin.length) {
+        return ExpenseTrackerColors.violet20;
+      }
+      // if it is not, return the default color
+      return ExpenseTrackerColors.violet;
+    }
+
     final l10n = context.l10n;
     return BlocConsumer<OnboardingSetupPinBloc, OnboardingSetupPinState>(
       buildWhen: (previous, current) =>
@@ -74,102 +51,38 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
               ),
             ),
             SizedBox(height: 20.h),
+            // pin
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 for (int i = 0; i < 4; i++)
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: CircleAvatar(
-                      backgroundColor: const Color(0xffeee5ff),
-                      radius: 15,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
                       child: CircleAvatar(
-                        radius: 12,
-                        backgroundColor: getColor(state.pin, i),
+                        backgroundColor: const Color(0xffeee5ff),
+                        radius: 15,
+                        child: CircleAvatar(
+                          radius: 12,
+                          backgroundColor: getColor(state.pin, i),
+                        ),
                       ),
                     ),
                   ),
               ],
             ),
             SizedBox(height: 50.h),
-            // numbers
+            // numbers [1, 2, 3, 4, 5,6,7,8,9,0]
             SizedBox(
               // height: size.height * 0.4,
               height: 0.4.sh,
               child: Row(
                 children: [
-                  ButtonRow(
-                    [
-                      ///! 1, 4, 7 and clear
-                      Button(
-                        text: '1',
-                        cb: (s) {
-                          context.read<OnboardingSetupPinBloc>().add(
-                                AddTextOnboardingSetupPinEvent(pin: s),
-                              );
-                        },
-                      ),
-                      Button(
-                        text: '4',
-                        cb: (s) {
-                          context.read<OnboardingSetupPinBloc>().add(
-                                AddTextOnboardingSetupPinEvent(pin: s),
-                              );
-                        },
-                      ),
-                      Button(
-                        text: '7',
-                        cb: (s) {
-                          context.read<OnboardingSetupPinBloc>().add(
-                                AddTextOnboardingSetupPinEvent(pin: s),
-                              );
-                        },
-                      ),
-                      Button(
-                        text: '',
-                        cb: (s) async {
-                          // context.read<ExpenseTextControllerCubit>().addText(s);
-                          await SettingsLocalDataSourcePref().resetRun();
-                        },
-                      ),
-                    ],
-                  ),
+                  const FistButtonsRow(),
 
                   ///! 2, 5, 8 and 0
-                  ButtonRow([
-                    Button(
-                      text: '2',
-                      cb: (s) {
-                        context.read<OnboardingSetupPinBloc>().add(
-                              AddTextOnboardingSetupPinEvent(pin: s),
-                            );
-                      },
-                    ),
-                    Button(
-                      text: '5',
-                      cb: (s) {
-                        context.read<OnboardingSetupPinBloc>().add(
-                              AddTextOnboardingSetupPinEvent(pin: s),
-                            );
-                      },
-                    ),
-                    Button(
-                      text: '8',
-                      cb: (s) {
-                        context.read<OnboardingSetupPinBloc>().add(
-                              AddTextOnboardingSetupPinEvent(pin: s),
-                            );
-                      },
-                    ),
-                    Button(
-                      text: '0',
-                      cb: (s) {
-                        context.read<OnboardingSetupPinBloc>().add(
-                              AddTextOnboardingSetupPinEvent(pin: s),
-                            );
-                      },
-                    ),
-                  ]),
+                  const SecButtonsRow(),
 
                   ///! 3, 6, 9 and delete
                   ButtonRow([
@@ -329,10 +242,100 @@ class _OnboardingSetupPinBodyState extends State<OnboardingSetupPinBody> {
 
           //! NOTE: if user has profile picture and is home page
           state.isHomePage && state.userPP.isNotEmpty
-              ? context.goNamed('home')
+              ? context.pushReplacementNamed('home')
               : context.goNamed('account-setup-intro');
         }
       },
+    );
+  }
+}
+
+class SecButtonsRow extends StatelessWidget {
+  const SecButtonsRow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ButtonRow([
+      Button(
+        text: '2',
+        cb: (s) {
+          context.read<OnboardingSetupPinBloc>().add(
+                AddTextOnboardingSetupPinEvent(pin: s),
+              );
+        },
+      ),
+      Button(
+        text: '5',
+        cb: (s) {
+          context.read<OnboardingSetupPinBloc>().add(
+                AddTextOnboardingSetupPinEvent(pin: s),
+              );
+        },
+      ),
+      Button(
+        text: '8',
+        cb: (s) {
+          context.read<OnboardingSetupPinBloc>().add(
+                AddTextOnboardingSetupPinEvent(pin: s),
+              );
+        },
+      ),
+      Button(
+        text: '0',
+        cb: (s) {
+          context.read<OnboardingSetupPinBloc>().add(
+                AddTextOnboardingSetupPinEvent(pin: s),
+              );
+        },
+      ),
+    ]);
+  }
+}
+
+class FistButtonsRow extends StatelessWidget {
+  const FistButtonsRow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ButtonRow(
+      [
+        ///! 1, 4, 7 and clear
+        Button(
+          text: '1',
+          cb: (s) {
+            context.read<OnboardingSetupPinBloc>().add(
+                  AddTextOnboardingSetupPinEvent(pin: s),
+                );
+          },
+        ),
+        Button(
+          text: '4',
+          cb: (s) {
+            context.read<OnboardingSetupPinBloc>().add(
+                  AddTextOnboardingSetupPinEvent(pin: s),
+                );
+          },
+        ),
+        Button(
+          text: '7',
+          cb: (s) {
+            context.read<OnboardingSetupPinBloc>().add(
+                  AddTextOnboardingSetupPinEvent(pin: s),
+                );
+          },
+        ),
+        Button(
+          text: '',
+          cb: (s) async {
+            // context.read<ExpenseTextControllerCubit>().addText(s);
+            await SettingsLocalDataSourcePref().resetRun();
+          },
+        ),
+      ],
     );
   }
 }

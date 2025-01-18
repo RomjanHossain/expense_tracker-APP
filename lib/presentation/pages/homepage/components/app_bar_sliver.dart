@@ -63,47 +63,38 @@ class AccountBalanceSliverAppBar extends StatelessWidget {
       title: width > 265 ? const DropdownMonths() : null,
       leading: BlocBuilder<UserProfileBloc, UserProfileState>(
         builder: (BuildContext context, UserProfileState state) {
-          return Center(
+          return CircleAvatar(
+            radius: 25.r,
+            backgroundColor: ExpenseTrackerColors.violet80,
             child: CircleAvatar(
-              radius: 25.r,
-              backgroundColor: ExpenseTrackerColors.violet80,
-              child: CircleAvatar(
-                radius: 22.r,
-                backgroundColor: ExpenseTrackerColors.light,
-                child: state.user != null
-                    ? state.user!.imageUrl != null
-                        ? Padding(
-                            padding: const EdgeInsets.all(2),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(22.r),
-                              child: SvgPicture.memory(
-                                Uint8List.fromList(state.user!.imageUrl!),
-                                fit: BoxFit.cover,
-                              ),
+              radius: 22.r,
+              backgroundColor: ExpenseTrackerColors.light,
+              child: state.user != null
+                  ? state.user!.imageUrl != null
+                      ? Padding(
+                          padding: const EdgeInsets.all(2),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(22.r),
+                            child: SvgPicture.memory(
+                              Uint8List.fromList(state.user!.imageUrl!),
+                              fit: BoxFit.cover,
                             ),
-                          )
-                        : Container()
-                    : Container(),
-              ),
+                          ),
+                        )
+                      : Container()
+                  : Container(),
             ),
           );
         },
       ),
-      // leading: Center(
-      //   child: CircleAvatar(
-      //     radius: 25.r,
-      //     backgroundColor: ExpenseTrackerColors.violet80,
-      //     child: CircleAvatar(
-      //       radius: 22.r,
-      //       backgroundColor: ExpenseTrackerColors.light,
-      //     ),
-      //   ),
-      // ),
       actions: [
-        SvgPicture.asset(
-          ExpenseAssets.notificationIcon,
-          color: ExpenseTrackerColors.violet,
-          height: 24.h,
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: SvgPicture.asset(
+            ExpenseAssets.notificationIcon,
+            color: ExpenseTrackerColors.violet,
+            height: 24.h,
+          ),
         ),
       ],
     );

@@ -57,8 +57,8 @@ class ExpenseLineGraph extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    const Color(0xffCA50FF).withOpacity(0.24),
-                    const Color(0xff8B50FF).withOpacity(0),
+                    const Color(0xffCA50FF).withValues(alpha: 0.24),
+                    const Color(0xff8B50FF).withValues(alpha: 0),
                   ],
                 ),
               ),

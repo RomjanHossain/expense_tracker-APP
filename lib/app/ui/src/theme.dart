@@ -6,6 +6,7 @@ class ExpenseTrackerTheme {
   /// Standard `ThemeData` for ExpenseTracker UI.
   static ThemeData get standard {
     return ThemeData(
+      fontFamily: "Inter",
       progressIndicatorTheme: _pogressIndicator,
       primaryColor: ExpenseTrackerColors.violet,
       scaffoldBackgroundColor: ExpenseTrackerColors.light,
