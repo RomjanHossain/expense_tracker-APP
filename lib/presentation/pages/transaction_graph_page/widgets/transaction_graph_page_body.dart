@@ -9,13 +9,7 @@ import 'package:expense_tracker/presentation/pages/transaction_graph_page/widget
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// {@template transaction_graph_page_body}
-/// Body of the TransactionGraphPagePage.
-///
-/// Add what it does
-/// {@endtemplate}
 class TransactionGraphPageBody extends StatelessWidget {
-  /// {@macro transaction_graph_page_body}
   const TransactionGraphPageBody({super.key});
 
   @override
@@ -149,9 +143,6 @@ class TransactionGraphPageBody extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 final currentItem = state.todaysIEmodel.elementAt(index);
-                // return CardOfExpense2(
-                //   cardOfExpense: currentItem,
-                // );
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(

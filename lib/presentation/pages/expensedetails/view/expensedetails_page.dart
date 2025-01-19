@@ -24,100 +24,102 @@ class ExpensedetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ExpensedetailsCubit(),
-      child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverPersistentHeader(
-              delegate: MySliverAppBar(
-                expandedHeight: 200.h,
-                et: ieModel.isIncome,
+    return SafeArea(
+      child: BlocProvider(
+        create: (context) => ExpensedetailsCubit(),
+        child: Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              SliverPersistentHeader(
+                delegate: MySliverAppBar(
+                  expandedHeight: 250.h,
+                  et: ieModel,
+                ),
+                pinned: true,
               ),
-              pinned: true,
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  Container(
-                    height: 80.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Container(
+                      height: 80.h,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Description',
-                          style: ExpenseTrackerTextStyle.body2.copyWith(
-                            color: ExpenseTrackerColors.light20,
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.w,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Description',
+                            style: ExpenseTrackerTextStyle.body2.copyWith(
+                              color: ExpenseTrackerColors.light20,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Text(
-                          '''Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. ''',
-                          style: ExpenseTrackerTextStyle.body1.copyWith(
-                            color: isDarkMode(context)
-                                ? ExpenseTrackerColors.light
-                                : ExpenseTrackerColors.dark,
+                          SizedBox(
+                            height: 10.h,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Attachments',
-                          style: ExpenseTrackerTextStyle.body2.copyWith(
-                            color: ExpenseTrackerColors.light20,
+                          Text(
+                            '''Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. ''',
+                            style: ExpenseTrackerTextStyle.body1.copyWith(
+                              color: isDarkMode(context)
+                                  ? ExpenseTrackerColors.light
+                                  : ExpenseTrackerColors.dark,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Container(
-                          height: 100.h,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: isDarkMode(context)
-                                ? ExpenseTrackerColors.dark25
-                                : ExpenseTrackerColors.light40,
-                            borderRadius: BorderRadius.circular(10.r),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.w,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Attachments',
+                            style: ExpenseTrackerTextStyle.body2.copyWith(
+                              color: ExpenseTrackerColors.light20,
+                            ),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Container(
+                            height: 100.h,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: isDarkMode(context)
+                                  ? ExpenseTrackerColors.dark25
+                                  : ExpenseTrackerColors.light40,
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
+                    SizedBox(
+                      height: 20.h,
                     ),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Edit'),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10.w,
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: const Text('Edit'),
+                      ),
                     ),
-                  ),
-                  // const ExpensedetailsView(),
-                ],
+                    // const ExpensedetailsView(),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

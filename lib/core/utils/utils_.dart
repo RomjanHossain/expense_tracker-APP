@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 InputDecoration dropdownInputDecoration(String hintText) => InputDecoration(
       focusedBorder: const OutlineInputBorder(
@@ -63,4 +64,36 @@ String getHumanReadableDate(DateTime date) {
     return 'Yesterday';
   }
   return '${date.day}/${date.month}/${date.year}';
+}
+
+String getHumanReadableDate2(DateTime now) {
+  String getDaySuffix(int day) {
+    if (day >= 11 && day <= 13) {
+      return 'th';
+    }
+    switch (day % 10) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  }
+
+  String formatDate(DateTime date) {
+    // Add the ordinal suffix (st, nd, rd, th)
+    final day = DateFormat('d').format(date);
+    final suffix = getDaySuffix(int.parse(day));
+    final formattedDate = DateFormat('EEEE, d').format(date) +
+        suffix +
+        DateFormat(' MMMM yyyy, h:mm a').format(date);
+
+    return formattedDate;
+  }
+
+  final formatted = formatDate(now);
+  return formatted;
 }

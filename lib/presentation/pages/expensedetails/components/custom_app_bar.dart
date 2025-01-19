@@ -1,7 +1,9 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
+import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/detail_center_card.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/components/sucess_alter.dart';
+import 'package:expense_tracker/presentation/widgets/iemodel/data_from_i_emodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -10,9 +12,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class MySliverAppBar extends SliverPersistentHeaderDelegate {
   MySliverAppBar({required this.expandedHeight, required this.et});
   final double expandedHeight;
-  final ExpenseType et;
+  final IEmodel et;
   Color getColor() {
-    switch (et) {
+    switch (et.isIncome) {
       case ExpenseType.expense:
         return ExpenseTrackerColors.red;
       case ExpenseType.income:
@@ -173,7 +175,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  r'$234',
+                  '\$${DataFromIEmodel.instance.getAmmount(et)}',
                   // textAlign: TextAlign.center,
                   style: ExpenseTrackerTextStyle.title1.copyWith(
                     color: ExpenseTrackerColors.light80,
@@ -187,14 +189,14 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                       vertical: 5.h,
                     ),
                     child: Text(
-                      'Buy some groceries',
+                      DataFromIEmodel.instance.getDescription(et),
                       style: ExpenseTrackerTextStyle.body3.copyWith(
                         color: ExpenseTrackerColors.light80,
                       ),
                     ),
                   ),
                   Text(
-                    'Saturday, 20th March 2021, 10:00 AM',
+                    DataFromIEmodel.instance.getDate2(et),
                     style: ExpenseTrackerTextStyle.body3.copyWith(
                       color: ExpenseTrackerColors.light80,
                     ),
@@ -217,9 +219,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
               duration: 600.milliseconds,
               opacity: 1 - shrinkOffset / expandedHeight,
               child: Card(
-                margin: const EdgeInsets.all(
-                  0,
-                ),
+                margin: EdgeInsets.zero,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.r),
                 ),
@@ -230,19 +230,19 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       DetailCenterCard(
-                        subtitle: et == ExpenseType.income
+                        subtitle: et.isIncome == ExpenseType.income
                             ? 'Income'
-                            : et == ExpenseType.expense
+                            : et.isIncome == ExpenseType.expense
                                 ? 'Expense'
                                 : 'Transfer',
                         title: 'Type',
                       ),
-                      const DetailCenterCard(
-                        subtitle: 'Shopping',
+                      DetailCenterCard(
+                        subtitle: DataFromIEmodel.instance.getCategory(et),
                         title: 'Category',
                       ),
                       const DetailCenterCard(
-                        subtitle: 'Cash',
+                        subtitle: 'Cash from my shit arsetars trstars t',
                         title: 'Payment',
                       ),
                     ],

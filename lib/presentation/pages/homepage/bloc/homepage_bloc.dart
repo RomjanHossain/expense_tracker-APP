@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:isolate';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:expense_tracker/core/utils/constrants/enums_.dart';
@@ -77,133 +78,142 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     final yearlyTransfer = await isar.getYearsTransfer();
     final yearlyExpense = await isar.getYearsExpense();
     //! HACK: todaysIEmodel
-    final todaysIEmodel = <IEmodel>[
-      ...todaysExpense.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.expense,
-          income: null,
-          expense: e,
-          transfer: null,
+
+    final todaysIEmodel = await Isolate.run(() async {
+      final todaysIEmodel = <IEmodel>[
+        ...todaysExpense.map(
+          (e) => IEmodel(
+            createdAt: e.createdDate!,
+            isIncome: ExpenseType.expense,
+            income: null,
+            expense: e,
+            transfer: null,
+          ),
         ),
-      ),
-      ...todaysIncome.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.income,
-          income: e,
-          expense: null,
-          transfer: null,
+        ...todaysIncome.map(
+          (e) => IEmodel(
+            createdAt: e.createdDate!,
+            isIncome: ExpenseType.income,
+            income: e,
+            expense: null,
+            transfer: null,
+          ),
         ),
-      ),
-      ...todaysTransfer.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.transfer,
-          income: null,
-          expense: null,
-          transfer: e,
+        ...todaysTransfer.map(
+          (e) => IEmodel(
+            createdAt: e.createdDate!,
+            isIncome: ExpenseType.transfer,
+            income: null,
+            expense: null,
+            transfer: e,
+          ),
         ),
-      ),
-    ];
+      ]..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      return todaysIEmodel;
+    });
 
     //! HACK: weeklyIEmodel
-    final weeklyIEmodel = <IEmodel>[
-      ...weeklyExpense.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.expense,
-          income: null,
-          expense: e,
-          transfer: null,
+    final weeklyIEmodel = await Isolate.run(() async {
+      final weeklyIEmodel = <IEmodel>[
+        ...weeklyExpense.map(
+          (e) => IEmodel(
+            createdAt: e.createdDate!,
+            isIncome: ExpenseType.expense,
+            income: null,
+            expense: e,
+            transfer: null,
+          ),
         ),
-      ),
-      ...weeklyIncome.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.income,
-          income: e,
-          expense: null,
-          transfer: null,
+        ...weeklyIncome.map(
+          (e) => IEmodel(
+            createdAt: e.createdDate!,
+            isIncome: ExpenseType.income,
+            income: e,
+            expense: null,
+            transfer: null,
+          ),
         ),
-      ),
-      ...weeklyTransfer.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.transfer,
-          income: null,
-          expense: null,
-          transfer: e,
+        ...weeklyTransfer.map(
+          (e) => IEmodel(
+            createdAt: e.createdDate!,
+            isIncome: ExpenseType.transfer,
+            income: null,
+            expense: null,
+            transfer: e,
+          ),
         ),
-      ),
-    ];
+      ]..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      return weeklyIEmodel;
+    });
 
     //! HACK: monthlyIEmodel
-    final monthlyIEmodel = <IEmodel>[
-      ...monthlyExpense.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.expense,
-          income: null,
-          expense: e,
-          transfer: null,
+    final monthlyIEmodel = await Isolate.run(() async {
+      final monthlyIEmodel = <IEmodel>[
+        ...monthlyExpense.map(
+          (e) => IEmodel(
+            createdAt: e.createdDate!,
+            isIncome: ExpenseType.expense,
+            income: null,
+            expense: e,
+            transfer: null,
+          ),
         ),
-      ),
-      ...monthlyIncome.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.income,
-          income: e,
-          expense: null,
-          transfer: null,
+        ...monthlyIncome.map(
+          (e) => IEmodel(
+            createdAt: e.createdDate!,
+            isIncome: ExpenseType.income,
+            income: e,
+            expense: null,
+            transfer: null,
+          ),
         ),
-      ),
-      ...monthlyTransfer.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.transfer,
-          income: null,
-          expense: null,
-          transfer: e,
+        ...monthlyTransfer.map(
+          (e) => IEmodel(
+            createdAt: e.createdDate!,
+            isIncome: ExpenseType.transfer,
+            income: null,
+            expense: null,
+            transfer: e,
+          ),
         ),
-      ),
-    ];
+      ]..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      return monthlyIEmodel;
+    });
 
     //! HACK: yearlyIEmodel
-    final yearlyIEmodel = <IEmodel>[
-      ...yearlyExpense.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.expense,
-          income: null,
-          expense: e,
-          transfer: null,
+    final yearlyIEmodel = await Isolate.run(() async {
+      final yearlyIEmodel = <IEmodel>[
+        ...yearlyExpense.map(
+          (e) => IEmodel(
+            createdAt: e.createdDate!,
+            isIncome: ExpenseType.expense,
+            income: null,
+            expense: e,
+            transfer: null,
+          ),
         ),
-      ),
-      ...yearlyIncome.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.income,
-          income: e,
-          expense: null,
-          transfer: null,
+        ...yearlyIncome.map(
+          (e) => IEmodel(
+            createdAt: e.createdDate!,
+            isIncome: ExpenseType.income,
+            income: e,
+            expense: null,
+            transfer: null,
+          ),
         ),
-      ),
-      ...yearlyTransfer.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.transfer,
-          income: null,
-          expense: null,
-          transfer: e,
+        ...yearlyTransfer.map(
+          (e) => IEmodel(
+            createdAt: e.createdDate!,
+            isIncome: ExpenseType.transfer,
+            income: null,
+            expense: null,
+            transfer: e,
+          ),
         ),
-      ),
-    ];
+      ]..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      return yearlyIEmodel;
+    });
     // sorting all the list
-    todaysIEmodel.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-    weeklyIEmodel.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-    monthlyIEmodel.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-    yearlyIEmodel.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     emit(
       state.copyWith(

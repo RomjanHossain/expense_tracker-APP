@@ -15,6 +15,13 @@ class DetailCenterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String truncateString(String text, int maxLength) {
+      if (text.length > maxLength) {
+        return '${text.substring(0, maxLength)}...';
+      }
+      return text;
+    }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -28,13 +35,15 @@ class DetailCenterCard extends StatelessWidget {
           height: 8.h,
         ),
         Text(
-          subtitle,
+          truncateString(subtitle, 8),
           style: ExpenseTrackerTextStyle.body2.copyWith(
             color: isDarkMode(context)
                 ? ExpenseTrackerColors.light
                 : ExpenseTrackerColors.dark,
             fontWeight: FontWeight.w600,
           ),
+          overflow: TextOverflow.ellipsis, // Add this line
+          maxLines: 2,
         ),
       ],
     );

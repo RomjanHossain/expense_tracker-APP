@@ -113,11 +113,6 @@ class IsarInstance
   Future<double> getTotalBalanceMonthly(int month) async {
     //WARNING: what's goin on here? I don't understand
     final ins = await instance;
-    // final expense = await getTotalExpense(month);
-    // final income = await getTotalIncome(month);
-    // print("Total income: $income");
-    // print("Total expense: $expense");
-    // print('Total balance: ${income - expense}');
     final accounts = await ins.accountEntitys.where().findAll();
     final totalBalance = accounts.fold<double>(
       0,
