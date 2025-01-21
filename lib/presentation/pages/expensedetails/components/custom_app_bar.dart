@@ -241,8 +241,12 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                         subtitle: DataFromIEmodel.instance.getCategory(et),
                         title: 'Category',
                       ),
-                      const DetailCenterCard(
-                        subtitle: 'Cash from my shit arsetars trstars t',
+                      DetailCenterCard(
+                        subtitle: et.isIncome == ExpenseType.income
+                            ? et.income?.walletId.toString() ?? ''
+                            : et.isIncome == ExpenseType.expense
+                                ? et.expense?.walletId.toString() ?? ''
+                                : et.transfer?.fromID.toString() ?? '',
                         title: 'Payment',
                       ),
                     ],

@@ -1,7 +1,6 @@
 import 'package:expense_tracker/core/helper/custom_types.dart';
 import 'package:expense_tracker/core/utils/constrants/enums_.dart';
-import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
-import 'package:expense_tracker/data/models/isar_entity/user/user_entity_isar.dart';
+import 'package:expense_tracker/domain/repositories/drift_repository.dart';
 
 /// An interface for SplashServices
 sealed class ISplashServices {
@@ -19,10 +18,12 @@ class SplashServices implements ISplashServices {
 
   @override
   ResultFuture<SplashScreenStatusEnum> loginOrGoHome() async {
-    final isar = IsarInstance();
-    final usr = await isar.getUser();
-    return usr.fold(
-      (UserEntity l) {
+    // final isar = IsarInstance();
+    final drift = DriftRepository();
+    final usr2 = await drift.getUser();
+    // final usr = await isar.getUser();
+    return usr2.fold(
+      (l) {
         return SplashScreenStatusEnum.enterPin;
       },
       (Exception r) {

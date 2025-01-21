@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
-import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
-import 'package:expense_tracker/data/models/isar_entity/user/user_entity_isar.dart';
+import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
+// import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
+// import 'package:expense_tracker/data/models/isar_entity/user/user_entity_isar.dart';
+import 'package:expense_tracker/domain/repositories/drift_repository.dart';
 import 'package:flutter/material.dart';
 part 'onboarding_setup_pin_event.dart';
 part 'onboarding_setup_pin_state.dart';
@@ -20,7 +21,7 @@ class OnboardingSetupPinBloc
     on<ChangeAttemptsOnboardingSetupPinEvent>(_changeAttempts);
     on<SaveFirstAttemptsPinOnboardingSetupPinEvent>(_saveFirstAttempts);
   }
-  final _isar = IsarInstance();
+  // final _isar = IsarInstance();
 
   /// save first attempts pin
   FutureOr<void> _saveFirstAttempts(
@@ -55,15 +56,14 @@ class OnboardingSetupPinBloc
     PinSaveOnboardingSetupPinEvent event,
     Emitter<OnboardingSetupPinState> emit,
   ) async {
-    final isarDB = IsarInstance();
+    // final isarDB = IsarInstance();
+    final db = DriftRepository();
     if (state.userPin.isEmpty) {
       debugPrint('event pin: ${event.pin}');
-      final user = UserEntity()..pin = event.pin;
-      debugPrint('user pin: ${user.pin}');
-      await _isar.saveUser(user);
+      await db.updateUser(event.pin);
     }
-    final ins = await isarDB.instance;
-    final totalAccounts = await ins.accountEntitys.count();
+    final adb = AppDatabase();
+    final totalAccounts = await db.countRows(adb.profile);
 
     var isHome = false;
     if (totalAccounts > 0) {
@@ -83,14 +83,16 @@ class OnboardingSetupPinBloc
     Emitter<OnboardingSetupPinState> emit,
   ) async {
     debugPrint('First run event');
-    final isarDB = IsarInstance();
+    final db = DriftRepository();
+    // final isarDB = IsarInstance();
     // final isFirstTime = await localPref.isFirstRun();
     // final userPin = await localPref.getUsername();
-    final usr = await isarDB.getUser();
+    // final usr = await isarDB.getUser();
+    final usr = await db.getUser();
     usr.fold(
       (l) => emit(
         state.copyWith(
-          userPin: l.pin ?? '',
+          userPin: l.pin,
         ),
       ),
       (r) => emit(

@@ -78,9 +78,12 @@ class IncomeMehodsDropdown extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               // color: ExpenseTrackerColors.dark50,
-                              color: isDarkMode(context)
-                                  ? ExpenseTrackerColors.light80
-                                  : ExpenseTrackerColors.dark50,
+                              // color: isDarkMode(context)
+                              //     ? ExpenseTrackerColors.light80
+                              //     : ExpenseTrackerColors.dark50,
+                              color: state == e.id
+                                  ? ExpenseTrackerColors.dark50
+                                  : ExpenseTrackerColors.light80,
                             ),
                             // style: ExpenseTrackerTextStyle.caption,
                           ),

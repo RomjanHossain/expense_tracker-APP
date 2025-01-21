@@ -25,13 +25,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
-/// {@template expenseform_body}
-/// Body of the ExpenseformPage.
-///
-/// Add what it does
-/// {@endtemplate}
 class ExpenseformBody extends StatefulWidget {
-  /// {@macro expenseform_body}
   const ExpenseformBody({required this.expenseType, super.key});
   final ExpenseType expenseType;
 
@@ -47,21 +41,6 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
   final imageFieldController = TextEditingController();
   // final _fromFieldController = TextEditingController();
   final _toFieldController = TextEditingController();
-  @override
-  void dispose() {
-    _accountBalanceController.dispose();
-    _descriptionController.dispose();
-    imageFieldController.dispose();
-    _transformController.dispose();
-    _transtoController.dispose();
-    // _fromFieldController.dispose();
-    _toFieldController.dispose();
-    super.dispose();
-  }
-
-  String getFormateDate(DateTime date) =>
-      DateFormat('dd MMM, yyyy').format(date);
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -634,4 +613,19 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
       },
     );
   }
+
+  @override
+  void dispose() {
+    _accountBalanceController.dispose();
+    _descriptionController.dispose();
+    imageFieldController.dispose();
+    _transformController.dispose();
+    _transtoController.dispose();
+    // _fromFieldController.dispose();
+    _toFieldController.dispose();
+    super.dispose();
+  }
+
+  String getFormateDate(DateTime date) =>
+      DateFormat('dd MMM, yyyy').format(date);
 }

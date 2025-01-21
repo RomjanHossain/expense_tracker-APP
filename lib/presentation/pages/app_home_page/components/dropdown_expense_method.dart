@@ -88,9 +88,14 @@ class ExpenseMethodsDropdown extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             // style: ExpenseTrackerTextStyle.caption,
                             style: TextStyle(
-                              color: isDarkMode(context)
-                                  ? ExpenseTrackerColors.light80
-                                  : ExpenseTrackerColors.dark50,
+                              // color: isDarkMode(context)
+                              //     ? ExpenseTrackerColors.dark50
+                              //     : ExpenseTrackerColors.light80,
+
+                              color: state == e.id
+                                  ? ExpenseTrackerColors.dark50
+                                  : ExpenseTrackerColors
+                                      .light80, // Change text color based on selection
                             ),
                           ),
                         ),

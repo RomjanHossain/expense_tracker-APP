@@ -1,84 +1,94 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsLocalDataSourcePref {
+  static const String _kFirstRunKey = 'firstRun';
+  static const String _kUsernameKey = 'userName';
+
+  static const String _kUserPinKey = 'userPin';
+  static const String _kCurrencyKey = 'currency';
+  static const String _kLanguageKey = 'language';
+  static const String _kThemeKey = 'theme';
+  static const String _kSecurityKey = 'security';
+  static const String _kNotificationKey = 'notification';
+
   ///! is first runned
   Future<bool> isFirstRun() async {
     final pref = await SharedPreferences.getInstance();
-    return pref.getBool('firstRun') ?? true;
+    return pref.getBool(_kFirstRunKey) ?? true;
   }
 
   ///! set first runned
   Future<bool> firstRunTrue() async {
     final pref = await SharedPreferences.getInstance();
-    return pref.setBool('firstRun', false);
+    return pref.setBool(_kFirstRunKey, false);
   }
 
   ///! reset first run
   Future<void> resetRun() async {
     final pref = await SharedPreferences.getInstance();
-    await pref.setBool('firstRun', true);
-    await pref.setString('userPin', '');
+    await pref.setBool(_kFirstRunKey, true);
+    await pref.setString(_kUserPinKey, '');
   }
 
   ///! setup pin
   Future<bool> setupUsername(String pin) async {
     final pref = await SharedPreferences.getInstance();
-    return pref.setString('userName', pin);
+    return pref.setString(_kUsernameKey, pin);
   }
 
   ///! get pin
   Future<String> getUsername() async {
     final pref = await SharedPreferences.getInstance();
-    final pin = pref.getString('userName');
+    final pin = pref.getString(_kUsernameKey);
     return pin ?? '';
   }
 
   ///! get currency
   Future<String> getCurrency() async {
     final pref = await SharedPreferences.getInstance();
-    return pref.getString('currency') ?? '৳';
+    return pref.getString(_kCurrencyKey) ?? '৳';
   }
 
   ///! set currency
   Future<bool> setCurrency(String currency) async {
     final pref = await SharedPreferences.getInstance();
-    return pref.setString('currency', currency);
+    return pref.setString(_kCurrencyKey, currency);
   }
 
   ///! get language
   Future<String> getLanguage() async {
     final pref = await SharedPreferences.getInstance();
-    return pref.getString('language') ?? 'English';
+    return pref.getString(_kLanguageKey) ?? 'English';
   }
 
   ///! set language
   Future<bool> setLanguage(String language) async {
     final pref = await SharedPreferences.getInstance();
-    return pref.setString('language', language);
+    return pref.setString(_kLanguageKey, language);
   }
 
   ///! get theme
   Future<String> getTheme() async {
     final pref = await SharedPreferences.getInstance();
-    return pref.getString('theme') ?? 'Light';
+    return pref.getString(_kThemeKey) ?? 'Light';
   }
 
   ///! set theme
   Future<bool> setTheme(String theme) async {
     final pref = await SharedPreferences.getInstance();
-    return pref.setString('theme', theme);
+    return pref.setString(_kThemeKey, theme);
   }
 
   ///! get security
   Future<List<String>> getSecurity() async {
     final pref = await SharedPreferences.getInstance();
-    return pref.getStringList('security') ?? ['Pin'];
+    return pref.getStringList(_kSecurityKey) ?? ['Pin'];
   }
 
   ///! set security
   Future<bool> setSecurity(List<String> security) async {
     final pref = await SharedPreferences.getInstance();
-    return pref.setStringList('security', security);
+    return pref.setStringList(_kSecurityKey, security);
   }
 
   /*
@@ -93,12 +103,12 @@ class SettingsLocalDataSourcePref {
   ///! get notification
   Future<int> getNotification() async {
     final pref = await SharedPreferences.getInstance();
-    return pref.getInt('notification') ?? 0;
+    return pref.getInt(_kNotificationKey) ?? 0;
   }
 
   ///! set notification
   Future<bool> setNotification(int notification) async {
     final pref = await SharedPreferences.getInstance();
-    return pref.setInt('notification', notification);
+    return pref.setInt(_kNotificationKey, notification);
   }
 }

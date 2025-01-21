@@ -11,7 +11,7 @@ const accountTypesDB = [
   'Other',
 ];
 
-List<String> accountTypesDBwithTrans(BuildContext context){
+List<String> accountTypesDBwithTrans(BuildContext context) {
   final l10n = context.l10n;
   return [
     l10n.accountTypeBank,
@@ -21,5 +21,4 @@ List<String> accountTypesDBwithTrans(BuildContext context){
     l10n.accountTypeCash,
     l10n.accountTypeOther,
   ];
-
 }

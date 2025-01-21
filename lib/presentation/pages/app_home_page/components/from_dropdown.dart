@@ -1,6 +1,5 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/theme.dart';
-import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
@@ -80,9 +79,12 @@ class FormDropdown extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               // color: ExpenseTrackerColors.dark50,
-                              color: isDarkMode(context)
-                                  ? ExpenseTrackerColors.light80
-                                  : ExpenseTrackerColors.dark50,
+                              color: e.id == state.$2?.id
+                                  ? ExpenseTrackerColors.dark50
+                                  : ExpenseTrackerColors.light80,
+                              // color: isDarkMode(context)
+                              //     ? ExpenseTrackerColors.light80
+                              //     : ExpenseTrackerColors.dark50,
                             ),
                             // style: ExpenseTrackerTextStyle.caption,
                           ),

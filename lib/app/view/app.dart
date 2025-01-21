@@ -81,26 +81,3 @@ class App extends StatelessWidget {
     );
   }
 }
-
-// ThemeData _getThemeModeFromState() {
-//   final settingsLocalDataSourcePref = SettingsLocalDataSourcePref();
-//   final theme = settingsLocalDataSourcePref.getTheme();
-//   final isPlatformDark =
-//       WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
-//   theme.then((value) {
-//     return switch (value) {
-//       'light' => ExpenseTrackerTheme.standard,
-//       'dark' => ExpenseTrackerTheme.darkTheme,
-//       _ => isPlatformDark
-//           ? ExpenseTrackerTheme.darkTheme
-//           : ExpenseTrackerTheme.standard,
-//     };
-//   }).catchError((e) {
-//     return isPlatformDark
-//         ? ExpenseTrackerTheme.darkTheme
-//         : ExpenseTrackerTheme.standard;
-//   });
-//   return isPlatformDark
-//       ? ExpenseTrackerTheme.darkTheme
-//       : ExpenseTrackerTheme.standard;
-// }

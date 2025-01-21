@@ -14,6 +14,7 @@ class DropdownAccountCubit
 
   /// chagne the selected account
   void changeSelectedAccount(AccountEntity? account) {
+    print('len -> ${state.$1.length}');
     emit((state.$1, account));
   }
 }
