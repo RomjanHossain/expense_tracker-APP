@@ -20,8 +20,8 @@ class HomepageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomepageBloc, HomepageState>(
-      builder: (context, state) {
+    return BlocConsumer<HomepageBloc, HomepageState>(
+      builder: (context, HomepageState state) {
         final width = MediaQuery.sizeOf(context).width;
         return CustomScrollView(
           slivers: [
@@ -110,6 +110,7 @@ class HomepageBody extends StatelessWidget {
           ],
         );
       },
+      listener: (BuildContext context, state) {},
     );
   }
 }

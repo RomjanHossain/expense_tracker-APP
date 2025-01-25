@@ -65,8 +65,9 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     // final totalBalancemonth = await drift.getMonthlyBalance(currentMonth);
     final totalExpense = await drift.getMonthlyExpense(currentMonth);
     final totalIncome = await drift.getMonthlyIncome(currentMonth);
-    final totalTransfers = await drift.getMonthlyTransfer(currentMonth);
-    final totalBalancemonth = (totalIncome + totalTransfers) - totalExpense;
+    // final totalTransfers = await drift.getMonthlyTransfer(currentMonth);
+    // final totalBalancemonth = (totalIncome + totalTransfers) - totalExpense;
+    final totalBalancemonth = await drift.getTotalBalance();
 
     //! Segment button part
     final todaysIncome = await drift.getTodaysIncome();

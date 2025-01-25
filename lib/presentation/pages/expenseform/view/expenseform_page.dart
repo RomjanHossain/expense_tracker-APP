@@ -1,6 +1,7 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/widgets/expenseform_body.dart';
+import 'package:expense_tracker/presentation/pages/homepage/bloc/bloc.dart';
 import 'package:expense_tracker/services/animation/page_animation.dart';
 import 'package:flutter/material.dart';
 
@@ -24,12 +25,20 @@ class ExpenseformPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final expenseData = _getExpenseData(expenseType);
 
-    return Scaffold(
-      extendBody: true,
-      extendBodyBehindAppBar: true,
-      backgroundColor: expenseData['color'] as Color,
-      appBar: _buildAppBar(context, expenseData),
-      body: ExpenseformView(expenseType: expenseType),
+    return PopScope(
+      onPopInvokedWithResult: (isPop, data) {
+        if (isPop) {
+          context.read<HomepageBloc>().add(const InitCalander());
+          Navigator.pop(context, data);
+        }
+      },
+      child: Scaffold(
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        backgroundColor: expenseData['color'] as Color,
+        appBar: _buildAppBar(context, expenseData),
+        body: ExpenseformView(expenseType: expenseType),
+      ),
     );
   }
 

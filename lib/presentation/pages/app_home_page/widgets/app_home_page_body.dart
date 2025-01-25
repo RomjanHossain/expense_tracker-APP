@@ -17,7 +17,7 @@ class AppHomePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppHomePageBloc, AppHomePageState>(
+    return BlocConsumer<AppHomePageBloc, AppHomePageState>(
       buildWhen: (previous, current) =>
           previous.currentIndex != current.currentIndex, // Key improvement
       builder: (context, state) {
@@ -27,6 +27,12 @@ class AppHomePageBody extends StatelessWidget {
           index: validIndex,
           child: pages[validIndex],
         ); // Extract to a separate widget
+      },
+      listener: (BuildContext context, state) {
+        if (state.currentIndex == 0) {
+          debugPrint('AppHomePageBody: listener: InitCalander');
+          context.read<HomepageBloc>().add(const InitCalander());
+        }
       },
     );
   }

@@ -8,7 +8,9 @@ import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income
 import 'package:expense_tracker/presentation/cubit/expense_text_controller_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/expenseform_bloc.dart';
+import 'package:expense_tracker/presentation/pages/homepage/bloc/homepage_bloc.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/currency/cubit/currency_cubit.dart';
+import 'package:expense_tracker/presentation/pages/settings/pages/language/cubit/language_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/notification/cubit/notification_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/theme/cubit/theme_cubit.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/transaction_graph_page_bloc.dart';
@@ -23,6 +25,10 @@ class App extends StatelessWidget {
     ScreenUtil.init(context);
     return MultiBlocProvider(
       providers: [
+        // HomepageBloc
+        BlocProvider<HomepageBloc>(
+          create: (context) => HomepageBloc()..add(const InitCalander()),
+        ),
         // ExpenseTextControllerCubit
         BlocProvider<ExpenseTextControllerCubit>(
           create: (context) => ExpenseTextControllerCubit(),
@@ -49,6 +55,10 @@ class App extends StatelessWidget {
         //ThemeCubit
         BlocProvider(
           create: (context) => ThemeCubit()..getTheme(),
+        ),
+
+        BlocProvider(
+          create: (context) => LanguageCubit(),
         ),
         // CurrencyCubit
         BlocProvider(
