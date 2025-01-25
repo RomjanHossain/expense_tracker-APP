@@ -136,9 +136,8 @@ class ProfilePageBody extends StatelessWidget {
                           onTap: () {
                             switch (i.$2) {
                               case 'Account':
-                                Navigator.push(
-                                  context,
-                                  AccountPage.route(),
+                                context.pushNamed(
+                                  'account',
                                 );
                               case 'Settings':
                                 context.pushNamed(

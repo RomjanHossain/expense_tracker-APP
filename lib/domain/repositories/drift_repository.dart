@@ -5,6 +5,7 @@ import 'package:expense_tracker/core/helper/custom_types.dart';
 import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
 import 'package:expense_tracker/domain/usecases/account_tbl_usecases.dart';
 import 'package:expense_tracker/domain/usecases/user_tbl_usecases.dart';
+import 'package:flutter/rendering.dart';
 
 class DriftRepository implements AccountTblUsecases, UserTblUsecases {
   // Public factory to access the singleton instance
@@ -293,7 +294,14 @@ class DriftRepository implements AccountTblUsecases, UserTblUsecases {
   @override
   ResultFutureOrException<ProfileData> getUser() async {
     try {
-      return Left(await _db.profile.select().getSingle());
+      final users = await _db.profile.select().get();
+      final last = users.last;
+
+      debugPrint('last User: ${last.name}');
+      debugPrint('last User: ${last.pin}');
+      debugPrint('last User: ${last.id}');
+      debugPrint('last User: ${last.imageUrl}');
+      return Left(last);
     } catch (e) {
       return Right(UserNotExistsException());
     }

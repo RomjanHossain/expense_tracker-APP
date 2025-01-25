@@ -55,7 +55,7 @@ class AccountListDropdown extends StatelessWidget {
             ),
             elevation: 2,
             isExpanded: true, //Adding this property, does the magic
-            dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
+            // dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
             icon: const Icon(
               Icons.keyboard_arrow_down,
               color: ExpenseTrackerColors.light20,
@@ -77,13 +77,13 @@ class AccountListDropdown extends StatelessWidget {
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        // color: isDarkMode(context)
-                        //     ? ExpenseTrackerColors.light80
-                        //     : ExpenseTrackerColors.dark50,
-                        color: e.accountName == state.$2?.accountName
-                            ? ExpenseTrackerColors.dark50
-                            : ExpenseTrackerColors.light80,
-                      ),
+                          // color: isDarkMode(context)
+                          //     ? ExpenseTrackerColors.light80
+                          //     : ExpenseTrackerColors.dark50,
+                          // color: e.accountName == state.$2?.accountName
+                          //     ? ExpenseTrackerColors.dark50
+                          //     : ExpenseTrackerColors.light80,
+                          ),
                       // style: ExpenseTrackerTextStyle.caption,
                     ),
                   ),

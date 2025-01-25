@@ -42,7 +42,7 @@ class FormDropdown extends StatelessWidget {
           ),
           elevation: 2,
           isExpanded: true, //Adding this property, does the magic
-          dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
+          // dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
           icon: const Icon(
             Icons.keyboard_arrow_down,
             color: Colors.transparent,
@@ -76,15 +76,15 @@ class FormDropdown extends StatelessWidget {
                             e.accountName,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              // color: ExpenseTrackerColors.dark50,
-                              color: e.id == state.$2?.id
-                                  ? ExpenseTrackerColors.dark50
-                                  : ExpenseTrackerColors.light80,
-                              // color: isDarkMode(context)
-                              //     ? ExpenseTrackerColors.light80
-                              //     : ExpenseTrackerColors.dark50,
-                            ),
+                            // style: TextStyle(
+                            //   // color: ExpenseTrackerColors.dark50,
+                            //   color: e.id == state.$2?.id
+                            //       ? ExpenseTrackerColors.dark50
+                            //       : ExpenseTrackerColors.light80,
+                            //   // color: isDarkMode(context)
+                            //   //     ? ExpenseTrackerColors.light80
+                            //   //     : ExpenseTrackerColors.dark50,
+                            // ),
                             // style: ExpenseTrackerTextStyle.caption,
                           ),
                         ),

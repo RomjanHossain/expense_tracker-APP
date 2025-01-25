@@ -6,8 +6,6 @@ import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
-import 'package:expense_tracker/data/models/isar_entity/expense_entity/expense_entity.dart';
-import 'package:expense_tracker/data/models/isar_entity/income_entity/income_entity.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
@@ -92,27 +90,9 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                 style: ExpenseTrackerTextStyle.titleX.copyWith(
                   color: ExpenseTrackerColors.light80,
                 ),
-                onSubmitted: (value) {
-                  // context.read<OnboardingAccountSetupBloc>().add(
-                  //       AddBalanceEvent(
-                  //         double.parse(_accountBalanceController.text),
-                  //       ),
-                  //     );
-                },
-                onEditingComplete: () {
-                  // context.read<OnboardingAccountSetupBloc>().add(
-                  //       AddBalanceEvent(
-                  //         double.parse(_accountBalanceController.text),
-                  //       ),
-                  //     );
-                },
-                onChanged: (value) {
-                  // context.read<OnboardingAccountSetupBloc>().add(
-                  //       AddBalanceEvent(
-                  //         double.parse(_accountBalanceController.text),
-                  //       ),
-                  //     );
-                },
+                onSubmitted: (value) {},
+                onEditingComplete: () {},
+                onChanged: (value) {},
                 decoration: InputDecoration(
                   hintText: '0.00',
                   prefixIcon: const Icon(
@@ -450,7 +430,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                             );
                             return;
                           }
-                          if (acE.accountBalance! <
+                          if (acE.accountBalance <
                               double.parse(
                                 _accountBalanceController.text,
                               )) {
@@ -460,15 +440,6 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                             );
                             return;
                           }
-                          // final transferEntity = TransferEntity()
-                          //   ..to = _toFieldController.text
-                          //   ..fromID = acE.id
-                          //   ..attachment = imageFieldController.text
-                          //   ..description = _descriptionController.text
-                          //   ..createdDate = DateTime.now()
-                          //   ..ammount = double.parse(
-                          //     _accountBalanceController.text,
-                          //   );
 
                           final transferEntity = TransfersCompanion(
                             amount: dft.Value(
@@ -488,11 +459,6 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                           if (widget.expenseType == ExpenseType.income) {
                             final acE =
                                 context.read<DropdownAccountCubit>().state.$2;
-                            // if (acE!.accountBalance! <
-                            //     double.parse(_accountBalanceController.text)) {
-                            //   showFailureToast(context, 'Insufficient balance');
-                            //   return;
-                            // }
 
                             // must have a wallet
                             if (acE == null) {
@@ -502,41 +468,23 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                               );
                               return;
                             }
-                            // final incomeEntity = IncomeIsarEntity()
-                            //   ..attachment = imageFieldController.text
-                            //   ..description = _descriptionController.text
-                            //   ..createdDate = DateTime.now()
-                            //   ..ammount = double.parse(
-                            //     _accountBalanceController.text,
-                            //   )
-                            //   ..isRepeat = state.expenseFormEntity.isExpense
-                            //   ..endDate = state.expenseFormEntity.subEnd
-                            //   // ..startDate = state.expenseFormEntity.subStart
-                            //   ..categoryID = context
-                            //       .read<DropdownIncomeMethodCubit>()
-                            //       .state
-                            //   ..startDate =
-                            //       state.expenseFormEntity.subStart != null
-                            //           ? state.expenseFormEntity.subStart!
-                            //           : DateTime.now()
-                            //   ..repeatType = state.expenseFormEntity.subType
-                            //   ..walletId = acE.id;
                             final incomeEntity = IncomesCompanion(
                               attachment: dft.Value(imageFieldController.text),
                               description:
                                   dft.Value(_descriptionController.text),
                               createdDate: dft.Value(DateTime.now()),
                               amount: dft.Value(
-                                  double.parse(_accountBalanceController.text)),
+                                double.parse(_accountBalanceController.text),
+                              ),
                               isRepeat:
                                   dft.Value(state.expenseFormEntity.isExpense),
                               endDate:
                                   dft.Value(state.expenseFormEntity.subEnd),
                               startDate:
                                   dft.Value(state.expenseFormEntity.subStart),
-                              categoryId: dft.Value(context
-                                  .read<DropdownIncomeMethodCubit>()
-                                  .state),
+                              categoryId: dft.Value(
+                                context.read<DropdownIncomeMethodCubit>().state,
+                              ),
                               repeatType:
                                   dft.Value(state.expenseFormEntity.subType),
                               walletId: dft.Value(acE.id),
@@ -557,7 +505,7 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                               );
                               return;
                             }
-                            if (acE.accountBalance! <
+                            if (acE.accountBalance <
                                 double.parse(
                                   _accountBalanceController.text,
                                 )) {
@@ -567,24 +515,6 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                               );
                               return;
                             }
-                            // final expenseEntity = ExpenseIsarEntity()
-                            //   ..attachment = imageFieldController.text
-                            //   ..description = _descriptionController.text
-                            //   ..createdDate = DateTime.now()
-                            //   ..categoryID = context
-                            //       .read<DropdownExpenseMethodCubit>()
-                            //       .state
-                            //   ..ammount = double.parse(
-                            //     _accountBalanceController.text,
-                            //   )
-                            //   ..isRepeat = state.expenseFormEntity.isExpense
-                            //   ..endDate = state.expenseFormEntity.subEnd
-                            //   ..startDate =
-                            //       state.expenseFormEntity.subStart != null
-                            //           ? state.expenseFormEntity.subStart!
-                            //           : DateTime.now()
-                            //   ..repeatType = state.expenseFormEntity.subType
-                            //   ..walletId = acE.id;
 
                             final expenseEntity = ExpensesCompanion(
                               attachment: dft.Value(imageFieldController.text),
@@ -592,16 +522,19 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                                   dft.Value(_descriptionController.text),
                               createdDate: dft.Value(DateTime.now()),
                               amount: dft.Value(
-                                  double.parse(_accountBalanceController.text)),
+                                double.parse(_accountBalanceController.text),
+                              ),
                               isRepeat:
                                   dft.Value(state.expenseFormEntity.isExpense),
                               endDate:
                                   dft.Value(state.expenseFormEntity.subEnd),
                               startDate:
                                   dft.Value(state.expenseFormEntity.subStart),
-                              categoryId: dft.Value(context
-                                  .read<DropdownExpenseMethodCubit>()
-                                  .state),
+                              categoryId: dft.Value(
+                                context
+                                    .read<DropdownExpenseMethodCubit>()
+                                    .state,
+                              ),
                               repeatType:
                                   dft.Value(state.expenseFormEntity.subType),
                               walletId: dft.Value(acE.id),

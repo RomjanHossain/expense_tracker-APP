@@ -33,48 +33,44 @@ class _SuccessfullyAccountCreatedState
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Success Icon
-              Semantics(
-                label: 'Success Icon',
-                child: SvgPicture.asset(
-                  ExpenseAssets.successIcon,
-                  height: 120,
-                  color: ExpenseTrackerColors.green,
-                ).animate().scale(
-                      duration: 1.5.seconds,
-                    ),
-              ),
-              const SizedBox(height: 20),
-              // Success Message
-              Text(
-                'You Are All Set!',
-                style: ExpenseTrackerTextStyle.title2.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                  color: Colors.black,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Success Icon
+                Semantics(
+                  label: 'Success Icon',
+                  child: SvgPicture.asset(
+                    ExpenseAssets.successIcon,
+                    height: 120,
+                    color: ExpenseTrackerColors.green,
+                  ).animate().scale(
+                        duration: 1.5.seconds,
+                      ),
                 ),
-                textAlign: TextAlign.center,
-              ).animate(delay: 0.5.seconds).fadeIn(duration: 0.5.seconds),
-              const SizedBox(height: 10),
-              // Additional Message (Optional)
-              Text(
-                'Your account has been created successfully.\nRedirecting to the home screen...',
-                style: ExpenseTrackerTextStyle.body2.copyWith(
-                  color: Colors.grey.shade600,
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.center,
-              ).animate(delay: 0.7.seconds).fadeIn(duration: 0.5.seconds),
-              // TextButton(
-              //     onPressed: () {
-              //       GoRouter.of(context).pushReplacementNamed(
-              //           'home'); // Check the current location
-              //     },
-              //     child: Text("Duv Laga"))
-            ],
+                const SizedBox(height: 20),
+                // Success Message
+                Text(
+                  'You Are All Set!',
+                  style: ExpenseTrackerTextStyle.title2.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                    color: Colors.black,
+                  ),
+                  textAlign: TextAlign.center,
+                ).animate(delay: 0.5.seconds).fadeIn(duration: 0.5.seconds),
+                const SizedBox(height: 10),
+                // Additional Message (Optional)
+                Text(
+                  'Your account has been created successfully.\nRedirecting to the home screen...',
+                  style: ExpenseTrackerTextStyle.body2.copyWith(
+                    color: Colors.grey.shade600,
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.center,
+                ).animate(delay: 0.7.seconds).fadeIn(duration: 0.5.seconds),
+              ],
+            ),
           ),
         ),
       ),

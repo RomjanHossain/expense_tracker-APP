@@ -1,20 +1,11 @@
-import 'package:dice_bear/dice_bear.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_profile_setup/cubit/cubit.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-/// {@template onboarding_profile_setup_body}
-/// Body of the OnboardingProfileSetupPage.
-///
-/// Add what it does
-/// {@endtemplate}
 class OnboardingProfileSetupBody extends StatefulWidget {
-  /// {@macro onboarding_profile_setup_body}
   const OnboardingProfileSetupBody({super.key});
 
   @override
@@ -26,6 +17,9 @@ class _OnboardingProfileSetupBodyState
     extends State<OnboardingProfileSetupBody> {
   final _nameController = TextEditingController();
   final _pinController = TextEditingController();
+
+  // DiceBearBuilder? _avatarBuilder;
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -33,16 +27,20 @@ class _OnboardingProfileSetupBodyState
     super.dispose();
   }
 
+  // void _updateAvatarBuilder(String name) {
+  //   if (name.isNotEmpty) {
+  //     _avatarBuilder = DiceBearBuilder(seed: name);
+  //   } else {
+  //     _avatarBuilder = null;
+  //   }
+  //   setState(() {}); // Trigger UI update
+  // }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OnboardingProfileSetupCubit,
         OnboardingProfileSetupState>(
-      builder: (context, statex) {
-        // return Center(child: Text(state.customProperty));
-        final avatar = _nameController.text.isNotEmpty
-            ? DiceBearBuilder(seed: _nameController.text).build()
-            : null;
-        debugPrint('Avatar: $avatar');
+      builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
@@ -51,37 +49,11 @@ class _OnboardingProfileSetupBodyState
                 child: CircleAvatar(
                   radius: 80.r,
                   backgroundColor: ExpenseTrackerColors.violet80,
-                  child: avatar != null
-                      ? FutureBuilder<Uint8List?>(
-                          future: avatar.asRawSvgBytes(),
-                          builder: (context, snapshot) {
-                            // return SvgPicture.network(
-                            //   avatar.svgUri.toString(),
-                            // );
-                            if (snapshot.connectionState !=
-                                ConnectionState.done) {
-                              return const CircularProgressIndicator();
-                            }
-                            if (snapshot.hasError) {
-                              return const Icon(Icons.error);
-                            }
-                            if (snapshot.data == null) {
-                              return const Icon(Icons.error);
-                            }
-
-                            if (snapshot.data != null) {
-                              context
-                                  .read<OnboardingProfileSetupCubit>()
-                                  .changeImage(snapshot.data!);
-                            }
-                            return SvgPicture.memory(
-                              snapshot.data!,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                            );
-                          },
-                        )
-                      : null,
+                  child: const Icon(
+                    Icons.person,
+                    size: 60,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               Padding(
@@ -92,6 +64,8 @@ class _OnboardingProfileSetupBodyState
                 child: TextFormField(
                   controller: _nameController,
                   onChanged: (value) {
+                    // _updateAvatarBuilder(
+                    //     value); // Update avatar when name changes
                     context
                         .read<OnboardingProfileSetupCubit>()
                         .changeName(value);
@@ -99,13 +73,6 @@ class _OnboardingProfileSetupBodyState
                   decoration: InputDecoration(
                     hintText: 'Name',
                     border: const OutlineInputBorder(),
-                    disabledBorder: const OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: ExpenseTrackerColors.violet),
-                    ),
-                    errorBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: ExpenseTrackerColors.red),
-                    ),
                     focusedBorder: const OutlineInputBorder(
                       borderSide:
                           BorderSide(color: ExpenseTrackerColors.violet60),
@@ -137,13 +104,6 @@ class _OnboardingProfileSetupBodyState
                   decoration: InputDecoration(
                     hintText: 'Pin',
                     border: const OutlineInputBorder(),
-                    disabledBorder: const OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: ExpenseTrackerColors.violet),
-                    ),
-                    errorBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: ExpenseTrackerColors.red),
-                    ),
                     focusedBorder: const OutlineInputBorder(
                       borderSide:
                           BorderSide(color: ExpenseTrackerColors.violet60),
@@ -159,7 +119,7 @@ class _OnboardingProfileSetupBodyState
                   ),
                 ),
               ),
-              if (statex is OnboardingProfileSetupLoading)
+              if (state is OnboardingProfileSetupLoading)
                 const CircularProgressIndicator()
               else
                 ElevatedButton(
@@ -169,14 +129,24 @@ class _OnboardingProfileSetupBodyState
                       return;
                     }
                     debugPrint('Name: ${_nameController.text}');
-                    debugPrint('Avater url :${avatar?.svgUri}');
-                    final image = await avatar?.asRawSvgBytes();
-                    if (context.mounted) {
-                      await context
-                          .read<OnboardingProfileSetupCubit>()
-                          .saveProfile(
-                              _nameController.text, image, _pinController.text);
-                    }
+                    // try {
+                    //   debugPrint(
+                    //       'image: ${await _avatarBuilder?.build().asRawSvgBytes()}');
+                    //   debugPrint('Pin: ${_pinController.text}');
+                    // } catch (e) {
+                    //   debugPrint('Error Image: $e');
+                    //   debugPrint('SHITTTTTTTTTTTTTTTTTtt');
+                    // }
+                    // debugPrint('DONE IMAGENENENEN');
+                    // // final image = await _avatarBuilder?.build().asRawSvgBytes();
+                    if (!context.mounted) return;
+                    await context
+                        .read<OnboardingProfileSetupCubit>()
+                        .saveProfile(
+                          _nameController.text,
+                          // image,
+                          _pinController.text,
+                        );
                   },
                   child: const Text('Create a Profile'),
                 ),
@@ -184,7 +154,7 @@ class _OnboardingProfileSetupBodyState
           ),
         );
       },
-      listener: (BuildContext context, OnboardingProfileSetupState state) {
+      listener: (context, state) {
         if (state is OnboardingProfileSetupSuccess) {
           context.pushNamed('setup-pin');
         }

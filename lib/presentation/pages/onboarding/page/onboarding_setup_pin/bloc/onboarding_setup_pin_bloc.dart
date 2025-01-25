@@ -90,16 +90,22 @@ class OnboardingSetupPinBloc
     // final usr = await isarDB.getUser();
     final usr = await db.getUser();
     usr.fold(
-      (l) => emit(
-        state.copyWith(
-          userPin: l.pin,
+      (l) => {
+        debugPrint('user pin: ${l.pin}'),
+        emit(
+          state.copyWith(
+            userPin: l.pin,
+          ),
         ),
-      ),
-      (r) => emit(
-        state.copyWith(
-          userPin: '',
+      },
+      (r) => {
+        debugPrint('user pin to EMPTY'),
+        emit(
+          state.copyWith(
+            userPin: '',
+          ),
         ),
-      ),
+      },
     );
   }
 

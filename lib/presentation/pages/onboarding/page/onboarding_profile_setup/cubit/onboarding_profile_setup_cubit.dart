@@ -9,23 +9,26 @@ part 'onboarding_profile_setup_state.dart';
 class OnboardingProfileSetupCubit extends Cubit<OnboardingProfileSetupState> {
   OnboardingProfileSetupCubit() : super(const OnboardingProfileSetupInitial());
 
-  Future<void> saveProfile(String name, Uint8List? imageURL, String pin) async {
+  Future<void> saveProfile(String name, String pin) async {
     // ignore: no_leading_underscores_for_local_identifiers
     final drift = DriftRepository();
     emit(const OnboardingProfileSetupLoading());
     debugPrint('Name from saveProfile: $name');
-    debugPrint('image from saveProfiel: $imageURL');
+    debugPrint('pin from saveProfile: $pin');
+    // debugPrint('image from saveProfiel: $imageURL');
     final newUser2 = ProfileCompanion.insert(
       name: name,
       pin: Value(pin),
-      imageUrl: Value(imageURL),
+      // imageUrl: Value(imageURL),
     );
-    await drift.setUser(newUser2);
-    // final newUser = ()
-    //   ..name = name
-    //   ..imageUrl = imageURL;
+    final isSuccess = await drift.setUser(newUser2);
+    if (isSuccess == -1) {
+      debugPrint('Error saving profile');
+      emit(const OnboardingProfileSetupError());
+      return;
+    }
     debugPrint('Name from saveProfile(usr): $name');
-    debugPrint('image from saveProfiel(usr): $imageURL');
+    // debugPrint('image from saveProfiel(usr): $imageURL');
     emit(const OnboardingProfileSetupSuccess());
   }
 

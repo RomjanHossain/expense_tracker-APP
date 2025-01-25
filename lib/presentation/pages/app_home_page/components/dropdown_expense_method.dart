@@ -59,9 +59,7 @@ class ExpenseMethodsDropdown extends StatelessWidget {
             color: ExpenseTrackerColors.light20,
           ),
           alignment: Alignment.centerLeft,
-          dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
-
-          // value: ExpenseTrackerCategories.singleexpensesCategory(state),
+          // dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
           items: ExpenseTrackerCategories.expensesCategories
               .map(
                 (e) => DropdownMenuItem<CategoryModel>(
@@ -81,22 +79,15 @@ class ExpenseMethodsDropdown extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 8),
                           child: Text(
                             e.title.trim(),
-                            // softWrap: false,
-
                             maxLines: 1,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
-                            // style: ExpenseTrackerTextStyle.caption,
-                            style: TextStyle(
-                              // color: isDarkMode(context)
-                              //     ? ExpenseTrackerColors.dark50
-                              //     : ExpenseTrackerColors.light80,
-
-                              color: state == e.id
-                                  ? ExpenseTrackerColors.dark50
-                                  : ExpenseTrackerColors
-                                      .light80, // Change text color based on selection
-                            ),
+                            // style: TextStyle(
+                            //   color: state == e.id
+                            //       ? ExpenseTrackerColors.dark50
+                            //       : ExpenseTrackerColors
+                            //           .light80, // Change text color based on selection
+                            // ),
                           ),
                         ),
                       ),
@@ -106,14 +97,10 @@ class ExpenseMethodsDropdown extends StatelessWidget {
               )
               .toList(),
           onChanged: (s) {
-            // debugPrint('Selected ${s!.title} ${s.id}');
             context.read<DropdownExpenseMethodCubit>().changeValue(s!.id);
             debugPrint(
               'Dropdown value cubit -> ${context.read<DropdownExpenseMethodCubit>().state}',
             );
-            // debugPrint(
-            //   'from the dropdown expense method cubit -> ${ExpenseTrackerCategories.singleExpenseMethod(state).id} | ${ExpenseTrackerCategories.singleExpenseMethod(state).title} ',
-            // );
           },
         );
       },

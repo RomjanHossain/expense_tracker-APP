@@ -16,11 +16,20 @@ part 'app_database.g.dart';
 
 @DriftDatabase(tables: [Profile, Accounts, Expenses, Incomes, Transfers])
 class AppDatabase extends _$AppDatabase {
-  AppDatabase() : super(_openConnection());
+  // Factory constructor to return the Singleton instance
+  factory AppDatabase() {
+    return _instance;
+  }
+
+  // Private named constructor
+  AppDatabase._internal() : super(_openConnection());
+  // Singleton instance
+  static final AppDatabase _instance = AppDatabase._internal();
 
   @override
   int get schemaVersion => 1;
 
+  // Example Queries
   Future<List<Account>> getAllAccounts() => select(accounts).get();
   Future<int> insertAccount(Account account) => into(accounts).insert(account);
 
@@ -33,6 +42,7 @@ class AppDatabase extends _$AppDatabase {
   }
 }
 
+// Open connection function
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();

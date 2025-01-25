@@ -17,7 +17,7 @@ class AccountTypeDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return DropdownButtonFormField(
-      dropdownColor: ExpenseTrackerColors.violet,
+      // dropdownColor: ExpenseTrackerColors.violet,
       // focusColor: Colors.white,
       items: accountTypesDBwithTrans(context)
           .map(
