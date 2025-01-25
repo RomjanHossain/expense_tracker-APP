@@ -18,11 +18,11 @@ class DataFromIEmodel implements IDataFromIEmodel {
   double getAmmount(IEmodel data) {
     switch (data.isIncome) {
       case ExpenseType.income:
-        return data.income?.ammount ?? 0.0;
+        return data.income?.amount ?? 0.0;
       case ExpenseType.expense:
-        return data.expense?.ammount ?? 0.0;
+        return data.expense?.amount ?? 0.0;
       case ExpenseType.transfer:
-        return data.transfer?.ammount ?? 0.0;
+        return data.transfer?.amount ?? 0.0;
     }
   }
 
@@ -33,7 +33,7 @@ class DataFromIEmodel implements IDataFromIEmodel {
         if (income != null) {
           return ExpenseTrackerCategories.incomeMethods
               .firstWhere(
-                (element) => element.id == income.categoryID,
+                (element) => element.id == income.categoryId,
               )
               .title;
         } else {
@@ -44,7 +44,7 @@ class DataFromIEmodel implements IDataFromIEmodel {
         if (expense != null) {
           return categoryLocalData2
               .firstWhere(
-                (element) => element.id == expense.categoryID,
+                (element) => element.id == expense.categoryId,
               )
               .title;
         } else {
@@ -106,13 +106,15 @@ class DataFromIEmodel implements IDataFromIEmodel {
   }
 
   String getTitle(IEmodel data) {
+    print('Getting title: ${data.isIncome}');
     switch (data.isIncome) {
       case ExpenseType.income:
+        print('Getting income');
         final income = data.income;
         if (income != null) {
           return ExpenseTrackerCategories.incomeMethods
               .firstWhere(
-                (element) => element.id == income.categoryID,
+                (element) => element.id == income.categoryId,
               )
               .title;
         } else {
@@ -120,17 +122,19 @@ class DataFromIEmodel implements IDataFromIEmodel {
         }
 
       case ExpenseType.expense:
+        print('Getting exp');
         final expense = data.expense;
         if (expense != null) {
           return categoryLocalData2
               .firstWhere(
-                (element) => element.id == expense.categoryID,
+                (element) => element.id == expense.categoryId,
               )
               .title;
         } else {
           return 'No category';
         }
       case ExpenseType.transfer:
+        print('Getting traf');
         final transfer = data.transfer;
         if (transfer != null) {
           return transfer.to ?? 'Unknown Person';
@@ -141,13 +145,15 @@ class DataFromIEmodel implements IDataFromIEmodel {
   }
 
   String getIcon(IEmodel data) {
+    print('Getting icon: ${data.isIncome}');
     switch (data.isIncome) {
       case ExpenseType.income:
+        print('Getting income');
         final income = data.income;
         if (income != null) {
           return ExpenseTrackerCategories.incomeMethods
               .firstWhere(
-                (element) => element.id == income.categoryID,
+                (element) => element.id == income.categoryId,
               )
               .icon;
         } else {
@@ -155,17 +161,28 @@ class DataFromIEmodel implements IDataFromIEmodel {
         }
 
       case ExpenseType.expense:
+        print('Getting exp');
         final expense = data.expense;
         if (expense != null) {
+          print("exp is not null");
+          print(
+              "This is icon -> ${ExpenseTrackerCategories.expensesCategories.firstWhere(
+            (element) {
+              print("${element.id} -- ${expense.categoryId}");
+              return element.id == expense.categoryId;
+            },
+          ).icon}");
           return categoryLocalData2
               .firstWhere(
-                (element) => element.id == expense.categoryID,
+                (element) => element.id == expense.categoryId,
               )
               .icon;
         } else {
+          print("exp is null");
           return '💸';
         }
       case ExpenseType.transfer:
+        print('Getting traf');
         return '🔁';
     }
   }

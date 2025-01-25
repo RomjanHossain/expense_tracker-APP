@@ -1,12 +1,13 @@
 import 'package:expense_tracker/core/helper/custom_types.dart';
-import 'package:expense_tracker/data/models/isar_entity/user/user_entity_isar.dart';
+import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
+import 'package:expense_tracker/data/models/drifts/user/user_drift.dart';
 
 abstract class UserRepository {
   /// get user
-  ResultFutureOrException<UserEntity> getUser();
+  ResultFutureOrException<Profile> getUser();
 
   /// save
-  ResultFuture<void> saveUser(UserEntity user);
+  ResultFuture<void> saveUser(ProfileCompanion user);
 
   /// delete user
   // Future<void> deleteUser(int userID);

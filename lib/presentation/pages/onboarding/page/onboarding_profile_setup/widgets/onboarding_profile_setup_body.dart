@@ -25,9 +25,11 @@ class OnboardingProfileSetupBody extends StatefulWidget {
 class _OnboardingProfileSetupBodyState
     extends State<OnboardingProfileSetupBody> {
   final _nameController = TextEditingController();
+  final _pinController = TextEditingController();
   @override
   void dispose() {
     _nameController.dispose();
+    _pinController.dispose();
     super.dispose();
   }
 
@@ -83,8 +85,9 @@ class _OnboardingProfileSetupBodyState
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 20.h,
+                padding: EdgeInsets.only(
+                  top: 20.h,
+                  bottom: 10.h,
                 ),
                 child: TextFormField(
                   controller: _nameController,
@@ -95,6 +98,44 @@ class _OnboardingProfileSetupBodyState
                   },
                   decoration: InputDecoration(
                     hintText: 'Name',
+                    border: const OutlineInputBorder(),
+                    disabledBorder: const OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: ExpenseTrackerColors.violet),
+                    ),
+                    errorBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: ExpenseTrackerColors.red),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: ExpenseTrackerColors.violet60),
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: ExpenseTrackerColors.light40),
+                    ),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 12.h,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: 20.h,
+                ),
+                child: TextFormField(
+                  controller: _pinController,
+                  onChanged: (value) {
+                    context
+                        .read<OnboardingProfileSetupCubit>()
+                        .changePin(value);
+                  },
+                  keyboardType: TextInputType.number,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: 'Pin',
                     border: const OutlineInputBorder(),
                     disabledBorder: const OutlineInputBorder(
                       borderSide:
@@ -133,7 +174,8 @@ class _OnboardingProfileSetupBodyState
                     if (context.mounted) {
                       await context
                           .read<OnboardingProfileSetupCubit>()
-                          .saveProfile(_nameController.text, image);
+                          .saveProfile(
+                              _nameController.text, image, _pinController.text);
                     }
                   },
                   child: const Text('Create a Profile'),

@@ -143,6 +143,15 @@ class TransactionGraphPageBody extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 final currentItem = state.todaysIEmodel.elementAt(index);
+                print('Curr -> $index || ${currentItem.isIncome}');
+                switch (currentItem.isIncome) {
+                  case ExpenseType.income:
+                    print("Income -> ${currentItem.income}");
+                  case ExpenseType.expense:
+                    print("Exp -> ${currentItem.expense}");
+                  case ExpenseType.transfer:
+                    print("traf -> ${currentItem.transfer}");
+                }
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(

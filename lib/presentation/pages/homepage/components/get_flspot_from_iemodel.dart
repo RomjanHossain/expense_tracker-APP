@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 double getMinAmountValueFromIEmodel(List<IEmodel> models) {
   final totalEx =
       models.where((element) => element.isIncome == ExpenseType.expense);
-  final amounts = totalEx.map((e) => e.expense?.ammount ?? 0);
+  final amounts = totalEx.map((e) => e.expense?.amount ?? 0);
   if (amounts.isEmpty) {
     return 0;
   }
@@ -22,7 +22,7 @@ double getMinAmountValueFromIEmodel(List<IEmodel> models) {
 double getMaxAmountValueFromIEmodel(List<IEmodel> models) {
   final totalEx =
       models.where((element) => element.isIncome == ExpenseType.expense);
-  final amounts = totalEx.map((e) => e.expense?.ammount ?? 0);
+  final amounts = totalEx.map((e) => e.expense?.amount ?? 0);
   // .reduce((value, element) => value > element ? value : element);
   if (amounts.isEmpty) {
     return 0;
@@ -90,7 +90,7 @@ List<FlSpot> getFlSpotFromIEmodelToday(
   final xS = se == SegmentedButtonsData.today
       ? totalEx.map((e) => e.expense!.createdDate!.toDoubleT)
       : totalEx.map((e) => e.expense!.createdDate!.toDoubleW);
-  final yS = totalEx.map((e) => e.expense?.ammount ?? 0);
+  final yS = totalEx.map((e) => e.expense?.amount ?? 0);
   // debugPrint('c_s: $c_s');
   // debugPrint('x_s: $x_s');
   for (var i = 0; i < xS.length; i++) {
@@ -116,12 +116,12 @@ List<FlSpot?> getFlSpotFromIEmodel(
   // debugPrint('Total Len: ${totalEx.length}');
   for (final i in totalEx) {
     debugPrint(
-      'x: ${i.expense!.createdDate!.toDoubleT}, y = ${i.expense?.ammount ?? 0}',
+      'x: ${i.expense!.createdDate!.toDoubleT}, y = ${i.expense?.amount ?? 0}',
     );
     spots.add(
       FlSpot(
         i.expense!.createdDate!.day.toDouble(),
-        i.expense?.ammount ?? 0,
+        i.expense?.amount ?? 0,
       ),
     );
   }

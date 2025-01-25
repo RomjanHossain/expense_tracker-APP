@@ -16,9 +16,13 @@ class CardOfExpense2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("getting icon");
     final icon = DataFromIEmodel.instance.getIcon(cardOfExpense);
+    print("getting title");
     final title = DataFromIEmodel.instance.getTitle(cardOfExpense);
+    print("getting desc");
     final description = DataFromIEmodel.instance.getDescription(cardOfExpense);
+    print("getting amount");
     final amount = DataFromIEmodel.instance.getAmmount(cardOfExpense);
     debugPrint('type : ${cardOfExpense.isIncome}');
     return Card(

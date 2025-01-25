@@ -13,7 +13,7 @@ class ExpenseformState extends Equatable {
   });
 
   final ExpenseFormEntity expenseFormEntity;
-  final AccountEntity? accountEntity;
+  final Account? accountEntity;
 
   @override
   List<Object> get props => [
@@ -22,43 +22,25 @@ class ExpenseformState extends Equatable {
 
   /// Creates a copy of the current ExpenseformState with property changes
   ExpenseformState copyWith({
-    // String? expenseId,
-    // String? incomeSourceId,
     bool? isExpense,
     DateTime? subStart,
     DateTime? subEnd,
     String? subType,
-    AccountEntity? accountEntity,
-    // String? subStartDa,
-    // String? subStartMonth,
+    Account? accountEntity,
   }) {
     return ExpenseformState(
-      // expenseId: expenseId ?? this.expenseId,
-      // incomeSourceId: incomeSourceId ?? this.incomeSourceId,
-      // isExpense: isExpense ?? this.isExpense,
-      // // subStart: subStart ?? this.subStart,
-      // subEnd: subEnd ?? this.subEnd,
-      // subType: subType ?? this.subType,
-      // subStartDay: subStartDay ?? this.subStartDay,
-      // subStartMonth: subStartMonth ?? this.subStartMonth,
       expenseFormEntity: expenseFormEntity.copyWith(
         isExpense: isExpense ?? expenseFormEntity.isExpense,
         subStart: subStart ?? expenseFormEntity.subStart,
         subEnd: subEnd ?? expenseFormEntity.subEnd,
         subType: subType ?? expenseFormEntity.subType,
-        // subStartDay: subStartDay ?? expenseFormEntity.subStartDay,
-        // subStartMonth: subStartMonth ?? expenseFormEntity.subStartMonth,
       ),
       accountEntity: accountEntity ?? this.accountEntity,
     );
   }
 }
 
-/// {@template expenseform_initial}
-/// The initial state of ExpenseformState
-/// {@endtemplate}
 class ExpenseformInitial extends ExpenseformState {
-  /// {@macro expenseform_initial}
   const ExpenseformInitial() : super();
 }
 

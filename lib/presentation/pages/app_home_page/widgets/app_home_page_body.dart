@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/budget/view/budget_page.dart';
 import 'package:expense_tracker/presentation/pages/homepage/homepage.dart';
@@ -25,8 +24,9 @@ class AppHomePageBody extends StatelessWidget {
         final validIndex =
             (state.currentIndex < pages.length) ? state.currentIndex : 0;
         return _PageContent(
-            index: validIndex,
-            child: pages[validIndex]); // Extract to a separate widget
+          index: validIndex,
+          child: pages[validIndex],
+        ); // Extract to a separate widget
       },
     );
   }
@@ -43,20 +43,7 @@ class _PageContent extends StatelessWidget {
     return KeyedSubtree(
       // Keep KeyedSubtree here
       key: ValueKey('page_$index'), // Use index in the key
-      child: PageTransitionSwitcher(
-        transitionBuilder: (
-          Widget child,
-          Animation<double> animation,
-          Animation<double> secondaryAnimation,
-        ) =>
-            SharedAxisTransition(
-          animation: animation,
-          secondaryAnimation: secondaryAnimation,
-          transitionType: SharedAxisTransitionType.horizontal,
-          child: child,
-        ),
-        child: child,
-      ),
+      child: child,
     );
   }
 }

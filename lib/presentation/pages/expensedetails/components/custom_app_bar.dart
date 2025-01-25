@@ -246,7 +246,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                             ? et.income?.walletId.toString() ?? ''
                             : et.isIncome == ExpenseType.expense
                                 ? et.expense?.walletId.toString() ?? ''
-                                : et.transfer?.fromID.toString() ?? '',
+                                : et.transfer?.fromId.toString() ?? '',
                         title: 'Payment',
                       ),
                     ],

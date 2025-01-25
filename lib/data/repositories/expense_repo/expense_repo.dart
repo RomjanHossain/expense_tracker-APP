@@ -1,12 +1,12 @@
-import 'package:expense_tracker/data/models/isar_entity/expense_entity/expense_entity.dart';
+import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
 
 abstract class ExpenseRepo {
   //NOTE: get list of expense
-  Future<List<ExpenseIsarEntity>> getListOfExpense();
+  Future<List<Expense>> getListOfExpense();
   //NOTE: create an expense
-  Future<int> createAnExpense(ExpenseIsarEntity expenseEntity);
+  Future<int> createAnExpense(Expense expenseEntity);
   //NOTE: delete an expense
   Future<bool> deleteAnExpense(int id);
   //NOTE: update the expense
-  Future<int> updateTheExpense(int id, ExpenseIsarEntity expenseEntity);
+  Future<int> updateTheExpense(int id, ExpensesCompanion expenseEntity);
 }

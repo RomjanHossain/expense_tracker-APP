@@ -18,33 +18,65 @@ class _SuccessfullyAccountCreatedState
   @override
   void initState() {
     super.initState();
-    // after 1.5 seconds, navigate to the next page
-    Future.delayed(1.5.seconds, () {
-      context.goNamed('home');
+    // Navigate to the home screen after 1.5*2 seconds
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        GoRouter.of(context)
+            .pushReplacementNamed('home'); // Check the current location
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: SvgPicture.asset(
-              ExpenseAssets.successIcon,
-              height: 120,
-              color: ExpenseTrackerColors.green,
-            ).animate().scale(
-                  duration: 1.5.seconds,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Success Icon
+              Semantics(
+                label: 'Success Icon',
+                child: SvgPicture.asset(
+                  ExpenseAssets.successIcon,
+                  height: 120,
+                  color: ExpenseTrackerColors.green,
+                ).animate().scale(
+                      duration: 1.5.seconds,
+                    ),
+              ),
+              const SizedBox(height: 20),
+              // Success Message
+              Text(
+                'You Are All Set!',
+                style: ExpenseTrackerTextStyle.title2.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  color: Colors.black,
                 ),
+                textAlign: TextAlign.center,
+              ).animate(delay: 0.5.seconds).fadeIn(duration: 0.5.seconds),
+              const SizedBox(height: 10),
+              // Additional Message (Optional)
+              Text(
+                'Your account has been created successfully.\nRedirecting to the home screen...',
+                style: ExpenseTrackerTextStyle.body2.copyWith(
+                  color: Colors.grey.shade600,
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.center,
+              ).animate(delay: 0.7.seconds).fadeIn(duration: 0.5.seconds),
+              // TextButton(
+              //     onPressed: () {
+              //       GoRouter.of(context).pushReplacementNamed(
+              //           'home'); // Check the current location
+              //     },
+              //     child: Text("Duv Laga"))
+            ],
           ),
-          Text(
-            'You Are all Set!',
-            style: ExpenseTrackerTextStyle.title2,
-          ).animate(delay: 0.5.seconds),
-        ],
+        ),
       ),
     );
   }

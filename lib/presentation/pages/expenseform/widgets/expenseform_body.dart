@@ -1,11 +1,13 @@
+// import 'package:drift/drift.dart';
+import 'package:drift/drift.dart' as dft;
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
+import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
 import 'package:expense_tracker/data/models/isar_entity/expense_entity/expense_entity.dart';
 import 'package:expense_tracker/data/models/isar_entity/income_entity/income_entity.dart';
-import 'package:expense_tracker/data/models/isar_entity/transfer_entity/transfer_entity.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
@@ -458,15 +460,26 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                             );
                             return;
                           }
-                          final transferEntity = TransferEntity()
-                            ..to = _toFieldController.text
-                            ..fromID = acE.id
-                            ..attachment = imageFieldController.text
-                            ..description = _descriptionController.text
-                            ..createdDate = DateTime.now()
-                            ..ammount = double.parse(
-                              _accountBalanceController.text,
-                            );
+                          // final transferEntity = TransferEntity()
+                          //   ..to = _toFieldController.text
+                          //   ..fromID = acE.id
+                          //   ..attachment = imageFieldController.text
+                          //   ..description = _descriptionController.text
+                          //   ..createdDate = DateTime.now()
+                          //   ..ammount = double.parse(
+                          //     _accountBalanceController.text,
+                          //   );
+
+                          final transferEntity = TransfersCompanion(
+                            amount: dft.Value(
+                              double.parse(_accountBalanceController.text),
+                            ),
+                            fromId: dft.Value(acE.id),
+                            to: dft.Value(_toFieldController.text),
+                            attachment: dft.Value(imageFieldController.text),
+                            createdDate: dft.Value(DateTime.now()),
+                            description: dft.Value(_descriptionController.text),
+                          );
                           context
                               .read<ExpenseformBloc>()
                               .add(TransferToDatbase(transferEntity));
@@ -489,25 +502,45 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                               );
                               return;
                             }
-                            final incomeEntity = IncomeIsarEntity()
-                              ..attachment = imageFieldController.text
-                              ..description = _descriptionController.text
-                              ..createdDate = DateTime.now()
-                              ..ammount = double.parse(
-                                _accountBalanceController.text,
-                              )
-                              ..isRepeat = state.expenseFormEntity.isExpense
-                              ..endDate = state.expenseFormEntity.subEnd
-                              // ..startDate = state.expenseFormEntity.subStart
-                              ..categoryID = context
+                            // final incomeEntity = IncomeIsarEntity()
+                            //   ..attachment = imageFieldController.text
+                            //   ..description = _descriptionController.text
+                            //   ..createdDate = DateTime.now()
+                            //   ..ammount = double.parse(
+                            //     _accountBalanceController.text,
+                            //   )
+                            //   ..isRepeat = state.expenseFormEntity.isExpense
+                            //   ..endDate = state.expenseFormEntity.subEnd
+                            //   // ..startDate = state.expenseFormEntity.subStart
+                            //   ..categoryID = context
+                            //       .read<DropdownIncomeMethodCubit>()
+                            //       .state
+                            //   ..startDate =
+                            //       state.expenseFormEntity.subStart != null
+                            //           ? state.expenseFormEntity.subStart!
+                            //           : DateTime.now()
+                            //   ..repeatType = state.expenseFormEntity.subType
+                            //   ..walletId = acE.id;
+                            final incomeEntity = IncomesCompanion(
+                              attachment: dft.Value(imageFieldController.text),
+                              description:
+                                  dft.Value(_descriptionController.text),
+                              createdDate: dft.Value(DateTime.now()),
+                              amount: dft.Value(
+                                  double.parse(_accountBalanceController.text)),
+                              isRepeat:
+                                  dft.Value(state.expenseFormEntity.isExpense),
+                              endDate:
+                                  dft.Value(state.expenseFormEntity.subEnd),
+                              startDate:
+                                  dft.Value(state.expenseFormEntity.subStart),
+                              categoryId: dft.Value(context
                                   .read<DropdownIncomeMethodCubit>()
-                                  .state
-                              ..startDate =
-                                  state.expenseFormEntity.subStart != null
-                                      ? state.expenseFormEntity.subStart!
-                                      : DateTime.now()
-                              ..repeatType = state.expenseFormEntity.subType
-                              ..walletId = acE.id;
+                                  .state),
+                              repeatType:
+                                  dft.Value(state.expenseFormEntity.subType),
+                              walletId: dft.Value(acE.id),
+                            );
                             context
                                 .read<ExpenseformBloc>()
                                 .add(IncomeToDatabase(incomeEntity));
@@ -534,24 +567,45 @@ class _ExpenseformBodyState extends State<ExpenseformBody> {
                               );
                               return;
                             }
-                            final expenseEntity = ExpenseIsarEntity()
-                              ..attachment = imageFieldController.text
-                              ..description = _descriptionController.text
-                              ..createdDate = DateTime.now()
-                              ..categoryID = context
+                            // final expenseEntity = ExpenseIsarEntity()
+                            //   ..attachment = imageFieldController.text
+                            //   ..description = _descriptionController.text
+                            //   ..createdDate = DateTime.now()
+                            //   ..categoryID = context
+                            //       .read<DropdownExpenseMethodCubit>()
+                            //       .state
+                            //   ..ammount = double.parse(
+                            //     _accountBalanceController.text,
+                            //   )
+                            //   ..isRepeat = state.expenseFormEntity.isExpense
+                            //   ..endDate = state.expenseFormEntity.subEnd
+                            //   ..startDate =
+                            //       state.expenseFormEntity.subStart != null
+                            //           ? state.expenseFormEntity.subStart!
+                            //           : DateTime.now()
+                            //   ..repeatType = state.expenseFormEntity.subType
+                            //   ..walletId = acE.id;
+
+                            final expenseEntity = ExpensesCompanion(
+                              attachment: dft.Value(imageFieldController.text),
+                              description:
+                                  dft.Value(_descriptionController.text),
+                              createdDate: dft.Value(DateTime.now()),
+                              amount: dft.Value(
+                                  double.parse(_accountBalanceController.text)),
+                              isRepeat:
+                                  dft.Value(state.expenseFormEntity.isExpense),
+                              endDate:
+                                  dft.Value(state.expenseFormEntity.subEnd),
+                              startDate:
+                                  dft.Value(state.expenseFormEntity.subStart),
+                              categoryId: dft.Value(context
                                   .read<DropdownExpenseMethodCubit>()
-                                  .state
-                              ..ammount = double.parse(
-                                _accountBalanceController.text,
-                              )
-                              ..isRepeat = state.expenseFormEntity.isExpense
-                              ..endDate = state.expenseFormEntity.subEnd
-                              ..startDate =
-                                  state.expenseFormEntity.subStart != null
-                                      ? state.expenseFormEntity.subStart!
-                                      : DateTime.now()
-                              ..repeatType = state.expenseFormEntity.subType
-                              ..walletId = acE.id;
+                                  .state),
+                              repeatType:
+                                  dft.Value(state.expenseFormEntity.subType),
+                              walletId: dft.Value(acE.id),
+                            );
                             context
                                 .read<ExpenseformBloc>()
                                 .add(ExpenseToDatabase(expenseEntity));

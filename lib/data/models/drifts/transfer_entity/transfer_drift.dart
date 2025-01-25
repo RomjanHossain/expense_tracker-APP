@@ -3,7 +3,7 @@ import 'package:expense_tracker/data/models/drifts/create_account/create_ac_drif
 
 class Transfers extends Table {
   IntColumn get id => integer().autoIncrement()(); // Auto-incrementing ID
-  RealColumn get amount => real().nullable()(); // Nullable transfer amount
+  RealColumn get amount => real()(); // transfer amount
   Column<int> get fromId => integer().references(Accounts, #id)();
   TextColumn get description => text().nullable()(); // Nullable description
   TextColumn get to => text().nullable()(); // Nullable target information

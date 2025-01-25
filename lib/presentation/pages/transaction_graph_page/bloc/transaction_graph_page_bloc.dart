@@ -6,6 +6,7 @@ import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
 import 'package:expense_tracker/data/models/category_model.dart';
 import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
+import 'package:expense_tracker/domain/repositories/drift_repository.dart';
 import 'package:flutter/material.dart';
 
 part 'transaction_graph_page_event.dart';
@@ -21,31 +22,36 @@ class TransactionGraphPageBloc
     on<InitTransactionGraphPageEvent>(_initTransactionGraphPageE);
   }
 
-  final isar = IsarInstance();
+  // final isar = IsarInstance();
   //! INFO: init transaction
   FutureOr<void> _initTransactionGraphPageE(
     InitTransactionGraphPageEvent event,
     Emitter<TransactionGraphPageState> emit,
   ) async {
-    final todaysIncome = await isar.getTodaysIncome();
-    final todaysTransfer = await isar.getTodaysTransfer();
-    final todaysExpense = await isar.getTodaysExpense();
+    final db = DriftRepository();
+    // final todaysIncome = await isar.getTodaysIncome();
+    // final todaysTransfer = await isar.getTodaysTransfer();
+    // final todaysExpense = await isar.getTodaysExpense();
 
-    final yesterdaysIncome = await isar.getYestIncome();
-    final yesterdaysExpense = await isar.getYestExpense();
-    final yesterdaysTransfer = await isar.getYestTransfer();
+    final todaysIncome = await db.getTodaysIncome();
+    final todaysTransfer = await db.getTodaysTransfer();
+    final todaysExpense = await db.getTodaysExpense();
 
-    final weeklyIncome = await isar.getWeeksIncome();
-    final weeklyTransfer = await isar.getWeeksTransfer();
-    final weeklyExpense = await isar.getWeeksExpense();
+    final yesterdaysIncome = await db.getYestIncome();
+    final yesterdaysExpense = await db.getYestExpense();
+    final yesterdaysTransfer = await db.getYestTransfer();
 
-    final monthlyIncome = await isar.getMonthsIncome();
-    final monthlyTransfer = await isar.getMonthsTransfer();
-    final monthlyExpense = await isar.getMonthsExpense();
+    final weeklyIncome = await db.getWeeksIncome();
+    final weeklyTransfer = await db.getWeeksTransfer();
+    final weeklyExpense = await db.getWeeksExpense();
 
-    final yearlyIncome = await isar.getYearsIncome();
-    final yearlyTransfer = await isar.getYearsTransfer();
-    final yearlyExpense = await isar.getYearsExpense();
+    final monthlyIncome = await db.getMonthsIncome();
+    final monthlyTransfer = await db.getMonthsTransfer();
+    final monthlyExpense = await db.getMonthsExpense();
+
+    final yearlyIncome = await db.getYearsIncome();
+    final yearlyTransfer = await db.getYearsTransfer();
+    final yearlyExpense = await db.getYearsExpense();
 
     final todaysIEmodel = <IEmodel>[
       ...todaysIncome.map(

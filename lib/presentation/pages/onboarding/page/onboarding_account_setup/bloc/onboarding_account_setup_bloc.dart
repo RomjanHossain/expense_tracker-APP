@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
-import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
-import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
+import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
 import 'package:expense_tracker/domain/entities/create_account_entity/create_account_entity.dart';
+import 'package:expense_tracker/domain/repositories/drift_repository.dart';
 
 import 'package:flutter/material.dart';
 part 'onboarding_account_setup_event.dart';
@@ -73,14 +74,22 @@ class OnboardingAccountSetupBloc
     SaveAccountInfoEvent event,
     Emitter<OnboardingAccountSetupState> emit,
   ) async {
-    final isar = IsarInstance();
+    final isar = DriftRepository();
     // the account schema
-    final accountSchema = AccountEntity()
-      ..accountName = state.createAccount.acName
-      ..accountBalance = state.createAccount.acBalance
-      ..accountType = state.createAccount.acType!
-      ..accountTypeImg = state.createAccount.acLogo;
-    await isar.openAnAccount(accountSchema);
+    // final accountSchema = AccountEntity()
+    //   ..accountName = state.createAccount.acName
+    //   ..accountBalance = state.createAccount.acBalance
+    //   ..accountType = state.createAccount.acType!
+    //   ..accountTypeImg = state.createAccount.acLogo;
+    final accountsCompanion = AccountsCompanion(
+      accountName: Value(state.createAccount.acName),
+      accountBalance: Value(state.createAccount.acBalance),
+      accountType: state.createAccount.acType != null
+          ? Value(state.createAccount.acType!)
+          : const Value.absent(),
+      accountTypeImg: Value(state.createAccount.acLogo),
+    );
+    await isar.openAnAccount(accountsCompanion);
   }
 
   FutureOr<void> _onCustomOnboardingAccountSetupEvent(

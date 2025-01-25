@@ -2,7 +2,7 @@ import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_banking.dart';
-import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
+import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
 import 'package:expense_tracker/gen/assets.gen.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account/cubit/cubit.dart';
@@ -23,7 +23,7 @@ class AccountBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AccountCubit,
-        (double accountBalance, List<AccountEntity> accounts)>(
+        (double accountBalance, List<Account> accounts)>(
       builder: (context, state) {
         final l10n = context.l10n;
         return Column(

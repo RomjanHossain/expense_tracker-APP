@@ -1,6 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/theme.dart';
-import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
+import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +12,7 @@ class AccountListDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DropdownAccountCubit,
-        (List<AccountEntity>, AccountEntity?)>(
+    return BlocBuilder<DropdownAccountCubit, (List<Account>, Account?)>(
       // buildWhen: (
       //   (List<AccountEntity>, AccountEntity?) previousState,
       //   (List<AccountEntity>, AccountEntity?) currentState,
@@ -28,7 +27,7 @@ class AccountListDropdown extends StatelessWidget {
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.all(8),
-          child: DropdownButtonFormField<AccountEntity>(
+          child: DropdownButtonFormField<Account>(
             borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
             decoration: const InputDecoration(
               focusedBorder: OutlineInputBorder(
@@ -71,10 +70,10 @@ class AccountListDropdown extends StatelessWidget {
             alignment: Alignment.centerLeft,
             items: state.$1
                 .map(
-                  (e) => DropdownMenuItem<AccountEntity>(
+                  (e) => DropdownMenuItem<Account>(
                     value: e,
                     child: Text(
-                      e.accountName ?? '',
+                      e.accountName,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
