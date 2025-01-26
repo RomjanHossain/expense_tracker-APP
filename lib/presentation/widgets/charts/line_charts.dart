@@ -56,7 +56,7 @@ class ExpenseLineGraph extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [
+                  colors: <Color>[
                     const Color(0xffCA50FF).withValues(alpha: 0.24),
                     const Color(0xff8B50FF).withValues(alpha: 0),
                   ],

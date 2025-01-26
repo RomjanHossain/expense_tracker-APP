@@ -85,7 +85,7 @@ List<FlSpot> getFlSpotFromIEmodelToday(
   final totalEx =
       models.where((element) => element.isIncome == ExpenseType.expense);
 
-  final spots = <FlSpot>[];
+  // final spots = <FlSpot>[];
   // final c_s = totalEx.map((e) => e.expense!.createdDate!);
   final xS = se == SegmentedButtonsData.today
       ? totalEx.map((e) => e.expense!.createdDate!.toDoubleT)
@@ -93,9 +93,9 @@ List<FlSpot> getFlSpotFromIEmodelToday(
   final yS = totalEx.map((e) => e.expense?.amount ?? 0);
   // debugPrint('c_s: $c_s');
   // debugPrint('x_s: $x_s');
-  for (var i = 0; i < xS.length; i++) {
-    debugPrint('x: ${xS.elementAt(i)} | y: ${yS.elementAt(i)}');
-  }
+  // for (var i = 0; i < xS.length; i++) {
+  //   debugPrint('x: ${xS.elementAt(i)} | y: ${yS.elementAt(i)}');
+  // }
   return List.generate(
     xS.length,
     (index) => FlSpot(
