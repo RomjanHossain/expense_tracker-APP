@@ -1,9 +1,8 @@
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
-import 'package:expense_tracker/presentation/pages/expensedetails/view/expensedetails_page.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/bloc.dart';
-import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expenses.dart';
+import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/transaction_card_list.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/transaction_filter_sheet.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/widgets/financial_reports_quick.dart';
 import 'package:flutter/material.dart';
@@ -126,45 +125,13 @@ class TransactionGraphPageBody extends StatelessWidget {
                 return const FinancialReportsQuick();
               },
             ),
-            //INFO: today
-            Text(
-              'Today',
-              style: ExpenseTrackerTextStyle.title3.copyWith(
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-                color: !isDarkMode(context)
-                    ? ExpenseTrackerColors.dark
-                    : ExpenseTrackerColors.light,
+
+            //INFO: months
+            if (state.yearlyIEmodel.isNotEmpty) ...[
+              TransactionCardList(
+                allIEmodel: state.yearlyIEmodel,
               ),
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: state.todaysIEmodel.length,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                final currentItem = state.todaysIEmodel.elementAt(index);
-                print('Curr -> $index || ${currentItem.isIncome}');
-                switch (currentItem.isIncome) {
-                  case ExpenseType.income:
-                    print("Income -> ${currentItem.income}");
-                  case ExpenseType.expense:
-                    print("Exp -> ${currentItem.expense}");
-                  case ExpenseType.transfer:
-                    print("traf -> ${currentItem.transfer}");
-                }
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      ExpensedetailsPage.route(currentItem),
-                    );
-                  },
-                  child: CardOfExpense2(
-                    cardOfExpense: currentItem,
-                  ),
-                );
-              },
-            ),
+            ],
           ],
         ),
       ),

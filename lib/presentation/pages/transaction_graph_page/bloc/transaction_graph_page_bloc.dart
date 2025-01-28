@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
-import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
 import 'package:expense_tracker/data/models/category_model.dart';
 import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
 import 'package:expense_tracker/domain/repositories/drift_repository.dart';
@@ -33,145 +32,145 @@ class TransactionGraphPageBloc
     // final todaysTransfer = await isar.getTodaysTransfer();
     // final todaysExpense = await isar.getTodaysExpense();
 
-    final todaysIncome = await db.getTodaysIncome();
-    final todaysTransfer = await db.getTodaysTransfer();
-    final todaysExpense = await db.getTodaysExpense();
+    // final todaysIncome = await db.getTodaysIncome();
+    // final todaysTransfer = await db.getTodaysTransfer();
+    // final todaysExpense = await db.getTodaysExpense();
 
-    final yesterdaysIncome = await db.getYestIncome();
-    final yesterdaysExpense = await db.getYestExpense();
-    final yesterdaysTransfer = await db.getYestTransfer();
+    // final yesterdaysIncome = await db.getYestIncome();
+    // final yesterdaysExpense = await db.getYestExpense();
+    // final yesterdaysTransfer = await db.getYestTransfer();
 
-    final weeklyIncome = await db.getWeeksIncome();
-    final weeklyTransfer = await db.getWeeksTransfer();
-    final weeklyExpense = await db.getWeeksExpense();
+    // final weeklyIncome = await db.getWeeksIncome();
+    // final weeklyTransfer = await db.getWeeksTransfer();
+    // final weeklyExpense = await db.getWeeksExpense();
 
-    final monthlyIncome = await db.getMonthsIncome();
-    final monthlyTransfer = await db.getMonthsTransfer();
-    final monthlyExpense = await db.getMonthsExpense();
+    // final monthlyIncome = await db.getMonthsIncome();
+    // final monthlyTransfer = await db.getMonthsTransfer();
+    // final monthlyExpense = await db.getMonthsExpense();
 
     final yearlyIncome = await db.getYearsIncome();
     final yearlyTransfer = await db.getYearsTransfer();
     final yearlyExpense = await db.getYearsExpense();
 
-    final todaysIEmodel = <IEmodel>[
-      ...todaysIncome.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.income,
-          income: e,
-          expense: null,
-          transfer: null,
-        ),
-      ),
-      ...todaysExpense.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.expense,
-          income: null,
-          expense: e,
-          transfer: null,
-        ),
-      ),
-      ...todaysTransfer.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.transfer,
-          income: null,
-          expense: null,
-          transfer: e,
-        ),
-      ),
-    ];
+    // final todaysIEmodel = <IEmodel>[
+    //   ...todaysIncome.map(
+    //     (e) => IEmodel(
+    //       createdAt: e.createdDate!,
+    //       isIncome: ExpenseType.income,
+    //       income: e,
+    //       expense: null,
+    //       transfer: null,
+    //     ),
+    //   ),
+    //   ...todaysExpense.map(
+    //     (e) => IEmodel(
+    //       createdAt: e.createdDate!,
+    //       isIncome: ExpenseType.expense,
+    //       income: null,
+    //       expense: e,
+    //       transfer: null,
+    //     ),
+    //   ),
+    //   ...todaysTransfer.map(
+    //     (e) => IEmodel(
+    //       createdAt: e.createdDate!,
+    //       isIncome: ExpenseType.transfer,
+    //       income: null,
+    //       expense: null,
+    //       transfer: e,
+    //     ),
+    //   ),
+    // ];
 
-    final yesterdayIEmodel = <IEmodel>[
-      ...yesterdaysIncome.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.income,
-          income: e,
-          expense: null,
-          transfer: null,
-        ),
-      ),
-      ...yesterdaysExpense.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.expense,
-          income: null,
-          expense: e,
-          transfer: null,
-        ),
-      ),
-      ...yesterdaysTransfer.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.transfer,
-          income: null,
-          expense: null,
-          transfer: e,
-        ),
-      ),
-    ];
+    // final yesterdayIEmodel = <IEmodel>[
+    //   ...yesterdaysIncome.map(
+    //     (e) => IEmodel(
+    //       createdAt: e.createdDate!,
+    //       isIncome: ExpenseType.income,
+    //       income: e,
+    //       expense: null,
+    //       transfer: null,
+    //     ),
+    //   ),
+    //   ...yesterdaysExpense.map(
+    //     (e) => IEmodel(
+    //       createdAt: e.createdDate!,
+    //       isIncome: ExpenseType.expense,
+    //       income: null,
+    //       expense: e,
+    //       transfer: null,
+    //     ),
+    //   ),
+    //   ...yesterdaysTransfer.map(
+    //     (e) => IEmodel(
+    //       createdAt: e.createdDate!,
+    //       isIncome: ExpenseType.transfer,
+    //       income: null,
+    //       expense: null,
+    //       transfer: e,
+    //     ),
+    //   ),
+    // ];
 
-    final weeksIEmodel = <IEmodel>[
-      ...weeklyIncome.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.income,
-          income: e,
-          expense: null,
-          transfer: null,
-        ),
-      ),
-      ...weeklyExpense.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.expense,
-          income: null,
-          expense: e,
-          transfer: null,
-        ),
-      ),
-      ...weeklyTransfer.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.transfer,
-          income: null,
-          expense: null,
-          transfer: e,
-        ),
-      ),
-    ];
+    // final weeksIEmodel = <IEmodel>[
+    //   ...weeklyIncome.map(
+    //     (e) => IEmodel(
+    //       createdAt: e.createdDate!,
+    //       isIncome: ExpenseType.income,
+    //       income: e,
+    //       expense: null,
+    //       transfer: null,
+    //     ),
+    //   ),
+    //   ...weeklyExpense.map(
+    //     (e) => IEmodel(
+    //       createdAt: e.createdDate!,
+    //       isIncome: ExpenseType.expense,
+    //       income: null,
+    //       expense: e,
+    //       transfer: null,
+    //     ),
+    //   ),
+    //   ...weeklyTransfer.map(
+    //     (e) => IEmodel(
+    //       createdAt: e.createdDate!,
+    //       isIncome: ExpenseType.transfer,
+    //       income: null,
+    //       expense: null,
+    //       transfer: e,
+    //     ),
+    //   ),
+    // ];
 
-    final monthlyIEmodel = <IEmodel>[
-      ...monthlyIncome.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.income,
-          income: e,
-          expense: null,
-          transfer: null,
-        ),
-      ),
-      ...monthlyExpense.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.expense,
-          income: null,
-          expense: e,
-          transfer: null,
-        ),
-      ),
-      ...monthlyTransfer.map(
-        (e) => IEmodel(
-          createdAt: e.createdDate!,
-          isIncome: ExpenseType.transfer,
-          income: null,
-          expense: null,
-          transfer: e,
-        ),
-      ),
-    ];
+    // final monthlyIEmodel = <IEmodel>[
+    //   ...monthlyIncome.map(
+    //     (e) => IEmodel(
+    //       createdAt: e.createdDate!,
+    //       isIncome: ExpenseType.income,
+    //       income: e,
+    //       expense: null,
+    //       transfer: null,
+    //     ),
+    //   ),
+    //   ...monthlyExpense.map(
+    //     (e) => IEmodel(
+    //       createdAt: e.createdDate!,
+    //       isIncome: ExpenseType.expense,
+    //       income: null,
+    //       expense: e,
+    //       transfer: null,
+    //     ),
+    //   ),
+    //   ...monthlyTransfer.map(
+    //     (e) => IEmodel(
+    //       createdAt: e.createdDate!,
+    //       isIncome: ExpenseType.transfer,
+    //       income: null,
+    //       expense: null,
+    //       transfer: e,
+    //     ),
+    //   ),
+    // ];
 
     final yearlyIEModel = <IEmodel>[
       ...yearlyIncome.map(
@@ -205,10 +204,10 @@ class TransactionGraphPageBloc
 
     emit(
       state.copyWith(
-        todaysIEmodel: todaysIEmodel,
-        yesterdaysIEmodel: yesterdayIEmodel,
-        weeklyIEmodel: weeksIEmodel,
-        monthlyIEmodel: monthlyIEmodel,
+        // todaysIEmodel: todaysIEmodel,
+        // yesterdaysIEmodel: yesterdayIEmodel,
+        // weeklyIEmodel: weeksIEmodel,
+        // monthlyIEmodel: monthlyIEmodel,
         yearlyIEmodel: yearlyIEModel,
       ),
     );
