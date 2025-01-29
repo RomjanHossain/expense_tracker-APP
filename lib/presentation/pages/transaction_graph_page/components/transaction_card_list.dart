@@ -92,7 +92,7 @@ class TransactionCardList extends StatelessWidget {
               _buildListView(entry.value, context: context),
             ],
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 10.h),
         ],
       ],
     );

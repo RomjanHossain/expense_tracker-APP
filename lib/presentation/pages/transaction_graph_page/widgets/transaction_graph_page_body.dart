@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
+import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/transaction_card_list.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/transaction_filter_sheet.dart';
@@ -22,26 +23,6 @@ class TransactionGraphPageBody extends StatelessWidget {
               height: 40.h,
               child: Row(
                 children: [
-                  //NOTE: show dropdown of subscriptionsFrequency
-                  // Expanded(
-                  //   child: DropdownButtonFormField(
-                  //     isExpanded: true,
-                  //     dropdownColor: ExpenseTrackerColors.violet,
-                  //     focusColor: isDarkMode(context)
-                  //         ? ExpenseTrackerColors.dark75
-                  //         : ExpenseTrackerColors.light,
-                  //     decoration: dropdownInputDecoration('Frequency'),
-                  //     items: SubscriptionsFrequency.values
-                  //         .map(
-                  //           (e) => DropdownMenuItem(
-                  //             value: e,
-                  //             child: Text(getSucriptionFrequencyText(e)),
-                  //           ),
-                  //         )
-                  //         .toList(),
-                  //     onChanged: (value) {},
-                  //   ),
-                  // ),
                   // spacer
                   const Spacer(),
                   //NOTE: a popup menu button to show the list of subscriptions
@@ -122,7 +103,78 @@ class TransactionGraphPageBody extends StatelessWidget {
               closedElevation: 0,
               closedColor: Colors.transparent,
               openBuilder: (context, action) {
-                return const FinancialReportsQuick();
+                final today = DateTime.now();
+                IEmodel? xpn;
+                IEmodel? inc;
+                IEmodel? trn;
+                // get total ammounts
+                final spendAmount = state.yearlyIEmodel
+                    .where(
+                  (e) =>
+                      e.isIncome == ExpenseType.expense &&
+                      e.expense?.createdDate?.month == today.month &&
+                      e.expense?.createdDate?.year == today.year,
+                )
+                    .fold<double>(
+                  0,
+                  (previousValue, IEmodel element) {
+                    xpn ??= element;
+                    xpn = xpn!.expense!.amount > element.expense!.amount
+                        ? xpn
+                        : element;
+                    return previousValue + element.expense!.amount;
+                  },
+                );
+
+                final incomeAmount = state.yearlyIEmodel
+                    .where(
+                  (e) =>
+                      e.isIncome == ExpenseType.income &&
+                      e.income?.createdDate?.month == today.month &&
+                      e.income?.createdDate?.year == today.year,
+                )
+                    .fold<double>(
+                  0,
+                  (previousValue, IEmodel element) {
+                    inc ??= element;
+                    inc = inc!.income!.amount > element.income!.amount
+                        ? inc
+                        : element;
+                    return previousValue + element.income!.amount;
+                  },
+                );
+
+                final transferAmount = state.yearlyIEmodel
+                    .where(
+                  (e) =>
+                      e.isIncome == ExpenseType.transfer &&
+                      e.transfer?.createdDate?.month == today.month &&
+                      e.transfer?.createdDate?.year == today.year,
+                )
+                    .fold<double>(
+                  0,
+                  (previousValue, IEmodel element) {
+                    trn ??= element;
+                    trn = trn!.transfer!.amount > element.transfer!.amount
+                        ? trn
+                        : element;
+                    return previousValue + element.income!.amount;
+                  },
+                );
+                debugPrint('spendAmount: $spendAmount');
+                debugPrint('incomeAmount: $incomeAmount');
+                debugPrint('transferAmount: $transferAmount');
+                debugPrint('inc: $inc');
+                debugPrint('exp: $xpn');
+                debugPrint('trans: $trn');
+                return FinancialReportsQuick(
+                  spendAmount: spendAmount.toInt(),
+                  incomeAmount: incomeAmount.toInt(),
+                  transferAmount: transferAmount.toInt(),
+                  inc: inc,
+                  exp: xpn,
+                  trans: trn,
+                );
               },
             ),
 
