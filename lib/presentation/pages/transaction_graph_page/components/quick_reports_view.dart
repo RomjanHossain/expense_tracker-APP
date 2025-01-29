@@ -70,7 +70,7 @@ class QuickReportsView extends StatelessWidget {
           Text(
             title,
             style: ExpenseTrackerTextStyle.title3.copyWith(
-              color: ExpenseTrackerColors.light.withOpacity(0.7),
+              color: ExpenseTrackerColors.light.withValues(alpha: 0.7),
             ),
           ),
           RichText(
@@ -202,16 +202,6 @@ class QuickReportsView extends StatelessWidget {
               ),
             ),
           if (type == ExpenseType.transfer)
-            // Padding(
-            //   padding: const EdgeInsets.all(8),
-            //   child: OutlinedButton(
-            //     onPressed: () {
-            //       Navigator.push(context, ExpensereportPage.route());
-            //     },
-            //     child: const Text('See full details'),
-            //   ),
-            // ),
-
             OpenContainer(
               closedBuilder: (context, action) {
                 return Padding(

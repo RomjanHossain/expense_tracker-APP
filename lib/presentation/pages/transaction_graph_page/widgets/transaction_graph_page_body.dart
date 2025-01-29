@@ -161,12 +161,6 @@ class TransactionGraphPageBody extends StatelessWidget {
                     return previousValue + element.income!.amount;
                   },
                 );
-                debugPrint('spendAmount: $spendAmount');
-                debugPrint('incomeAmount: $incomeAmount');
-                debugPrint('transferAmount: $transferAmount');
-                debugPrint('inc: $inc');
-                debugPrint('exp: $xpn');
-                debugPrint('trans: $trn');
                 return FinancialReportsQuick(
                   spendAmount: spendAmount.toInt(),
                   incomeAmount: incomeAmount.toInt(),

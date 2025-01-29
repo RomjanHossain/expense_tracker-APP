@@ -23,7 +23,8 @@ class ExpensereportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ExpensereportBloc(),
+      create: (context) =>
+          ExpensereportBloc()..add(const CustomExpensereportEvent()),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: isDarkMode(context)
