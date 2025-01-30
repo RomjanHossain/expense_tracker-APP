@@ -39,13 +39,7 @@ class QuickReportsView extends StatelessWidget {
               for (final x in List.generate(3, (index) => index))
                 Expanded(
                   child: InkWell(
-                    onTap: () {
-                      // liquidController.animateToPage(
-                      //   page: x,
-                      //   // duration: const Duration(milliseconds: 500),
-                      // );
-                      // setState(() {});
-                    },
+                    onTap: () {},
                     child: Container(
                       height: 5.h,
                       decoration: BoxDecoration(

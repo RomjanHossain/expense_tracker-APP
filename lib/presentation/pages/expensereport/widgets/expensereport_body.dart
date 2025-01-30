@@ -3,9 +3,11 @@ import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
 import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
+import 'package:expense_tracker/presentation/pages/expensedetails/view/expensedetails_page.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/components/chart_below_card.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
+import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expenses.dart';
 import 'package:expense_tracker/presentation/widgets/charts/line_charts.dart';
 import 'package:expense_tracker/presentation/widgets/charts/pie_carts.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -86,8 +88,29 @@ class ExpensereportBody extends StatelessWidget {
     if (c > max) {
       max = c; // Update max if c is greater
     }
-
     return max.toDouble();
+  }
+
+  // list of expenses
+  List<IEmodel> getExpenses(List<IEmodel> x) {
+    final a = <IEmodel>[];
+    for (var i = 0; i < x.length; i++) {
+      if (x[i].isIncome == ExpenseType.expense) {
+        a.add(x[i]);
+      }
+    }
+    return a;
+  }
+
+  // list of incomes
+  List<IEmodel> getIncomes(List<IEmodel> x) {
+    final a = <IEmodel>[];
+    for (var i = 0; i < x.length; i++) {
+      if (x[i].isIncome == ExpenseType.income) {
+        a.add(x[i]);
+      }
+    }
+    return a;
   }
 
   @override
@@ -327,7 +350,50 @@ class ExpensereportBody extends StatelessWidget {
                 },
               ),
             ),
+            if (state.chartType == ChartType.line &&
+                state.etype == ExpenseType2.expense)
+              Column(
+                children: getExpenses(
+                  state.frequency == SubscriptionsFrequency.daily
+                      ? state.dailyData
+                      : state.frequency == SubscriptionsFrequency.weekly
+                          ? state.weeklyData
+                          : state.frequency == SubscriptionsFrequency.monthly
+                              ? state.monthlyData
+                              : state.yearlyData,
+                )
+                    .map((currentItem) => GestureDetector(
+                          onTap: () => Navigator.push(
+                            context,
+                            ExpensedetailsPage.route(currentItem),
+                          ),
+                          child: CardOfExpense2(cardOfExpense: currentItem),
+                        ))
+                    .toList(),
+              ),
+            if (state.chartType == ChartType.line &&
+                state.etype == ExpenseType2.income)
+              Column(
+                children: getIncomes(
+                  state.frequency == SubscriptionsFrequency.daily
+                      ? state.dailyData
+                      : state.frequency == SubscriptionsFrequency.weekly
+                          ? state.weeklyData
+                          : state.frequency == SubscriptionsFrequency.monthly
+                              ? state.monthlyData
+                              : state.yearlyData,
+                )
+                    .map((currentItem) => GestureDetector(
+                          onTap: () => Navigator.push(
+                            context,
+                            ExpensedetailsPage.route(currentItem),
+                          ),
+                          child: CardOfExpense2(cardOfExpense: currentItem),
+                        ))
+                    .toList(),
+              ),
             // for pie
+
             ListView.builder(
               shrinkWrap: true,
               itemCount: 3,
@@ -339,23 +405,6 @@ class ExpensereportBody extends StatelessWidget {
                     amount: -1 + index.toDouble(),
                     color: ExpenseTrackerColors.blue60,
                     title: 'householdRepairs',
-                  ),
-                );
-              },
-            ),
-            // t
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: 5,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return const CardOfExpense(
-                  cardOfExpense: CardOfExpenseEntity(
-                    color: ExpenseTrackerColors.violet,
-                    title: 'householdRepairs',
-                    subtitle: 'Walmart',
-                    amount: 23,
-                    date: 'Today',
                   ),
                 );
               },

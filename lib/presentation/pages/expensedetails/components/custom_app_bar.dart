@@ -118,13 +118,6 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                                       await showDialog<void>(
                                         context: context,
                                         builder: (context) {
-                                          Future.delayed(
-                                            2.seconds,
-                                            () {
-                                              Navigator.pop(context);
-                                              Navigator.pop(context);
-                                            },
-                                          );
                                           return const SuccessfullyDeleted();
                                         },
                                       );
