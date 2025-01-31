@@ -1,13 +1,18 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
+import 'package:expense_tracker/domain/repositories/drift_repository.dart';
+import 'package:expense_tracker/presentation/pages/budget/bloc/budget_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RemoveBudgetSheet extends StatelessWidget {
   const RemoveBudgetSheet({
+    required this.id,
     super.key,
   });
+  final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +67,14 @@ class RemoveBudgetSheet extends StatelessWidget {
               // delete
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
+                  onPressed: () async {
+                    //! DONIG THE DELETE ON UI PART (SORRY)
+                    final db = DriftRepository();
+                    await db.deleteBudget(id);
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    }
                   },
                   child: const Text('Delete'),
                 ),

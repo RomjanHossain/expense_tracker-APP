@@ -24,3 +24,11 @@ class ChangeNextMonthBudgetEvent extends BudgetEvent {
 class ChangePrevMonthBudgetEvent extends BudgetEvent {
   const ChangePrevMonthBudgetEvent();
 }
+
+// delete
+class DeleteBudgetEvent extends BudgetEvent {
+  const DeleteBudgetEvent(this.budget);
+  final int budget;
+  @override
+  List<Object> get props => [budget];
+}

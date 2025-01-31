@@ -271,23 +271,20 @@ class DriftRepository
 
   // delete income
   Future<int> deletIncome(int id) async {
-    final r = _db.select(_db.incomes)..where((tbl) => tbl.id.equals(id));
-    final record = await r.getSingle();
-    return deleteRecord(_db.incomes, record);
+    final r = _db.delete(_db.incomes)..where((tbl) => tbl.id.equals(id));
+    return r.go();
   }
 
   // delete expense
   Future<int> deletExpense(int id) async {
-    final r = _db.select(_db.expenses)..where((tbl) => tbl.id.equals(id));
-    final record = await r.getSingle();
-    return deleteRecord(_db.expenses, record);
+    final r = _db.delete(_db.expenses)..where((tbl) => tbl.id.equals(id));
+    return r.go();
   }
 
   // delete income
   Future<int> deletTransfer(int id) async {
-    final r = _db.select(_db.transfers)..where((tbl) => tbl.id.equals(id));
-    final record = await r.getSingle();
-    return deleteRecord(_db.transfers, record);
+    final r = _db.delete(_db.transfers)..where((tbl) => tbl.id.equals(id));
+    return r.go();
   }
 
   // ------------------------- Users -----------------
@@ -476,9 +473,8 @@ class DriftRepository
   // ------------------------- BUDGETS -----------------
   @override
   Future<int> deleteBudget(int id) async {
-    final r = _db.select(_db.budgets)..where((tbl) => tbl.id.equals(id));
-    final record = await r.getSingle();
-    return deleteRecord(_db.transfers, record);
+    final r = _db.delete(_db.budgets)..where((tbl) => tbl.id.equals(id));
+    return r.go();
   }
 
   @override

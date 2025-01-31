@@ -2,11 +2,9 @@ import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
-import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
 import 'package:expense_tracker/presentation/pages/expensedetails/view/expensedetails_page.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/components/chart_below_card.dart';
-import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expenses.dart';
 import 'package:expense_tracker/presentation/widgets/charts/line_charts.dart';
 import 'package:expense_tracker/presentation/widgets/charts/pie_carts.dart';
@@ -362,13 +360,15 @@ class ExpensereportBody extends StatelessWidget {
                               ? state.monthlyData
                               : state.yearlyData,
                 )
-                    .map((currentItem) => GestureDetector(
-                          onTap: () => Navigator.push(
-                            context,
-                            ExpensedetailsPage.route(currentItem),
-                          ),
-                          child: CardOfExpense2(cardOfExpense: currentItem),
-                        ))
+                    .map(
+                      (currentItem) => GestureDetector(
+                        onTap: () => Navigator.push(
+                          context,
+                          ExpensedetailsPage.route(currentItem),
+                        ),
+                        child: CardOfExpense2(cardOfExpense: currentItem),
+                      ),
+                    )
                     .toList(),
               ),
             if (state.chartType == ChartType.line &&
@@ -383,13 +383,15 @@ class ExpensereportBody extends StatelessWidget {
                               ? state.monthlyData
                               : state.yearlyData,
                 )
-                    .map((currentItem) => GestureDetector(
-                          onTap: () => Navigator.push(
-                            context,
-                            ExpensedetailsPage.route(currentItem),
-                          ),
-                          child: CardOfExpense2(cardOfExpense: currentItem),
-                        ))
+                    .map(
+                      (currentItem) => GestureDetector(
+                        onTap: () => Navigator.push(
+                          context,
+                          ExpensedetailsPage.route(currentItem),
+                        ),
+                        child: CardOfExpense2(cardOfExpense: currentItem),
+                      ),
+                    )
                     .toList(),
               ),
             // for pie
