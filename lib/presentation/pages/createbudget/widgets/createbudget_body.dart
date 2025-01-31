@@ -1,5 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/pages/createbudget/cubit/cubit.dart';
 import 'package:flutter/material.dart';
@@ -204,33 +205,39 @@ class _CreatebudgetBodyState extends State<CreatebudgetBody> {
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         // get all values
                         final amount = double.tryParse(
                           _accountBalanceController.text,
                         );
                         if (state.budget.amount == 0 || amount == null) {
                           // show error
-                          // showToast('Please enter a valid amount');
+                          showInfoToast(context, 'Please enter an amount');
                           return;
                         }
                         if (state.budget.category.isEmpty) {
-                          // showToast('Please select a category');
+                          showInfoToast(context, 'Please select a category');
                           return;
                         }
                         if (state.budget.isReceiveAlert) {
                           if (state.budget.percent == 0) {
-                            // showToast('Please select a percent');
+                            showInfoToast(context, 'Please select a percent');
                             return;
                           }
                         }
                         // all okay
-                        debugPrint('amount :${state.budget.amount}');
-                        debugPrint('category :${state.budget.category}');
-                        debugPrint(
-                          'isReceiveAlert :${state.budget.isReceiveAlert}',
-                        );
-                        debugPrint('percent :${state.budget.percent}');
+                        final x = await context
+                            .read<CreatebudgetCubit>()
+                            .createBudget();
+                        debugPrint('x :$x');
+                        if (x == -1) {
+                          showFailureToast(context, 'Failed to create budget');
+                          return;
+                        }
+
+                        showSuccessToast(
+                            context, 'Budget created successfully');
+                        Navigator.pop(context);
                       },
                       child: const Text('Continue'),
                     ),

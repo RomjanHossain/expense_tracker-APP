@@ -4,10 +4,12 @@ import 'package:expense_tracker/core/error/exceptions.dart';
 import 'package:expense_tracker/core/helper/custom_types.dart';
 import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
 import 'package:expense_tracker/domain/usecases/account_tbl_usecases.dart';
+import 'package:expense_tracker/domain/usecases/budget_usecases.dart';
 import 'package:expense_tracker/domain/usecases/user_tbl_usecases.dart';
 import 'package:flutter/rendering.dart';
 
-class DriftRepository implements AccountTblUsecases, UserTblUsecases {
+class DriftRepository
+    implements AccountTblUsecases, UserTblUsecases, BudgetTblUsecases {
   // Public factory to access the singleton instance
   factory DriftRepository() => _instance;
 
@@ -469,5 +471,75 @@ class DriftRepository implements AccountTblUsecases, UserTblUsecases {
     TableInfo<T, D> table,
   ) async {
     return _db.delete(table).go();
+  }
+
+  // ------------------------- BUDGETS -----------------
+  @override
+  Future<int> deleteBudget(int id) async {
+    final r = _db.select(_db.budgets)..where((tbl) => tbl.id.equals(id));
+    final record = await r.getSingle();
+    return deleteRecord(_db.transfers, record);
+  }
+
+  @override
+  Future<List<Budget>> getAllBudgets() {
+    final query = _db.select(_db.budgets);
+    return query.get();
+  }
+
+  @override
+  Future<List<Budget>> getBudgets(int month) {
+    final today = DateTime.now();
+    final query = _db.select(_db.budgets)
+      ..where(
+        (tbl) =>
+            tbl.createdDate.year.equals(today.year) &
+            tbl.createdDate.month.equals(month),
+      );
+    return query.get();
+  }
+
+  @override
+  ResultFuture<int> setBudget(Insertable<Budget> pd) async {
+    try {
+      debugPrint('Creating budget: $pd');
+      final query = _db.into(_db.budgets).insert(pd);
+      debugPrint('Budget created: $query');
+      return query;
+    } catch (e) {
+      debugPrint('Error creating budget: $e');
+      return -1;
+    }
+  }
+
+  @override
+  Future<bool> updateBudget({
+    required int id,
+    double? amount,
+    String? category,
+    double? spent,
+    bool? isAlert,
+    double? percentage,
+  }) async {
+    try {
+      final query = _db.update(_db.budgets)..where((tbl) => tbl.id.equals(id));
+
+      // Create a single BudgetEntityCompanion object with updated values
+      final updatedValues = BudgetsCompanion(
+        amount: amount != null ? Value(amount) : const Value.absent(),
+        spent: spent != null ? Value(spent) : const Value.absent(),
+        category: category != null ? Value(category) : const Value.absent(),
+        isRepeat: isAlert != null ? Value(isAlert) : const Value.absent(),
+        percentage:
+            percentage != null ? Value(percentage) : const Value.absent(),
+      );
+
+      final rowsUpdated = await query.write(updatedValues);
+
+      return rowsUpdated > 0;
+    } catch (e) {
+      print('Error updating budget: $e');
+      return false;
+    }
   }
 }

@@ -28,8 +28,8 @@ class CreatebudgetPage extends StatelessWidget {
             style: ExpenseTrackerTextStyle.body1.copyWith(
               // color: ExpenseTrackerColors.light,
               color: isDarkMode(context)
-                  ? ExpenseTrackerColors.light
-                  : ExpenseTrackerColors.dark,
+                  ? ExpenseTrackerColors.dark
+                  : ExpenseTrackerColors.light,
             ),
           ),
           elevation: 0,

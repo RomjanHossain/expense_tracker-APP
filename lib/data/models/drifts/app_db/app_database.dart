@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:expense_tracker/core/utils/constrants/enums_.dart';
+import 'package:expense_tracker/data/models/drifts/budget_entity/budget_entity.dart';
 import 'package:expense_tracker/data/models/drifts/create_account/create_ac_drift.dart';
 import 'package:expense_tracker/data/models/drifts/expense_entity/expense_drift.dart';
 import 'package:expense_tracker/data/models/drifts/income_entity/income_drift.dart';
@@ -14,7 +15,16 @@ import 'package:path_provider/path_provider.dart';
 
 part 'app_database.g.dart';
 
-@DriftDatabase(tables: [Profile, Accounts, Expenses, Incomes, Transfers])
+@DriftDatabase(
+  tables: [
+    Profile,
+    Accounts,
+    Expenses,
+    Incomes,
+    Transfers,
+    Budgets,
+  ],
+)
 class AppDatabase extends _$AppDatabase {
   // Factory constructor to return the Singleton instance
   factory AppDatabase() {
