@@ -40,7 +40,7 @@ class BudgetBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              // flex: 1,
+              flex: 2,
               child: Container(
                 alignment: Alignment.bottomCenter,
                 // margin: EdgeInsets.only(top: 0.1.sh),
@@ -64,15 +64,17 @@ class BudgetBody extends StatelessWidget {
                             .read<BudgetBloc>()
                             .add(const ChangePrevMonthBudgetEvent());
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.navigate_before,
                         color: ExpenseTrackerColors.light,
+                        size: 30.sp,
                       ),
                     ),
                     Text(
                       calanderMonths[state.currentMon],
-                      style: ExpenseTrackerTextStyle.body1.copyWith(
+                      style: ExpenseTrackerTextStyle.title2.copyWith(
                         color: ExpenseTrackerColors.light,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                     IconButton(
@@ -81,9 +83,10 @@ class BudgetBody extends StatelessWidget {
                             .read<BudgetBloc>()
                             .add(const ChangeNextMonthBudgetEvent());
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.navigate_next,
                         color: ExpenseTrackerColors.light,
+                        size: 30.sp,
                       ),
                     ),
                   ],

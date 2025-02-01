@@ -6,6 +6,7 @@ abstract class BalanceTblUsecases {
 
   // create user (i don't know why i called it setUser)
   Future<double> getTotalIncome(int month);
+
   // user can only updates their pin
   Future<bool> updateUser(String pin);
 }

@@ -40,6 +40,7 @@ dependencies:
   modal_bottom_sheet: ^3.0.0-pre
   path_provider: ^2.1.2
   pie_menu: ^3.2.7
+  random_avatar: ^0.0.8
   shared_preferences: ^2.2.2
   toastification: ^2.0.0
 

@@ -1,6 +1,7 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
+import 'package:expense_tracker/domain/repositories/drift_repository.dart';
 import 'package:expense_tracker/presentation/pages/detailbudget/components/delete_budget_sheet.dart';
 import 'package:expense_tracker/presentation/widgets/amount_progress_indicator.dart';
 import 'package:expense_tracker/presentation/widgets/category_with_border.dart';
@@ -28,8 +29,18 @@ class DetailBudget extends StatelessWidget {
               await showModalBottomSheet<void>(
                 context: context,
                 builder: (context) {
-                  return RemoveBudgetSheet(
-                    id: budget.id,
+                  return RemoveSheet(
+                    title: 'Remove this budget?',
+                    subtitle: 'Are you sure do you wanna remove this budget?',
+                    onRemove: () async {
+                      //! DONIG THE DELETE ON UI PART (SORRY)
+                      final db = DriftRepository();
+                      await db.deleteBudget(budget.id);
+                      if (context.mounted) {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      }
+                    },
                   );
                 },
               );

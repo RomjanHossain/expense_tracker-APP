@@ -2079,6 +2079,404 @@ class TransfersCompanion extends UpdateCompanion<Transfer> {
   }
 }
 
+class $BudgetsTable extends Budgets with TableInfo<$BudgetsTable, Budget> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $BudgetsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _amountMeta = const VerificationMeta('amount');
+  @override
+  late final GeneratedColumn<double> amount = GeneratedColumn<double>(
+      'amount', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _spentMeta = const VerificationMeta('spent');
+  @override
+  late final GeneratedColumn<double> spent = GeneratedColumn<double>(
+      'spent', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _remainingMeta =
+      const VerificationMeta('remaining');
+  @override
+  late final GeneratedColumn<double> remaining = GeneratedColumn<double>(
+      'remaining', aliasedName, false,
+      generatedAs: GeneratedAs(amount - spent, false),
+      type: DriftSqlType.double,
+      requiredDuringInsert: false);
+  static const VerificationMeta _categoryMeta =
+      const VerificationMeta('category');
+  @override
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+      'category', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _percentageMeta =
+      const VerificationMeta('percentage');
+  @override
+  late final GeneratedColumn<double> percentage = GeneratedColumn<double>(
+      'percentage', aliasedName, true,
+      type: DriftSqlType.double, requiredDuringInsert: false);
+  static const VerificationMeta _isRepeatMeta =
+      const VerificationMeta('isRepeat');
+  @override
+  late final GeneratedColumn<bool> isRepeat = GeneratedColumn<bool>(
+      'is_repeat', aliasedName, true,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_repeat" IN (0, 1))'));
+  static const VerificationMeta _createdDateMeta =
+      const VerificationMeta('createdDate');
+  @override
+  late final GeneratedColumn<DateTime> createdDate = GeneratedColumn<DateTime>(
+      'created_date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        amount,
+        spent,
+        remaining,
+        category,
+        percentage,
+        isRepeat,
+        createdDate
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'budgets';
+  @override
+  VerificationContext validateIntegrity(Insertable<Budget> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('amount')) {
+      context.handle(_amountMeta,
+          amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
+    } else if (isInserting) {
+      context.missing(_amountMeta);
+    }
+    if (data.containsKey('spent')) {
+      context.handle(
+          _spentMeta, spent.isAcceptableOrUnknown(data['spent']!, _spentMeta));
+    } else if (isInserting) {
+      context.missing(_spentMeta);
+    }
+    if (data.containsKey('remaining')) {
+      context.handle(_remainingMeta,
+          remaining.isAcceptableOrUnknown(data['remaining']!, _remainingMeta));
+    }
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta,
+          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+    } else if (isInserting) {
+      context.missing(_categoryMeta);
+    }
+    if (data.containsKey('percentage')) {
+      context.handle(
+          _percentageMeta,
+          percentage.isAcceptableOrUnknown(
+              data['percentage']!, _percentageMeta));
+    }
+    if (data.containsKey('is_repeat')) {
+      context.handle(_isRepeatMeta,
+          isRepeat.isAcceptableOrUnknown(data['is_repeat']!, _isRepeatMeta));
+    }
+    if (data.containsKey('created_date')) {
+      context.handle(
+          _createdDateMeta,
+          createdDate.isAcceptableOrUnknown(
+              data['created_date']!, _createdDateMeta));
+    } else if (isInserting) {
+      context.missing(_createdDateMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Budget map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Budget(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      amount: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}amount'])!,
+      spent: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}spent'])!,
+      remaining: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}remaining'])!,
+      category: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
+      percentage: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}percentage']),
+      isRepeat: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_repeat']),
+      createdDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_date'])!,
+    );
+  }
+
+  @override
+  $BudgetsTable createAlias(String alias) {
+    return $BudgetsTable(attachedDatabase, alias);
+  }
+}
+
+class Budget extends DataClass implements Insertable<Budget> {
+  final int id;
+  final double amount;
+  final double spent;
+  final double remaining;
+  final String category;
+  final double? percentage;
+  final bool? isRepeat;
+  final DateTime createdDate;
+  const Budget(
+      {required this.id,
+      required this.amount,
+      required this.spent,
+      required this.remaining,
+      required this.category,
+      this.percentage,
+      this.isRepeat,
+      required this.createdDate});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['amount'] = Variable<double>(amount);
+    map['spent'] = Variable<double>(spent);
+    map['category'] = Variable<String>(category);
+    if (!nullToAbsent || percentage != null) {
+      map['percentage'] = Variable<double>(percentage);
+    }
+    if (!nullToAbsent || isRepeat != null) {
+      map['is_repeat'] = Variable<bool>(isRepeat);
+    }
+    map['created_date'] = Variable<DateTime>(createdDate);
+    return map;
+  }
+
+  BudgetsCompanion toCompanion(bool nullToAbsent) {
+    return BudgetsCompanion(
+      id: Value(id),
+      amount: Value(amount),
+      spent: Value(spent),
+      category: Value(category),
+      percentage: percentage == null && nullToAbsent
+          ? const Value.absent()
+          : Value(percentage),
+      isRepeat: isRepeat == null && nullToAbsent
+          ? const Value.absent()
+          : Value(isRepeat),
+      createdDate: Value(createdDate),
+    );
+  }
+
+  factory Budget.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Budget(
+      id: serializer.fromJson<int>(json['id']),
+      amount: serializer.fromJson<double>(json['amount']),
+      spent: serializer.fromJson<double>(json['spent']),
+      remaining: serializer.fromJson<double>(json['remaining']),
+      category: serializer.fromJson<String>(json['category']),
+      percentage: serializer.fromJson<double?>(json['percentage']),
+      isRepeat: serializer.fromJson<bool?>(json['isRepeat']),
+      createdDate: serializer.fromJson<DateTime>(json['createdDate']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'amount': serializer.toJson<double>(amount),
+      'spent': serializer.toJson<double>(spent),
+      'remaining': serializer.toJson<double>(remaining),
+      'category': serializer.toJson<String>(category),
+      'percentage': serializer.toJson<double?>(percentage),
+      'isRepeat': serializer.toJson<bool?>(isRepeat),
+      'createdDate': serializer.toJson<DateTime>(createdDate),
+    };
+  }
+
+  Budget copyWith(
+          {int? id,
+          double? amount,
+          double? spent,
+          double? remaining,
+          String? category,
+          Value<double?> percentage = const Value.absent(),
+          Value<bool?> isRepeat = const Value.absent(),
+          DateTime? createdDate}) =>
+      Budget(
+        id: id ?? this.id,
+        amount: amount ?? this.amount,
+        spent: spent ?? this.spent,
+        remaining: remaining ?? this.remaining,
+        category: category ?? this.category,
+        percentage: percentage.present ? percentage.value : this.percentage,
+        isRepeat: isRepeat.present ? isRepeat.value : this.isRepeat,
+        createdDate: createdDate ?? this.createdDate,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('Budget(')
+          ..write('id: $id, ')
+          ..write('amount: $amount, ')
+          ..write('spent: $spent, ')
+          ..write('remaining: $remaining, ')
+          ..write('category: $category, ')
+          ..write('percentage: $percentage, ')
+          ..write('isRepeat: $isRepeat, ')
+          ..write('createdDate: $createdDate')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, amount, spent, remaining, category,
+      percentage, isRepeat, createdDate);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Budget &&
+          other.id == this.id &&
+          other.amount == this.amount &&
+          other.spent == this.spent &&
+          other.remaining == this.remaining &&
+          other.category == this.category &&
+          other.percentage == this.percentage &&
+          other.isRepeat == this.isRepeat &&
+          other.createdDate == this.createdDate);
+}
+
+class BudgetsCompanion extends UpdateCompanion<Budget> {
+  final Value<int> id;
+  final Value<double> amount;
+  final Value<double> spent;
+  final Value<String> category;
+  final Value<double?> percentage;
+  final Value<bool?> isRepeat;
+  final Value<DateTime> createdDate;
+  const BudgetsCompanion({
+    this.id = const Value.absent(),
+    this.amount = const Value.absent(),
+    this.spent = const Value.absent(),
+    this.category = const Value.absent(),
+    this.percentage = const Value.absent(),
+    this.isRepeat = const Value.absent(),
+    this.createdDate = const Value.absent(),
+  });
+  BudgetsCompanion.insert({
+    this.id = const Value.absent(),
+    required double amount,
+    required double spent,
+    required String category,
+    this.percentage = const Value.absent(),
+    this.isRepeat = const Value.absent(),
+    required DateTime createdDate,
+  })  : amount = Value(amount),
+        spent = Value(spent),
+        category = Value(category),
+        createdDate = Value(createdDate);
+  static Insertable<Budget> custom({
+    Expression<int>? id,
+    Expression<double>? amount,
+    Expression<double>? spent,
+    Expression<String>? category,
+    Expression<double>? percentage,
+    Expression<bool>? isRepeat,
+    Expression<DateTime>? createdDate,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (amount != null) 'amount': amount,
+      if (spent != null) 'spent': spent,
+      if (category != null) 'category': category,
+      if (percentage != null) 'percentage': percentage,
+      if (isRepeat != null) 'is_repeat': isRepeat,
+      if (createdDate != null) 'created_date': createdDate,
+    });
+  }
+
+  BudgetsCompanion copyWith(
+      {Value<int>? id,
+      Value<double>? amount,
+      Value<double>? spent,
+      Value<String>? category,
+      Value<double?>? percentage,
+      Value<bool?>? isRepeat,
+      Value<DateTime>? createdDate}) {
+    return BudgetsCompanion(
+      id: id ?? this.id,
+      amount: amount ?? this.amount,
+      spent: spent ?? this.spent,
+      category: category ?? this.category,
+      percentage: percentage ?? this.percentage,
+      isRepeat: isRepeat ?? this.isRepeat,
+      createdDate: createdDate ?? this.createdDate,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (amount.present) {
+      map['amount'] = Variable<double>(amount.value);
+    }
+    if (spent.present) {
+      map['spent'] = Variable<double>(spent.value);
+    }
+    if (category.present) {
+      map['category'] = Variable<String>(category.value);
+    }
+    if (percentage.present) {
+      map['percentage'] = Variable<double>(percentage.value);
+    }
+    if (isRepeat.present) {
+      map['is_repeat'] = Variable<bool>(isRepeat.value);
+    }
+    if (createdDate.present) {
+      map['created_date'] = Variable<DateTime>(createdDate.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BudgetsCompanion(')
+          ..write('id: $id, ')
+          ..write('amount: $amount, ')
+          ..write('spent: $spent, ')
+          ..write('category: $category, ')
+          ..write('percentage: $percentage, ')
+          ..write('isRepeat: $isRepeat, ')
+          ..write('createdDate: $createdDate')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -2087,12 +2485,13 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ExpensesTable expenses = $ExpensesTable(this);
   late final $IncomesTable incomes = $IncomesTable(this);
   late final $TransfersTable transfers = $TransfersTable(this);
+  late final $BudgetsTable budgets = $BudgetsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [profile, accounts, expenses, incomes, transfers];
+      [profile, accounts, expenses, incomes, transfers, budgets];
 }
 
 typedef $$ProfileTableCreateCompanionBuilder = ProfileCompanion Function({
@@ -3639,6 +4038,204 @@ typedef $$TransfersTableProcessedTableManager = ProcessedTableManager<
     (Transfer, $$TransfersTableReferences),
     Transfer,
     PrefetchHooks Function({bool fromId})>;
+typedef $$BudgetsTableCreateCompanionBuilder = BudgetsCompanion Function({
+  Value<int> id,
+  required double amount,
+  required double spent,
+  required String category,
+  Value<double?> percentage,
+  Value<bool?> isRepeat,
+  required DateTime createdDate,
+});
+typedef $$BudgetsTableUpdateCompanionBuilder = BudgetsCompanion Function({
+  Value<int> id,
+  Value<double> amount,
+  Value<double> spent,
+  Value<String> category,
+  Value<double?> percentage,
+  Value<bool?> isRepeat,
+  Value<DateTime> createdDate,
+});
+
+class $$BudgetsTableFilterComposer
+    extends Composer<_$AppDatabase, $BudgetsTable> {
+  $$BudgetsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get amount => $composableBuilder(
+      column: $table.amount, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get spent => $composableBuilder(
+      column: $table.spent, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get remaining => $composableBuilder(
+      column: $table.remaining, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get percentage => $composableBuilder(
+      column: $table.percentage, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isRepeat => $composableBuilder(
+      column: $table.isRepeat, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnFilters(column));
+}
+
+class $$BudgetsTableOrderingComposer
+    extends Composer<_$AppDatabase, $BudgetsTable> {
+  $$BudgetsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get amount => $composableBuilder(
+      column: $table.amount, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get spent => $composableBuilder(
+      column: $table.spent, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get remaining => $composableBuilder(
+      column: $table.remaining, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get percentage => $composableBuilder(
+      column: $table.percentage, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isRepeat => $composableBuilder(
+      column: $table.isRepeat, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnOrderings(column));
+}
+
+class $$BudgetsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $BudgetsTable> {
+  $$BudgetsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<double> get amount =>
+      $composableBuilder(column: $table.amount, builder: (column) => column);
+
+  GeneratedColumn<double> get spent =>
+      $composableBuilder(column: $table.spent, builder: (column) => column);
+
+  GeneratedColumn<double> get remaining =>
+      $composableBuilder(column: $table.remaining, builder: (column) => column);
+
+  GeneratedColumn<String> get category =>
+      $composableBuilder(column: $table.category, builder: (column) => column);
+
+  GeneratedColumn<double> get percentage => $composableBuilder(
+      column: $table.percentage, builder: (column) => column);
+
+  GeneratedColumn<bool> get isRepeat =>
+      $composableBuilder(column: $table.isRepeat, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => column);
+}
+
+class $$BudgetsTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $BudgetsTable,
+    Budget,
+    $$BudgetsTableFilterComposer,
+    $$BudgetsTableOrderingComposer,
+    $$BudgetsTableAnnotationComposer,
+    $$BudgetsTableCreateCompanionBuilder,
+    $$BudgetsTableUpdateCompanionBuilder,
+    (Budget, BaseReferences<_$AppDatabase, $BudgetsTable, Budget>),
+    Budget,
+    PrefetchHooks Function()> {
+  $$BudgetsTableTableManager(_$AppDatabase db, $BudgetsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$BudgetsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$BudgetsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$BudgetsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<double> amount = const Value.absent(),
+            Value<double> spent = const Value.absent(),
+            Value<String> category = const Value.absent(),
+            Value<double?> percentage = const Value.absent(),
+            Value<bool?> isRepeat = const Value.absent(),
+            Value<DateTime> createdDate = const Value.absent(),
+          }) =>
+              BudgetsCompanion(
+            id: id,
+            amount: amount,
+            spent: spent,
+            category: category,
+            percentage: percentage,
+            isRepeat: isRepeat,
+            createdDate: createdDate,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required double amount,
+            required double spent,
+            required String category,
+            Value<double?> percentage = const Value.absent(),
+            Value<bool?> isRepeat = const Value.absent(),
+            required DateTime createdDate,
+          }) =>
+              BudgetsCompanion.insert(
+            id: id,
+            amount: amount,
+            spent: spent,
+            category: category,
+            percentage: percentage,
+            isRepeat: isRepeat,
+            createdDate: createdDate,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$BudgetsTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $BudgetsTable,
+    Budget,
+    $$BudgetsTableFilterComposer,
+    $$BudgetsTableOrderingComposer,
+    $$BudgetsTableAnnotationComposer,
+    $$BudgetsTableCreateCompanionBuilder,
+    $$BudgetsTableUpdateCompanionBuilder,
+    (Budget, BaseReferences<_$AppDatabase, $BudgetsTable, Budget>),
+    Budget,
+    PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -3653,4 +4250,6 @@ class $AppDatabaseManager {
       $$IncomesTableTableManager(_db, _db.incomes);
   $$TransfersTableTableManager get transfers =>
       $$TransfersTableTableManager(_db, _db.transfers);
+  $$BudgetsTableTableManager get budgets =>
+      $$BudgetsTableTableManager(_db, _db.budgets);
 }
