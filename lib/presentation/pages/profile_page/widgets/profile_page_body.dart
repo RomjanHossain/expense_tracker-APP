@@ -3,8 +3,9 @@ import 'dart:typed_data';
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/blocs/user_profile_bloc.dart';
-import 'package:expense_tracker/presentation/pages/account_page/account/view/account_page.dart';
+import 'package:expense_tracker/presentation/pages/detailbudget/components/delete_budget_sheet.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
+import 'package:expense_tracker/presentation/pages/profile_page/components/update_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -102,7 +103,23 @@ class ProfilePageBody extends StatelessWidget {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          debugPrint('Edit profile');
+
+                          await Navigator.push(
+                            context,
+                            CupertinoPageRoute<void>(
+                              builder: (context) {
+                                if (state.user == null) {
+                                  return const UpdateProfile(name: '');
+                                }
+                                return UpdateProfile(
+                                  name: name!,
+                                );
+                              },
+                            ),
+                          );
+                        },
                         icon: const Icon(
                           CupertinoIcons.pencil,
                         ),
@@ -156,11 +173,18 @@ class ProfilePageBody extends StatelessWidget {
                               // );
                               case 'Logout':
                                 // show a snack bar for logout
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Logout'),
-                                  ),
+                                showModalBottomSheet<void>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return RemoveSheet(
+                                      title: 'Logout?',
+                                      subtitle:
+                                          'Are you sure do you wanna logout?',
+                                      onRemove: () async {},
+                                    );
+                                  },
                                 );
+
                               // context.pushNamed(
                               //   'logout',
                               // );

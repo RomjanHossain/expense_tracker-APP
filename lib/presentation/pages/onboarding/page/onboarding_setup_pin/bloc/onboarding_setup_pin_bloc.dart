@@ -60,7 +60,7 @@ class OnboardingSetupPinBloc
     final db = DriftRepository();
     if (state.userPin.isEmpty) {
       debugPrint('event pin: ${event.pin}');
-      await db.updateUser(event.pin);
+      await db.updateUserPin(event.pin);
     }
     final adb = AppDatabase();
     final totalAccounts = await db.countRows(adb.profile);
