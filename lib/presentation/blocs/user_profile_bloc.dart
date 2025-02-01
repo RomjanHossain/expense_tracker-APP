@@ -9,8 +9,6 @@ part 'user_profile_state.dart';
 class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   UserProfileBloc() : super(const UserProfileState()) {
     on<GetUserProfile>((event, emit) async {
-      // ignore: no_leading_underscores_for_local_identifiers
-      // final _isr = IsarInstance();
       final db = DriftRepository();
       final usr = await db.getUser();
       usr.fold(

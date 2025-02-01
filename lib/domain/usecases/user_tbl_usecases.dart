@@ -9,5 +9,7 @@ abstract class UserTblUsecases {
   // create user (i don't know why i called it setUser)
   ResultFuture<int> setUser(Insertable<ProfileData> pd);
   // user can only updates their pin
-  Future<bool> updateUser(String pin);
+  Future<bool> updateUserPin(String pin);
+  // user name & image can be updated
+  Future<bool> updateUserNameAndImage(String? name, Uint8List? imageUrl);
 }

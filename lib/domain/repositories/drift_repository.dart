@@ -316,9 +316,9 @@ class DriftRepository
     }
   }
 
-  // update user
+  // update user pin (only)
   @override
-  Future<bool> updateUser(String pin) async {
+  Future<bool> updateUserPin(String pin) async {
     try {
       // Fetch the first profile row (if exists)
       final query = await _db.profile.select().getSingleOrNull();
@@ -335,6 +335,25 @@ class DriftRepository
       // Log the error for debugging
       return false;
     }
+  }
+
+  // update user name and image
+  @override
+  Future<bool> updateUserNameAndImage(String? name, Uint8List? imageUrl) async {
+    if (name != null && imageUrl != null) {
+      await (_db.update(_db.profile)..where((tbl) => tbl.id.equals(1))).write(
+          ProfileCompanion(name: Value(name), imageUrl: Value(imageUrl)));
+      return true;
+    } else if (name != null) {
+      await (_db.update(_db.profile)..where((tbl) => tbl.id.equals(1)))
+          .write(ProfileCompanion(name: Value(name)));
+      return true;
+    } else if (imageUrl != null) {
+      await (_db.update(_db.profile)..where((tbl) => tbl.id.equals(1)))
+          .write(ProfileCompanion(imageUrl: Value(imageUrl)));
+      return true;
+    }
+    return false;
   }
 
   // ------------------------- Balance's -----------------
