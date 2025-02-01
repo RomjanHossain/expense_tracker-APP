@@ -1,9 +1,8 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/theme.dart';
-import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
+import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/bloc.dart';
-import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 class FormDropdown extends StatelessWidget {
@@ -13,10 +12,9 @@ class FormDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DropdownAccountCubit,
-        (List<AccountEntity>, AccountEntity?)>(
+    return BlocBuilder<DropdownAccountCubit, (List<Account>, Account?)>(
       builder: (context, state) {
-        return DropdownButtonFormField<AccountEntity>(
+        return DropdownButtonFormField<Account>(
           borderRadius: ExpenseTrackerTheme.borderRadiusExtraLarge,
           decoration: const InputDecoration(
             focusedBorder: OutlineInputBorder(
@@ -44,7 +42,7 @@ class FormDropdown extends StatelessWidget {
           ),
           elevation: 2,
           isExpanded: true, //Adding this property, does the magic
-          dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
+          // dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
           icon: const Icon(
             Icons.keyboard_arrow_down,
             color: Colors.transparent,
@@ -59,7 +57,7 @@ class FormDropdown extends StatelessWidget {
           alignment: Alignment.centerLeft,
           items: state.$1
               .map(
-                (e) => DropdownMenuItem<AccountEntity>(
+                (e) => DropdownMenuItem<Account>(
                   value: e,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -75,15 +73,18 @@ class FormDropdown extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 8),
                           child: Text(
-                            e.accountName ?? '',
+                            e.accountName,
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              // color: ExpenseTrackerColors.dark50,
-                              color: isDarkMode(context)
-                                  ? ExpenseTrackerColors.light80
-                                  : ExpenseTrackerColors.dark50,
-                            ),
+                            // style: TextStyle(
+                            //   // color: ExpenseTrackerColors.dark50,
+                            //   color: e.id == state.$2?.id
+                            //       ? ExpenseTrackerColors.dark50
+                            //       : ExpenseTrackerColors.light80,
+                            //   // color: isDarkMode(context)
+                            //   //     ? ExpenseTrackerColors.light80
+                            //   //     : ExpenseTrackerColors.dark50,
+                            // ),
                             // style: ExpenseTrackerTextStyle.caption,
                           ),
                         ),

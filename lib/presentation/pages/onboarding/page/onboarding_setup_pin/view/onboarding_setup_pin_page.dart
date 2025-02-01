@@ -21,7 +21,7 @@ class OnboardingSetupPinPage extends StatelessWidget {
       ),
     );
   }
-} 
+}
 
 /// {@template onboarding_setup_pin_view}
 /// Displays the Body of OnboardingSetupPinView

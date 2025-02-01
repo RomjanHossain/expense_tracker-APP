@@ -1,9 +1,8 @@
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/ie_small_card.dart';
-import 'package:expense_tracker/utils/constrants/consts_.dart';
-import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -17,12 +17,13 @@ class SplashScreenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SplashScreenBloc(),
+      create: (context) =>
+          SplashScreenBloc()..add(const CustomSplashScreenEvent()),
       child: const Scaffold(
         body: SplashScreenView(),
       ),
     );
-  }    
+  }
 }
 
 /// {@template splash_screen_view}

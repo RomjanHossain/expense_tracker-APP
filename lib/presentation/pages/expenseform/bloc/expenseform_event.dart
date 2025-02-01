@@ -82,7 +82,7 @@ class ChangeRepeat extends ExpenseformEvent {
 //NOTE: change the account entity
 class ChangeAccountEntity extends ExpenseformEvent {
   const ChangeAccountEntity(this.accountEntity);
-  final AccountEntity accountEntity;
+  final Account accountEntity;
   @override
   List<Object> get props => [accountEntity];
 }
@@ -92,7 +92,7 @@ class ResetExpenseForm extends ExpenseformEvent {}
 //! NOTE: transfer event
 class TransferToDatbase extends ExpenseformEvent {
   const TransferToDatbase(this.transferAmount);
-  final TransferEntity transferAmount;
+  final TransfersCompanion transferAmount;
   @override
   List<Object> get props => [transferAmount];
 }
@@ -100,7 +100,7 @@ class TransferToDatbase extends ExpenseformEvent {
 //! NOTE: expense event
 class ExpenseToDatabase extends ExpenseformEvent {
   const ExpenseToDatabase(this.expenseAmount);
-  final ExpenseIsarEntity expenseAmount;
+  final ExpensesCompanion expenseAmount;
   @override
   List<Object> get props => [expenseAmount];
 }
@@ -108,7 +108,7 @@ class ExpenseToDatabase extends ExpenseformEvent {
 /// income event
 class IncomeToDatabase extends ExpenseformEvent {
   const IncomeToDatabase(this.incomeAmount);
-  final IncomeIsarEntity incomeAmount;
+  final IncomesCompanion incomeAmount;
   @override
   List<Object> get props => [incomeAmount];
 }

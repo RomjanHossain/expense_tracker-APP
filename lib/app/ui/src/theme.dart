@@ -6,6 +6,7 @@ class ExpenseTrackerTheme {
   /// Standard `ThemeData` for ExpenseTracker UI.
   static ThemeData get standard {
     return ThemeData(
+      fontFamily: 'Inter',
       progressIndicatorTheme: _pogressIndicator,
       primaryColor: ExpenseTrackerColors.violet,
       scaffoldBackgroundColor: ExpenseTrackerColors.light,
@@ -29,10 +30,10 @@ class ExpenseTrackerTheme {
       ),
       // switch button theme
       switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.all<Color>(
+        thumbColor: WidgetStateProperty.all<Color>(
           ExpenseTrackerColors.violet,
         ),
-        trackColor: MaterialStateProperty.all<Color>(
+        trackColor: WidgetStateProperty.all<Color>(
           ExpenseTrackerColors.violet20,
         ),
       ),
@@ -85,10 +86,10 @@ class ExpenseTrackerTheme {
       ),
       // switch button theme
       switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.all<Color>(
+        thumbColor: WidgetStateProperty.all<Color>(
           ExpenseTrackerColors.violet,
         ),
-        trackColor: MaterialStateProperty.all<Color>(
+        trackColor: WidgetStateProperty.all<Color>(
           ExpenseTrackerColors.violet20,
         ),
       ),

@@ -1,11 +1,11 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/account_type_helper.dart';
 import 'package:expense_tracker/data/datasources/local/utils_data/local_mobile_banking.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/bloc/onboarding_account_setup_bloc.dart';
-import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 class AccountTypeDropdown extends StatelessWidget {
@@ -17,7 +17,7 @@ class AccountTypeDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return DropdownButtonFormField(
-      dropdownColor: ExpenseTrackerColors.violet,
+      // dropdownColor: ExpenseTrackerColors.violet,
       // focusColor: Colors.white,
       items: accountTypesDBwithTrans(context)
           .map(

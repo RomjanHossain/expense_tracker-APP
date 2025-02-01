@@ -1,13 +1,20 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class RemoveBudgetSheet extends StatelessWidget {
-  const RemoveBudgetSheet({
+class RemoveSheet extends StatelessWidget {
+  const RemoveSheet({
+    required this.title,
+    required this.subtitle,
+    required this.onRemove,
     super.key,
   });
+  final String title;
+  final String subtitle;
+  final VoidCallback onRemove;
+  // final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +36,7 @@ class RemoveBudgetSheet extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Remove this budget?',
+            title,
             style: ExpenseTrackerTextStyle.title3.copyWith(
               fontWeight: FontWeight.bold,
               color: !isDarkMode(context)
@@ -39,7 +46,7 @@ class RemoveBudgetSheet extends StatelessWidget {
           ),
           SizedBox(height: 20.h),
           Text(
-            'Are you sure do you wanna remove this budget?',
+            subtitle,
             style: ExpenseTrackerTextStyle.body1.copyWith(
               color: ExpenseTrackerColors.light20,
             ),
@@ -55,17 +62,15 @@ class RemoveBudgetSheet extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text('Cancel'),
+                  child: const Text('No'),
                 ),
               ),
               SizedBox(width: 10.w),
               // delete
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child:const Text ('Delete'),
+                  onPressed: onRemove,
+                  child: const Text('Yes'),
                 ),
               ),
             ],

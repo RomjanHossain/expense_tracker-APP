@@ -1,6 +1,5 @@
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
-import 'package:expense_tracker/utils/constrants/extensions_.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +7,7 @@ import 'package:flutter/material.dart';
 double getMinAmountValueFromIEmodel(List<IEmodel> models) {
   final totalEx =
       models.where((element) => element.isIncome == ExpenseType.expense);
-  final amounts = totalEx.map((e) => e.expense?.ammount ?? 0);
+  final amounts = totalEx.map((e) => e.expense?.amount ?? 0);
   if (amounts.isEmpty) {
     return 0;
   }
@@ -23,7 +22,7 @@ double getMinAmountValueFromIEmodel(List<IEmodel> models) {
 double getMaxAmountValueFromIEmodel(List<IEmodel> models) {
   final totalEx =
       models.where((element) => element.isIncome == ExpenseType.expense);
-  final amounts = totalEx.map((e) => e.expense?.ammount ?? 0);
+  final amounts = totalEx.map((e) => e.expense?.amount ?? 0);
   // .reduce((value, element) => value > element ? value : element);
   if (amounts.isEmpty) {
     return 0;
@@ -36,7 +35,9 @@ double getMaxAmountValueFromIEmodel(List<IEmodel> models) {
 
 //!INFO: get min createdDate value from IEmodel
 double getMinCreatedDateValueFromIEmodel(
-    List<IEmodel> models, SegmentedButtonsData se) {
+  List<IEmodel> models,
+  SegmentedButtonsData se,
+) {
   final totalEx =
       models.where((element) => element.isIncome == ExpenseType.expense);
   final createdDates = se == SegmentedButtonsData.today
@@ -57,7 +58,9 @@ double getMinCreatedDateValueFromIEmodel(
 
 //!INFO: get max createdDate value from IEmodel
 double getMaxCreatedDateValueFromIEmodel(
-    List<IEmodel> models, SegmentedButtonsData se) {
+  List<IEmodel> models,
+  SegmentedButtonsData se,
+) {
   final totalEx =
       models.where((element) => element.isIncome == ExpenseType.expense);
   final createdDates = se == SegmentedButtonsData.today
@@ -82,22 +85,22 @@ List<FlSpot> getFlSpotFromIEmodelToday(
   final totalEx =
       models.where((element) => element.isIncome == ExpenseType.expense);
 
-  final spots = <FlSpot>[];
+  // final spots = <FlSpot>[];
   // final c_s = totalEx.map((e) => e.expense!.createdDate!);
-  final x_s = se == SegmentedButtonsData.today
+  final xS = se == SegmentedButtonsData.today
       ? totalEx.map((e) => e.expense!.createdDate!.toDoubleT)
       : totalEx.map((e) => e.expense!.createdDate!.toDoubleW);
-  final y_s = totalEx.map((e) => e.expense?.ammount ?? 0);
+  final yS = totalEx.map((e) => e.expense?.amount ?? 0);
   // debugPrint('c_s: $c_s');
   // debugPrint('x_s: $x_s');
-  for (int i = 0; i < x_s.length; i++) {
-    debugPrint('x: ${x_s.elementAt(i)} | y: ${y_s.elementAt(i)}');
-  }
+  // for (var i = 0; i < xS.length; i++) {
+  //   debugPrint('x: ${xS.elementAt(i)} | y: ${yS.elementAt(i)}');
+  // }
   return List.generate(
-    x_s.length,
+    xS.length,
     (index) => FlSpot(
-      x_s.elementAt(index),
-      y_s.elementAt(index),
+      xS.elementAt(index),
+      yS.elementAt(index),
     ),
   );
 }
@@ -113,12 +116,12 @@ List<FlSpot?> getFlSpotFromIEmodel(
   // debugPrint('Total Len: ${totalEx.length}');
   for (final i in totalEx) {
     debugPrint(
-      'x: ${i.expense!.createdDate!.toDoubleT}, y = ${i.expense?.ammount ?? 0}',
+      'x: ${i.expense!.createdDate!.toDoubleT}, y = ${i.expense?.amount ?? 0}',
     );
     spots.add(
       FlSpot(
         i.expense!.createdDate!.day.toDouble(),
-        i.expense?.ammount ?? 0,
+        i.expense?.amount ?? 0,
       ),
     );
   }

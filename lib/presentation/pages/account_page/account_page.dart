@@ -4,7 +4,7 @@
 // import 'package:expense_tracker/l10n/l10n.dart';
 // import 'package:expense_tracker/presentation/pages/account_page/detail_account_page.dart';
 // import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_account_setup/onboarding_account_setup.dart';
-// import 'package:expense_tracker/utils/utils_.dart';
+// import 'package:expense_tracker/core/utils/utils.dart';
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';

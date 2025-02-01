@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
-import 'package:expense_tracker/utils/utils_.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';

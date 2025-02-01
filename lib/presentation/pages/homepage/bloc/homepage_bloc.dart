@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
+import 'package:expense_tracker/core/utils/constrants/enums_.dart';
 import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
+import 'package:expense_tracker/domain/repositories/drift_repository.dart';
 import 'package:flutter/foundation.dart';
 
 part 'homepage_event.dart';
@@ -12,14 +11,14 @@ part 'homepage_state.dart';
 
 class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
   HomepageBloc() : super(const HomepageInitial()) {
-    // on<CustomHomepageEvent>(_onCustomHomepageEvent);
     on<ChangeTheFreq>(_changetheFreq);
     on<ChangeTheMonth>(_changeTheMonth);
     on<InitCalander>(_onInitCalander);
   }
-  final isar = IsarInstance();
 
-  //NOTE: change the freq
+  final drift = DriftRepository();
+
+  // NOTE: Change the frequency
   FutureOr<void> _changetheFreq(
     ChangeTheFreq event,
     Emitter<HomepageState> emit,
@@ -29,7 +28,7 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     }
   }
 
-  //! change the month
+  // NOTE: Change the month
   FutureOr<void> _changeTheMonth(
     ChangeTheMonth event,
     Emitter<HomepageState> emit,
@@ -38,9 +37,11 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     if (event.month != state.currentMonth) {
       debugPrint('month changed to ${event.month}');
       final month = event.month + 1;
-      final totalBalancemonth = await isar.getTotalBalanceMonthly(month);
-      final totalExpense = await isar.getTotalExpense(month);
-      final totalIncome = await isar.getTotalIncome(month);
+      final totalExpense = await drift.getMonthlyExpense(month);
+      final totalIncome = await drift.getMonthlyIncome(month);
+      final totalTransfers = await drift.getMonthlyTransfer(month);
+      final totalBalancemonth = (totalIncome + totalTransfers) - totalExpense;
+
       emit(
         state.copyWith(
           currentMonth: event.month,
@@ -52,33 +53,37 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
     }
   }
 
-  //! NOTE: _onInitCalander
+  // NOTE: Initialize the calendar
   FutureOr<void> _onInitCalander(
     InitCalander event,
     Emitter<HomepageState> emit,
   ) async {
-    debugPrint('init calander');
+    debugPrint('Initializing calendar');
     final currentMonth = DateTime.now().month;
-    // final currentDay = DateTime.now().day;
 
-    //!NOTE: top part
-    final totalBalancemonth = await isar.getTotalBalanceMonthly(currentMonth);
-    final totalExpense = await isar.getTotalExpense(currentMonth);
-    final totalIncome = await isar.getTotalIncome(currentMonth);
-    //! NOTE: segment btn part
-    final todaysIncome = await isar.getTodaysIncome();
-    final todaysTransfer = await isar.getTodaysTransfer();
-    final todaysExpense = await isar.getTodaysExpense();
-    final weeklyIncome = await isar.getWeeksIncome();
-    final weeklyTransfer = await isar.getWeeksTransfer();
-    final weeklyExpense = await isar.getWeeksExpense();
-    final monthlyIncome = await isar.getMonthsIncome();
-    final monthlyTransfer = await isar.getMonthsTransfer();
-    final monthlyExpense = await isar.getMonthsExpense();
-    final yearlyIncome = await isar.getYearsIncome();
-    final yearlyTransfer = await isar.getYearsTransfer();
-    final yearlyExpense = await isar.getYearsExpense();
-    //! HACK: todaysIEmodel
+    //! Top part
+    // final totalBalancemonth = await drift.getMonthlyBalance(currentMonth);
+    final totalExpense = await drift.getMonthlyExpense(currentMonth);
+    final totalIncome = await drift.getMonthlyIncome(currentMonth);
+    // final totalTransfers = await drift.getMonthlyTransfer(currentMonth);
+    // final totalBalancemonth = (totalIncome + totalTransfers) - totalExpense;
+    final totalBalancemonth = await drift.getTotalBalance();
+
+    //! Segment button part
+    final todaysIncome = await drift.getTodaysIncome();
+    final todaysTransfer = await drift.getTodaysTransfer();
+    final todaysExpense = await drift.getTodaysExpense();
+    final weeklyIncome = await drift.getWeeksIncome();
+    final weeklyTransfer = await drift.getWeeksTransfer();
+    final weeklyExpense = await drift.getWeeksExpense();
+    final monthlyIncome = await drift.getMonthsIncome();
+    final monthlyTransfer = await drift.getMonthsTransfer();
+    final monthlyExpense = await drift.getMonthsExpense();
+    final yearlyIncome = await drift.getYearsIncome();
+    final yearlyTransfer = await drift.getYearsTransfer();
+    final yearlyExpense = await drift.getYearsExpense();
+
+    //! Today's IEmodel
     final todaysIEmodel = <IEmodel>[
       ...todaysExpense.map(
         (e) => IEmodel(
@@ -107,9 +112,9 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
           transfer: e,
         ),
       ),
-    ];
+    ]..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-    //! HACK: weeklyIEmodel
+    //! Weekly IEmodel
     final weeklyIEmodel = <IEmodel>[
       ...weeklyExpense.map(
         (e) => IEmodel(
@@ -138,9 +143,9 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
           transfer: e,
         ),
       ),
-    ];
+    ]..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-    //! HACK: monthlyIEmodel
+    //! Monthly IEmodel
     final monthlyIEmodel = <IEmodel>[
       ...monthlyExpense.map(
         (e) => IEmodel(
@@ -169,9 +174,9 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
           transfer: e,
         ),
       ),
-    ];
+    ]..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-    //! HACK: yearlyIEmodel
+    //! Yearly IEmodel
     final yearlyIEmodel = <IEmodel>[
       ...yearlyExpense.map(
         (e) => IEmodel(
@@ -200,7 +205,7 @@ class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
           transfer: e,
         ),
       ),
-    ];
+    ]..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     emit(
       state.copyWith(

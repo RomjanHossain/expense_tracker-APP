@@ -1,15 +1,14 @@
-import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ExpensePieGraph extends StatelessWidget {
   const ExpensePieGraph({
-    required this.pieRadius,
+    required this.data,
     super.key,
   });
+  final List<PieChartSectionData> data;
 
-  final double pieRadius;
   // final List<FlSpot> spots;
   @override
   Widget build(BuildContext context) {
@@ -25,32 +24,33 @@ class ExpensePieGraph extends StatelessWidget {
           pieTouchData: PieTouchData(
             enabled: true,
           ),
-          sections: [
-            PieChartSectionData(
-              color: ExpenseTrackerColors.violet,
-              value: pieRadius,
-              radius: pieRadius,
-              showTitle: false,
-            ),
-            PieChartSectionData(
-              color: ExpenseTrackerColors.blue,
-              value: 25,
-              showTitle: false,
-              radius: pieRadius,
-            ),
-            PieChartSectionData(
-              color: ExpenseTrackerColors.green,
-              value: 25,
-              showTitle: false,
-              radius: pieRadius,
-            ),
-            PieChartSectionData(
-              color: ExpenseTrackerColors.yellow,
-              value: 25,
-              showTitle: false,
-              radius: pieRadius,
-            ),
-          ],
+          sections: data,
+          // sections: [
+          //   // PieChartSectionData(
+          //   //   color: ExpenseTrackerColors.violet,
+          //   //   value: pieRadius,
+          //   //   radius: pieRadius,
+          //   //   showTitle: false,
+          //   // ),
+          //   // PieChartSectionData(
+          //   //   color: ExpenseTrackerColors.blue,
+          //   //   value: 25,
+          //   //   showTitle: false,
+          //   //   radius: pieRadius,
+          //   // ),
+          //   // // PieChartSectionData(
+          //   // //   color: ExpenseTrackerColors.green,
+          //   // //   value: 25,
+          //   // //   showTitle: false,
+          //   // //   radius: pieRadius,
+          //   // // ),
+          //   // PieChartSectionData(
+          //   //   color: ExpenseTrackerColors.yellow,
+          //   //   value: 25,
+          //   //   showTitle: false,
+          //   //   radius: pieRadius,
+          //   // ),
+          // ],
           borderData: FlBorderData(
             show: false,
           ),

@@ -1,14 +1,14 @@
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/routes/routes_of_the_app.dart';
-import 'package:expense_tracker/data/datasources/local/shared_pref/settings_data.dart';
 import 'package:expense_tracker/l10n/l10n.dart';
+import 'package:expense_tracker/presentation/blocs/user_profile_bloc.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_account_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/cubit/expense_text_controller_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/app_home_page.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/bloc/expenseform_bloc.dart';
+import 'package:expense_tracker/presentation/pages/homepage/bloc/homepage_bloc.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/currency/cubit/currency_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/language/cubit/language_cubit.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/notification/cubit/notification_cubit.dart';
@@ -22,10 +22,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // SizeConfig().init(context);
     ScreenUtil.init(context);
     return MultiBlocProvider(
       providers: [
+        // HomepageBloc
+        BlocProvider<HomepageBloc>(
+          create: (context) => HomepageBloc()..add(const InitCalander()),
+        ),
         // ExpenseTextControllerCubit
         BlocProvider<ExpenseTextControllerCubit>(
           create: (context) => ExpenseTextControllerCubit(),
@@ -53,6 +56,10 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (context) => ThemeCubit()..getTheme(),
         ),
+
+        BlocProvider(
+          create: (context) => LanguageCubit(),
+        ),
         // CurrencyCubit
         BlocProvider(
           create: (context) => CurrencyCubit()..getCurrentCurrency(),
@@ -65,53 +72,22 @@ class App extends StatelessWidget {
 
         //! transaction graph
         BlocProvider(create: (c) => TransactionGraphPageBloc()),
+        //! NOTE: user profiel bloc
+        BlocProvider(create: (c) => UserProfileBloc()),
       ],
-      child: ThemeProvider(
-        builder: (context, theme) => BlocProvider(
-          create: (context) => LanguageCubit()..getLanguage(),
-          child: BlocBuilder<LanguageCubit, LanguageState>(
-            builder: (context, state) {
-              return MaterialApp.router(
-                debugShowCheckedModeBanner: false,
-                theme: theme,
-                locale: switch (state) {
-                  LanguageBangla() => const Locale('bn'),
-                  LanguageEnglish() => const Locale('en'),
-                  _ => const Locale('en'),
-                },
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
-                // locale: Locale(AppLocalizations.of(context).localeName),
-                routerConfig: routeOfTheApp,
-              );
-            },
-          ),
-        ),
-        initTheme: _getThemeModeFromState(),
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        theme: ExpenseTrackerTheme.standard,
+        // locale: switch (state) {
+        //   LanguageBangla() => const Locale('bn'),
+        //   LanguageEnglish() => const Locale('en'),
+        //   _ => const Locale('en'),
+        // },
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        // locale: Locale(AppLocalizations.of(context).localeName),
+        routerConfig: routeOfTheApp,
       ),
     );
   }
-}
-
-ThemeData _getThemeModeFromState() {
-  final settingsLocalDataSourcePref = SettingsLocalDataSourcePref();
-  final theme = settingsLocalDataSourcePref.getTheme();
-  final isPlatformDark =
-      WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
-  theme.then((value) {
-    return switch (value) {
-      'light' => ExpenseTrackerTheme.standard,
-      'dark' => ExpenseTrackerTheme.darkTheme,
-      _ => isPlatformDark
-          ? ExpenseTrackerTheme.darkTheme
-          : ExpenseTrackerTheme.standard,
-    };
-  }).catchError((e) {
-    return isPlatformDark
-        ? ExpenseTrackerTheme.darkTheme
-        : ExpenseTrackerTheme.standard;
-  });
-  return isPlatformDark
-      ? ExpenseTrackerTheme.darkTheme
-      : ExpenseTrackerTheme.standard;
 }

@@ -2,18 +2,8 @@ import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/b
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/widgets/transaction_graph_page_body.dart';
 import 'package:flutter/material.dart';
 
-/// {@template transaction_graph_page_page}
-/// A description for TransactionGraphPagePage
-/// {@endtemplate}
 class TransactionGraphPagePage extends StatelessWidget {
-  /// {@macro transaction_graph_page_page}
   const TransactionGraphPagePage({super.key});
-
-  /// The static route for TransactionGraphPagePage
-  // static Route<dynamic> route() {
-  //   return MaterialPageRoute<dynamic>(
-  //       builder: (_) => const TransactionGraphPagePage());
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +17,7 @@ class TransactionGraphPagePage extends StatelessWidget {
   }
 }
 
-/// {@template transaction_graph_page_view}
-/// Displays the Body of TransactionGraphPageView
-/// {@endtemplate}
 class TransactionGraphPageView extends StatelessWidget {
-  /// {@macro transaction_graph_page_view}
   const TransactionGraphPageView({super.key});
 
   @override

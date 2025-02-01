@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter_test/flutter_test.dart';
 import 'package:expense_tracker/presentation/pages/account_page/account_detail/cubit/cubit.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('AccountDetailState', () {
