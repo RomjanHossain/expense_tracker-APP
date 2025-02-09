@@ -164,7 +164,7 @@ class DataFromIEmodel implements IDataFromIEmodel {
         print('Getting exp');
         final expense = data.expense;
         if (expense != null) {
-          print("exp is not null");
+          print('exp is not null');
           print(
               "This is icon -> ${ExpenseTrackerCategories.expensesCategories.firstWhere(
             (element) {
@@ -178,7 +178,7 @@ class DataFromIEmodel implements IDataFromIEmodel {
               )
               .icon;
         } else {
-          print("exp is null");
+          print('exp is null');
           return '💸';
         }
       case ExpenseType.transfer:

@@ -6,12 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ExpenseLineGraph extends StatelessWidget {
   const ExpenseLineGraph({
     required this.spots,
-    this.expenseSpots,
-    this.transferSpots,
     required this.minX,
     required this.maxX,
     required this.minY,
     required this.maxY,
+    this.expenseSpots,
+    this.transferSpots,
     super.key,
   });
 
@@ -46,27 +46,28 @@ class ExpenseLineGraph extends StatelessWidget {
           minX: minX,
           maxX: maxX,
           lineBarsData: [
-            LineChartBarData(
-              spots: spots,
-              color: ExpenseTrackerColors.violet,
-              isCurved: true,
-              barWidth: 6.h,
-              isStrokeCapRound: true,
-              dotData: const FlDotData(
-                show: false,
-              ),
-              belowBarData: BarAreaData(
-                show: true,
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    const Color(0xffCA50FF).withValues(alpha: 0.24),
-                    const Color(0xff8B50FF).withValues(alpha: 0),
-                  ],
+            if (spots.isNotEmpty)
+              LineChartBarData(
+                spots: spots,
+                color: ExpenseTrackerColors.violet,
+                isCurved: true,
+                barWidth: spots.isEmpty ? 2.0 : 6.h,
+                isStrokeCapRound: true,
+                dotData: const FlDotData(
+                  show: false,
+                ),
+                belowBarData: BarAreaData(
+                  show: true,
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                      const Color(0xffCA50FF).withValues(alpha: 0.24),
+                      const Color(0xff8B50FF).withValues(alpha: 0),
+                    ],
+                  ),
                 ),
               ),
-            ),
 
             // exp
             if (expenseSpots != null)

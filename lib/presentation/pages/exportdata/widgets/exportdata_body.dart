@@ -1,4 +1,9 @@
+import 'dart:math';
+
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/core/helper/helper_.dart';
+import 'package:expense_tracker/domain/repositories/drift_repository.dart';
+import 'package:expense_tracker/presentation/pages/detailbudget/components/bottom_sheet.dart';
 import 'package:expense_tracker/presentation/pages/exportdata/cubit/cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -187,11 +192,43 @@ class ExportdataBody extends StatelessWidget {
                     borderRadius: ExpenseTrackerTheme.borderRadiusSmall,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  await showModalBottomSheet<void>(
+                    context: context,
+                    builder: (context) {
+                      return CustomBottomSheet(
+                        title: 'Export All Transactions?',
+                        subtitle:
+                            'This will export all your transaction data to a json file. Are you sure?',
+                        onConfirm: () async {
+                          final db = DriftRepository();
+                          debugPrint("geting json from bd");
+                          final jsonData = await db.exportDB();
+                          debugPrint("saving to memory");
+                          // WARNING: saving the data to documents directory
+                          final resp = await db.saveToFile(jsonData);
+                          if (resp) {
+                            debugPrint("saving to memory!DONE");
+                            showSuccessToast(context,
+                                'Successfully exported data into Documents Directory');
+                          } else {
+                            debugPrint("saving to memory!FAILED");
+                            showFailureToast(
+                                context, 'failed to exported data!');
+                          }
+                          Navigator.pop(context);
+                        },
+                      );
+                    },
+                  );
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(CupertinoIcons.arrow_down_to_line),
+                    const Icon(
+                      CupertinoIcons.arrow_down_to_line,
+                      color: Colors.white,
+                    ),
                     SizedBox(
                       width: 10.w,
                     ),

@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:random_avatar/random_avatar.dart';
 
 class UpdateProfile extends StatefulWidget {
-  const UpdateProfile({super.key, required this.name});
+  const UpdateProfile({required this.name, super.key});
   final String name;
 
   @override

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:drift/drift.dart';
 import 'package:expense_tracker/core/error/exceptions.dart';
@@ -5,11 +8,17 @@ import 'package:expense_tracker/core/helper/custom_types.dart';
 import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
 import 'package:expense_tracker/domain/usecases/account_tbl_usecases.dart';
 import 'package:expense_tracker/domain/usecases/budget_usecases.dart';
+import 'package:expense_tracker/domain/usecases/import_export_usecases.dart';
 import 'package:expense_tracker/domain/usecases/user_tbl_usecases.dart';
 import 'package:flutter/rendering.dart';
+import 'package:path_provider/path_provider.dart';
 
 class DriftRepository
-    implements AccountTblUsecases, UserTblUsecases, BudgetTblUsecases {
+    implements
+        AccountTblUsecases,
+        UserTblUsecases,
+        BudgetTblUsecases,
+        ImportExportUsecases {
   // Public factory to access the singleton instance
   factory DriftRepository() => _instance;
 
@@ -339,10 +348,11 @@ class DriftRepository
 
   // update user name and image
   @override
-  Future<bool> updateUserNameAndImage(String? name, Uint8List? imageUrl) async {
+  Future<bool> updateUserNameAndImage(String? name, String? imageUrl) async {
     if (name != null && imageUrl != null) {
       await (_db.update(_db.profile)..where((tbl) => tbl.id.equals(1))).write(
-          ProfileCompanion(name: Value(name), imageUrl: Value(imageUrl)));
+        ProfileCompanion(name: Value(name), imageUrl: Value(imageUrl)),
+      );
       return true;
     } else if (name != null) {
       await (_db.update(_db.profile)..where((tbl) => tbl.id.equals(1)))
@@ -488,6 +498,68 @@ class DriftRepository
   ) async {
     return _db.delete(table).go();
   }
+
+  // ------------------------- Import/Export -----------------
+
+  @override
+  Future<bool> saveToFile(String jsonString) async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/expense_tracker_database.json');
+      await file.writeAsString(jsonString);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<String> exportDB() async {
+    final allUsers = await _db.select(_db.profile).get();
+    final userJsonList = allUsers
+        .map((user) => user.toJson())
+        .toList(); // Convert each user to JSON
+    return jsonEncode(userJsonList); // Encode the list to a JSON stringist
+  }
+
+  @override
+  Future<void> importDB(String jsonString) async {
+    final rawData = jsonDecode(jsonString) as List<dynamic>;
+
+    if (rawData is! List<List<Map<String, dynamic>>>) {
+      throw const FormatException('Invalid JSON format for database import');
+    }
+
+    await _db.transaction(() async {
+      for (int i = 0; i < rawData.length; i++) {
+        final tableData = rawData[i];
+
+        if (tableData is! List<Map<String, dynamic>>) {
+          throw const FormatException('Invalid table data format');
+        }
+
+        final table = _db.allTables.elementAt(i);
+
+        // for (final row in tableData) {
+        //   final Insertable<DataClass> insertableRow =
+        //       _convertMapToInsertable(row, table);
+        //   await _db.into(table).insert(insertableRow);
+        // }
+      }
+    });
+  }
+
+// Insertable<DataClass> _convertMapToInsertable(
+//     Map<String, dynamic> row, TableInfo<Table, DataClass> table) {
+//   switch (table.actualTableName) {
+//     case 'users': // Replace with actual table name
+//       return UsersCompanion.fromJson(row) as Insertable<DataClass>;
+//     case 'products': // Replace with actual table name
+//       return ProductsCompanion.fromJson(row) as Insertable<DataClass>;
+//     default:
+//       throw Exception('Unknown table: ${table.actualTableName}');
+//   }
+// }
 
   // ------------------------- BUDGETS -----------------
   @override

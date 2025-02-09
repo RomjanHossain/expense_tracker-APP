@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:expense_tracker/app/ui/src/assets/assets_icons_n_illustration.dart';
 import 'package:expense_tracker/app/ui/src/colors.dart';
@@ -75,8 +74,8 @@ class AccountBalanceSliverAppBar extends StatelessWidget {
                           padding: const EdgeInsets.all(2),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(22.r),
-                            child: SvgPicture.memory(
-                              Uint8List.fromList(state.user!.imageUrl!),
+                            child: SvgPicture.string(
+                              state.user!.imageUrl!,
                               fit: BoxFit.cover,
                             ),
                           ),

@@ -2,7 +2,7 @@ import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
 import 'package:expense_tracker/domain/repositories/drift_repository.dart';
-import 'package:expense_tracker/presentation/pages/detailbudget/components/delete_budget_sheet.dart';
+import 'package:expense_tracker/presentation/pages/detailbudget/components/bottom_sheet.dart';
 import 'package:expense_tracker/presentation/widgets/amount_progress_indicator.dart';
 import 'package:expense_tracker/presentation/widgets/category_with_border.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DetailBudget extends StatelessWidget {
-  const DetailBudget({super.key, required this.budget});
+  const DetailBudget({required this.budget, super.key});
   final Budget budget;
 
   @override
@@ -29,10 +29,10 @@ class DetailBudget extends StatelessWidget {
               await showModalBottomSheet<void>(
                 context: context,
                 builder: (context) {
-                  return RemoveSheet(
+                  return CustomBottomSheet(
                     title: 'Remove this budget?',
                     subtitle: 'Are you sure do you wanna remove this budget?',
-                    onRemove: () async {
+                    onConfirm: () async {
                       //! DONIG THE DELETE ON UI PART (SORRY)
                       final db = DriftRepository();
                       await db.deleteBudget(budget.id);

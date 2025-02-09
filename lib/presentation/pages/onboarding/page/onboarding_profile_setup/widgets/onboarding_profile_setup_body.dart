@@ -1,9 +1,11 @@
+import 'dart:math';
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/core/helper/helper_.dart';
 import 'package:expense_tracker/presentation/pages/onboarding/page/onboarding_profile_setup/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:random_avatar/random_avatar.dart';
 
 class OnboardingProfileSetupBody extends StatefulWidget {
   const OnboardingProfileSetupBody({super.key});
@@ -15,8 +17,16 @@ class OnboardingProfileSetupBody extends StatefulWidget {
 
 class _OnboardingProfileSetupBodyState
     extends State<OnboardingProfileSetupBody> {
-  final _nameController = TextEditingController();
-  final _pinController = TextEditingController();
+  late TextEditingController _nameController;
+  late TextEditingController _pinController;
+  late String profileString;
+  @override
+  void initState() {
+    _nameController = TextEditingController();
+    _pinController = TextEditingController();
+    profileString = randomString(26);
+    super.initState();
+  }
 
   // DiceBearBuilder? _avatarBuilder;
 
@@ -36,6 +46,15 @@ class _OnboardingProfileSetupBodyState
   //   setState(() {}); // Trigger UI update
   // }
 
+  String randomString(int length) {
+    const chars = 'abcdefghijklmnopqrstuvwxyz';
+    final random = Random();
+    final result = List.generate(length, (index) {
+      return chars[random.nextInt(chars.length)];
+    });
+    return result.join();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OnboardingProfileSetupCubit,
@@ -46,13 +65,23 @@ class _OnboardingProfileSetupBodyState
           child: Column(
             children: [
               Center(
-                child: CircleAvatar(
-                  radius: 80.r,
-                  backgroundColor: ExpenseTrackerColors.violet80,
-                  child: const Icon(
-                    Icons.person,
-                    size: 60,
-                    color: Colors.white,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(100),
+                  onTap: () {
+                    debugPrint('Change Profile Picture');
+                    setState(() {
+                      profileString = randomString(26);
+                    });
+                  },
+                  child: CircleAvatar(
+                    radius: 80.r,
+                    backgroundColor: ExpenseTrackerColors.violet80,
+                    child: RandomAvatar(
+                      profileString,
+                      trBackground: true,
+                      width: 120,
+                      height: 120,
+                    ),
                   ),
                 ),
               ),
@@ -94,6 +123,7 @@ class _OnboardingProfileSetupBodyState
                 ),
                 child: TextFormField(
                   controller: _pinController,
+                  maxLength: 4,
                   onChanged: (value) {
                     context
                         .read<OnboardingProfileSetupCubit>()
@@ -128,24 +158,28 @@ class _OnboardingProfileSetupBodyState
                       showFailureToast(context, 'Name Field is required!');
                       return;
                     }
+
+                    if (_pinController.text.isEmpty) {
+                      showFailureToast(context, 'Pin Field is required!');
+                      return;
+                    }
+
+                    if (_pinController.text.length != 4) {
+                      showFailureToast(context, 'Pin should be 4 digit!');
+                      return;
+                    }
+                    final image = RandomAvatarString(
+                      profileString,
+                      trBackground: true,
+                    );
                     debugPrint('Name: ${_nameController.text}');
-                    // try {
-                    //   debugPrint(
-                    //       'image: ${await _avatarBuilder?.build().asRawSvgBytes()}');
-                    //   debugPrint('Pin: ${_pinController.text}');
-                    // } catch (e) {
-                    //   debugPrint('Error Image: $e');
-                    //   debugPrint('SHITTTTTTTTTTTTTTTTTtt');
-                    // }
-                    // debugPrint('DONE IMAGENENENEN');
-                    // // final image = await _avatarBuilder?.build().asRawSvgBytes();
                     if (!context.mounted) return;
                     await context
                         .read<OnboardingProfileSetupCubit>()
                         .saveProfile(
                           _nameController.text,
-                          // image,
                           _pinController.text,
+                          image,
                         );
                   },
                   child: const Text('Create a Profile'),

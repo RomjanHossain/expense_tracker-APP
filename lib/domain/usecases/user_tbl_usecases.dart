@@ -11,5 +11,5 @@ abstract class UserTblUsecases {
   // user can only updates their pin
   Future<bool> updateUserPin(String pin);
   // user name & image can be updated
-  Future<bool> updateUserNameAndImage(String? name, Uint8List? imageUrl);
+  Future<bool> updateUserNameAndImage(String? name, String? imageUrl);
 }

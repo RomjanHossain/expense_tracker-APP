@@ -1,9 +1,7 @@
-import 'dart:typed_data';
-
 import 'package:expense_tracker/app/ui/app_ui.dart';
 import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/blocs/user_profile_bloc.dart';
-import 'package:expense_tracker/presentation/pages/detailbudget/components/delete_budget_sheet.dart';
+import 'package:expense_tracker/presentation/pages/detailbudget/components/bottom_sheet.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/profile_page/components/update_profile.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,10 +56,8 @@ class ProfilePageBody extends StatelessWidget {
                               borderRadius: BorderRadius.circular(100.r),
                               child: state.user != null
                                   ? state.user!.imageUrl != null
-                                      ? SvgPicture.memory(
-                                          Uint8List.fromList(
-                                            state.user!.imageUrl!,
-                                          ),
+                                      ? SvgPicture.string(
+                                          state.user!.imageUrl!,
                                           fit: BoxFit.cover,
                                         )
                                       : Container()
@@ -112,10 +108,11 @@ class ProfilePageBody extends StatelessWidget {
                               builder: (context) {
                                 if (state.user == null) {
                                   return const UpdateProfile(name: '');
+                                } else {
+                                  return UpdateProfile(
+                                    name: name!,
+                                  );
                                 }
-                                return UpdateProfile(
-                                  name: name!,
-                                );
                               },
                             ),
                           );
@@ -176,11 +173,11 @@ class ProfilePageBody extends StatelessWidget {
                                 showModalBottomSheet<void>(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return RemoveSheet(
+                                    return CustomBottomSheet(
                                       title: 'Logout?',
                                       subtitle:
                                           'Are you sure do you wanna logout?',
-                                      onRemove: () async {},
+                                      onConfirm: () async {},
                                     );
                                   },
                                 );

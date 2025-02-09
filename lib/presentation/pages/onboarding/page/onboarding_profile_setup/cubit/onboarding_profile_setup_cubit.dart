@@ -9,7 +9,7 @@ part 'onboarding_profile_setup_state.dart';
 class OnboardingProfileSetupCubit extends Cubit<OnboardingProfileSetupState> {
   OnboardingProfileSetupCubit() : super(const OnboardingProfileSetupInitial());
 
-  Future<void> saveProfile(String name, String pin) async {
+  Future<void> saveProfile(String name, String pin, String? imageURL) async {
     // ignore: no_leading_underscores_for_local_identifiers
     final drift = DriftRepository();
     emit(const OnboardingProfileSetupLoading());
@@ -19,7 +19,7 @@ class OnboardingProfileSetupCubit extends Cubit<OnboardingProfileSetupState> {
     final newUser2 = ProfileCompanion.insert(
       name: name,
       pin: Value(pin),
-      // imageUrl: Value(imageURL),
+      imageUrl: Value(imageURL),
     );
     final isSuccess = await drift.setUser(newUser2);
     if (isSuccess == -1) {

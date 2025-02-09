@@ -76,7 +76,7 @@ class AccountListDropdown extends StatelessWidget {
                       e.accountName,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                           // color: isDarkMode(context)
                           //     ? ExpenseTrackerColors.light80
                           //     : ExpenseTrackerColors.dark50,

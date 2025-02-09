@@ -125,7 +125,7 @@ class SettingsBody extends StatelessWidget {
 }
 
 class TrailingText extends StatelessWidget {
-  const TrailingText({required this.x, Key? key}) : super(key: key);
+  const TrailingText({required this.x, super.key});
   final String x;
 
   @override

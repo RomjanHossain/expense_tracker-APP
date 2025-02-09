@@ -172,7 +172,7 @@ class BudgetBody extends StatelessWidget {
                                 ),
                                 child: AmountProgressIndicator(
                                   color: getIndicateColor(
-                                      budget.spent / budget.amount),
+                                      budget.spent / budget.amount,),
                                   value: budget.spent / budget.amount,
                                 ),
                               ),
