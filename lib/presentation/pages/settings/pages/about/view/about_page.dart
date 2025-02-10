@@ -1,6 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/about/widgets/about_body.dart';
-import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 /// {@template about_page}
@@ -19,9 +19,9 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-                  backgroundColor: isDarkMode(context)
-              ? ExpenseTrackerColors.dark
-              : ExpenseTrackerColors.light,
+        backgroundColor: isDarkMode(context)
+            ? ExpenseTrackerColors.dark
+            : ExpenseTrackerColors.light,
         title: const Text('About'),
       ),
       body: const AboutView(),

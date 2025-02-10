@@ -26,3 +26,9 @@ class ChangeExpenseType extends ExpensereportEvent {
   const ChangeExpenseType(this.etype);
   final ExpenseType2 etype;
 }
+
+// change the frequency
+class ChangeFrequency extends ExpensereportEvent {
+  const ChangeFrequency(this.frequency);
+  final SubscriptionsFrequency frequency;
+}

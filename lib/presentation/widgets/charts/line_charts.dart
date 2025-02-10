@@ -10,10 +10,14 @@ class ExpenseLineGraph extends StatelessWidget {
     required this.maxX,
     required this.minY,
     required this.maxY,
+    this.expenseSpots,
+    this.transferSpots,
     super.key,
   });
 
   final List<FlSpot> spots;
+  final List<FlSpot>? expenseSpots;
+  final List<FlSpot>? transferSpots;
   final double minX;
   final double maxX;
   final double minY;
@@ -42,27 +46,76 @@ class ExpenseLineGraph extends StatelessWidget {
           minX: minX,
           maxX: maxX,
           lineBarsData: [
-            LineChartBarData(
-              spots: spots,
-              color: ExpenseTrackerColors.violet,
-              isCurved: true,
-              barWidth: 6.h,
-              isStrokeCapRound: true,
-              dotData: const FlDotData(
-                show: false,
-              ),
-              belowBarData: BarAreaData(
-                show: true,
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    const Color(0xffCA50FF).withOpacity(0.24),
-                    const Color(0xff8B50FF).withOpacity(0),
-                  ],
+            if (spots.isNotEmpty)
+              LineChartBarData(
+                spots: spots,
+                color: ExpenseTrackerColors.violet,
+                isCurved: true,
+                barWidth: spots.isEmpty ? 2.0 : 6.h,
+                isStrokeCapRound: true,
+                dotData: const FlDotData(
+                  show: false,
+                ),
+                belowBarData: BarAreaData(
+                  show: true,
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                      const Color(0xffCA50FF).withValues(alpha: 0.24),
+                      const Color(0xff8B50FF).withValues(alpha: 0),
+                    ],
+                  ),
                 ),
               ),
-            ),
+
+            // exp
+            if (expenseSpots != null)
+              LineChartBarData(
+                spots: expenseSpots!,
+                color: ExpenseTrackerColors.red,
+                isCurved: true,
+                barWidth: 6.h,
+                isStrokeCapRound: true,
+                dotData: const FlDotData(
+                  show: false,
+                ),
+                belowBarData: BarAreaData(
+                  show: true,
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                      const Color(0xffCA50FF).withValues(alpha: 0.24),
+                      const Color(0xff8B50FF).withValues(alpha: 0),
+                    ],
+                  ),
+                ),
+              ),
+
+            // trans
+            if (transferSpots != null)
+              LineChartBarData(
+                spots: transferSpots!,
+                color: ExpenseTrackerColors.blue,
+                isCurved: true,
+                barWidth: 6.h,
+                isStrokeCapRound: true,
+                dotData: const FlDotData(
+                  show: false,
+                ),
+                belowBarData: BarAreaData(
+                  show: true,
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                      const Color(0xffCA50FF).withValues(alpha: 0.24),
+                      const Color(0xff8B50FF).withValues(alpha: 0),
+                    ],
+                  ),
+                ),
+              ),
           ],
         ),
       ),

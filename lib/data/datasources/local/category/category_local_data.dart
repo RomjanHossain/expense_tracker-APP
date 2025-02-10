@@ -24,6 +24,16 @@ final categoryLocalData = <String, CategoryLocalModel>{
         title: 'Home cleaning services',
         icon: '🧹',
       ),
+      CategoryModel(
+        id: 'pestControl',
+        title: 'Pest control services',
+        icon: '🐜',
+      ),
+      CategoryModel(
+        id: 'landscaping',
+        title: 'Landscaping or gardening services',
+        icon: '🌿',
+      ),
     ],
   ),
   'Transportation': const CategoryLocalModel(
@@ -56,6 +66,12 @@ final categoryLocalData = <String, CategoryLocalModel>{
         title: 'Ride-sharing or taxi expenses',
         icon: '🚕',
       ),
+      CategoryModel(id: 'tollFees', title: 'Toll fees', icon: '🚧'),
+      CategoryModel(
+        id: 'vehicleDepreciation',
+        title: 'Vehicle depreciation (for leased vehicles)',
+        icon: '📉',
+      ),
     ],
   ),
   'Food': const CategoryLocalModel(
@@ -65,6 +81,16 @@ final categoryLocalData = <String, CategoryLocalModel>{
       CategoryModel(id: 'groceries', title: 'Groceries', icon: '🛒'),
       CategoryModel(id: 'restaurants', title: 'Restaurants', icon: '🍽️'),
       CategoryModel(id: 'petFood', title: 'Pet food', icon: '🐾'),
+      CategoryModel(
+        id: 'mealDelivery',
+        title: 'Meal delivery services',
+        icon: '🍔',
+      ),
+      CategoryModel(
+        id: 'dietarySupplements',
+        title: 'Dietary supplements',
+        icon: '💊',
+      ),
     ],
   ),
   'Utilities': const CategoryLocalModel(
@@ -77,6 +103,16 @@ final categoryLocalData = <String, CategoryLocalModel>{
       CategoryModel(id: 'phones', title: 'Phones', icon: '📞'),
       CategoryModel(id: 'cable', title: 'Cable', icon: '📺'),
       CategoryModel(id: 'internet', title: 'Internet', icon: '🌐'),
+      CategoryModel(
+        id: 'renewableEnergy',
+        title: 'Renewable energy costs',
+        icon: '☀️',
+      ),
+      CategoryModel(
+        id: 'smartHomeDevices',
+        title: 'Smart home devices',
+        icon: '🏡💡',
+      ),
     ],
   ),
   'Clothing': const CategoryLocalModel(
@@ -99,6 +135,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
         title: 'Children’s shoes',
         icon: '👟',
       ),
+      CategoryModel(id: 'uniforms', title: 'Uniforms', icon: '👔'),
     ],
   ),
   'Medical/Healthcare': const CategoryLocalModel(
@@ -125,6 +162,16 @@ final categoryLocalData = <String, CategoryLocalModel>{
         id: 'visionCareExpenses',
         title: 'Vision care expenses',
         icon: '👓',
+      ),
+      CategoryModel(
+        id: 'mentalHealthServices',
+        title: 'Mental health services',
+        icon: '🧠',
+      ),
+      CategoryModel(
+        id: 'alternativeMedicine',
+        title: 'Alternative medicine',
+        icon: '🍃',
       ),
     ],
   ),
@@ -154,6 +201,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
         title: 'Disability insurance',
         icon: '♿🔒',
       ),
+      CategoryModel(id: 'petInsurance', title: 'Pet insurance', icon: '🐕🔒'),
     ],
   ),
   'Household Items/Supplies': const CategoryLocalModel(
@@ -177,6 +225,12 @@ final categoryLocalData = <String, CategoryLocalModel>{
         icon: '🧹',
       ),
       CategoryModel(id: 'tools', title: 'Tools', icon: '🔧'),
+      CategoryModel(id: 'furniture', title: 'Furniture', icon: '🛋️'),
+      CategoryModel(
+        id: 'applianceRepairReplacement',
+        title: 'Appliance repair/replacement',
+        icon: '🛠️',
+      ),
     ],
   ),
   'Personal': const CategoryLocalModel(
@@ -190,11 +244,7 @@ final categoryLocalData = <String, CategoryLocalModel>{
       ),
       CategoryModel(id: 'haircuts', title: 'Haircuts', icon: '💇'),
       CategoryModel(id: 'salonServices', title: 'Salon services', icon: '💅'),
-      CategoryModel(
-        id: 'cosmetics',
-        title: 'Cosmetics (like makeup or services like laser hair removal)',
-        icon: '💄',
-      ),
+      CategoryModel(id: 'cosmetics', title: 'Cosmetics', icon: '💄'),
       CategoryModel(id: 'babysitter', title: 'Babysitter', icon: '👶🍼'),
       CategoryModel(id: 'subscriptions', title: 'Subscriptions', icon: '📰'),
       CategoryModel(
@@ -206,6 +256,16 @@ final categoryLocalData = <String, CategoryLocalModel>{
         id: 'selfImprovementPersonalDevelopment',
         title: 'Self-improvement or personal development expenses',
         icon: '📚',
+      ),
+      CategoryModel(
+        id: 'travelEssentials',
+        title: 'Travel essentials',
+        icon: '🌍',
+      ),
+      CategoryModel(
+        id: 'specialNeedsServices',
+        title: 'Special needs services',
+        icon: '🧑‍🦽',
       ),
     ],
   ),
@@ -221,6 +281,12 @@ final categoryLocalData = <String, CategoryLocalModel>{
         title: 'Other types of loans',
         icon: '💰',
       ),
+      CategoryModel(
+        id: 'debtSettlementFees',
+        title: 'Debt settlement fees',
+        icon: '💸',
+      ),
+      CategoryModel(id: 'bankruptcyFees', title: 'Bankruptcy fees', icon: '📜'),
     ],
   ),
   'Retirement': const CategoryLocalModel(
@@ -235,9 +301,13 @@ final categoryLocalData = <String, CategoryLocalModel>{
       CategoryModel(id: 'investing', title: 'Investing', icon: '💰'),
       CategoryModel(
         id: 'continuingEducationExpenses',
-        title:
-            'Continuing education expenses for personal or career development',
+        title: 'Continuing education expenses',
         icon: '📚',
+      ),
+      CategoryModel(
+        id: 'reverseMortgagePayments',
+        title: 'Reverse mortgage payments',
+        icon: '🏠💸',
       ),
     ],
   ),
@@ -253,6 +323,12 @@ final categoryLocalData = <String, CategoryLocalModel>{
       CategoryModel(id: 'yourCollege', title: 'Your college', icon: '👩‍🎓'),
       CategoryModel(id: 'schoolSupplies', title: 'School supplies', icon: '📓'),
       CategoryModel(id: 'books', title: 'Books', icon: '📚'),
+      CategoryModel(
+        id: 'extracurricularActivities',
+        title: 'Extracurricular activities',
+        icon: '⚽',
+      ),
+      CategoryModel(id: 'onlineCourses', title: 'Online courses', icon: '💻'),
     ],
   ),
   'Savings': const CategoryLocalModel(
@@ -260,16 +336,17 @@ final categoryLocalData = <String, CategoryLocalModel>{
     title: 'Savings',
     items: [
       CategoryModel(id: 'emergencyFund', title: 'Emergency fund', icon: '💰'),
-      CategoryModel(
-        id: 'bigPurchases',
-        title: 'Big purchases like a new mattress or laptop',
-        icon: '💻',
-      ),
+      CategoryModel(id: 'bigPurchases', title: 'Big purchases', icon: '💻'),
       CategoryModel(id: 'otherSavings', title: 'Other savings', icon: '💰'),
       CategoryModel(
         id: 'specificSavingsGoals',
-        title: 'Specific savings goals (e.g., travel fund, home down payment)',
+        title: 'Specific savings goals',
         icon: '🎯',
+      ),
+      CategoryModel(
+        id: 'cryptocurrencyInvestments',
+        title: 'Cryptocurrency investments',
+        icon: '₿',
       ),
     ],
   ),
@@ -287,6 +364,11 @@ final categoryLocalData = <String, CategoryLocalModel>{
         icon: '🎈',
       ),
       CategoryModel(id: 'charities', title: 'Charities', icon: '❤️'),
+      CategoryModel(
+        id: 'crowdfundingDonations',
+        title: 'Crowdfunding donations',
+        icon: '💰',
+      ),
     ],
   ),
   'Entertainment': const CategoryLocalModel(
@@ -304,8 +386,13 @@ final categoryLocalData = <String, CategoryLocalModel>{
       CategoryModel(id: 'vacations', title: 'Vacations', icon: '✈️'),
       CategoryModel(
         id: 'subscriptions',
-        title: 'Subscriptions (Netflix, Amazon, Hulu, etc.)',
+        title: 'Subscriptions (Netflix, Amazon, Hulu)',
         icon: '📺',
+      ),
+      CategoryModel(
+        id: 'sportsEventsTickets',
+        title: 'Sports events tickets',
+        icon: '⚽',
       ),
     ],
   ),

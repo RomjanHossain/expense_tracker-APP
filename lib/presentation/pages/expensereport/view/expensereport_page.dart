@@ -1,8 +1,8 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/expensereport/widgets/expensereport_body.dart';
 import 'package:expense_tracker/services/animation/page_animation.dart';
-import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 /// {@template expensereport_page}
@@ -23,7 +23,8 @@ class ExpensereportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ExpensereportBloc(),
+      create: (context) =>
+          ExpensereportBloc()..add(const CustomExpensereportEvent()),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: isDarkMode(context)

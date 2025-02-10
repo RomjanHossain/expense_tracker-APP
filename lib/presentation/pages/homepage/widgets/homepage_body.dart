@@ -1,12 +1,11 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/pages/homepage/bloc/bloc.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/app_bar_sliver.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/segmented_button_wid.dart';
 import 'package:expense_tracker/presentation/pages/homepage/components/spend_frequency_graph.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expenses.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
-import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,8 +20,8 @@ class HomepageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomepageBloc, HomepageState>(
-      builder: (context, state) {
+    return BlocConsumer<HomepageBloc, HomepageState>(
+      builder: (context, HomepageState state) {
         final width = MediaQuery.sizeOf(context).width;
         return CustomScrollView(
           slivers: [
@@ -62,10 +61,10 @@ class HomepageBody extends StatelessWidget {
                         // minimumSize: MaterialStateProperty.all(
                         //   Size(20.w, 40.h),
                         // ),
-                        backgroundColor: MaterialStateProperty.all(
+                        backgroundColor: WidgetStateProperty.all(
                           ExpenseTrackerColors.violet20,
                         ),
-                        side: MaterialStateProperty.all(
+                        side: WidgetStateProperty.all(
                           BorderSide.none,
                         ),
                       ),
@@ -111,6 +110,7 @@ class HomepageBody extends StatelessWidget {
           ],
         );
       },
+      listener: (BuildContext context, state) {},
     );
   }
 }

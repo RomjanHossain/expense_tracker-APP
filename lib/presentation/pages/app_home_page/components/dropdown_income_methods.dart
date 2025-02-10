@@ -1,9 +1,8 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/models/category_model.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_income_method_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
-import 'package:expense_tracker/utils/constrants/expense_category_tracker_.dart';
-import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 class IncomeMehodsDropdown extends StatelessWidget {
@@ -43,7 +42,7 @@ class IncomeMehodsDropdown extends StatelessWidget {
           ),
           elevation: 2,
           isExpanded: true, //Adding this property, does the magic
-          dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
+          // dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
           icon: const Icon(
             Icons.keyboard_arrow_down,
             color: ExpenseTrackerColors.light20,
@@ -62,7 +61,7 @@ class IncomeMehodsDropdown extends StatelessWidget {
                   value: e,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         e.icon,
@@ -70,21 +69,22 @@ class IncomeMehodsDropdown extends StatelessWidget {
                           color: ExpenseTrackerColors.green,
                         ),
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: Text(
-                            e.title.trim(),
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Text(
+                          e.title.trim(),
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
                               // color: ExpenseTrackerColors.dark50,
-                              color: isDarkMode(context)
-                                  ? ExpenseTrackerColors.light80
-                                  : ExpenseTrackerColors.dark50,
-                            ),
-                            // style: ExpenseTrackerTextStyle.caption,
-                          ),
+                              // color: isDarkMode(context)
+                              //     ? ExpenseTrackerColors.light80
+                              //     : ExpenseTrackerColors.dark50,
+                              // color: state == e.id
+                              //     ? ExpenseTrackerColors.dark50
+                              //     : ExpenseTrackerColors.light80,
+                              ),
+                          // style: ExpenseTrackerTextStyle.caption,
                         ),
                       ),
                     ],

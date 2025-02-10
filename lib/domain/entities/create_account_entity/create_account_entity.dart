@@ -1,4 +1,4 @@
-import 'package:expense_tracker/utils/constrants/enums_.dart';
+import 'package:expense_tracker/core/utils/constrants/enums_.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'create_account_entity.freezed.dart';

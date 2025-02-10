@@ -6,23 +6,33 @@ part of 'onboarding_profile_setup_cubit.dart';
 class OnboardingProfileSetupState extends Equatable {
   /// {@macro onboarding_profile_setup}
   const OnboardingProfileSetupState({
-    this.name = 'default',
+    this.name = '',
+    this.pin = '',
+    this.image,
   });
 
   /// A description for customProperty
   final String name;
+  final String pin;
+  // final image
+  final Uint8List? image;
 
   @override
   List<Object> get props => [
         name,
+        pin,
       ];
 
   /// Creates a copy of the current OnboardingProfileSetupState with property changes
   OnboardingProfileSetupState copyWith({
     String? name,
+    String? pin,
+    Uint8List? image,
   }) {
     return OnboardingProfileSetupState(
       name: name ?? this.name,
+      image: image ?? this.image,
+      pin: pin ?? this.pin,
     );
   }
 }

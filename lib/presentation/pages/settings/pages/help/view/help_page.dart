@@ -1,6 +1,6 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/pages/settings/pages/help/widgets/help_body.dart';
-import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 /// {@template help_page}

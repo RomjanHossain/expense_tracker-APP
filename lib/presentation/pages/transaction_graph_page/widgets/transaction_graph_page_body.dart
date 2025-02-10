@@ -1,24 +1,15 @@
 import 'package:animations/animations.dart';
 import 'package:expense_tracker/app/ui/app_ui.dart';
-import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
-import 'package:expense_tracker/presentation/pages/expensedetails/view/expensedetails_page.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
+import 'package:expense_tracker/data/models/local_db_model/both_iemodel.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/bloc/bloc.dart';
-import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
-import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expenses.dart';
+import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/transaction_card_list.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/transaction_filter_sheet.dart';
 import 'package:expense_tracker/presentation/pages/transaction_graph_page/widgets/financial_reports_quick.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
-import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-/// {@template transaction_graph_page_body}
-/// Body of the TransactionGraphPagePage.
-///
-/// Add what it does
-/// {@endtemplate}
 class TransactionGraphPageBody extends StatelessWidget {
-  /// {@macro transaction_graph_page_body}
   const TransactionGraphPageBody({super.key});
 
   @override
@@ -32,26 +23,6 @@ class TransactionGraphPageBody extends StatelessWidget {
               height: 40.h,
               child: Row(
                 children: [
-                  //NOTE: show dropdown of subscriptionsFrequency
-                  // Expanded(
-                  //   child: DropdownButtonFormField(
-                  //     isExpanded: true,
-                  //     dropdownColor: ExpenseTrackerColors.violet,
-                  //     focusColor: isDarkMode(context)
-                  //         ? ExpenseTrackerColors.dark75
-                  //         : ExpenseTrackerColors.light,
-                  //     decoration: dropdownInputDecoration('Frequency'),
-                  //     items: SubscriptionsFrequency.values
-                  //         .map(
-                  //           (e) => DropdownMenuItem(
-                  //             value: e,
-                  //             child: Text(getSucriptionFrequencyText(e)),
-                  //           ),
-                  //         )
-                  //         .toList(),
-                  //     onChanged: (value) {},
-                  //   ),
-                  // ),
                   // spacer
                   const Spacer(),
                   //NOTE: a popup menu button to show the list of subscriptions
@@ -70,20 +41,20 @@ class TransactionGraphPageBody extends StatelessWidget {
                     },
                     style: ButtonStyle(
                       // ractangular shape
-                      shape: MaterialStateProperty.all(
+                      shape: WidgetStateProperty.all(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10).r,
                         ),
                       ),
                       // border
-                      side: MaterialStateProperty.all(
+                      side: WidgetStateProperty.all(
                         const BorderSide(
                           color: ExpenseTrackerColors.light60,
                         ),
                       ),
                       // backgorund color to trans
                       backgroundColor:
-                          MaterialStateProperty.all(Colors.transparent),
+                          WidgetStateProperty.all(Colors.transparent),
                     ),
                     icon: Icon(
                       Icons.filter_list,
@@ -132,42 +103,81 @@ class TransactionGraphPageBody extends StatelessWidget {
               closedElevation: 0,
               closedColor: Colors.transparent,
               openBuilder: (context, action) {
-                return const FinancialReportsQuick();
-              },
-            ),
-            //INFO: today
-            Text(
-              'Today',
-              style: ExpenseTrackerTextStyle.title3.copyWith(
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-                color: !isDarkMode(context)
-                    ? ExpenseTrackerColors.dark
-                    : ExpenseTrackerColors.light,
-              ),
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: state.todaysIEmodel.length,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                final currentItem = state.todaysIEmodel.elementAt(index);
-                // return CardOfExpense2(
-                //   cardOfExpense: currentItem,
-                // );
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      ExpensedetailsPage.route(currentItem),
-                    );
+                final today = DateTime.now();
+                IEmodel? xpn;
+                IEmodel? inc;
+                IEmodel? trn;
+                // get total ammounts
+                final spendAmount = state.yearlyIEmodel
+                    .where(
+                  (e) =>
+                      e.isIncome == ExpenseType.expense &&
+                      e.expense?.createdDate?.month == today.month &&
+                      e.expense?.createdDate?.year == today.year,
+                )
+                    .fold<double>(
+                  0,
+                  (previousValue, IEmodel element) {
+                    xpn ??= element;
+                    xpn = xpn!.expense!.amount > element.expense!.amount
+                        ? xpn
+                        : element;
+                    return previousValue + element.expense!.amount;
                   },
-                  child: CardOfExpense2(
-                    cardOfExpense: currentItem,
-                  ),
+                );
+
+                final incomeAmount = state.yearlyIEmodel
+                    .where(
+                  (e) =>
+                      e.isIncome == ExpenseType.income &&
+                      e.income?.createdDate?.month == today.month &&
+                      e.income?.createdDate?.year == today.year,
+                )
+                    .fold<double>(
+                  0,
+                  (previousValue, IEmodel element) {
+                    inc ??= element;
+                    inc = inc!.income!.amount > element.income!.amount
+                        ? inc
+                        : element;
+                    return previousValue + element.income!.amount;
+                  },
+                );
+
+                final transferAmount = state.yearlyIEmodel
+                    .where(
+                  (e) =>
+                      e.isIncome == ExpenseType.transfer &&
+                      e.transfer?.createdDate?.month == today.month &&
+                      e.transfer?.createdDate?.year == today.year,
+                )
+                    .fold<double>(
+                  0,
+                  (previousValue, IEmodel element) {
+                    trn ??= element;
+                    trn = trn!.transfer!.amount > element.transfer!.amount
+                        ? trn
+                        : element;
+                    return previousValue + element.income!.amount;
+                  },
+                );
+                return FinancialReportsQuick(
+                  spendAmount: spendAmount.toInt(),
+                  incomeAmount: incomeAmount.toInt(),
+                  transferAmount: transferAmount.toInt(),
+                  inc: inc,
+                  exp: xpn,
+                  trans: trn,
                 );
               },
             ),
+
+            //INFO: months
+            if (state.yearlyIEmodel.isNotEmpty) ...[
+              TransactionCardList(
+                allIEmodel: state.yearlyIEmodel,
+              ),
+            ],
           ],
         ),
       ),

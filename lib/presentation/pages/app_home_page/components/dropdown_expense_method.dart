@@ -1,10 +1,9 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/theme.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/data/models/category_model.dart';
 import 'package:expense_tracker/presentation/cubit/dropdown_data/dropdown_expense_method_cubit.dart';
 import 'package:expense_tracker/presentation/pages/app_home_page/bloc/bloc.dart';
-import 'package:expense_tracker/utils/constrants/expense_category_tracker_.dart';
-import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseMethodsDropdown extends StatelessWidget {
@@ -60,16 +59,14 @@ class ExpenseMethodsDropdown extends StatelessWidget {
             color: ExpenseTrackerColors.light20,
           ),
           alignment: Alignment.centerLeft,
-          dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
-
-          // value: ExpenseTrackerCategories.singleexpensesCategory(state),
+          // dropdownColor: ExpenseTrackerColors.violet, // Dropdown open Color
           items: ExpenseTrackerCategories.expensesCategories
               .map(
                 (e) => DropdownMenuItem<CategoryModel>(
                   value: e,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         e.icon,
@@ -77,23 +74,16 @@ class ExpenseMethodsDropdown extends StatelessWidget {
                           color: ExpenseTrackerColors.green,
                         ),
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: Text(
-                            e.title.trim(),
-                            // softWrap: false,
-
-                            maxLines: 1,
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            // style: ExpenseTrackerTextStyle.caption,
-                            style: TextStyle(
-                              color: isDarkMode(context)
-                                  ? ExpenseTrackerColors.light80
-                                  : ExpenseTrackerColors.dark50,
-                            ),
-                          ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Flexible(
+                        child: Text(
+                          e.title.trim(),
+                          maxLines: 2,
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
@@ -102,14 +92,10 @@ class ExpenseMethodsDropdown extends StatelessWidget {
               )
               .toList(),
           onChanged: (s) {
-            // debugPrint('Selected ${s!.title} ${s.id}');
             context.read<DropdownExpenseMethodCubit>().changeValue(s!.id);
             debugPrint(
               'Dropdown value cubit -> ${context.read<DropdownExpenseMethodCubit>().state}',
             );
-            // debugPrint(
-            //   'from the dropdown expense method cubit -> ${ExpenseTrackerCategories.singleExpenseMethod(state).id} | ${ExpenseTrackerCategories.singleExpenseMethod(state).title} ',
-            // );
           },
         );
       },

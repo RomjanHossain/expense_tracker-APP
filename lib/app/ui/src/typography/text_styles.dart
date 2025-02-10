@@ -1,11 +1,10 @@
-import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
 
 //// ExpenseTracker Text Style Definitions
 class ExpenseTrackerTextStyle {
-  static final _baseTextStyle = GoogleFonts.interTextTheme();
+  static final TextTheme _baseTextStyle = ThemeData.light().textTheme;
 
-  //// title x (64)(80)
+  /// title x (64)(80)
   static TextStyle get titleX {
     return _baseTextStyle.displayLarge!.copyWith(
       fontSize: 64,
@@ -16,7 +15,6 @@ class ExpenseTrackerTextStyle {
   /// title 1 (32)(39)
   static TextStyle get title1 {
     return _baseTextStyle.headlineLarge!.copyWith(
-      // height: 1.0625,
       height: 1.21875,
       fontSize: 32,
     );

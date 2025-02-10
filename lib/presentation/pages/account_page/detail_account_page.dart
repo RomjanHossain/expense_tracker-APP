@@ -4,7 +4,7 @@
 // import 'package:expense_tracker/domain/entities/card_of_expense/card_of_expense_entity.dart';
 // import 'package:expense_tracker/presentation/pages/expensedetails/view/expensedetails_page.dart';
 // import 'package:expense_tracker/presentation/pages/transaction_graph_page/components/card_of_expense.dart';
-// import 'package:expense_tracker/utils/utils_.dart';
+// import 'package:expense_tracker/core/utils/utils.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -2,12 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
-import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
-import 'package:expense_tracker/data/models/isar_entity/expense_entity/expense_entity.dart';
-import 'package:expense_tracker/data/models/isar_entity/income_entity/income_entity.dart';
-import 'package:expense_tracker/data/models/isar_entity/transfer_entity/transfer_entity.dart';
+import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
 import 'package:expense_tracker/domain/entities/expense_form_entity/expense_form_entity.dart';
+import 'package:expense_tracker/domain/repositories/drift_repository.dart';
 part 'expenseform_event.dart';
 part 'expenseform_state.dart';
 
@@ -114,8 +111,10 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
     TransferToDatbase event,
     Emitter<ExpenseformState> emit,
   ) async {
-    final isar = IsarInstance();
-    await isar.createAnTransfer(event.transferAmount);
+    // final isar = IsarInstance();
+    // await isar.createAnTransfer(event.transferAmount);
+    final db = DriftRepository();
+    await db.createTransfer(event.transferAmount);
     emit(const SuccessfullyAddedToDatabase());
   }
 
@@ -123,8 +122,11 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
     IncomeToDatabase event,
     Emitter<ExpenseformState> emit,
   ) async {
-    final isar = IsarInstance();
-    await isar.createAnIncome(event.incomeAmount);
+    // final isar = IsarInstance();
+    // await isar.createAnIncome(event.incomeAmount);
+
+    final db = DriftRepository();
+    await db.createIncome(event.incomeAmount);
     emit(const SuccessfullyAddedToDatabase());
   }
 
@@ -132,8 +134,11 @@ class ExpenseformBloc extends Bloc<ExpenseformEvent, ExpenseformState> {
     ExpenseToDatabase event,
     Emitter<ExpenseformState> emit,
   ) async {
-    final isar = IsarInstance();
-    await isar.createAnExpense(event.expenseAmount);
+    // final isar = IsarInstance();
+    // await isar.createAnExpense(event.expenseAmount);
+
+    final db = DriftRepository();
+    await db.createExpense(event.expenseAmount);
     emit(const SuccessfullyAddedToDatabase());
   }
 }

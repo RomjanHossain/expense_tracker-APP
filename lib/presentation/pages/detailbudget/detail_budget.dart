@@ -1,14 +1,17 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
-import 'package:expense_tracker/presentation/pages/detailbudget/components/delete_budget_sheet.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
+import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
+import 'package:expense_tracker/domain/repositories/drift_repository.dart';
+import 'package:expense_tracker/presentation/pages/detailbudget/components/bottom_sheet.dart';
 import 'package:expense_tracker/presentation/widgets/amount_progress_indicator.dart';
 import 'package:expense_tracker/presentation/widgets/category_with_border.dart';
-import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DetailBudget extends StatelessWidget {
-  const DetailBudget({super.key});
+  const DetailBudget({required this.budget, super.key});
+  final Budget budget;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,19 @@ class DetailBudget extends StatelessWidget {
               await showModalBottomSheet<void>(
                 context: context,
                 builder: (context) {
-                  return const RemoveBudgetSheet();
+                  return CustomBottomSheet(
+                    title: 'Remove this budget?',
+                    subtitle: 'Are you sure do you wanna remove this budget?',
+                    onConfirm: () async {
+                      //! DONIG THE DELETE ON UI PART (SORRY)
+                      final db = DriftRepository();
+                      await db.deleteBudget(budget.id);
+                      if (context.mounted) {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      }
+                    },
+                  );
                 },
               );
             },
@@ -45,12 +60,12 @@ class DetailBudget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CategoryWithBorder(
                       color: ExpenseTrackerColors.blue,
-                      title: 'Subscription',
+                      title: budget.category,
                     ),
                   ],
                 ),
@@ -70,7 +85,7 @@ class DetailBudget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  r'$100',
+                  '\$${budget.remaining}',
                   style: ExpenseTrackerTextStyle.titleX.copyWith(
                     fontWeight: FontWeight.bold,
                     color: isDarkMode(context)
@@ -83,42 +98,43 @@ class DetailBudget extends StatelessWidget {
                     vertical: 10.h,
                     horizontal: 8.h,
                   ),
-                  child: const AmountProgressIndicator(
+                  child: AmountProgressIndicator(
                     color: ExpenseTrackerColors.yellow,
-                    value: 0.8,
+                    value: budget.spent / budget.amount,
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 20.h,
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 5.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: ExpenseTrackerColors.red,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.error,
-                        // color: ExpenseTrackerColors.light,
-                        color: ExpenseTrackerColors.light,
-                      ),
-                      SizedBox(width: 10.w),
-                      const Text(
-                        'You’ve exceed the limit',
-                        style: TextStyle(
+                if (budget.remaining < 1)
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: 20.h,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 5.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: ExpenseTrackerColors.red,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.error,
+                          // color: ExpenseTrackerColors.light,
                           color: ExpenseTrackerColors.light,
                         ),
-                      ),
-                    ],
+                        SizedBox(width: 10.w),
+                        const Text(
+                          'You’ve exceed the limit',
+                          style: TextStyle(
+                            color: ExpenseTrackerColors.light,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
               ],
             ),
             ElevatedButton(onPressed: () {}, child: const Text('Edit')),

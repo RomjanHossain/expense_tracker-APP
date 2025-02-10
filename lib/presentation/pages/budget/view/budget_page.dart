@@ -17,7 +17,7 @@ class BudgetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BudgetBloc(),
+      create: (context) => BudgetBloc()..add(const CustomBudgetEvent()),
       child: const Scaffold(
         body: BudgetView(),
       ),

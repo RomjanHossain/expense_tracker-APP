@@ -1,8 +1,8 @@
 import 'package:expense_tracker/app/ui/src/colors.dart';
 import 'package:expense_tracker/app/ui/src/typography/text_styles.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/pages/createbudget/cubit/cubit.dart';
 import 'package:expense_tracker/presentation/pages/createbudget/widgets/createbudget_body.dart';
-import 'package:expense_tracker/utils/utils_.dart';
 import 'package:flutter/material.dart';
 
 /// {@template createbudget_page}
@@ -28,8 +28,8 @@ class CreatebudgetPage extends StatelessWidget {
             style: ExpenseTrackerTextStyle.body1.copyWith(
               // color: ExpenseTrackerColors.light,
               color: isDarkMode(context)
-                  ? ExpenseTrackerColors.light
-                  : ExpenseTrackerColors.dark,
+                  ? ExpenseTrackerColors.dark
+                  : ExpenseTrackerColors.light,
             ),
           ),
           elevation: 0,

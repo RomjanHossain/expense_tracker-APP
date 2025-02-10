@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:expense_tracker/data/datasources/local/isar_instance.dart';
-import 'package:expense_tracker/data/models/isar_entity/create_account/create_account_isar.dart';
+import 'package:expense_tracker/data/models/drifts/app_db/app_database.dart';
+import 'package:expense_tracker/domain/repositories/drift_repository.dart';
 part 'account_state.dart';
 
 class AccountCubit
-    extends Cubit<(double accountBalance, List<AccountEntity> accounts)> {
+    extends Cubit<(double accountBalance, List<Account> accounts)> {
   AccountCubit()
       : super(
           (0.00, []),
@@ -15,7 +15,7 @@ class AccountCubit
 
   //! NOTE: run at first launch
   FutureOr<void> runAtFirst() async {
-    final isar = IsarInstance();
+    final isar = DriftRepository();
     final acs = await isar.getListOfAccount();
     final tb = await isar.getTotalBalance();
     emit((tb, acs));

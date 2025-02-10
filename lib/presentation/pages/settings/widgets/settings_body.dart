@@ -31,6 +31,27 @@ class SettingsBody extends StatelessWidget {
 
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
+        String getTrailing(String x) {
+          final themeState = context.watch<ThemeCubit>().state;
+          final languageState = context.watch<LanguageCubit>().state;
+          switch (x) {
+            case 'Currency':
+              return 'USD';
+            case 'Language':
+              return languageState is LanguageBangla ? 'Bangla' : 'English';
+            case 'Theme':
+              if (themeState is ThemeLight) return 'Light';
+              if (themeState is ThemeDark) return 'Dark';
+              return 'System';
+            case 'Security':
+              return 'Pin';
+            case 'Notification':
+              return 'Expense Alert';
+            default:
+              return 'USD';
+          }
+        }
+
         return Column(
           children: [
             for (final x in settings)
@@ -59,7 +80,15 @@ class SettingsBody extends StatelessWidget {
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    TrailingText(x: x),
+                    // TrailingText(x: x),
+                    // Text("Expense Alert"),
+                    Text(
+                      getTrailing(x),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: ExpenseTrackerColors.light20,
+                      ),
+                    ),
                     const Icon(
                       Icons.navigate_next,
                       color: ExpenseTrackerColors.violet,
@@ -95,56 +124,34 @@ class SettingsBody extends StatelessWidget {
   }
 }
 
-class TrailingText extends StatefulWidget {
-  const TrailingText({
-    required this.x,
-    super.key,
-  });
-
+class TrailingText extends StatelessWidget {
+  const TrailingText({required this.x, super.key});
   final String x;
 
   @override
-  State<TrailingText> createState() => _TrailingTextState();
-}
-
-class _TrailingTextState extends State<TrailingText> {
-  String trailing = '';
-  String getTrailing() {
+  Widget build(BuildContext context) {
     final themeState = context.watch<ThemeCubit>().state;
     final languageState = context.watch<LanguageCubit>().state;
-    switch (widget.x) {
-      case 'Currency':
-        return 'USD';
-      case 'Language':
-        // return 'English';
-        switch (languageState) {
-          case LanguageBangla():
-            return 'Bangla';
-          case LanguageEnglish():
-            return 'English';
-          default:
-            return 'English';
-        }
-      case 'Theme':
-        switch (themeState) {
-          case ThemeLight():
-            return 'Light';
-          case ThemeDark():
-            return 'Dark';
-          default:
-            return 'System';
-        }
-      case 'Security':
-        return 'Pin';
-      case 'Notification':
-        return 'Expense Alert';
-      default:
-        return 'USD';
-    }
-  }
 
-  @override
-  Widget build(BuildContext context) {
+    String getTrailing() {
+      switch (x) {
+        case 'Currency':
+          return 'USD';
+        case 'Language':
+          return languageState is LanguageBangla ? 'Bangla' : 'English';
+        case 'Theme':
+          if (themeState is ThemeLight) return 'Light';
+          if (themeState is ThemeDark) return 'Dark';
+          return 'System';
+        case 'Security':
+          return 'Pin';
+        case 'Notification':
+          return 'Expense Alert';
+        default:
+          return 'USD';
+      }
+    }
+
     return Text(
       getTrailing(),
       style: const TextStyle(

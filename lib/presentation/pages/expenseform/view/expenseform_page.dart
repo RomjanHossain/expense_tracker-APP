@@ -1,7 +1,8 @@
 import 'package:expense_tracker/app/ui/app_ui.dart';
+import 'package:expense_tracker/core/utils/utils.dart';
 import 'package:expense_tracker/presentation/pages/expenseform/widgets/expenseform_body.dart';
+import 'package:expense_tracker/presentation/pages/homepage/bloc/bloc.dart';
 import 'package:expense_tracker/services/animation/page_animation.dart';
-import 'package:expense_tracker/utils/constrants/enums_.dart';
 import 'package:flutter/material.dart';
 
 /// {@template expenseform_page}
@@ -22,39 +23,64 @@ class ExpenseformPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: expenseType == ExpenseType.income
-          ? ExpenseTrackerColors.green
-          : expenseType == ExpenseType.expense
-              ? ExpenseTrackerColors.red
-              : ExpenseTrackerColors.blue,
-      appBar: AppBar(
-        backgroundColor: expenseType == ExpenseType.income
-            ? ExpenseTrackerColors.green
-            : expenseType == ExpenseType.expense
-                ? ExpenseTrackerColors.red
-                : ExpenseTrackerColors.blue,
-        title: Text(
-          expenseType == ExpenseType.income
-              ? 'Income'
-              : expenseType == ExpenseType.expense
-                  ? 'Expense'
-                  : 'Transfer',
-          style: ExpenseTrackerTextStyle.body1.copyWith(
-            fontWeight: FontWeight.w500,
-            color: ExpenseTrackerColors.light,
-          ),
-        ),
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back_outlined,
-            color: ExpenseTrackerColors.light,
-          ),
+    final expenseData = _getExpenseData(expenseType);
+
+    return PopScope(
+      onPopInvokedWithResult: (isPop, data) {
+        if (isPop) {
+          debugPrint('Init Calander.....from form');
+          context.read<HomepageBloc>().add(const InitCalander());
+          Navigator.pop(context, data);
+        }
+      },
+      child: Scaffold(
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        backgroundColor: expenseData['color'] as Color,
+        appBar: _buildAppBar(context, expenseData),
+        body: ExpenseformView(expenseType: expenseType),
+      ),
+    );
+  }
+
+  /// Returns a map containing the color and title based on the expense type.
+  Map<String, dynamic> _getExpenseData(ExpenseType expenseType) {
+    switch (expenseType) {
+      case ExpenseType.income:
+        return {
+          'color': ExpenseTrackerColors.green,
+          'title': 'Income',
+        };
+      case ExpenseType.expense:
+        return {
+          'color': ExpenseTrackerColors.red,
+          'title': 'Expense',
+        };
+      case ExpenseType.transfer:
+        return {
+          'color': ExpenseTrackerColors.blue,
+          'title': 'Transfer',
+        };
+    }
+  }
+
+  /// Builds the AppBar with dynamic properties based on expense type.
+  AppBar _buildAppBar(BuildContext context, Map<String, dynamic> expenseData) {
+    return AppBar(
+      backgroundColor: expenseData['color'] as Color,
+      title: Text(
+        expenseData['title'].toString(),
+        style: ExpenseTrackerTextStyle.body1.copyWith(
+          fontWeight: FontWeight.w500,
+          color: ExpenseTrackerColors.light,
         ),
       ),
-      body: ExpenseformView(
-        expenseType: expenseType,
+      leading: IconButton(
+        onPressed: () => Navigator.pop(context),
+        icon: const Icon(
+          Icons.arrow_back_outlined,
+          color: ExpenseTrackerColors.light,
+        ),
       ),
     );
   }
