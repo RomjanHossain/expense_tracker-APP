@@ -12,7 +12,8 @@ class OnboardingProfileSetupPage extends StatelessWidget {
   /// The static route for OnboardingProfileSetupPage
   static Route<dynamic> route() {
     return MaterialPageRoute<dynamic>(
-        builder: (_) => const OnboardingProfileSetupPage(),);
+      builder: (_) => const OnboardingProfileSetupPage(),
+    );
   }
 
   @override
@@ -20,6 +21,8 @@ class OnboardingProfileSetupPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => OnboardingProfileSetupCubit(),
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        extendBody: true,
         appBar: AppBar(
           title: const Text('Sign Up'),
         ),

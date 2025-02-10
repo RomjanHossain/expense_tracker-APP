@@ -28,6 +28,7 @@ class ExpenseformPage extends StatelessWidget {
     return PopScope(
       onPopInvokedWithResult: (isPop, data) {
         if (isPop) {
+          debugPrint('Init Calander.....from form');
           context.read<HomepageBloc>().add(const InitCalander());
           Navigator.pop(context, data);
         }

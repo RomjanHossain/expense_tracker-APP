@@ -66,7 +66,7 @@ class ExpenseMethodsDropdown extends StatelessWidget {
                   value: e,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         e.icon,
@@ -74,21 +74,16 @@ class ExpenseMethodsDropdown extends StatelessWidget {
                           color: ExpenseTrackerColors.green,
                         ),
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: Text(
-                            e.title.trim(),
-                            maxLines: 1,
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            // style: TextStyle(
-                            //   color: state == e.id
-                            //       ? ExpenseTrackerColors.dark50
-                            //       : ExpenseTrackerColors
-                            //           .light80, // Change text color based on selection
-                            // ),
-                          ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Flexible(
+                        child: Text(
+                          e.title.trim(),
+                          maxLines: 2,
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
